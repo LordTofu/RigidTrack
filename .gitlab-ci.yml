@@ -1,0 +1,16 @@
+Build_EFCC:
+    tags:
+        - matlab
+    only:
+        - master
+        - Controller_Framework
+        - System_Design_EFCC_Linux
+    script:
+        - powershell .\3000_Simulation_And_Control\3200_FastTOL\Simulation_Framework\generateCode.ps1
+    artifacts:
+        name: "EFCC_Firmware"
+        paths:
+            - 5000_System_Design/600_Software_Development/50_EFCC/C++_Linux_Framework/Release/efcc.elf
+            - 5000_System_Design/600_Software_Development/50_EFCC/C++_Linux_Framework/Release/efcc.hex
+            - 5000_System_Design/600_Software_Development/50_EFCC/C++_Linux_Framework/Release/efcc.map
+
