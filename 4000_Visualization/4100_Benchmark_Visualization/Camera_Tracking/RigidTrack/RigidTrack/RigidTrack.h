@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_RigidTrack.h"
 #include <qpixmap.h>
+#include "main.h"
 
 class RigidTrack : public QMainWindow
 {
@@ -10,7 +11,6 @@ class RigidTrack : public QMainWindow
 
 public:
     RigidTrack(QWidget *parent = Q_NULLPTR);
-	
 
 public slots:
 	

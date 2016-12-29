@@ -28,6 +28,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2\video\tracking.hpp>
 
+#include "four-point-groebner.hpp"
 
 using namespace CameraLibrary;
 using namespace cv;

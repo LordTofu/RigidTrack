@@ -2,7 +2,6 @@
 #include "main.h"
 
 
-
 RigidTrack::RigidTrack(QWidget *parent)
 	: QMainWindow(parent)
 {

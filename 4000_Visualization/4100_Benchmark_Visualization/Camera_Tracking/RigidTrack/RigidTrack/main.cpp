@@ -15,7 +15,6 @@
 #include <opencv2/calib3d/calib3d.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2\video\tracking.hpp>
-#include "opencv2\calib3d.hpp"
 
     
 
@@ -30,14 +29,13 @@
 #include <stdlib.h>
 #include <gl/glu.h>
 #include <sstream>
-#include <iostream>
 #include <time.h>
-#include <stdio.h>
 #include <cmath>
 #include <vector>
 
 #include "main.h"
 #include "communication.h"
+#include "four-point-groebner.hpp"
 
 
 using namespace CameraLibrary;
@@ -434,26 +432,26 @@ int start_camera() {
 
 
 
-			//if (frame->ObjectCount() == numMarker)
-			//{
+			if (frame->ObjectCount() == numMarker)
+			{
 
 
-				//==for(int i=0; i<frame->ObjectCount(); i++)
-				//for (int i = 0; i < numMarker; i++)
-				//{
-				//	cObject *obj = frame->Object(i);
-				//
-				//	list_points2d[i] = cv::Point(obj->X(), obj->Y());
-				//
-				//}
+				for (int i = 0; i < frame->ObjectCount(); i++)
+				{
+					cObject *obj = frame->Object(i);
+
+					list_points2d[i] = cv::Point(obj->X(), obj->Y());
+
+				}
 
 				//solvePnPRansac(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
-				positionHeight = getPosition(frame);
+				findPose4pt_groebner(list_points3d, list_points2d, 0, 520, cv::Point2d(320, 240), Rvec, Tvec, CV_RANSAC, 0.99, 1, noArray());
+				//positionHeight = getPosition(frame);
 				Tvec.at<double>(2, 0) = picturePlanedistance / positionHeight[2] * circleRadius*scaleZ;					//height
-				Tvec.at<double>(0, 0) = Tvec.at<double>(2, 0)*(positionHeight[0] - cameraWidth/2) / picturePlanedistance;			// x
-				Tvec.at<double>(1, 0) = Tvec.at<double>(2, 0)*(positionHeight[1] - cameraHeight/2) / picturePlanedistance;			// y
-				heading = positionHeight[3]*180.0/3.1415926;
-			
+				Tvec.at<double>(0, 0) = Tvec.at<double>(2, 0)*(positionHeight[0] - cameraWidth / 2) / picturePlanedistance;			// x
+				Tvec.at<double>(1, 0) = Tvec.at<double>(2, 0)*(positionHeight[1] - cameraHeight / 2) / picturePlanedistance;			// y
+				heading = positionHeight[3] * 180.0 / 3.1415926;
+
 				//==-- Rodrigues (Angle Vector) to Rotation Matrix conversion
 				//Rodrigues(Rvec, Rmat);
 
@@ -471,7 +469,7 @@ int start_camera() {
 				//==-- pitch = eulerAngles[0];
 				//==-- roll  = eulerAngles[2];
 
-				Value[0] = (float)(posRef.at<double>(0, 0) - Tvec.at<double>(0,0));
+				Value[0] = (float)(posRef.at<double>(0, 0) - Tvec.at<double>(0, 0));
 				Value[1] = (float)(posRef.at<double>(1, 0) - Tvec.at<double>(1, 0));
 				Value[2] = (float)(posRef.at<double>(2, 0) - Tvec.at<double>(2, 0));
 
@@ -505,7 +503,7 @@ int start_camera() {
 
 				latitude = latitudeRef + atan(Value[0] / earthRadius);
 				longitude = longitudeRef + atan(Value[1] / earthRadius);
-				
+
 
 				//Send Start Packet
 				data.setNum((int)(-9991));
@@ -538,7 +536,7 @@ int start_camera() {
 				if (u == 10) {
 
 					ss.str("");
-					ss << "X   =  " << Value[0] <<  "\tY  =  " << Value[1] <<  "\tZ  = " << Value[2] <<  "\t Heading = " << heading << "\n";
+					ss << "X   =  " << Value[0] << "\tY  =  " << Value[1] << "\tZ  = " << Value[2] << "\t Heading = " << heading << "\n";
 					ss << "VX  =  " << velocityX << "\tVY  =  " << velocityY << "\tVZ  = " << velocityZ << "\n";
 					//ss.str("");
 					//ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2];
@@ -558,6 +556,7 @@ int start_camera() {
 				QCoreApplication::processEvents();
 				frame->Release();
 			}
+		}
 			//Sleep(1);
 	}
 
@@ -699,11 +698,12 @@ int setZero()
 
 
 				//solvePnPRansac(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
-				positionHeight = getPosition(frame);
+				findPose4pt_groebner(list_points3d, list_points2d, 0, 520, cv::Point2d(320, 240), Rvec, Tvec, CV_RANSAC, 0.99, 1, noArray());
+				//positionHeight = getPosition(frame);
 			
-				Tvec.at<double>(2, 0) = picturePlanedistance/positionHeight[2]*circleRadius*scaleZ; //height 
-				Tvec.at<double>(0, 0) = Tvec.at<double>(2, 0)*(positionHeight[0] - cameraWidth/2)/picturePlanedistance;			// x
-				Tvec.at<double>(1, 0) = Tvec.at<double>(2, 0)*(positionHeight[1] - cameraHeight/2) / picturePlanedistance;			// y
+				Tvec.at<double>(2, 0); //= picturePlanedistance/positionHeight[2]*circleRadius*scaleZ; //height 
+				Tvec.at<double>(0, 0);// = Tvec.at<double>(2, 0)*(positionHeight[0] - cameraWidth / 2) / picturePlanedistance;			// x
+				Tvec.at<double>(1, 0);// = Tvec.at<double>(2, 0)*(positionHeight[1] - cameraHeight / 2) / picturePlanedistance;			// y
 				heading = positionHeight[3];
 
 				ss.str("");
