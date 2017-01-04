@@ -38,5 +38,6 @@ using namespace cv;
 	void calibrate_camera();
 	void load_calibration();
 	float l2_norm(std::vector<float> const& u);
-	Vec4d getPosition(CameraLibrary::Frame* frame);
+	void test_Algorithm();
+	void setupKalmanFilter();
 
