@@ -93,9 +93,6 @@
     <ClInclude Include="supportcode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="four-point-groebner.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="precomp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

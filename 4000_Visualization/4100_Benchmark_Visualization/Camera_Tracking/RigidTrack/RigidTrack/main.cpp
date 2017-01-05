@@ -62,11 +62,12 @@ std::ofstream logfile;
 
 
 int intIntensity = 6; // max Intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
-int intExposure = 50; // max is 60 increase if markers are badly visible
+int intExposure = 3; // max is 60 increase if markers are badly visible
 int intFrameRate = 100;
 
 //== Rotation, translation etc. matrix for PnP results
 Mat Rmat = cv::Mat::zeros(3, 3, CV_64F);	//Rotation Matrix from Marker CoSy to Camera
+Mat RmatRef = cv::Mat::zeros(3, 3, CV_64F);	//Reference Rotation Matrix from Marker CoSy to Camera
 Mat M_NC = cv::Mat::zeros(3, 3, CV_64F);	// Rotation Matrix from Camera to Ground
 Mat Rvec = cv::Mat::zeros(3, 1, CV_64F);	//Rotation Vector (Axis-Angle) from Marker CoSy to Camera
 Mat Tvec = cv::Mat::zeros(3, 1, CV_64F);	//Translation Vector from Marker CoSy to Camera
@@ -85,13 +86,13 @@ bool unscaled = true; // SetZero is run 2 Times to get the Scaling Factors
 
 bool useGuess = true; // not used
 int methodPNP = 0; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
-int numMarker = 4; // number of markers, the more the better. 5 is minimum, 6 minimum for position and heading
 
+int numberMarkers = 3; // number of markers, the more the better. 5 is minimum, 6 minimum for position and heading
 //== Marker points in real world coordinates and in camera pixel coordinates	==--
-std::vector<Point3d> list_points3d(4);
-std::vector<Point2d> list_points2d(4);
+std::vector<Point3d> list_points3d(3);
+std::vector<Point2d> list_points2d(3);
 
-bool enableKalman = true;  // always enable
+bool enableKalman = false;  // always enable
 KalmanFilter KF(6, 3, 0);
 Mat_<float> measurement(3, 1);
 
@@ -117,15 +118,24 @@ int main(int argc, char *argv[])
 	QObject::connect(&commObj, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), Qt::DirectConnection);
 
 	list_points3d[0] = cv::Point3d(   0.0,    0.0,   0.0);
-	list_points3d[1] = cv::Point3d(  55.0, -455.0, 200.0);
-	list_points3d[2] = cv::Point3d(  55.0,  450.0, 200.0);
-	list_points3d[3] = cv::Point3d( 355.0,  -80.0, 205.0);
+	list_points3d[1] = cv::Point3d( 200.0,	  0.0,   0.0);
+	//list_points3d[2] = cv::Point3d(   0.0,  160.0,   0.0);
+	//list_points3d[3] = cv::Point3d( 200.0,  100.0,   0.0);
+	//list_points3d[1] = cv::Point3d( 100.0,   70.0,   0.0);
+	list_points3d[2] = cv::Point3d(  50.0,   70.0,   0.0);
+
+	//Initial Guesses, important for Iterative Method!
+	Tvec.at<double>(0) = 0;
+	Tvec.at<double>(1) = 0;
+	Tvec.at<double>(2) = 500;
+	Rvec.at<double>(0) = 0;
+	Rvec.at<double>(1) = 0;
+	Rvec.at<double>(2) = 0;
 
 	picturePlanedistance = 640.0 / (2.0 * tan((FoV*3.14159/180.0) / 2.0));
 	test_Algorithm();
 	return a.exec();
 }
-
 
 QPixmap Mat2QPixmap(cv::Mat src)
 {
@@ -322,92 +332,119 @@ int start_camera() {
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
 
-			if (frame->ObjectCount() == numMarker)
+			if (frame->ObjectCount() == numberMarkers)
 			{
 				for (int i = 0; i < frame->ObjectCount(); i++)
 				{
 					cObject *obj = frame->Object(i);
 					list_points2d[i] = cv::Point2d(obj->X(), obj->Y());
 				}
+
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+				
+				double maxValue = 0;
+				double minValue = 0;
+				minMaxLoc(Tvec, &minValue, &maxValue);
+				if (maxValue < 10000 && minValue > -10000)
+				{
+					Mat _Rmat;
+				    Rodrigues(Rvec, _Rmat);
+					Mat V =  RmatRef.t() * _Rmat * (Mat)Tvec; // translation in floor system 
+					position = V;
+					subtract(posRef, position, position);
 
-				Rodrigues(Rvec, Rmat);
-				Rmat = Rmat.t();  // rotation of inverse
-				Mat V = -Rmat * (Mat)Tvec; // translation of inverse
-				position = (Mat)V;
-				//==-- Euler Angles, finally 
-				getEulerAngles(Rmat, eulerAngles);
+					// Realtive angle between reference orientation and current orientation
+					Rodrigues(Rvec, Rmat);
+					Rmat = RmatRef.t()* Rmat; 
+					//==-- Euler Angles, finally 
+					getEulerAngles(Rmat, eulerAngles);
 
-				if (enableKalman) {
-					Mat prediction = KF.predict();
-					measurement(0) = (float)Tvec.at<double>(0);
-					measurement(1) = (float)Tvec.at<double>(1);
-					measurement(2) = (float)Tvec.at<double>(2);
-					Mat estimation = KF.correct(measurement);
-					position[0] = (double)estimation.at<float>(0);
-					position[1] = (double)estimation.at<float>(1);
-					position[2] = (double)estimation.at<float>(2);
+					if (enableKalman) {
+						Mat prediction = KF.predict();
+						measurement(0) = (float)position[0];
+						measurement(1) = (float)position[1];
+						measurement(2) = (float)position[2];
+						Mat estimation = KF.correct(measurement);
+						position[0] = (double)estimation.at<float>(0);
+						position[1] = (double)estimation.at<float>(1);
+						position[2] = (double)estimation.at<float>(2);
+					}
+
+					frameTime = frame->TimeStamp() - timeOld;
+					timeOld = frame->TimeStamp();
+					velocity[0] = (position[0] - positionOld[0]) / frameTime;
+					velocity[1] = (position[1] - positionOld[1]) / frameTime;
+					velocity[2] = (position[2] - positionOld[2]) / frameTime;
+					positionOld = position;
+
+					latitude = latitudeRef + atan(Value[0] / earthRadius);
+					longitude = longitudeRef + atan(Value[1] / earthRadius);
+
+					//Send Start Packet
+					data.setNum((int)(-9991));
+					udpSocketDrone->write(data);
+					//Send Longitude
+					data.setNum(latitude);
+					udpSocketDrone->write(data);
+					//Send latitude
+					data.setNum(longitude);
+					udpSocketDrone->write(data);
+					//Send Height
+					data.setNum((double)(Value[2]));
+					udpSocketDrone->write(data);
+					//Send Heading
+					data.setNum((double)(heading));
+					udpSocketDrone->write(data);
+					//Send Velocity X
+					data.setNum((double)(velocity[0]));
+					udpSocketDrone->write(data);
+					//Send Velocity Y
+					data.setNum((double)(velocity[1]));
+					udpSocketDrone->write(data);
+					//Send Velocity Z
+					data.setNum((double)(velocity[2]));
+					udpSocketDrone->write(data);
+
+					Value[0] = position[0] / 100.;
+					Value[1] = position[1] / 100.;
+					Value[2] = position[2] / 100.;
+					Value[3] = eulerAngles[0];
+					Value[4] = eulerAngles[1];
+					Value[5] = eulerAngles[2];
+
+					CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
+					//distFromRef = std::sqrtl(std::pow(Value[0], 2)+ std::pow(Value[1], 2)+ std::pow(Value[2], 2));
+					u += 1;
+					if (u == 11) {
+						ss.str("");
+						//ss << Tvec << "\n";
+						ss << Rmat << "\n";
+						commObj.addLog(QString::fromStdString(ss.str()));
+						u = 0;
+					}
+					if (u == 10) {
+						ss.str("");
+						ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
+						ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
+						ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2];
+						commObj.addLog(QString::fromStdString(ss.str()));
+						u = 0;
+					}
+
+					logfile.open("logData.txt", std::ios::app);
+					logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
+					logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
+					logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
+					logfile.close();
+
+					frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
+					QPFrame = Mat2QPixmap(matFrame);
+					commObj.changeImage(QPFrame);
+					QCoreApplication::processEvents();
 				}
-
-				frameTime = frame->TimeStamp() - timeOld;
-				timeOld = frame->TimeStamp();
-				velocity[0] = (position[0] - positionOld[0]) / frameTime;
-				velocity[1] = (position[1] - positionOld[1]) / frameTime;
-				velocity[2] = (position[2] - positionOld[2]) / frameTime;
-				positionOld = position;
-
-				latitude = latitudeRef + atan(Value[0] / earthRadius);
-				longitude = longitudeRef + atan(Value[1] / earthRadius);
-
-				//Send Start Packet
-				data.setNum((int)(-9991));
-				udpSocketDrone->write(data);
-				//Send Longitude
-				data.setNum(latitude);
-				udpSocketDrone->write(data);
-				//Send latitude
-				data.setNum(longitude);
-				udpSocketDrone->write(data);
-				//Send Height
-				data.setNum((double)(Value[2]));
-				udpSocketDrone->write(data);
-				//Send Heading
-				data.setNum((double)(heading));
-				udpSocketDrone->write(data);
-				//Send Velocity X
-				data.setNum((double)(velocity[0]));
-				udpSocketDrone->write(data);
-				//Send Velocity Y
-				data.setNum((double)(velocity[1]));
-				udpSocketDrone->write(data);
-				//Send Velocity Z
-				data.setNum((double)(velocity[2]));
-				udpSocketDrone->write(data);
-
-				CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
-				//distFromRef = std::sqrtl(std::pow(Value[0], 2)+ std::pow(Value[1], 2)+ std::pow(Value[2], 2));
-				u += 1;
-				if (u == 10) {
-					ss.str("");
-					ss << "X   =  " << position[0] << "\tY  =  " << position[1] << "\tZ  = " << position[2] << "\t Heading = " << heading << "\n";
-					ss << "VX  =  " << velocity[0] << "\tVY  =  " << velocity[1] << "\tVZ  = " << velocity[2] << "\n";
-					ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2];
-					commObj.addLog(QString::fromStdString(ss.str()));
-					u = 0;
-				}
-
-				logfile.open("logData.txt", std::ios::app);
-				logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
-				logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
-				logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
-				logfile.close();
-
-				frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
-				QPFrame = Mat2QPixmap(matFrame);
-				commObj.changeImage(QPFrame);
-				QCoreApplication::processEvents();
 				frame->Release();
+				Sleep(1);
 			}
 		}
 	}
@@ -490,6 +527,25 @@ int setZero()
 	int numberSamples = 0;
 	int numberToSample = 50;
 
+	//set exposure such that num markers are visible
+
+	int numberObjects = 0;
+	while (numberObjects != numberMarkers)
+	{
+		Frame *frame = camera->GetFrame();
+		if (frame)
+		{
+			numberObjects = frame->ObjectCount();
+			if (numberObjects > numberMarkers) { intExposure--; }
+			if (numberObjects < numberMarkers) { intExposure++; }
+			camera->SetExposure(intExposure);
+			ss.str("");
+			ss << "Exposure  =  " << intExposure << "\n";
+			commObj.addLog(QString::fromStdString(ss.str()));
+
+		}
+	}
+
 	while (numberSamples<numberToSample)
 	{
 		//== Fetch a new frame from the camera ===---
@@ -499,13 +555,10 @@ int setZero()
 		{
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
-			if (frame->ObjectCount() == numMarker)
+			if (frame->ObjectCount() == numberMarkers)
 			{
-				//==-- one sample more :D
-				numberSamples += 1;
-
 				//==for(int i=0; i<frame->ObjectCount(); i++)
-				for (int i = 0; i < numMarker; i++)
+				for (int i = 0; i < numberMarkers; i++)
 				{
 					cObject *obj = frame->Object(i);
 					list_points2d[i] = cv::Point2d(obj->X(), obj->Y());
@@ -513,38 +566,49 @@ int setZero()
 
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
-				add(posRef, Tvec, posRef);
-				add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
 
-				ss.str("");
-				ss << "Tvec  =  " << Tvec << "\n";
-				commObj.addLog(QString::fromStdString(ss.str()));
+				
+				double maxValue = 0;
+				double minValue = 0;
+				minMaxLoc(Tvec, &minValue, &maxValue);
+				if (maxValue < 10000 && minValue > -10000)
+				{
+					
+					if (norm(positionOld) - norm(Tvec) < 1)	//Iterative Method needs time to converge to solution
+					{
+						add(posRef, Tvec, posRef);
+						add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
+						numberSamples += 1;	//==-- one sample more :D
+					}
+					ss.str("");
+					ss << "Tvec = " << Tvec << "\n";
+					positionOld = Tvec;
+					commObj.addLog(QString::fromStdString(ss.str()));
+					
+				}
+				
 			}
 			frame->Release();
 		}
 	}
 	//== Release camera ==--
 	camera->Release();
-	return 0;
 	
 	//Divide by the number of samples to get the mean of the reference position
 	divide(posRef, numberToSample, posRef);
-	divide(eulerRef, numberToSample, eulerRef);
+	divide(eulerRef, numberToSample, eulerRef); // eulerRef is here in Axis Angle notation
 
-	//==-- Rodrigues (Angle Vector) to Rotation Matrix conversion
-	Rodrigues(eulerRef, Rmat); 
-	Rmat = Rmat.t();  // rotation of inverse
-	Mat V = -Rmat * (Mat)posRef; // translation of inverse
-	posRef = (Mat)V;
+	Rodrigues(eulerRef, RmatRef);				// axis angle to rotation matrix
 	//==-- Euler Angles, finally 
-	getEulerAngles(Rmat, eulerRef);
-	
+	getEulerAngles(RmatRef, eulerRef);	//  rotation matrix to euler
+
 	ss.str("");
 	ss << "================= Reference Position ==================\n";
 	ss << posRef << "\n";
 	ss << "=============== Reference Euler Angles ================\n";
 	ss << eulerRef << "\n";
 	commObj.addLog(QString::fromStdString(ss.str()));
+	return 0;
 }
 
 void calibrate_camera()
@@ -745,18 +809,18 @@ float l2_norm(std::vector<float> const& u) {
 
 void test_Algorithm()
 {
-
+	int _methodPNP;
 	load_calibration();
 
-	std::vector<Point2d> noise(4);
+	std::vector<Point2d> noise(numberMarkers);
 
 	Mat Rvec = (cv::Mat_<double>(3, 1) << 0.78, 0.0, 0.0);
-	Mat Tvec = (cv::Mat_<double>(3, 1) << 60.0, 30.0, 1000);
+	Mat Tvec = (cv::Mat_<double>(3, 1) << 60.0, 30.0, 500);
 
 	Mat RvecOriginal = Rvec;
 	Mat TvecOriginal = Tvec;
 
-	multiply(list_points3d, 0.2, list_points3d);
+	multiply(list_points3d, 1.0, list_points3d);
 
 	projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
 	ss.str("");
@@ -764,7 +828,7 @@ void test_Algorithm()
 	ss << "================= Projected Points ==================\n";
 	ss << list_points2d << "\n";
 
-	randn(noise, 0, 2);
+	randn(noise, 0, 1);
 	add(list_points2d, noise, list_points2d);
 	
 	ss << "================ With Noise Points ==================\n";
@@ -775,10 +839,10 @@ void test_Algorithm()
 	float tolerance = 0.01; // in mm
 
 	bool useGuess = true;
-	int methodPNP = 0; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
+	_methodPNP = 0; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 	Rvec = cv::Mat::zeros(3, 1, CV_64F);
 	Tvec = cv::Mat::zeros(3, 1, CV_64F);
-	solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+	solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
 	if (norm(Rvec - RvecOriginal) <= tolerance) { sufficientAccuracy = true; }
 
 	ss.str("");
@@ -791,10 +855,10 @@ void test_Algorithm()
 
 	commObj.addLog(QString::fromStdString(ss.str()));
 
-	methodPNP = 1; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
+	_methodPNP = 1; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 	Rvec = cv::Mat::zeros(3, 1, CV_64F);
 	Tvec = cv::Mat::zeros(3, 1, CV_64F);
-	solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+	solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
 	if (norm(Rvec - RvecOriginal) <= tolerance) { sufficientAccuracy = true; }
 
 	ss.str("");
@@ -807,10 +871,12 @@ void test_Algorithm()
 
 	commObj.addLog(QString::fromStdString(ss.str()));
 
-	methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
+	if(numberMarkers == 4)
+	{
+	_methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 	Rvec = cv::Mat::zeros(3, 1, CV_64F);
 	Tvec = cv::Mat::zeros(3, 1, CV_64F);
-	solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+	solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
 	if (norm(Rvec - RvecOriginal) <= tolerance) { sufficientAccuracy = true; }
 
 	ss.str("");
@@ -822,11 +888,12 @@ void test_Algorithm()
 	ss << Tvec << "\n";
 
 	commObj.addLog(QString::fromStdString(ss.str()));
+	}
 
-	methodPNP = 4; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
+	_methodPNP = 4; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 	Rvec = cv::Mat::zeros(3, 1, CV_64F);
 	Tvec = cv::Mat::zeros(3, 1, CV_64F);
-	solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+	solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
 	if (norm(Rvec - RvecOriginal) <= tolerance) { sufficientAccuracy = true; }
 
 	ss.str("");
@@ -856,15 +923,20 @@ void setupKalmanFilter()
 	measurement.setTo(Scalar(0));
 
 	//==-- Position is position and Velocity is 0
-	KF.statePre.at<float>(0) = position[0];
-	KF.statePre.at<float>(1) = position[1];;
-	KF.statePre.at<float>(2) = position[2];;
+	KF.statePre.at<float>(0) = 0;
+	KF.statePre.at<float>(1) = 0;
+	KF.statePre.at<float>(2) = 0;
 	KF.statePre.at<float>(3) = 0;
 	KF.statePre.at<float>(4) = 0;
 	KF.statePre.at<float>(5) = 0;
 
 	setIdentity(KF.measurementMatrix);
 	setIdentity(KF.processNoiseCov, Scalar::all(1e-2));
-	setIdentity(KF.measurementNoiseCov, Scalar::all(1e-1));
-	setIdentity(KF.errorCovPost, Scalar::all(.1));
+	setIdentity(KF.measurementNoiseCov, Scalar::all(1e-3));
+	setIdentity(KF.errorCovPost, Scalar::all(1e-2));
+}
+
+void setPNPMethod(int method)
+{
+	methodPNP = method;
 }

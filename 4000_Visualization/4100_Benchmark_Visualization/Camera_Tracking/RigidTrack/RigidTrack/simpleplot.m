@@ -1,6 +1,10 @@
 clear all
 ImportLog
 
+euler1 = euler1*180.0/pi;
+euler2 = euler2*180.0/pi;
+euler3 = euler3*180.0/pi;
+
 figure(1)
 subplot(3,1,1)
 plot(t, [x, y, z])
@@ -17,10 +21,10 @@ grid on;
 grid minor;
 
 subplot(3,1,3)
-plot(t, heading)
-ylabel('ANgle [deg]')
+plot(t, [euler1, euler2, euler3])
+ylabel('Euler Angle [deg]')
 xlabel('Time[s]')
-legend('Heading')
+legend('Euler Angles')
 grid on;
 grid minor;
 

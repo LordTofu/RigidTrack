@@ -28,8 +28,6 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2\video\tracking.hpp>
 
-#include "four-point-groebner.hpp"
-
 using namespace CameraLibrary;
 using namespace cv;
 
@@ -40,4 +38,5 @@ using namespace cv;
 	float l2_norm(std::vector<float> const& u);
 	void test_Algorithm();
 	void setupKalmanFilter();
+	void setPNPMethod(int method);
 
