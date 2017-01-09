@@ -1,10 +1,6 @@
 clear all
 ImportLog
 
-euler1 = euler1*180.0/pi;
-euler2 = euler2*180.0/pi;
-euler3 = euler3*180.0/pi;
-
 figure(1)
 subplot(3,1,1)
 plot(t, [x, y, z])
