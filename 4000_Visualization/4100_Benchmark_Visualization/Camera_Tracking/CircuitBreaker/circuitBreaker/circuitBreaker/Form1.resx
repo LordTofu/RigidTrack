@@ -120,4 +120,9 @@
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="label1.Text" xml:space="preserve">
+    <value>To enable the communication between EFCC and Autel FCC position the mouse over the
+ "ARM FCC" Button, press the space key and then click on "Arm FCC". If the space key is
+released the communication is disabled.</value>
+  </data>
 </root>

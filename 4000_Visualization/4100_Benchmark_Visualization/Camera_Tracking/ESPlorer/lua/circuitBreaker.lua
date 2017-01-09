@@ -1,3 +1,4 @@
+print(wifi.sta.getip())
 node.setcpufreq(node.CPU160MHZ)
 
 ENABLE_PIN = 4
@@ -6,8 +7,8 @@ safety_start = false
 
 gpio.mode(ENABLE_PIN, gpio.OUTPUT)
 
--- Timer every 100 ms
-tmr.register(0, 100, tmr.ALARM_SEMI, function() 
+-- Timer every 50 ms
+tmr.register(0, 50, tmr.ALARM_SEMI, function() 
     if enable then 
         gpio.write(ENABLE_PIN, 1)
         print("Armed");
@@ -21,7 +22,7 @@ end)
 
 function udp_received(srv, c)
         command = tonumber(c)
-        print(command)
+        --print(command)
         if command == 9 then safety_start = true end
         if command == 1 and safety_start then enable = true end
         if command == 0 then  enable = false safety_start = false end   
