@@ -6,7 +6,7 @@ wifi.setmode(wifi.SOFTAP)
 print(wifi.ap.getip())
 print("Password is DroneWifi")
 
-NextFile = "telemetry.lua"
+NextFile = "circuitBreaker.lua"
     l = file.list();
     for k,v in pairs(l) do
         print("name:"..k, "size:"..v)

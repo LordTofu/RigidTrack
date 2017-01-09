@@ -1,6 +1,6 @@
 node.setcpufreq(node.CPU160MHZ)
 
-ENABLE_PIN = 6
+ENABLE_PIN = 4
 enable = false
 safety_start = false
 
