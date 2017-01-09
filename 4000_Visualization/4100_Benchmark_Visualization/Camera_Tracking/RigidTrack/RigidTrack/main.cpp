@@ -42,7 +42,7 @@ commObject commObj;
 double frameTime = 1 / 100;
 double timeOld = 0.0;
 
-Vec3d position = Vec3d();		
+Vec3d position = Vec3d();
 Vec3d eulerAngles = Vec3d();
 Vec3d positionOld = Vec3d();
 Vec3d velocity = Vec3d();
@@ -66,21 +66,21 @@ int intExposure = 3; // max is 60 increase if markers are badly visible
 int intFrameRate = 100;
 
 //== Rotation, translation etc. matrix for PnP results
-Mat Rmat	= (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Matrix from Marker CoSy to Camera
+Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Matrix from Marker CoSy to Camera
 Mat RmatRef = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Reference Rotation Matrix from Marker CoSy to Camera
-Mat M_NC	= (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// Rotation Matrix from Camera to Ground
-Mat Rvec	= (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Vector (Axis-Angle) from Marker CoSy to Camera
-Mat Tvec	= (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Translation Vector from Marker CoSy to Camera
-	
+Mat M_NC = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// Rotation Matrix from Camera to Ground
+Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Vector (Axis-Angle) from Marker CoSy to Camera
+Mat Tvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Translation Vector from Marker CoSy to Camera
+
 
 float Value[100] = { 0 };	//100 Values can be sent via MMF, can be more but should be enough for now
 
 RotatedRect rotRect;
-double majorAxis =0;
+double majorAxis = 0;
 double heading = 0;
 Vec4d positionHeight = 0;
 double cameraAbove = 4300.0; // camera is 4300mm above marker system
-double circleRadius = 545.0/2.0;  // Radius of the markers in mm
+double circleRadius = 545.0 / 2.0;  // Radius of the markers in mm
 double picturePlanedistance = 0; // doesnt change, is computed afterwards
 double FoV = 57.5; // FoV of Camera in degrees, constant
 bool unscaled = true; // SetZero is run 2 Times to get the Scaling Factors
@@ -92,8 +92,15 @@ int numberMarkers = 4; // number of markers, the more the better. 5 is minimum, 
 //== Marker points in real world coordinates and in camera pixel coordinates	==--
 std::vector<Point3d> list_points3d(4);
 std::vector<Point2d> list_points2d(4);
-std::vector<Point2d> list_points2dprojected(4);
+std::vector<Point2d> list_points2dOld(4);
+std::vector<double> list_points2dDifference(4);
+std::vector<Point2d> list_points2dProjected(4);
 std::vector<Point2d> list_points2dUnsorted(4);
+std::vector<int> pointOrderIndices = { 1, 3, 0, 2 };
+std::vector<int> pointOrderIndicesNew = { 1, 3, 0, 2 };
+double currentPointDistance = 5000;
+double minPointDistance = 5000;
+int currentMinIndex = 0;
 
 bool enableKalman = true;  // always enable
 KalmanFilter KF(6, 3, 0);
@@ -115,19 +122,19 @@ QByteArray data;
 int main(int argc, char *argv[])
 {
 
-    QApplication a(argc, argv);
+	QApplication a(argc, argv);
 	RigidTrack w;
-    w.show();
+	w.show();
 	QObject::connect(&commObj, SIGNAL(statusChanged(QString)), &w, SLOT(setStatus(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), Qt::DirectConnection);
 
 	//list_points3d[0] = cv::Point3d(   0.0,    0.0,   0.0);
 	//list_points3d[0] = cv::Point3d( 200.0,	  0.0,  0.0);
-	list_points3d[1] = cv::Point3d(   0.0,  160.0,  0.0);
-	list_points3d[2] = cv::Point3d( 200.0, 100.0,  0.0);
-	list_points3d[0] = cv::Point3d( 100.0,   70.0,  0.0);
-	list_points3d[3] = cv::Point3d(  50.0,   70.0,   0.0);
+	list_points3d[1] = cv::Point3d(0.0, 160.0, 0.0);
+	list_points3d[2] = cv::Point3d(200.0, 100.0, 0.0);
+	list_points3d[0] = cv::Point3d(100.0, 70.0, 0.0);
+	list_points3d[3] = cv::Point3d(50.0, 70.0, 0.0);
 
 	multiply(list_points3d, 1.0, list_points3d);
 
@@ -145,7 +152,7 @@ int main(int argc, char *argv[])
 
 QPixmap Mat2QPixmap(cv::Mat src)
 {
-	
+
 	QImage dest((const uchar *)src.data, src.cols, src.rows, src.step, QImage::Format_RGB888);
 	//dest.bits(); // enforce deep copy, see documentation 
 				 // of QImage::QImage ( const uchar * data, int width, int height, Format format )
@@ -157,11 +164,11 @@ void calcBoardCornerPositions(Size boardSize, float squareSize, std::vector<Poin
 {
 	corners.clear();
 
-	
-		for (int i = 0; i < boardSize.height; ++i)
-			for (int j = 0; j < boardSize.width; ++j)
-				corners.push_back(Point3f(float(j*squareSize), float(i*squareSize), 0));
-		
+
+	for (int i = 0; i < boardSize.height; ++i)
+		for (int j = 0; j < boardSize.width; ++j)
+			corners.push_back(Point3f(float(j*squareSize), float(i*squareSize), 0));
+
 }
 
 void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
@@ -243,9 +250,9 @@ int start_camera() {
 		return 1;
 	}
 
-	
+
 	commObj.changeStatus("MMF Created");
-	
+
 
 	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
@@ -312,7 +319,7 @@ int start_camera() {
 	camera->SetIRFilter(true);
 	camera->SetContinuousIR(false);
 	camera->SetHighPowerMode(true);
-	
+
 
 	//== Fetch a new frame from the camera ===---
 	cv::Mat matFrame = Mat::zeros(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
@@ -330,7 +337,7 @@ int start_camera() {
 
 	while (1)
 	{
-		
+
 		//== Fetch a new frame from the camera ===---
 		Frame *frame = camera->GetFrame();
 
@@ -347,28 +354,47 @@ int start_camera() {
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
 
-				list_points2d[0] = list_points2dUnsorted[1];
-				list_points2d[1] = list_points2dUnsorted[3];
-				list_points2d[2] = list_points2dUnsorted[0];
-				list_points2d[3] = list_points2dUnsorted[2];
+
+				for (int j = 0; j < numberMarkers; j++)
+				{
+					minPointDistance = 5000;
+					for (int k = 0; k < numberMarkers; k++)
+					{
+						currentPointDistance = norm(list_points2dUnsorted[pointOrderIndices[j]] - list_points2dOld[k]);
+						if (currentPointDistance < minPointDistance)
+						{
+							minPointDistance = currentPointDistance;
+							pointOrderIndicesNew[j] = k;
+						}
+
+					}
+				}
+
+				pointOrderIndices = pointOrderIndicesNew;
+				list_points2dOld = list_points2dUnsorted;
+
+				list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
+				list_points2d[1] = list_points2dUnsorted[pointOrderIndices[1]];
+				list_points2d[2] = list_points2dUnsorted[pointOrderIndices[2]];
+				list_points2d[3] = list_points2dUnsorted[pointOrderIndices[3]];
 
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
-				
+
 				double maxValue = 0;
 				double minValue = 0;
 				minMaxLoc(Tvec, &minValue, &maxValue);
-				if (maxValue < 10000 && minValue > -10000 )
+				if (maxValue < 10000 && minValue > -10000)
 				{
 					Mat _Rmat;
-				    Rodrigues(Rvec, _Rmat);
-					Mat V =  RmatRef.t() * _Rmat * (Mat)Tvec; // translation in floor system 
+					Rodrigues(Rvec, _Rmat);
+					Mat V = RmatRef.t() * _Rmat * (Mat)Tvec; // translation in floor system 
 					position = V;
 					subtract(posRef, position, position);
 
 					// Realtive angle between reference orientation and current orientation
 					Rodrigues(Rvec, Rmat);
-					Rmat = RmatRef.t()* Rmat; 
+					Rmat = RmatRef.t()* Rmat;
 					//==-- Euler Angles, finally 
 					getEulerAngles(Rmat, eulerAngles);
 
@@ -403,14 +429,15 @@ int start_camera() {
 					CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
 					//distFromRef = std::sqrtl(std::pow(Value[0], 2)+ std::pow(Value[1], 2)+ std::pow(Value[2], 2));
 					u += 1;
-					if (u == 11) {
+					if (u == 31) {
 						ss.str("");
 						ss << Tvec << "\n";
 						ss << Rmat << "\n";
 						commObj.addLog(QString::fromStdString(ss.str()));
 						u = 0;
 					}
-					if (u == 10) {
+					
+					if (u == 30) {
 						ss.str("");
 						ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
 						ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
@@ -423,21 +450,21 @@ int start_camera() {
 					logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
 					logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
 					logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
-					logfile.close();	
+					logfile.close();
 				}
 			}
 
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
-			
+
 			Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
 			cvtColor(matFrame, cFrame, COLOR_GRAY2RGB);
-			
+
 			circle(cFrame, Point(list_points2dUnsorted[0].x, list_points2dUnsorted[0].y), 6, Scalar(0, 0, 255), 3);
 			circle(cFrame, Point(list_points2dUnsorted[1].x, list_points2dUnsorted[1].y), 12, Scalar(0, 0, 255), 3);
 			circle(cFrame, Point(list_points2dUnsorted[2].x, list_points2dUnsorted[2].y), 18, Scalar(0, 0, 255), 3);
 			circle(cFrame, Point(list_points2dUnsorted[3].x, list_points2dUnsorted[3].y), 24, Scalar(0, 0, 255), 3);
 			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
-			for (int i = 0; i<numberMarkers; i++)
+			for (int i = 0; i < numberMarkers; i++)
 			{
 				circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
 			}
@@ -464,7 +491,7 @@ int start_camera() {
 
 int setZero()
 {
-	
+
 	ss.str("");
 	ss << "Started Reference Coordinate Determination";
 	commObj.addLog(QString::fromStdString(ss.str()));
@@ -486,11 +513,11 @@ int setZero()
 		commObj.addLog("No Camera found!");
 		return 1;
 	}
-	
+
 	//== Determine camera resolution to size application window ==----
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
-	camera->GetDistortionModel(distModel); 
+	camera->GetDistortionModel(distModel);
 	cv::Mat matFrame(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
 
 	//== Set Video Mode ==--
@@ -550,7 +577,7 @@ int setZero()
 		}
 	}
 
-	while (numberSamples<numberToSample)
+	while (numberSamples < numberToSample)
 	{
 		//== Fetch a new frame from the camera ===---
 		Frame *frame = camera->GetFrame();
@@ -574,35 +601,37 @@ int setZero()
 				list_points2d[2] = list_points2dUnsorted[0];
 				list_points2d[3] = list_points2dUnsorted[2];
 
+				list_points2dOld = list_points2dUnsorted;
+
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
-		
+
 				double maxValue = 0;
 				double minValue = 0;
 				minMaxLoc(Tvec, &minValue, &maxValue);
 				if (maxValue < 10000 && minValue > -10000)
 				{
-					
+
 					if (norm(positionOld) - norm(Tvec) < 1)	//Iterative Method needs time to converge to solution
 					{
 						add(posRef, Tvec, posRef);
 						add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
 						numberSamples += 1;	//==-- one sample more :D
 					}
-					
+
 					positionOld = Tvec;
 
 					Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
-					for (int i = 0; i<numberMarkers; i++)
+					for (int i = 0; i < numberMarkers; i++)
 					{
 						circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 6, Scalar(0, 225, 0), 3);
 					}
 					projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
-					for (int i = 0; i<numberMarkers; i++)
+					for (int i = 0; i < numberMarkers; i++)
 					{
 						circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
 					}
-					for (int i = 0; i<numberMarkers; i++)
+					for (int i = 0; i < numberMarkers; i++)
 					{
 						//circle(cFrame, Point(list_points2dprojected[i].x, list_points2dprojected[i].y), 3, Scalar(0, 0, 255), );
 					}
@@ -613,7 +642,7 @@ int setZero()
 					ss << "Tvec = " << Tvec << "\n";
 					commObj.addLog(QString::fromStdString(ss.str()));
 					QCoreApplication::processEvents();
-					
+
 				}
 
 			}
@@ -622,7 +651,7 @@ int setZero()
 	}
 	//== Release camera ==--
 	camera->Release();
-	
+
 	//Divide by the number of samples to get the mean of the reference position
 	divide(posRef, numberToSample, posRef);
 	divide(eulerRef, numberToSample, eulerRef); // eulerRef is here in Axis Angle notation
@@ -705,7 +734,7 @@ void calibrate_camera()
 	//== Turn on some overlay text so it's clear things are     ===---
 	//== working even if there is nothing in the camera's view. ===---
 
-	
+
 
 	//== Camera Matrix creation	==--
 	cameraMatrix = Mat::eye(3, 3, CV_64F);
@@ -724,12 +753,12 @@ void calibrate_camera()
 
 	int number_samples = 0;
 	int imagesToSample = 80;
-	
+
 
 	std::vector<std::vector<Point2f> > imagePoints;
 	std::vector<Point2f> pointBuf;
 	bool found;
-	Size boardSize(9,6);
+	Size boardSize(9, 6);
 	Size imageSize(cameraWidth, cameraHeight);
 	Mat Rvec(3, 1, DataType<double>::type);
 	Mat Tvec(3, 1, DataType<double>::type);
@@ -737,7 +766,7 @@ void calibrate_camera()
 
 	QPixmap QPFrame;
 
-	while (number_samples<imagesToSample)
+	while (number_samples < imagesToSample)
 	{
 
 		//== Fetch a new frame from the camera ===---
@@ -749,7 +778,7 @@ void calibrate_camera()
 
 		// later on, when we get the frame as usual:
 		CameraLibrary::Frame * frame = camera->GetFrame();
-		
+
 
 		if (frame)
 		{
@@ -759,33 +788,33 @@ void calibrate_camera()
 
 			//== Lets have the Camera Library raster the camera's
 			//== image into our texture.
-			
+
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
 			//imwrite("test.jpg" + , matFrame);
 			QPFrame = Mat2QPixmap(matFrame);
 			commObj.changeImage(QPFrame);
-			found = findChessboardCorners(matFrame, boardSize, pointBuf,CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK | CV_CALIB_CB_NORMALIZE_IMAGE);
+			found = findChessboardCorners(matFrame, boardSize, pointBuf, CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK | CV_CALIB_CB_NORMALIZE_IMAGE);
 
 			if (found)                // If done with success,
 			{
 				// improve the found corners' coordinate accuracy for chessboard
-				
-					
-					cornerSubPix(matFrame, pointBuf, Size(11, 11),
-						Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, 0.1));
 
-					imagePoints.push_back(pointBuf);
-					number_samples += 1;
-					commObj.addLog(QString::fromStdString(ss.str()));
-					QCoreApplication::processEvents();
-					
-				
+
+				cornerSubPix(matFrame, pointBuf, Size(11, 11),
+					Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, 0.1));
+
+				imagePoints.push_back(pointBuf);
+				number_samples += 1;
+				commObj.addLog(QString::fromStdString(ss.str()));
+				QCoreApplication::processEvents();
+
+
 			}
 			frame->Release();
 			ss.str("");
 			ss << "Samples found  =  " << number_samples;
 
-			
+
 		}
 
 		Sleep(2);
@@ -797,7 +826,7 @@ void calibrate_camera()
 	calcBoardCornerPositions(boardSize, squareSize, objectPoints[0]);
 	objectPoints.resize(imagePoints.size(), objectPoints[0]);
 
-	double rms = calibrateCamera(objectPoints, imagePoints, imageSize, cameraMatrix,distCoeffs, Rvec, Tvec);
+	double rms = calibrateCamera(objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs, Rvec, Tvec);
 
 	//== Release camera ==--
 
@@ -816,17 +845,17 @@ void calibrate_camera()
 }
 
 void load_calibration() {
-		FileStorage fs; 
-		fs.open("calibration.xml", FileStorage::READ);
-		//fs.open("calibrationOptitrack.xml", FileStorage::READ);
-		fs["CameraMatrix"] >> cameraMatrix;
-		fs["DistCoeff"] >> distCoeffs;
-		commObj.addLog("Loaded Calibration!");
-		ss.str("");
-		ss << "Camera Matrix\n" << cameraMatrix << "\n";
-		ss << "Distortion Coeff\n" << distCoeffs << "\n";
-		commObj.changeStatus(QString::fromStdString(strBuf));
-		commObj.addLog(QString::fromStdString(ss.str()));
+	FileStorage fs;
+	fs.open("calibration.xml", FileStorage::READ);
+	//fs.open("calibrationOptitrack.xml", FileStorage::READ);
+	fs["CameraMatrix"] >> cameraMatrix;
+	fs["DistCoeff"] >> distCoeffs;
+	commObj.addLog("Loaded Calibration!");
+	ss.str("");
+	ss << "Camera Matrix\n" << cameraMatrix << "\n";
+	ss << "Distortion Coeff\n" << distCoeffs << "\n";
+	commObj.changeStatus(QString::fromStdString(strBuf));
+	commObj.addLog(QString::fromStdString(ss.str()));
 }
 
 float l2_norm(std::vector<float> const& u) {
@@ -849,24 +878,24 @@ void test_Algorithm()
 
 	multiply(list_points3d, 1.0, list_points3d);
 
-	projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dprojected);
-	
+	projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+
 	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
-	for (int i = 0; i<numberMarkers; i++)
+	for (int i = 0; i < numberMarkers; i++)
 	{
-		circle(cFrame, Point(list_points2dprojected[i].x, list_points2dprojected[i].y), 6, Scalar(0, 255, 0), 3);
+		circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 6, Scalar(0, 255, 0), 3);
 	}
 
 	ss.str("");
 	ss << "=====================================================\n";
 	ss << "================= Projected Points ==================\n";
-	ss << list_points2dprojected << "\n";
+	ss << list_points2dProjected << "\n";
 
 	randn(noise, 0, 2);
-	add(list_points2dprojected, noise, list_points2dprojected);
-	
+	add(list_points2dProjected, noise, list_points2dProjected);
+
 	ss << "================ With Noise Points ==================\n";
-	ss << list_points2dprojected << "\n";
+	ss << list_points2dProjected << "\n";
 	commObj.addLog(QString::fromStdString(ss.str()));
 
 	bool sufficientAccuracy = false;
@@ -883,8 +912,8 @@ void test_Algorithm()
 	Rvec.at<double>(1) = 0;
 	Rvec.at<double>(2) = -1.5;
 
-	solvePnP(list_points3d, list_points2dprojected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
-	
+	solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
+
 	ss.str("");
 	ss << "=====================================================\n";
 	ss << "==================== Iterative =====================\n";
@@ -898,7 +927,7 @@ void test_Algorithm()
 	_methodPNP = 1; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 	Rvec = cv::Mat::zeros(3, 1, CV_64F);
 	Tvec = cv::Mat::zeros(3, 1, CV_64F);
-	solvePnP(list_points3d, list_points2dprojected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
+	solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
 
 	ss.str("");
 	ss << "=====================================================\n";
@@ -915,7 +944,7 @@ void test_Algorithm()
 		_methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 		Rvec = cv::Mat::zeros(3, 1, CV_64F);
 		Tvec = cv::Mat::zeros(3, 1, CV_64F);
-		solvePnP(list_points3d, list_points2dprojected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
+		solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
 
 		ss.str("");
 		ss << "=====================================================\n";
@@ -925,10 +954,10 @@ void test_Algorithm()
 		ss << "tvec: " << "\n";
 		ss << Tvec << "\n";
 
-		projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dprojected);
+		projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 		for (int i = 0; i < numberMarkers; i++)
 		{
-			circle(cFrame, Point(list_points2dprojected[i].x, list_points2dprojected[i].y), 3, Scalar(255, 0, 0), 3);
+			circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 3, Scalar(255, 0, 0), 3);
 		}
 		QPixmap QPFrame;
 		QPFrame = Mat2QPixmap(cFrame);
@@ -940,8 +969,8 @@ void test_Algorithm()
 	_methodPNP = 4; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 	Rvec = cv::Mat::zeros(3, 1, CV_64F);
 	Tvec = cv::Mat::zeros(3, 1, CV_64F);
-	solvePnP(list_points3d, list_points2dprojected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
-	
+	solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
+
 	ss.str("");
 	ss << "=====================================================\n";
 	ss << "====================    UPNP    =====================\n";
