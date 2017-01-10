@@ -120,9 +120,14 @@
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="label1.Text" xml:space="preserve">
-    <value>To enable the communication between EFCC and Autel FCC position the mouse over the
- "ARM FCC" Button, press the space key and then click on "Arm FCC". If the space key is
-released the communication is disabled.</value>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>To enable the communication between EFCC and Autel FCC position the mouse over the "ARM FCC" Button, press the space key and then click on "Arm FCC". If the space key is released the communication is disabled.
+
+The ESP8266 connects to a WiFi called DroneWifi with password DroneWifi. To create such a network with Windows 10 enter following commands:
+
+&gt; netsh wlan set hostednetwork mode=allow ssid=DroneWifi key=DroneWifi
+&gt; netsh wlan start hostednetwork
+
+The ESP8266s IP can be found with a network scanner or during boot time, it prints it after a few seconds. A network scanner is implemented in MobaXTerm.</value>
   </data>
 </root>

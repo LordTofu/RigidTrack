@@ -71,6 +71,7 @@ namespace circuitBreaker
 
         private void button1_KeyUp(object sender, KeyEventArgs e)
         {
+            SendUdp(port, ip, port, Encoding.ASCII.GetBytes("0"));
             spacePressed = false;
             timer1.Stop();
         }

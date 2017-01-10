@@ -33,10 +33,7 @@ using namespace cv;
 
 	int start_camera();
 	int setZero();
-	void calibrate_camera();
+	int calibrate_camera();
 	void load_calibration();
-	float l2_norm(std::vector<float> const& u);
 	void test_Algorithm();
 	void setupKalmanFilter();
-	void setPNPMethod(int method);
-

@@ -110,7 +110,8 @@ Mat cameraMatrix;
 Mat distCoeffs;
 Core::DistortionModel distModel;
 
-QUdpSocket *udpSocketServo;
+// IP adress of the circuit breaker that disables the drone if a specified region is exited. 
+QUdpSocket *udpSocketCB;
 QUdpSocket *udpSocketDrone;
 
 const int BACKBUFFER_BITSPERPIXEL = 8;
@@ -121,7 +122,6 @@ QByteArray data;
 
 int main(int argc, char *argv[])
 {
-
 	QApplication a(argc, argv);
 	RigidTrack w;
 	w.show();
@@ -139,12 +139,12 @@ int main(int argc, char *argv[])
 	multiply(list_points3d, 1.0, list_points3d);
 
 	//Initial Guesses, important for Iterative Method!
-	Tvec.at<double>(0) = 140;
-	Tvec.at<double>(1) = 100;
-	Tvec.at<double>(2) = 500;
+	Tvec.at<double>(0) = 0;
+	Tvec.at<double>(1) = 0;
+	Tvec.at<double>(2) = 1000;
 	Rvec.at<double>(0) = 0;
 	Rvec.at<double>(1) = 0;
-	Rvec.at<double>(2) = -1.5;
+	Rvec.at<double>(2) = 0;
 
 	test_Algorithm();
 	return a.exec();
@@ -152,9 +152,8 @@ int main(int argc, char *argv[])
 
 QPixmap Mat2QPixmap(cv::Mat src)
 {
-
 	QImage dest((const uchar *)src.data, src.cols, src.rows, src.step, QImage::Format_RGB888);
-	//dest.bits(); // enforce deep copy, see documentation 
+	dest.bits(); // enforce deep copy, see documentation 
 				 // of QImage::QImage ( const uchar * data, int width, int height, Format format )
 	QPixmap pixmapDest = QPixmap::fromImage(dest);
 	return pixmapDest;
@@ -164,11 +163,9 @@ void calcBoardCornerPositions(Size boardSize, float squareSize, std::vector<Poin
 {
 	corners.clear();
 
-
 	for (int i = 0; i < boardSize.height; ++i)
 		for (int j = 0; j < boardSize.width; ++j)
 			corners.push_back(Point3f(float(j*squareSize), float(i*squareSize), 0));
-
 }
 
 void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
@@ -193,31 +190,27 @@ int start_camera() {
 
 	// Creating UDP slot
 	commObj.addLog("Opening UDP Port");
-	udpSocketServo = new QUdpSocket(0);
+	udpSocketCB = new QUdpSocket(0);
 	udpSocketDrone = new QUdpSocket(0);
 
-	QHostAddress bcast = QHostAddress("127.0.0.1");
-	udpSocketServo->connectToHost(bcast, 5000);
+	QHostAddress bcast = QHostAddress("192.168.4.2");
+	udpSocketCB->connectToHost(bcast, 5000);
 
 	bcast = QHostAddress("192.168.4.1");
 	udpSocketDrone->connectToHost(bcast, 5000);
 
 	commObj.addLog("Opened UDP Port");
 
-	//Enable Stepper Motor
-	data.setNum((int)(99999));
-	udpSocketServo->write(data);
-
 	//=0 Set Stepper Motor Position to 0
 	data.setNum((int)(0));
-	udpSocketServo->write(data);
+	udpSocketCB->write(data);
 
 	commObj.changeStatus("Creating MMF");
 
 	HANDLE hMapFile;
 	LPCTSTR pBuf;
 
-	TCHAR szMsg[] = TEXT("Message from first process.");
+	TCHAR szMsg[] = TEXT("MMF Text");
 
 	hMapFile = CreateFileMapping(
 		INVALID_HANDLE_VALUE,    // use paging file
@@ -244,15 +237,11 @@ int start_camera() {
 	{
 		_tprintf("Could not map view of file (%d).\n",
 			GetLastError());
-
 		CloseHandle(hMapFile);
-
 		return 1;
 	}
 
-
 	commObj.changeStatus("MMF Created");
-
 
 	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
@@ -303,16 +292,12 @@ int start_camera() {
 	camera->SetVideoType(Core::PrecisionMode);
 
 	//== Start camera output ==--
-
 	camera->Start();
 
 	//== Turn on some overlay text so it's clear things are     ===---
 	//== working even if there is nothing in the camera's view. ===---
-
 	camera->SetTextOverlay(true);
 
-	//== Ok, start main loop.  This loop fetches and displays   ===---
-	//== camera frames.                                         ===---
 	camera->SetExposure(intExposure);
 	camera->SetIntensity(intIntensity);
 	camera->SetFrameRate(intFrameRate);
@@ -320,24 +305,28 @@ int start_camera() {
 	camera->SetContinuousIR(false);
 	camera->SetHighPowerMode(true);
 
-
 	//== Fetch a new frame from the camera ===---
 	cv::Mat matFrame = Mat::zeros(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
 	QPixmap QPFrame;
 
 	//==-- Kalman Filter creation and init values
-
 	if (enableKalman)
 	{
 		setupKalmanFilter();
 	}
 
-	//Helper Variable used to print ouput only every 10th time
+	//Helper Variables used to print ouput only every 30th time and cick Circuit Breaker
 	int u = 0;
+	int v = 0;
+
+	//Enable Circuit Breaker
+	data.setNum((int)(9));
+	udpSocketCB->write(data);
+	data.setNum((int)(1));
+	udpSocketCB->write(data);
 
 	while (1)
 	{
-
 		//== Fetch a new frame from the camera ===---
 		Frame *frame = camera->GetFrame();
 
@@ -345,7 +334,6 @@ int start_camera() {
 		{
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
-
 			if (frame->ObjectCount() == numberMarkers)
 			{
 				for (int i = 0; i < frame->ObjectCount(); i++)
@@ -354,7 +342,11 @@ int start_camera() {
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
 
-
+				// Now its time to determine the order of the points
+				// for that the distance from the new points to the old points is calculated
+				// for each point the new index corresponds to the old point with the smallest distance
+				// Loop over every point and calculate the min distance to every other point. 
+				// Then pick the smallest one and assign its index to the new order pointOrderIndices.
 				for (int j = 0; j < numberMarkers; j++)
 				{
 					minPointDistance = 5000;
@@ -366,7 +358,6 @@ int start_camera() {
 							minPointDistance = currentPointDistance;
 							pointOrderIndicesNew[j] = k;
 						}
-
 					}
 				}
 
@@ -427,7 +418,8 @@ int start_camera() {
 					Value[5] = eulerAngles[2];
 
 					CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
-					//distFromRef = std::sqrtl(std::pow(Value[0], 2)+ std::pow(Value[1], 2)+ std::pow(Value[2], 2));
+					distFromRef = norm(position);
+
 					u += 1;
 					if (u == 31) {
 						ss.str("");
@@ -436,7 +428,25 @@ int start_camera() {
 						commObj.addLog(QString::fromStdString(ss.str()));
 						u = 0;
 					}
-					
+
+					// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
+					if (distFromRef < 3000) {
+						if (v == 5) {
+							data.setNum((int)(1));
+							udpSocketCB->write(data);
+							u = v;
+						}
+					}
+					else
+					{
+						data.setNum((int)(0));
+						udpSocketCB->write(data);
+						ss.str("");
+						ss << "Drone left allowed Area, shutting it down!" << "\n";
+						commObj.addLog(QString::fromStdString(ss.str()));
+					}
+
+
 					if (u == 30) {
 						ss.str("");
 						ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
@@ -472,7 +482,6 @@ int start_camera() {
 			QPFrame = Mat2QPixmap(cFrame);
 			commObj.changeImage(QPFrame);
 			QCoreApplication::processEvents();
-
 			frame->Release();
 		}
 	}
@@ -491,7 +500,6 @@ int start_camera() {
 
 int setZero()
 {
-
 	ss.str("");
 	ss << "Started Reference Coordinate Determination";
 	commObj.addLog(QString::fromStdString(ss.str()));
@@ -520,24 +528,7 @@ int setZero()
 	camera->GetDistortionModel(distModel);
 	cv::Mat matFrame(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
 
-	//== Set Video Mode ==--
-
-	//== We set the camera to Segment Mode here.  This mode is support by all of our products.
-	//== Depending on what device you have connected you might want to consider a different
-	//== video mode to achieve the best possible tracking quality.  All devices that support a
-	//== mode that will achieve a better quality output with a mode other than Segment Mode are
-	//== listed here along with what mode you should use if you're looking for the best head
-	//== tracking:
-	//==
-	//==     V100:R1/R2    Precision Mode
-	//==     TrackIR 5     Bit-Packed Precision Mode
-	//==     V120          Precision Mode
-	//==     TBar          Precision Mode
-	//==     S250e         Precision Mode
-	//==
-	//== If you have questions about a new device that might be conspicuously missing here or
-	//== have any questions about head tracking, email support or participate in our forums.
-
+	// Set camera mode to precision mode, it directly provides marker coordinates
 	camera->SetVideoType(Core::PrecisionMode);
 
 	//== Start camera output ==--
@@ -573,7 +564,6 @@ int setZero()
 			ss << "Exposure		  =  " << intExposure << "\n";
 			ss << "Objects found  =  " << numberObjects << "\n";
 			commObj.addLog(QString::fromStdString(ss.str()));
-
 		}
 	}
 
@@ -611,7 +601,6 @@ int setZero()
 				minMaxLoc(Tvec, &minValue, &maxValue);
 				if (maxValue < 10000 && minValue > -10000)
 				{
-
 					if (norm(positionOld) - norm(Tvec) < 1)	//Iterative Method needs time to converge to solution
 					{
 						add(posRef, Tvec, posRef);
@@ -642,9 +631,7 @@ int setZero()
 					ss << "Tvec = " << Tvec << "\n";
 					commObj.addLog(QString::fromStdString(ss.str()));
 					QCoreApplication::processEvents();
-
 				}
-
 			}
 			frame->Release();
 		}
@@ -669,43 +656,29 @@ int setZero()
 	return 0;
 }
 
-void calibrate_camera()
+int calibrate_camera()
 {
 	CameraLibrary_EnableDevelopment();
 
 	//== Initialize Camera SDK ==--
-
 	CameraLibrary::CameraManager::X();
 
 	//== At this point the Camera SDK is actively looking for all connected cameras and will initialize
 	//== them on it's own.
 
-	//== Now, lets pop a dialog that will persist until there is at least one camera that is initialized
-	//== or until canceled.
-
-	//PopWaitingDialog();
-
 	//== Get a connected camera ================----
-
-
 	CameraManager::X().WaitForInitialization();
 
 	Camera *camera = CameraManager::X().GetCamera();
+	if (camera == 0)
+	{
+		commObj.addLog("No Camera found!");
+		return 1;
+	}
 
-	//== If no device connected, pop a message box and exit ==--
-
-
-	//== Determine camera resolution to size application window ==----
-
+	//== Determine camera resolution
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
-
-
-	//== Open the application window =============================----
-
-	//if (!CreateAppWindow("Camera Library SDK - Sample", cameraWidth, cameraHeight, 32, gFullscreen))
-	//return 0;
-
 
 	//== Set Video Mode ==--
 
@@ -728,13 +701,7 @@ void calibrate_camera()
 	camera->SetVideoType(Core::GrayscaleMode);
 
 	//== Start camera output ==--
-
 	camera->Start();
-
-	//== Turn on some overlay text so it's clear things are     ===---
-	//== working even if there is nothing in the camera's view. ===---
-
-
 
 	//== Camera Matrix creation	==--
 	cameraMatrix = Mat::eye(3, 3, CV_64F);
@@ -742,6 +709,7 @@ void calibrate_camera()
 
 	//== Ok, start main loop.  This loop fetches and displays   ===---
 	//== camera frames.                                         ===---
+	// But first set some camera parameters
 	camera->SetAGC(true);
 	camera->SetAEC(true);
 	camera->SetExposure(30);
@@ -753,7 +721,6 @@ void calibrate_camera()
 
 	int number_samples = 0;
 	int imagesToSample = 80;
-
 
 	std::vector<std::vector<Point2f> > imagePoints;
 	std::vector<Point2f> pointBuf;
@@ -768,24 +735,17 @@ void calibrate_camera()
 
 	while (number_samples < imagesToSample)
 	{
-
 		//== Fetch a new frame from the camera ===---
 		cv::Mat matFrame(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
 
 		// which is why we also set this constant to 8 
 		const int BACKBUFFER_BITSPERPIXEL = 8;
 
-
 		// later on, when we get the frame as usual:
 		CameraLibrary::Frame * frame = camera->GetFrame();
 
-
 		if (frame)
 		{
-
-			//== Ok, we've received a new frame, lets do something
-			//== with it.
-
 			//== Lets have the Camera Library raster the camera's
 			//== image into our texture.
 
@@ -798,28 +758,18 @@ void calibrate_camera()
 			if (found)                // If done with success,
 			{
 				// improve the found corners' coordinate accuracy for chessboard
-
-
-				cornerSubPix(matFrame, pointBuf, Size(11, 11),
-					Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, 0.1));
+				cornerSubPix(matFrame, pointBuf, Size(11, 11), Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, 0.1));
 
 				imagePoints.push_back(pointBuf);
 				number_samples += 1;
 				commObj.addLog(QString::fromStdString(ss.str()));
 				QCoreApplication::processEvents();
-
-
 			}
 			frame->Release();
 			ss.str("");
 			ss << "Samples found  =  " << number_samples;
-
-
 		}
-
 		Sleep(2);
-
-
 	}
 
 	std::vector<std::vector<Point3f> > objectPoints(1);
@@ -829,7 +779,6 @@ void calibrate_camera()
 	double rms = calibrateCamera(objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs, Rvec, Tvec);
 
 	//== Release camera ==--
-
 	camera->Release();
 
 	//== Shutdown Camera Library ==--
@@ -840,8 +789,7 @@ void calibrate_camera()
 	strBuf = fs.releaseAndGetString();
 	commObj.changeStatus(QString::fromStdString(strBuf));
 	commObj.addLog("Saved Calibration!");
-
-	//== Exit the application.  Simple! ==--
+	return 0;
 }
 
 void load_calibration() {
@@ -852,18 +800,10 @@ void load_calibration() {
 	fs["DistCoeff"] >> distCoeffs;
 	commObj.addLog("Loaded Calibration!");
 	ss.str("");
-	ss << "Camera Matrix\n" << cameraMatrix << "\n";
-	ss << "Distortion Coeff\n" << distCoeffs << "\n";
+	ss << "Camera Matrix\n" << "\n" << cameraMatrix << "\n";
+	ss << "Distortion Coeff\n" << "\n" << distCoeffs << "\n";
 	commObj.changeStatus(QString::fromStdString(strBuf));
 	commObj.addLog(QString::fromStdString(ss.str()));
-}
-
-float l2_norm(std::vector<float> const& u) {
-	double accum = 0.;
-	for (int i = 0; i < u.size(); ++i) {
-		accum += u[i] * u[i];
-	}
-	return sqrt(accum);
 }
 
 void test_Algorithm()
@@ -994,7 +934,6 @@ void setupKalmanFilter()
 	//==	0	0	0	0	0	1
 
 	KF.transitionMatrix = (Mat_<float>(6, 6) << 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1);
-
 	measurement.setTo(Scalar(0));
 
 	//==-- Position is position and Velocity is 0
@@ -1009,9 +948,4 @@ void setupKalmanFilter()
 	setIdentity(KF.processNoiseCov, Scalar::all(1e-1));
 	setIdentity(KF.measurementNoiseCov, Scalar::all(1e-2));
 	setIdentity(KF.errorCovPost, Scalar::all(1e-1));
-}
-
-void setPNPMethod(int method)
-{
-	methodPNP = method;
 }
