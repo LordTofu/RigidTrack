@@ -33,3 +33,6 @@ sprintf('Standard Deviation of Velocity Z is %f mm/s', std(velz))
 sprintf('Standard Deviation of Euler 1 is %f °', std(euler1))
 sprintf('Standard Deviation of Euler 2 is %f °', std(euler2))
 sprintf('Standard Deviation of Euler 3 is %f °', std(euler3))
+
+t=t-t(1);
+posz_sim=timeseries(z,t);

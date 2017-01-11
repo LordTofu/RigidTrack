@@ -37,3 +37,4 @@ using namespace cv;
 	void load_calibration();
 	void test_Algorithm();
 	void setupKalmanFilter();
+	void projectCoordinateFrame(Mat pictureFrame);
