@@ -30,6 +30,7 @@
 #include <time.h>
 #include <cmath>
 #include <vector>
+#include <algorithm>
 
 #include "main.h"
 #include "communication.h"
@@ -62,7 +63,7 @@ std::ofstream logfile;
 
 
 int intIntensity = 6; // max Intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
-int intExposure = 3; // max is 60 increase if markers are badly visible
+int intExposure = 60; // max is 60 increase if markers are badly visible
 int intFrameRate = 100;
 
 //== Rotation, translation etc. matrix for PnP results
@@ -96,13 +97,17 @@ std::vector<Point2d> list_points2dOld(4);
 std::vector<double> list_points2dDifference(4);
 std::vector<Point2d> list_points2dProjected(4);
 std::vector<Point2d> list_points2dUnsorted(4);
-std::vector<int> pointOrderIndices = { 1, 3, 0, 2 };
-std::vector<int> pointOrderIndicesNew = { 1, 3, 0, 2 };
+//std::vector<int> pointOrderIndices = { 1, 3, 0, 2 };
+//std::vector<int> pointOrderIndicesNew = { 1, 3, 0, 2 };
+int pointOrderIndices[] = { 1, 0, 2, 3 };
+int pointOrderIndicesNew[] = { 1, 0, 2, 3 };
+//int pointOrderIndices[] = { 0, 1, 2, 3 };
+//int pointOrderIndicesNew[] = { 0, 1, 2, 3 };
 double currentPointDistance = 5000;
 double minPointDistance = 5000;
 int currentMinIndex = 0;
 
-bool enableKalman = true;  // always enable
+bool enableKalman = false;  // always enable
 KalmanFilter KF(6, 3, 0);
 Mat_<float> measurement(3, 1);
 
@@ -129,22 +134,26 @@ int main(int argc, char *argv[])
 	QObject::connect(&commObj, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), Qt::DirectConnection);
 
-	//list_points3d[0] = cv::Point3d(   0.0,    0.0,   0.0);
-	//list_points3d[0] = cv::Point3d( 200.0,	  0.0,  0.0);
-	list_points3d[1] = cv::Point3d(0.0, 160.0, 0.0);
-	list_points3d[2] = cv::Point3d(200.0, 100.0, 0.0);
-	list_points3d[0] = cv::Point3d(100.0, 70.0, 0.0);
-	list_points3d[3] = cv::Point3d(50.0, 70.0, 0.0);
+	list_points3d[0] = cv::Point3d( 203.0,    0.0,  0.0);
+	list_points3d[1] = cv::Point3d(   0.0, -309.0,  0.0);
+	list_points3d[2] = cv::Point3d(-319.0,    0.0,  0.0);
+	list_points3d[3] = cv::Point3d(-470.0,  158.0,  0.0);
+
+	// Cardboard Frame Prototype
+	//list_points3d[1] = cv::Point3d(0.0, 160.0, 0.0);
+	//list_points3d[2] = cv::Point3d(200.0, 100.0, 0.0);
+	//list_points3d[0] = cv::Point3d(100.0, 70.0, 0.0);
+	//list_points3d[3] = cv::Point3d(50.0, 70.0, 0.0);
 
 	multiply(list_points3d, 1.0, list_points3d);
 
 	//Initial Guesses, important for Iterative Method!
 	Tvec.at<double>(0) = 0;
 	Tvec.at<double>(1) = 0;
-	Tvec.at<double>(2) = 1000;
+	Tvec.at<double>(2) = 3500;
 	Rvec.at<double>(0) = 0;
 	Rvec.at<double>(1) = 0;
-	Rvec.at<double>(2) = 0;
+	Rvec.at<double>(2) = -30.0/180.0*3.1415;
 
 	test_Algorithm();
 	return a.exec();
@@ -193,10 +202,10 @@ int start_camera() {
 	udpSocketCB = new QUdpSocket(0);
 	udpSocketDrone = new QUdpSocket(0);
 
-	QHostAddress bcast = QHostAddress("192.168.4.2");
+	QHostAddress bcast = QHostAddress("192.168.4.1");
 	udpSocketCB->connectToHost(bcast, 5000);
 
-	bcast = QHostAddress("192.168.4.1");
+	bcast = QHostAddress("192.168.4.2");
 	udpSocketDrone->connectToHost(bcast, 5000);
 
 	commObj.addLog("Opened UDP Port");
@@ -360,8 +369,11 @@ int start_camera() {
 						}
 					}
 				}
-
-				pointOrderIndices = pointOrderIndicesNew;
+				for (int w = 0; w < numberMarkers; w++)
+				{
+					pointOrderIndices[w] = pointOrderIndicesNew[w];
+				}
+				
 				list_points2dOld = list_points2dUnsorted;
 
 				list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
@@ -412,7 +424,7 @@ int start_camera() {
 
 					Value[0] = position[0] / 1000.;
 					Value[1] = position[1] / 1000.;
-					Value[2] = -position[2] / 1000.;
+					Value[2] = position[2] / 1000.;
 					Value[3] = eulerAngles[0];
 					Value[4] = eulerAngles[1];
 					Value[5] = eulerAngles[2];
@@ -420,8 +432,9 @@ int start_camera() {
 					CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
 					distFromRef = norm(position);
 
-					u += 1;
-					if (u == 31) {
+					u++;  
+					//v++;
+					if (u == 1001) {
 						ss.str("");
 						ss << Tvec << "\n";
 						ss << Rmat << "\n";
@@ -430,11 +443,11 @@ int start_camera() {
 					}
 
 					// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
-					if (distFromRef < 3000) {
-						if (v == 5) {
+					if (distFromRef < 1000 || eulerAngles[1] < 15 || eulerAngles[2] < 15) {
+						if (v == 3) {
 							data.setNum((int)(1));
 							udpSocketCB->write(data);
-							u = v;
+							v = 0;
 						}
 					}
 					else
@@ -446,8 +459,7 @@ int start_camera() {
 						commObj.addLog(QString::fromStdString(ss.str()));
 					}
 
-
-					if (u == 30) {
+					if (u == 1000) {
 						ss.str("");
 						ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
 						ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
@@ -584,12 +596,48 @@ int setZero()
 					cObject *obj = frame->Object(i);
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
+				
+				
+				//minPointDistance = 5000;
+				//std::sort(pointOrderIndices, pointOrderIndices + 4);
+				//do {
+				//	currentPointDistance = 0;
+				//	list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
+				//	list_points2d[1] = list_points2dUnsorted[pointOrderIndices[1]];
+				//	list_points2d[2] = list_points2dUnsorted[pointOrderIndices[2]];
+				//	list_points2d[3] = list_points2dUnsorted[pointOrderIndices[3]];
+				//	solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+				//	projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+				//	for (int w = 0; w < numberMarkers; w++)
+				//	{
+				//		currentPointDistance += norm(list_points2d[w]-list_points2dProjected[w]);
+				//	}
+				//	
+				//	if (currentPointDistance < minPointDistance)
+				//	{
+				//		minPointDistance = currentPointDistance;
+				//		for(int w = 0; w < numberMarkers; w++)
+				//		{
+				//			pointOrderIndicesNew[w] = pointOrderIndices[w];
+				//		}
+				//	}
+				//} while (std::next_permutation(pointOrderIndices, pointOrderIndices + 4));
+
+				for (int w = 0; w < numberMarkers; w++)
+				{
+					pointOrderIndices[w] = pointOrderIndicesNew[w];
+				}
+
+				ss.str("");
+				ss << "Unsorted Points 2D \n";
+				ss << list_points2dUnsorted << "\n";
+				commObj.addLog(QString::fromStdString(ss.str()));
 
 				//Order of Points does matter!!!!
-				list_points2d[0] = list_points2dUnsorted[1];
-				list_points2d[1] = list_points2dUnsorted[3];
-				list_points2d[2] = list_points2dUnsorted[0];
-				list_points2d[3] = list_points2dUnsorted[2];
+				list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
+				list_points2d[1] = list_points2dUnsorted[pointOrderIndices[1]];
+				list_points2d[2] = list_points2dUnsorted[pointOrderIndices[2]];
+				list_points2d[3] = list_points2dUnsorted[pointOrderIndices[3]];
 
 				list_points2dOld = list_points2dUnsorted;
 
@@ -820,6 +868,11 @@ void test_Algorithm()
 
 	projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 
+	ss.str("");
+	ss << "Unsorted Points 2D Projected \n";
+	ss << list_points2dProjected << "\n";
+	commObj.addLog(QString::fromStdString(ss.str()));
+
 	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
 	for (int i = 0; i < numberMarkers; i++)
 	{
@@ -945,7 +998,7 @@ void setupKalmanFilter()
 	KF.statePre.at<float>(5) = 0;
 
 	setIdentity(KF.measurementMatrix);
-	setIdentity(KF.processNoiseCov, Scalar::all(1e-1));
-	setIdentity(KF.measurementNoiseCov, Scalar::all(1e-2));
-	setIdentity(KF.errorCovPost, Scalar::all(1e-1));
+	setIdentity(KF.processNoiseCov, Scalar::all(1e-0));
+	setIdentity(KF.measurementNoiseCov, Scalar::all(1e1));
+	setIdentity(KF.errorCovPost, Scalar::all(1e-0));
 }
