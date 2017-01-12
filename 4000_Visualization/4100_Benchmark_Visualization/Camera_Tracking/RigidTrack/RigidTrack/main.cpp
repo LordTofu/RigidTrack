@@ -69,7 +69,7 @@ int intFrameRate = 100;
 //== Rotation, translation etc. matrix for PnP results
 Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Matrix from Marker CoSy to Camera
 Mat RmatRef = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Reference Rotation Matrix from Marker CoSy to Camera
-Mat M_NC = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// Rotation Matrix from Camera to Ground
+Mat M_NC = cv::Mat_<double>(3, 3);							// Rotation Matrix from Camera to Ground
 Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Vector (Axis-Angle) from Marker CoSy to Camera
 Mat Tvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Translation Vector from Marker CoSy to Camera
 Mat RvecOriginal;
@@ -87,7 +87,7 @@ double picturePlanedistance = 0; // doesnt change, is computed afterwards
 double FoV = 57.5; // FoV of Camera in degrees, constant
 
 bool useGuess = true; // not used
-int methodPNP = 0; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
+int methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 
 int numberMarkers = 4; // number of markers, the more the better. 5 is minimum, 6 minimum for position and heading
 //== Marker points in real world coordinates and in camera pixel coordinates	==--
@@ -104,7 +104,7 @@ int pointOrderIndicesNew[] = { 0, 1, 2, 3 };
 double currentPointDistance = 5000;
 double minPointDistance = 5000;
 int currentMinIndex = 0;
-bool gotOrder = false;
+bool gotOrder = true;
 int xFactor = 1;
 
 bool enableKalman = false; 
@@ -140,10 +140,15 @@ int main(int argc, char *argv[])
 	//list_points3d[3] = cv::Point3d(-470.0,  158.0,  0.0);
 
 	// Coordinates of the markers in plane reference or arbitrary other frame
-	list_points3d[0] = cv::Point3d(  -25.0, -1000.0, 0.0);
-	list_points3d[1] = cv::Point3d( -138.0,  +390.0, 0.0);
-	list_points3d[2] = cv::Point3d( -400.0,     0.0, 0.0);
-	list_points3d[3] = cv::Point3d(-1000.0,     0.0, 0.0);
+	list_points3d[0] = cv::Point3d(  -25.0, -1000.0, 20.0);
+	list_points3d[1] = cv::Point3d( -200.0,  +380.0, 40.0);
+	list_points3d[2] = cv::Point3d( -400.0,     0.0, 40.0);
+	list_points3d[3] = cv::Point3d(-1000.0,     0.0, 40.0);
+
+	//list_points3d[0] = cv::Point3d( 1500.0, -2160.0/2.0, 0.0);
+	//list_points3d[1] = cv::Point3d(    0.0, -2160.0/2.0, 0.0);
+	//list_points3d[2] = cv::Point3d( -100.0,  2160.0/2.0, 0.0);
+	//list_points3d[3] = cv::Point3d(-1500.0,  2160.0/2.0, 0.0);
 
 	// Cardboard Frame Prototype
 	//list_points3d[1] = cv::Point3d(0.0, 160.0, 0.0);
@@ -156,10 +161,15 @@ int main(int argc, char *argv[])
 	//Initial Guesses, important for Iterative Method!
 	Tvec.at<double>(0) = 0;   
 	Tvec.at<double>(1) = 0;
-	Tvec.at<double>(2) = 5000;
+	Tvec.at<double>(2) = 4500;	
+
+	Mat _Rmat = (cv::Mat_<double>(3, 3) << 0.5000,-0.5000,    0.7071,
+		0.8536,    0.1464 ,-0.5000,
+		0.1464,    0.8536  ,  0.5000);
+	Rodrigues(_Rmat, Rvec);
 	Rvec.at<double>(0) = 0 * 3.141592653589 / 180.0;
 	Rvec.at<double>(1) = 0 * 3.141592653589 / 180.0;
-	Rvec.at<double>(2) = -90*3.141592653589/180.0;
+	Rvec.at<double>(2) = -45*3.141592653589/180.0;
 	
 	coordinateFrame[0] = cv::Point3d(0, 0, 0);
 	coordinateFrame[1] = cv::Point3d(300, 0, 0);
@@ -397,18 +407,27 @@ int start_camera() {
 				
 				double maxValue = 0;
 				double minValue = 0;
-				minMaxLoc(Tvec, &minValue, &maxValue);
-				if (maxValue < 10000 && minValue > -10000)
+				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
+				if (maxValue > 10000 || minValue < 0)
 				{
-					Mat _Rmat;	
-					Rodrigues(Rvec, _Rmat);
-					Mat V = RmatRef *_Rmat.t() * (Mat)Tvec; // translation in floor system 
+					ss.str("");
+					ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
+					commObj.addLog(QString::fromStdString(ss.str()));
+					frame->Release();
+				
+					UnmapViewOfFile(pBuf);
+					CloseHandle(hMapFile);
+				
+					return 1;
+				}
+					subtract(posRef, Tvec, position);
+					Mat V = M_NC.t() * (Mat)position; // translation in floor system 
+					//Mat V = (Mat)position;
 					position = V;
-					subtract(position, posRef, position);
-					
+		
 					// Realtive angle between reference orientation and current orientation
 					Rodrigues(Rvec, Rmat);
-					Rmat = RmatRef* Rmat.t();
+					Rmat = RmatRef.t() *Rmat;
 					//==-- Euler Angles, finally 
 					getEulerAngles(Rmat, eulerAngles);
 				
@@ -445,10 +464,11 @@ int start_camera() {
 
 					//u++;  
 					//v++;
-					if (u == 100) {
+					if (u == 99) {
 						ss.str("");
 						ss << Tvec << "\n";
 						ss << Rmat << "\n";
+						ss << pointOrderIndices[0] << pointOrderIndices[1] << pointOrderIndices[2] << pointOrderIndices[3] << "\n";
 						commObj.addLog(QString::fromStdString(ss.str()));
 						u = 0;
 					}
@@ -487,7 +507,7 @@ int start_camera() {
 					logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
 					logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
 					logfile.close();
-				}
+				
 			}
 
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
@@ -499,7 +519,6 @@ int start_camera() {
 			circle(cFrame, Point(list_points2dUnsorted[1].x, list_points2dUnsorted[1].y), 12, Scalar(0, 0, 255), 3);
 			circle(cFrame, Point(list_points2dUnsorted[2].x, list_points2dUnsorted[2].y), 18, Scalar(0, 0, 255), 3);
 			circle(cFrame, Point(list_points2dUnsorted[3].x, list_points2dUnsorted[3].y), 24, Scalar(0, 0, 255), 3);
-			Tvec.at<double>(0) = -Tvec.at<double>(0);
 			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
 			for (int i = 0; i < numberMarkers; i++)
 			{
@@ -530,6 +549,8 @@ int setZero()
 	posRef = 0;
 	eulerRef = 0;
 	RmatRef = 0;
+	Rvec = RvecOriginal;
+	Tvec = TvecOriginal;
 	ss.str("");
 	ss << "Started Reference Coordinate Determination";
 	commObj.addLog(QString::fromStdString(ss.str()));
@@ -576,7 +597,7 @@ int setZero()
 	camera->SetHighPowerMode(false);
 
 	int numberSamples = 0;
-	int numberToSample = 200;
+	int numberToSample = 100;
 
 	//set exposure such that num markers are visible
 
@@ -621,11 +642,13 @@ int setZero()
 				minPointDistance = 5000;
 				std::sort(pointOrderIndices, pointOrderIndices + 4);
 				do {
+					Rvec = RvecOriginal;
+					Tvec = TvecOriginal;
 					list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
 					list_points2d[1] = list_points2dUnsorted[pointOrderIndices[1]];
 					list_points2d[2] = list_points2dUnsorted[pointOrderIndices[2]];
 					list_points2d[3] = list_points2dUnsorted[pointOrderIndices[3]];
-					solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+					solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, true, methodPNP);
 					double maxValue = 0;
 					double minValue = 0;
 					minMaxLoc(Tvec, &minValue, &maxValue);
@@ -668,10 +691,18 @@ int setZero()
 				
 				double maxValue = 0;
 				double minValue = 0;
-				minMaxLoc(Tvec, &minValue, &maxValue);
-				if (maxValue < 10000 && minValue > -10000)
-				{
-					if (norm(positionOld) - norm(Tvec) < 1)	//Iterative Method needs time to converge to solution
+				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
+			
+					if (maxValue > 10000 || minValue < 0)
+					{
+						//ss.str("");
+						//ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
+						//commObj.addLog(QString::fromStdString(ss.str()));
+						//frame->Release();
+						//
+						//return 1;
+					}
+					if (norm(positionOld) - norm(Tvec) < 0.05)	//Iterative Method needs time to converge to solution
 					{
 						add(posRef, Tvec, posRef);
 						add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
@@ -680,6 +711,7 @@ int setZero()
 						ss << "Tvec = " << Tvec << "\n";
 						commObj.addLog(QString::fromStdString(ss.str()));
 					}
+			
 					
 					positionOld = Tvec;
 
@@ -702,7 +734,7 @@ int setZero()
 					QPFrame = Mat2QPixmap(cFrame);
 					commObj.changeImage(QPFrame);
 					QCoreApplication::processEvents();
-				}
+				
 			}
 			frame->Release();
 		}
@@ -725,7 +757,29 @@ int setZero()
 	ss << posRef << "\n";
 	ss << "=============== Reference Euler Angles ================\n";
 	ss << eulerRef << "\n";
+	ss << "=============== Point Order ================\n";
+	ss << pointOrderIndices[0] << pointOrderIndices[1] << pointOrderIndices[2] << pointOrderIndices[3] << "\n";
+	double error = norm(posRef) - norm(Tvec);
+	if (error > 5.0)
+	{
+		ss << "Caution, distance between reference position and last position is: " << error << "\n Start the set zero routine once again.";
+	}
 	commObj.addLog(QString::fromStdString(ss.str()));
+
+	//FileStorage fs("referenceData.xml", FileStorage::WRITE);//+ FileStorage::MEMORY);
+	//fs << "RmatRef" << RmatRef;
+	//fs << "posRef" << posRef;
+	//fs << "eulerRef" << eulerRef;
+	//strBuf = fs.releaseAndGetString();
+	//commObj.changeStatus(QString::fromStdString(strBuf));
+	//commObj.addLog("Saved Reference Data!");
+
+	FileStorage fs;
+	fs.open("referenceData.xml", FileStorage::READ);
+	//fs.open("calibrationOptitrack.xml", FileStorage::READ);
+	fs["M_NC"] >> M_NC;
+	//fs["posRef"] >> posRef;
+	commObj.addLog("Loaded Reference Data!");
 	return 0;
 }
 
@@ -1031,3 +1085,4 @@ line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[3], Sca
 line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[1], Scalar(255, 0, 0), 2); //x-axis
 line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[2], Scalar(0, 255, 0), 2); //y-axis
 }
+
