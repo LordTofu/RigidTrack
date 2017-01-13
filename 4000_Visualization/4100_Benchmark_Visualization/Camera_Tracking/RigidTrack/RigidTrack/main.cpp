@@ -348,6 +348,8 @@ int start_camera() {
 	//Helper Variables used to print ouput only every 30th time and cick Circuit Breaker
 	int u = 0;
 	int v = 0;
+	int framesDropped = 0; // if a marker is not visible increase this counter.
+	double projectionError = 0; // equals the quality of the tracking
 
 	//Enable Circuit Breaker
 	data.setNum((int)(9));
@@ -362,10 +364,12 @@ int start_camera() {
 
 		if (frame)
 		{
+			framesDropped++;
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
 			if (frame->ObjectCount() == numberMarkers)
 			{
+				framesDropped = 0;
 				for (int i = 0; i < frame->ObjectCount(); i++)
 				{
 					cObject *obj = frame->Object(i);
@@ -404,7 +408,11 @@ int start_camera() {
 
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
-				
+			
+				// project the 3d points with the solution and calculate reprojection error
+				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+				projectionError = norm(list_points2dProjected, list_points2d);
+
 				double maxValue = 0;
 				double minValue = 0;
 				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
@@ -420,6 +428,7 @@ int start_camera() {
 				
 					return 1;
 				}
+
 					subtract(posRef, Tvec, position);
 					Mat V = M_NC.t() * (Mat)position; // translation in floor system 
 					//Mat V = (Mat)position;
@@ -462,53 +471,68 @@ int start_camera() {
 					CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
 					distFromRef = norm(position);
 
-					//u++;  
-					//v++;
-					if (u == 99) {
-						ss.str("");
-						ss << Tvec << "\n";
-						ss << Rmat << "\n";
-						ss << pointOrderIndices[0] << pointOrderIndices[1] << pointOrderIndices[2] << pointOrderIndices[3] << "\n";
-						commObj.addLog(QString::fromStdString(ss.str()));
-						u = 0;
-					}
-
 					// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
-					if(false)
+					if (abs(position[0]) < 1000 || abs(position[1]) < 1000 || abs(position[2]) < 1500)
 					{
-					if (distFromRef < 1000 || eulerAngles[1] < 15 || eulerAngles[2] < 15) {
-						if (v == 3) {
-							data.setNum((int)(1));
+						if (distFromRef < 1000 || eulerAngles[1] < 15 || eulerAngles[2] < 15) {
+							if (v == 3) {
+								data.setNum((int)(1));
+								udpSocketCB->write(data);
+								v = 0;
+							}
+						}
+						else
+						{
+							data.setNum((int)(0));
 							udpSocketCB->write(data);
-							v = 0;
+							ss.str("");
+							ss << "Drone left allowed Area, shutting it down!" << "\n";
+							commObj.addLog(QString::fromStdString(ss.str()));
+							return 1;
 						}
 					}
-					else
-					{
-						data.setNum((int)(0));
-						udpSocketCB->write(data);
-						ss.str("");
-						ss << "Drone left allowed Area, shutting it down!" << "\n";
-						commObj.addLog(QString::fromStdString(ss.str()));
-					}
-					}
-
-					if (u == 100) {
-						ss.str("");
-						ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
-						ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
-						ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2];
-						commObj.addLog(QString::fromStdString(ss.str()));
-						u = 0;
-					}
-
-					logfile.open("logData.txt", std::ios::app);
-					logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
-					logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
-					logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
-					logfile.close();
-				
 			}
+
+			//u++;  
+			//v++;
+			
+			//Stop the drone is tracking system is disturbed (marker lost or so)
+			if (framesDropped > 2)
+			{
+				data.setNum((int)(0));
+				udpSocketCB->write(data);
+				ss.str("");
+				ss << "Lost Marker Points!" << "\n";
+				commObj.addLog(QString::fromStdString(ss.str()));
+				return 1;
+			}
+
+			// Stop the drone if accuracy of tracking is to bad.
+			if (projectionError > 2)
+			{
+				data.setNum((int)(0));
+				udpSocketCB->write(data);
+				ss.str("");
+				ss << "Accuracy too bad! Error was %d Pixels." << projectionError <<"\n";
+				commObj.addLog(QString::fromStdString(ss.str()));
+				return 1;
+			}
+
+			if (u == 100) {
+				ss.str("");
+				ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
+				ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
+				ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2];
+				commObj.addLog(QString::fromStdString(ss.str()));
+				u = 0;
+			}
+
+			logfile.open("logData.txt", std::ios::app);
+			logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
+			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
+			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
+			logfile.close();
+
 
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
 
