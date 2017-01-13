@@ -1,12 +1,24 @@
 clear all
 ImportLog
+samples = 25000*100;
 
+%x = x(1:samples)
+%y = y(1:samples)
+%z = z(1:samples)
+%velx = velx(1:samples)
+%vely = vely(1:samples)
+%velz = velz(1:samples)
+%euler1 = euler1(1:samples)
+%euler2 = euler2(1:samples)
+%euler3 = euler3(1:samples)
+%t = t(1:samples)
 figure(1)
 subplot(3,1,1)
 plot(t, [x, y, z])
 xlabel('Time[s]')
 legend('x', 'y', 'z')
 grid on;
+ylim([-3000, 3000])
 grid minor;
 
 subplot(3,1,2)
@@ -14,13 +26,15 @@ plot(t, [velx, vely, velz])
 xlabel('Time[s]')
 legend('V_x', 'V_y', 'V_z')
 grid on;
+ylim([-3000, 3000])
 grid minor;
 
 subplot(3,1,3)
 plot(t, [euler1, euler2, euler3])
 ylabel('Euler Angle [deg]')
 xlabel('Time[s]')
-legend('Euler Angles')
+legend('Roll', 'Pitch', 'Heading')
+ylim([-180, 180])
 grid on;
 grid minor;
 

@@ -22,7 +22,7 @@ delimiter = ';';
 %   column7: double (%f)
 %	column8: double (%f)
 % For more information, see the TEXTSCAN documentation.
-formatSpec = '%f%f%f%f%f%f%f%f%f%f%[^\n\r]';
+formatSpec = '%f%f%f%f%f%f%f%f%f%f%f%[^\n\r]';
 
 %% Open the text file.
 fileID = fopen(filename,'r');
@@ -53,6 +53,7 @@ euler3 = dataArray{:, 7};
 velx = dataArray{:, 8};
 vely = dataArray{:, 9};
 velz = dataArray{:, 10};
+error = dataArray{:, 11};
 
 
 %% Clear temporary variables

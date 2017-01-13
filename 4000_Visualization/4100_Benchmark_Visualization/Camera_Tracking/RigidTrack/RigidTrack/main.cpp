@@ -40,6 +40,8 @@ using namespace cv;
 
 commObject commObj;
 
+bool debug = true;
+
 double frameTime = 1 / 100;
 double timeOld = 0.0;
 
@@ -140,10 +142,17 @@ int main(int argc, char *argv[])
 	//list_points3d[3] = cv::Point3d(-470.0,  158.0,  0.0);
 
 	// Coordinates of the markers in plane reference or arbitrary other frame
-	list_points3d[0] = cv::Point3d(  -25.0, -1000.0, 20.0);
-	list_points3d[1] = cv::Point3d( -200.0,  +380.0, 40.0);
-	list_points3d[2] = cv::Point3d( -400.0,     0.0, 40.0);
-	list_points3d[3] = cv::Point3d(-1000.0,     0.0, 40.0);
+	//list_points3d[0] = cv::Point3d(  -25.0, -1000.0, 20.0);
+	//list_points3d[1] = cv::Point3d( -200.0,  +380.0, 40.0);
+	//list_points3d[2] = cv::Point3d( -400.0,     0.0, 40.0);
+	//list_points3d[3] = cv::Point3d(-1000.0,     0.0, 40.0);
+
+	// Coordinates of the markers in plane reference or arbitrary other frame for x-Star
+	list_points3d[0] = cv::Point3d( 406.0, -155.0,   0.0);
+	list_points3d[1] = cv::Point3d(   0.0, -495.0,   0.0);
+	list_points3d[2] = cv::Point3d( -60.0,  -80.0,-205.0);	
+	list_points3d[3] = cv::Point3d(-500.0,   00.0,   0.0);
+
 
 	//list_points3d[0] = cv::Point3d( 1500.0, -2160.0/2.0, 0.0);
 	//list_points3d[1] = cv::Point3d(    0.0, -2160.0/2.0, 0.0);
@@ -328,12 +337,14 @@ int start_camera() {
 	//== working even if there is nothing in the camera's view. ===---
 	camera->SetTextOverlay(true);
 
-	camera->SetExposure(intExposure);
+	camera->SetExposure(60);
 	camera->SetIntensity(intIntensity);
 	camera->SetFrameRate(intFrameRate);
 	camera->SetIRFilter(true);
+	camera->SetHighPowerMode(true);
 	camera->SetContinuousIR(false);
 	camera->SetHighPowerMode(true);
+	camera->SetThreshold(100);
 
 	//== Fetch a new frame from the camera ===---
 	cv::Mat matFrame = Mat::zeros(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
@@ -367,10 +378,10 @@ int start_camera() {
 			framesDropped++;
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
-			if (frame->ObjectCount() == numberMarkers)
+			if (frame->ObjectCount() == numberMarkers || debug)
 			{
 				framesDropped = 0;
-				for (int i = 0; i < frame->ObjectCount(); i++)
+				for (int i = 0; i < numberMarkers; i++)
 				{
 					cObject *obj = frame->Object(i);
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
@@ -416,21 +427,18 @@ int start_camera() {
 				double maxValue = 0;
 				double minValue = 0;
 				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
-				if (maxValue > 10000 || minValue < 0)
+				
+				if((maxValue > 10000 || minValue < 0 ) && debug ==false)
 				{
 					ss.str("");
 					ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
 					commObj.addLog(QString::fromStdString(ss.str()));
 					frame->Release();
-				
-					UnmapViewOfFile(pBuf);
-					CloseHandle(hMapFile);
-				
-					return 1;
+					framesDropped++;
 				}
 
 					subtract(posRef, Tvec, position);
-					Mat V = M_NC.t() * (Mat)position; // translation in floor system 
+					Mat V = -1*M_NC.t() * (Mat)position; // translation in floor system 
 					//Mat V = (Mat)position;
 					position = V;
 		
@@ -472,15 +480,17 @@ int start_camera() {
 					distFromRef = norm(position);
 
 					// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
-					if (abs(position[0]) < 1000 || abs(position[1]) < 1000 || abs(position[2]) < 1500)
+					if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
 					{
-						if (distFromRef < 1000 || eulerAngles[1] < 15 || eulerAngles[2] < 15) {
+						if ((distFromRef < 2500 || eulerAngles[0] < 30 || eulerAngles[1] < 30 || eulerAngles[2] < 45) || debug == true)
+						{
 							if (v == 3) {
 								data.setNum((int)(1));
 								udpSocketCB->write(data);
 								v = 0;
 							}
 						}
+					}
 						else
 						{
 							data.setNum((int)(0));
@@ -490,14 +500,14 @@ int start_camera() {
 							commObj.addLog(QString::fromStdString(ss.str()));
 							return 1;
 						}
-					}
+					
 			}
 
 			//u++;  
-			//v++;
+			v++;
 			
 			//Stop the drone is tracking system is disturbed (marker lost or so)
-			if (framesDropped > 2)
+			if (framesDropped > 10 && debug == false)
 			{
 				data.setNum((int)(0));
 				udpSocketCB->write(data);
@@ -508,7 +518,7 @@ int start_camera() {
 			}
 
 			// Stop the drone if accuracy of tracking is to bad.
-			if (projectionError > 2)
+			if (projectionError > 5000 && debug ==false)
 			{
 				data.setNum((int)(0));
 				udpSocketCB->write(data);
@@ -522,7 +532,7 @@ int start_camera() {
 				ss.str("");
 				ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
 				ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
-				ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2];
+				ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2]; 
 				commObj.addLog(QString::fromStdString(ss.str()));
 				u = 0;
 			}
@@ -530,7 +540,7 @@ int start_camera() {
 			logfile.open("logData.txt", std::ios::app);
 			logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
 			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
-			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
+			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << projectionError << "\n";
 			logfile.close();
 
 
