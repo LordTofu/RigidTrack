@@ -21,6 +21,7 @@ tmr.register(0, 50, tmr.ALARM_SEMI, function()
 end)
 
 function udp_received(srv, c)
+        tmr.start(0)
         command = tonumber(c)
         --print(command)
         if command == 9 then safety_start = true end
@@ -28,9 +29,9 @@ function udp_received(srv, c)
         if command == 0 then  enable = false safety_start = false end   
 end
 
-tmr.start(0)
-gpio.write(ENABLE_PIN, 0)
-port=5000
+
+gpio.write(ENABLE_PIN, 1)
+port=9156
 srv=net.createServer(net.UDP)
 srv:on("receive", function(srv, c) udp_received(srv, c) end )
 srv:listen(port)

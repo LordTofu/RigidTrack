@@ -21,9 +21,9 @@ NextFile = "circuitBreaker.lua"
     for k,v in pairs(l) do
         print("name:"..k, "size:"..v)
         if k == NextFile then
-        tmr.alarm(1,7000,0,function() print(wifi.sta.getip()) end)
+        tmr.alarm(1,10000,0,function() print(wifi.sta.getip()) end)
         print("Wait 10 Seconds")
-        tmr.alarm(0,10000,0,function() dofile(NextFile) end)
+        tmr.alarm(0,20000,0,function() dofile(NextFile) end)
         print("Started file "..NextFile)
         else
         end
