@@ -38,3 +38,5 @@ using namespace cv;
 	void test_Algorithm();
 	void setupKalmanFilter();
 	void projectCoordinateFrame(Mat pictureFrame);
+	void setUpUDP();
+	void setUpMMF();

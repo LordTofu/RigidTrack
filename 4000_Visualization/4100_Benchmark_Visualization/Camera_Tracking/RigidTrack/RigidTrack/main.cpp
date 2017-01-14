@@ -49,7 +49,6 @@ Vec3d position = Vec3d();
 Vec3d eulerAngles = Vec3d();
 Vec3d positionOld = Vec3d();
 Vec3d velocity = Vec3d();
-Vec3d scaleVec = Vec3d();
 Vec3d posRef = Vec3d();
 Vec3d eulerRef = Vec3d();
 
@@ -67,6 +66,7 @@ std::ofstream logfile;
 int intIntensity = 6; // max Intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
 int intExposure = 60; // max is 60 increase if markers are badly visible
 int intFrameRate = 100;
+int intThreshold = 100;
 
 //== Rotation, translation etc. matrix for PnP results
 Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Matrix from Marker CoSy to Camera
@@ -79,37 +79,27 @@ Mat TvecOriginal;
 
 float Value[100] = { 0 };	//100 Values can be sent via MMF, can be more but should be enough for now
 
-RotatedRect rotRect;
-double majorAxis = 0;
-double heading = 0;
-Vec4d positionHeight = 0;
-double cameraAbove = 4300.0; // camera is 4300mm above marker system
-double circleRadius = 545.0 / 2.0;  // Radius of the markers in mm
-double picturePlanedistance = 0; // doesnt change, is computed afterwards
-double FoV = 57.5; // FoV of Camera in degrees, constant
-
-bool useGuess = true; // not used
+bool useGuess = true; // set to true and the algorithm uses the last result as starting value
 int methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 
 int numberMarkers = 4; // number of markers, the more the better. 5 is minimum, 6 minimum for position and heading
 //== Marker points in real world coordinates and in camera pixel coordinates	==--
-std::vector<Point3d> list_points3d(4);
-std::vector<Point2d> list_points2d(4);
-std::vector<Point2d> list_points2dOld(4);
-std::vector<double> list_points2dDifference(4);
-std::vector<Point2d> list_points2dProjected(4);
-std::vector<Point2d> list_points2dUnsorted(4);
-std::vector<Point3d> coordinateFrame(4);
-std::vector<Point2d> coordinateFrameProjected(4);
+std::vector<Point3d> list_points3d;
+std::vector<Point2d> list_points2d;
+std::vector<Point2d> list_points2dOld;
+std::vector<double> list_points2dDifference;
+std::vector<Point2d> list_points2dProjected;
+std::vector<Point2d> list_points2dUnsorted;
+std::vector<Point3d> coordinateFrame;
+std::vector<Point2d> coordinateFrameProjected;
 int pointOrderIndices[] = { 0, 1, 2, 3 };
 int pointOrderIndicesNew[] = { 0, 1, 2, 3 };
 double currentPointDistance = 5000;
 double minPointDistance = 5000;
 int currentMinIndex = 0;
 bool gotOrder = true;
-int xFactor = 1;
 
-bool enableKalman = false; 
+bool enableKalman = false;
 KalmanFilter KF(6, 3, 0);
 Mat_<float> measurement(3, 1);
 
@@ -125,6 +115,10 @@ const int BACKBUFFER_BITSPERPIXEL = 8;
 std::string strBuf;
 std::stringstream ss;
 QByteArray data;
+HANDLE hMapFile;
+LPCTSTR pBuf;
+
+TCHAR szMsg[] = TEXT("MMF Text");
 
 
 int main(int argc, char *argv[])
@@ -135,6 +129,15 @@ int main(int argc, char *argv[])
 	QObject::connect(&commObj, SIGNAL(statusChanged(QString)), &w, SLOT(setStatus(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), Qt::DirectConnection);
+
+	list_points3d = std::vector<Point3d>(numberMarkers);
+	list_points2d = std::vector<Point2d>(numberMarkers);
+	list_points2dOld = std::vector<Point2d>(numberMarkers);
+	list_points2dDifference = std::vector<double>(numberMarkers);
+	list_points2dProjected = std::vector<Point2d>(numberMarkers);
+	list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
+	coordinateFrame = std::vector<Point3d>(numberMarkers);
+	coordinateFrameProjected = std::vector<Point2d>(numberMarkers);
 
 	//list_points3d[0] = cv::Point3d( 203.0,    0.0,  0.0);
 	//list_points3d[1] = cv::Point3d(   0.0, -309.0,  0.0);
@@ -148,11 +151,10 @@ int main(int argc, char *argv[])
 	//list_points3d[3] = cv::Point3d(-1000.0,     0.0, 40.0);
 
 	// Coordinates of the markers in plane reference or arbitrary other frame for x-Star
-	list_points3d[0] = cv::Point3d( 406.0, -155.0,   0.0);
-	list_points3d[1] = cv::Point3d(   0.0, -495.0,   0.0);
-	list_points3d[2] = cv::Point3d( -60.0,  -80.0,-205.0);	
-	list_points3d[3] = cv::Point3d(-500.0,   00.0,   0.0);
-
+	list_points3d[0] = cv::Point3d(406.0, -155.0, 0.0);
+	list_points3d[1] = cv::Point3d(0.0, -495.0, 0.0);
+	list_points3d[2] = cv::Point3d(-60.0, -80.0, -205.0);
+	list_points3d[3] = cv::Point3d(-500.0, 00.0, 0.0);
 
 	//list_points3d[0] = cv::Point3d( 1500.0, -2160.0/2.0, 0.0);
 	//list_points3d[1] = cv::Point3d(    0.0, -2160.0/2.0, 0.0);
@@ -165,21 +167,15 @@ int main(int argc, char *argv[])
 	//list_points3d[0] = cv::Point3d(100.0, 70.0, 0.0);
 	//list_points3d[3] = cv::Point3d(50.0, 70.0, 0.0);
 
-	multiply(list_points3d, 1., list_points3d);
-
 	//Initial Guesses, important for Iterative Method!
-	Tvec.at<double>(0) = 0;   
+	Tvec.at<double>(0) = 0;
 	Tvec.at<double>(1) = 0;
-	Tvec.at<double>(2) = 4500;	
-
-	Mat _Rmat = (cv::Mat_<double>(3, 3) << 0.5000,-0.5000,    0.7071,
-		0.8536,    0.1464 ,-0.5000,
-		0.1464,    0.8536  ,  0.5000);
-	Rodrigues(_Rmat, Rvec);
+	Tvec.at<double>(2) = 4500;
 	Rvec.at<double>(0) = 0 * 3.141592653589 / 180.0;
 	Rvec.at<double>(1) = 0 * 3.141592653589 / 180.0;
-	Rvec.at<double>(2) = -45*3.141592653589/180.0;
-	
+	Rvec.at<double>(2) = -45 * 3.141592653589 / 180.0;
+
+	// Points that make up the coordinate frame 
 	coordinateFrame[0] = cv::Point3d(0, 0, 0);
 	coordinateFrame[1] = cv::Point3d(300, 0, 0);
 	coordinateFrame[2] = cv::Point3d(0, 300, 0);
@@ -227,62 +223,9 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 
 int start_camera() {
 
-	// Creating UDP slot
-	commObj.addLog("Opening UDP Port");
-	udpSocketCB = new QUdpSocket(0);
-	udpSocketDrone = new QUdpSocket(0);
+	setUpUDP();
+	setUpMMF();
 
-	QHostAddress bcast = QHostAddress("192.168.4.1");
-	udpSocketCB->connectToHost(bcast, 5000);
-
-	bcast = QHostAddress("192.168.4.2");
-	udpSocketDrone->connectToHost(bcast, 5000);
-
-	commObj.addLog("Opened UDP Port");
-
-	//=0 Set Stepper Motor Position to 0
-	data.setNum((int)(0));
-	udpSocketCB->write(data);
-
-	commObj.changeStatus("Creating MMF");
-
-	HANDLE hMapFile;
-	LPCTSTR pBuf;
-
-	TCHAR szMsg[] = TEXT("MMF Text");
-
-	hMapFile = CreateFileMapping(
-		INVALID_HANDLE_VALUE,    // use paging file
-		NULL,                    // default security
-		PAGE_READWRITE,          // read/write access
-		0,                       // maximum object size (high-order DWORD)
-		256,                // maximum object size (low-order DWORD)
-		L"SIMULINK_MMF");                 // name of mapping object
-
-	if (hMapFile == NULL)
-	{
-		_tprintf("Could not create file mapping object (%d).\n",
-			GetLastError());
-		return 1;
-	}
-
-	pBuf = (LPTSTR)MapViewOfFile(hMapFile,   // handle to map object
-		FILE_MAP_ALL_ACCESS, // read/write permission
-		0,
-		0,
-		256);
-
-	if (pBuf == NULL)
-	{
-		_tprintf("Could not map view of file (%d).\n",
-			GetLastError());
-		CloseHandle(hMapFile);
-		return 1;
-	}
-
-	commObj.changeStatus("MMF Created");
-
-	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//== want to stop execution for an extended time while debugging without disconnecting
 	//== the Ethernet devices.  Lets do that now:
@@ -310,24 +253,6 @@ int start_camera() {
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
 
-	//== Set Video Mode ==--
-
-	//== We set the camera to Segment Mode here.  This mode is support by all of our products.
-	//== Depending on what device you have connected you might want to consider a different
-	//== video mode to achieve the best possible tracking quality.  All devices that support a
-	//== mode that will achieve a better quality output with a mode other than Segment Mode are
-	//== listed here along with what mode you should use if you're looking for the best head
-	//== tracking:
-	//==
-	//==     V100:R1/R2    Precision Mode
-	//==     TrackIR 5     Bit-Packed Precision Mode
-	//==     V120          Precision Mode
-	//==     TBar          Precision Mode
-	//==     S250e         Precision Mode
-	//==
-	//== If you have questions about a new device that might be conspicuously missing here or
-	//== have any questions about head tracking, email support or participate in our forums.
-
 	camera->SetVideoType(Core::PrecisionMode);
 
 	//== Start camera output ==--
@@ -337,18 +262,20 @@ int start_camera() {
 	//== working even if there is nothing in the camera's view. ===---
 	camera->SetTextOverlay(true);
 
-	camera->SetExposure(60);
+	camera->SetExposure(intExposure);
 	camera->SetIntensity(intIntensity);
 	camera->SetFrameRate(intFrameRate);
 	camera->SetIRFilter(true);
 	camera->SetHighPowerMode(true);
 	camera->SetContinuousIR(false);
 	camera->SetHighPowerMode(true);
-	camera->SetThreshold(100);
+	camera->SetThreshold(intThreshold);
 
-	//== Fetch a new frame from the camera ===---
-	cv::Mat matFrame = Mat::zeros(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
+	// Create a new matrix that stores the picture
+	Mat matFrame = Mat::zeros(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
 	QPixmap QPFrame;
+	// Matrix that stores the colored picture
+	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
 
 	//==-- Kalman Filter creation and init values
 	if (enableKalman)
@@ -356,7 +283,7 @@ int start_camera() {
 		setupKalmanFilter();
 	}
 
-	//Helper Variables used to print ouput only every 30th time and cick Circuit Breaker
+	//Helper Variables used to print ouput only every 30th time and kick Circuit Breaker
 	int u = 0;
 	int v = 0;
 	int framesDropped = 0; // if a marker is not visible increase this counter.
@@ -376,6 +303,9 @@ int start_camera() {
 		if (frame)
 		{
 			framesDropped++;
+			u++;
+			v++;
+
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
 			if (frame->ObjectCount() == numberMarkers || debug)
@@ -409,7 +339,7 @@ int start_camera() {
 				{
 					pointOrderIndices[w] = pointOrderIndicesNew[w];
 				}
-				
+
 				list_points2dOld = list_points2dUnsorted;
 
 				list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
@@ -419,7 +349,7 @@ int start_camera() {
 
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
-			
+
 				// project the 3d points with the solution and calculate reprojection error
 				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 				projectionError = norm(list_points2dProjected, list_points2d);
@@ -427,112 +357,104 @@ int start_camera() {
 				double maxValue = 0;
 				double minValue = 0;
 				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
-				
-				if((maxValue > 10000 || minValue < 0 ) && debug ==false)
+
+				if ((maxValue > 10000 || minValue < 0) && debug == false)
 				{
-					ss.str("");
-					ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
-					commObj.addLog(QString::fromStdString(ss.str()));
+					commObj.addLog("Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n");
 					frame->Release();
 					framesDropped++;
 				}
 
-					subtract(posRef, Tvec, position);
-					Mat V = -1*M_NC.t() * (Mat)position; // translation in floor system 
-					//Mat V = (Mat)position;
-					position = V;
-		
-					// Realtive angle between reference orientation and current orientation
-					Rodrigues(Rvec, Rmat);
-					Rmat = RmatRef.t() *Rmat;
-					//==-- Euler Angles, finally 
-					getEulerAngles(Rmat, eulerAngles);
-				
-					if (enableKalman) {
-						Mat prediction = KF.predict();
-						measurement(0) = (float)position[0];
-						measurement(1) = (float)position[1];
-						measurement(2) = (float)position[2];
-						Mat estimation = KF.correct(measurement);
-						position[0] = (double)estimation.at<float>(0);
-						position[1] = (double)estimation.at<float>(1);
-						position[2] = (double)estimation.at<float>(2);
-					}
+				subtract(posRef, Tvec, position);
+				Mat V = -1 * M_NC.t() * (Mat)position; // transformation to ground (Navigation Frame) system 
+				position = V;
 
-					frameTime = frame->TimeStamp() - timeOld;
-					timeOld = frame->TimeStamp();
-					velocity[0] = (position[0] - positionOld[0]) / frameTime;
-					velocity[1] = (position[1] - positionOld[1]) / frameTime;
-					velocity[2] = (position[2] - positionOld[2]) / frameTime;
-					positionOld = position;
+				// Realtive angle between reference orientation and current orientation
+				Rodrigues(Rvec, Rmat);
+				Rmat = RmatRef.t() *Rmat;
+				//==-- Euler Angles, finally 
+				getEulerAngles(Rmat, eulerAngles);
 
-					latitude = latitudeRef + atan(Value[0] / earthRadius);
-					longitude = longitudeRef + atan(Value[1] / earthRadius);
+				if (enableKalman) {
+					Mat prediction = KF.predict();
+					measurement(0) = (float)position[0];
+					measurement(1) = (float)position[1];
+					measurement(2) = (float)position[2];
+					Mat estimation = KF.correct(measurement);
+					position[0] = (double)estimation.at<float>(0);
+					position[1] = (double)estimation.at<float>(1);
+					position[2] = (double)estimation.at<float>(2);
+				}
 
-					Value[0] = position[0] / 1000.;
-					Value[1] = position[1] / 1000.;
-					Value[2] = position[2] / 1000.;
-					Value[3] = eulerAngles[0];
-					Value[4] = eulerAngles[1];
-					Value[5] = eulerAngles[2];
+				frameTime = frame->TimeStamp() - timeOld;
+				timeOld = frame->TimeStamp();
+				velocity[0] = (position[0] - positionOld[0]) / frameTime;
+				velocity[1] = (position[1] - positionOld[1]) / frameTime;
+				velocity[2] = (position[2] - positionOld[2]) / frameTime;
+				positionOld = position;
 
-					CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
-					distFromRef = norm(position);
+				latitude = latitudeRef + atan(Value[0] / earthRadius);
+				longitude = longitudeRef + atan(Value[1] / earthRadius);
 
-					// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
-					if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
+				Value[0] = position[0] / 1000.;
+				Value[1] = position[1] / 1000.;
+				Value[2] = position[2] / 1000.;
+				Value[3] = eulerAngles[0];
+				Value[4] = eulerAngles[1];
+				Value[5] = eulerAngles[2];
+
+				CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
+
+
+				// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
+				if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
+				{
+					if ((eulerAngles[0] < 30 || eulerAngles[1] < 30 || eulerAngles[2] < 60) || debug == true)
 					{
-						if ((distFromRef < 2500 || eulerAngles[0] < 30 || eulerAngles[1] < 30 || eulerAngles[2] < 45) || debug == true)
-						{
-							if (v == 3) {
-								data.setNum((int)(1));
-								udpSocketCB->write(data);
-								v = 0;
-							}
+						if (v == 3) {
+							data.setNum((int)(1));
+							udpSocketCB->write(data);
+							v = 0;
 						}
 					}
-						else
-						{
-							data.setNum((int)(0));
-							udpSocketCB->write(data);
-							ss.str("");
-							ss << "Drone left allowed Area, shutting it down!" << "\n";
-							commObj.addLog(QString::fromStdString(ss.str()));
-							return 1;
-						}
-					
+					else
+					{
+						data.setNum((int)(0));
+						udpSocketCB->write(data);
+						commObj.addLog("Drone exceeded allowed Euler Angles, shutting it down!");
+						return 1;
+					}
+				}
+				else
+				{
+					data.setNum((int)(0));
+					udpSocketCB->write(data);
+					commObj.addLog("Drone left allowed Area, shutting it down!");
+					return 1;
+				}
 			}
 
-			//u++;  
-			v++;
-			
+			// Increase the framesDropped variable if accuracy of tracking is too bad.
+			if (projectionError > 50 && debug == false)
+			{
+				framesDropped++;
+			}
+
 			//Stop the drone is tracking system is disturbed (marker lost or so)
 			if (framesDropped > 10 && debug == false)
 			{
 				data.setNum((int)(0));
 				udpSocketCB->write(data);
-				ss.str("");
-				ss << "Lost Marker Points!" << "\n";
-				commObj.addLog(QString::fromStdString(ss.str()));
+				commObj.addLog("Lost Marker Points or Accuracy was bad!");
 				return 1;
 			}
 
-			// Stop the drone if accuracy of tracking is to bad.
-			if (projectionError > 5000 && debug ==false)
-			{
-				data.setNum((int)(0));
-				udpSocketCB->write(data);
-				ss.str("");
-				ss << "Accuracy too bad! Error was %d Pixels." << projectionError <<"\n";
-				commObj.addLog(QString::fromStdString(ss.str()));
-				return 1;
-			}
-
-			if (u == 100) {
+			// Output every second if debug is true
+			if (u == 100 && debug) {
 				ss.str("");
 				ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
 				ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
-				ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2]; 
+				ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2];
 				commObj.addLog(QString::fromStdString(ss.str()));
 				u = 0;
 			}
@@ -540,19 +462,40 @@ int start_camera() {
 			logfile.open("logData.txt", std::ios::app);
 			logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
 			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
-			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << projectionError << "\n";
+			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
 			logfile.close();
 
+			// The following lines send the data to the drone, not correct yet!!!
+			//Send Start Packet
+			data.setNum((int)(-9991));
+			udpSocketDrone->write(data);
+			//Send Longitude
+			data.setNum(latitude);
+			udpSocketDrone->write(data);
+			//Send latitude
+			data.setNum(longitude);
+			udpSocketDrone->write(data);
+			//Send Height
+			data.setNum((double)(Value[2]));
+			udpSocketDrone->write(data);
+			//Send Heading
+			data.setNum((double)(Value[2]));
+			udpSocketDrone->write(data);
+			//Send Velocity X
+			data.setNum((double)(velocity[0]));
+			udpSocketDrone->write(data);
+			//Send Velocity Y
+			data.setNum((double)(velocity[1]));
+			udpSocketDrone->write(data);
+			//Send Velocity Z
+			data.setNum((double)(velocity[2]));
+			udpSocketDrone->write(data);
 
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
 
-			Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
 			cvtColor(matFrame, cFrame, COLOR_GRAY2RGB);
+			projectCoordinateFrame(cFrame);
 
-			circle(cFrame, Point(list_points2dUnsorted[0].x, list_points2dUnsorted[0].y), 6, Scalar(0, 0, 255), 3);
-			circle(cFrame, Point(list_points2dUnsorted[1].x, list_points2dUnsorted[1].y), 12, Scalar(0, 0, 255), 3);
-			circle(cFrame, Point(list_points2dUnsorted[2].x, list_points2dUnsorted[2].y), 18, Scalar(0, 0, 255), 3);
-			circle(cFrame, Point(list_points2dUnsorted[3].x, list_points2dUnsorted[3].y), 24, Scalar(0, 0, 255), 3);
 			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
 			for (int i = 0; i < numberMarkers; i++)
 			{
@@ -586,8 +529,7 @@ int setZero()
 	Rvec = RvecOriginal;
 	Tvec = TvecOriginal;
 	ss.str("");
-	ss << "Started Reference Coordinate Determination";
-	commObj.addLog(QString::fromStdString(ss.str()));
+	commObj.addLog("Started Reference Coordinate Determination");
 
 	CameraLibrary_EnableDevelopment();
 	//== Initialize Camera SDK ==--
@@ -670,46 +612,46 @@ int setZero()
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
 
-				
-				if(gotOrder == false)
-				{
-				minPointDistance = 5000;
-				std::sort(pointOrderIndices, pointOrderIndices + 4);
-				do {
-					Rvec = RvecOriginal;
-					Tvec = TvecOriginal;
-					list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
-					list_points2d[1] = list_points2dUnsorted[pointOrderIndices[1]];
-					list_points2d[2] = list_points2dUnsorted[pointOrderIndices[2]];
-					list_points2d[3] = list_points2dUnsorted[pointOrderIndices[3]];
-					solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, true, methodPNP);
-					double maxValue = 0;
-					double minValue = 0;
-					minMaxLoc(Tvec, &minValue, &maxValue);
-					if (maxValue < 10000 && minValue > -10000)
-					{
-						projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
-						for (int w = 0; w < numberMarkers; w++)
-						{
-							currentPointDistance += norm(list_points2d[w] - list_points2dProjected[w]);
-						}
 
-						if (currentPointDistance < minPointDistance)
+				if (gotOrder == false)
+				{
+					minPointDistance = 5000;
+					std::sort(pointOrderIndices, pointOrderIndices + 4);
+					do {
+						Rvec = RvecOriginal;
+						Tvec = TvecOriginal;
+						list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
+						list_points2d[1] = list_points2dUnsorted[pointOrderIndices[1]];
+						list_points2d[2] = list_points2dUnsorted[pointOrderIndices[2]];
+						list_points2d[3] = list_points2dUnsorted[pointOrderIndices[3]];
+						solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, true, methodPNP);
+						double maxValue = 0;
+						double minValue = 0;
+						minMaxLoc(Tvec, &minValue, &maxValue);
+						if (maxValue < 10000 && minValue > -10000)
 						{
-							minPointDistance = currentPointDistance;
+							projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 							for (int w = 0; w < numberMarkers; w++)
 							{
-								pointOrderIndicesNew[w] = pointOrderIndices[w];
+								currentPointDistance += norm(list_points2d[w] - list_points2dProjected[w]);
+							}
+
+							if (currentPointDistance < minPointDistance)
+							{
+								minPointDistance = currentPointDistance;
+								for (int w = 0; w < numberMarkers; w++)
+								{
+									pointOrderIndicesNew[w] = pointOrderIndices[w];
+								}
 							}
 						}
-					}
-				} while (std::next_permutation(pointOrderIndices, pointOrderIndices + 4));
+					} while (std::next_permutation(pointOrderIndices, pointOrderIndices + 4));
 
-				for (int w = 0; w < numberMarkers; w++)
-				{
-					pointOrderIndices[w] = pointOrderIndicesNew[w];
-				}
-				gotOrder = true;
+					for (int w = 0; w < numberMarkers; w++)
+					{
+						pointOrderIndices[w] = pointOrderIndicesNew[w];
+					}
+					gotOrder = true;
 				}
 
 				//Order of Points does matter!!!!
@@ -722,53 +664,53 @@ int setZero()
 
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
-				
+
 				double maxValue = 0;
 				double minValue = 0;
 				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
-			
-					if (maxValue > 10000 || minValue < 0)
-					{
-						//ss.str("");
-						//ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
-						//commObj.addLog(QString::fromStdString(ss.str()));
-						//frame->Release();
-						//
-						//return 1;
-					}
-					if (norm(positionOld) - norm(Tvec) < 0.05)	//Iterative Method needs time to converge to solution
-					{
-						add(posRef, Tvec, posRef);
-						add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
-						numberSamples += 1;	//==-- one sample more :D
-						ss.str("");
-						ss << "Tvec = " << Tvec << "\n";
-						commObj.addLog(QString::fromStdString(ss.str()));
-					}
-			
-					
-					positionOld = Tvec;
 
-					Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
-					for (int i = 0; i < numberMarkers; i++)
-					{
-						circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 6, Scalar(0, 225, 0), 3);
-					}
-					projectCoordinateFrame(cFrame);
-					projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
-					for (int i = 0; i < numberMarkers; i++)
-					{
-						circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
-					}
-					for (int i = 0; i < numberMarkers; i++)
-					{
-						//circle(cFrame, Point(list_points2dprojected[i].x, list_points2dprojected[i].y), 3, Scalar(0, 0, 255), );
-					}
-					QPixmap QPFrame;
-					QPFrame = Mat2QPixmap(cFrame);
-					commObj.changeImage(QPFrame);
-					QCoreApplication::processEvents();
-				
+				if (maxValue > 10000 || minValue < 0)
+				{
+					//ss.str("");
+					//ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
+					//commObj.addLog(QString::fromStdString(ss.str()));
+					//frame->Release();
+					//
+					//return 1;
+				}
+				if (norm(positionOld) - norm(Tvec) < 0.05)	//Iterative Method needs time to converge to solution
+				{
+					add(posRef, Tvec, posRef);
+					add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
+					numberSamples += 1;	//==-- one sample more :D
+					ss.str("");
+					ss << "Tvec = " << Tvec << "\n";
+					commObj.addLog(QString::fromStdString(ss.str()));
+				}
+
+
+				positionOld = Tvec;
+
+				Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
+				for (int i = 0; i < numberMarkers; i++)
+				{
+					circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 6, Scalar(0, 225, 0), 3);
+				}
+				projectCoordinateFrame(cFrame);
+				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
+				for (int i = 0; i < numberMarkers; i++)
+				{
+					circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
+				}
+				for (int i = 0; i < numberMarkers; i++)
+				{
+					//circle(cFrame, Point(list_points2dprojected[i].x, list_points2dprojected[i].y), 3, Scalar(0, 0, 255), );
+				}
+				QPixmap QPFrame;
+				QPFrame = Mat2QPixmap(cFrame);
+				commObj.changeImage(QPFrame);
+				QCoreApplication::processEvents();
+
 			}
 			frame->Release();
 		}
@@ -976,11 +918,11 @@ void test_Algorithm()
 
 	RvecOriginal = Rvec;
 	TvecOriginal = Tvec;
-	
+
 	multiply(list_points3d, 1., list_points3d);
 
 	projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
-	
+
 	ss.str("");
 	ss << "Unsorted Points 2D Projected \n";
 	ss << list_points2dProjected << "\n";
@@ -1114,9 +1056,56 @@ void setupKalmanFilter()
 
 void projectCoordinateFrame(Mat pictureFrame)
 {
-projectPoints(coordinateFrame, Rvec, Tvec, cameraMatrix, distCoeffs, coordinateFrameProjected);
-line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[3], Scalar(0, 0, 255), 2); //z-axis
-line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[1], Scalar(255, 0, 0), 2); //x-axis
-line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[2], Scalar(0, 255, 0), 2); //y-axis
+	projectPoints(coordinateFrame, Rvec, Tvec, cameraMatrix, distCoeffs, coordinateFrameProjected);
+	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[3], Scalar(0, 0, 255), 2); //z-axis
+	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[1], Scalar(255, 0, 0), 2); //x-axis
+	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[2], Scalar(0, 255, 0), 2); //y-axis
 }
 
+void setUpUDP()
+{
+	// Creating UDP slot
+	commObj.addLog("Opening UDP Port");
+	udpSocketCB = new QUdpSocket(0);
+	udpSocketDrone = new QUdpSocket(0);
+
+	QHostAddress bcast = QHostAddress("192.168.4.1");
+	udpSocketCB->connectToHost(bcast, 5000);
+
+	bcast = QHostAddress("192.168.4.2");
+	udpSocketDrone->connectToHost(bcast, 5000);
+
+	commObj.addLog("Opened UDP Port");
+
+}
+
+void setUpMMF()
+{
+	commObj.addLog("Creating MMF");
+
+	hMapFile = CreateFileMapping(
+		INVALID_HANDLE_VALUE,    // use paging file
+		NULL,                    // default security
+		PAGE_READWRITE,          // read/write access
+		0,                       // maximum object size (high-order DWORD)
+		256,                // maximum object size (low-order DWORD)
+		L"SIMULINK_MMF");                 // name of mapping object
+
+	if (hMapFile == NULL)
+	{
+		commObj.addLog("Could not create file mapping object");
+	}
+
+	pBuf = (LPTSTR)MapViewOfFile(hMapFile,   // handle to map object
+		FILE_MAP_ALL_ACCESS, // read/write permission
+		0,
+		0,
+		256);
+
+	if (pBuf == NULL)
+	{
+		commObj.addLog("Could not map view of file");
+	}
+
+	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
+}
