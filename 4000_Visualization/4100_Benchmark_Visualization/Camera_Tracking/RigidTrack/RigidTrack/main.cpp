@@ -34,6 +34,7 @@
 
 #include "main.h"
 #include "communication.h"
+#include "filt.h"
 
 using namespace CameraLibrary;
 using namespace cv;
@@ -49,6 +50,7 @@ Vec3d position = Vec3d();
 Vec3d eulerAngles = Vec3d();
 Vec3d positionOld = Vec3d();
 Vec3d velocity = Vec3d();
+Vec3d velocity_filtered = Vec3d();
 Vec3d posRef = Vec3d();
 Vec3d eulerRef = Vec3d();
 
@@ -120,6 +122,8 @@ LPCTSTR pBuf;
 
 TCHAR szMsg[] = TEXT("MMF Text");
 
+Filter *my_filter;
+
 
 int main(int argc, char *argv[])
 {
@@ -182,6 +186,15 @@ int main(int argc, char *argv[])
 	coordinateFrame[3] = cv::Point3d(0, 0, 300);
 
 	test_Algorithm();
+
+	my_filter = new Filter(LPF, 4, 0.1, 0.025); // LPF with 100Hz sampling time and 25Hz stopband frequency
+	char outfile1[80] = "taps.txt";
+	char outfile2[80] = "freqres.txt";
+	fprintf(stderr, "error_flag = %d\n", my_filter->get_error_flag());
+	if (my_filter->get_error_flag() < 0) exit(1);
+	my_filter->write_taps_to_file(outfile1);
+	my_filter->write_freqres_to_file(outfile2);
+
 	return a.exec();
 }
 
@@ -391,10 +404,12 @@ int start_camera() {
 				velocity[0] = (position[0] - positionOld[0]) / frameTime;
 				velocity[1] = (position[1] - positionOld[1]) / frameTime;
 				velocity[2] = (position[2] - positionOld[2]) / frameTime;
-				positionOld = position;
 
-				latitude = latitudeRef + atan(Value[0] / earthRadius);
-				longitude = longitudeRef + atan(Value[1] / earthRadius);
+				velocity_filtered[0] = my_filter->do_sample((double)velocity[0]);
+				velocity_filtered[1] = my_filter->do_sample((double)velocity[1]);
+				velocity_filtered[2] = my_filter->do_sample((double)velocity[2]);
+
+				positionOld = position;
 
 				Value[0] = position[0] / 1000.;
 				Value[1] = position[1] / 1000.;
@@ -403,8 +418,10 @@ int start_camera() {
 				Value[4] = eulerAngles[1];
 				Value[5] = eulerAngles[2];
 
-				CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
+				latitude = latitudeRef + atan(Value[0] / earthRadius);
+				longitude = longitudeRef + atan(Value[1] / earthRadius);
 
+				CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
 
 				// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
 				if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
@@ -479,16 +496,16 @@ int start_camera() {
 			data.setNum((double)(Value[2]));
 			udpSocketDrone->write(data);
 			//Send Heading
-			data.setNum((double)(Value[2]));
+			data.setNum((double)(eulerAngles[2]));
 			udpSocketDrone->write(data);
 			//Send Velocity X
-			data.setNum((double)(velocity[0]));
+			data.setNum((double)(velocity_filtered[0] / 1000.));
 			udpSocketDrone->write(data);
 			//Send Velocity Y
-			data.setNum((double)(velocity[1]));
+			data.setNum((double)(velocity_filtered[1] / 1000.));
 			udpSocketDrone->write(data);
 			//Send Velocity Z
-			data.setNum((double)(velocity[2]));
+			data.setNum((double)(velocity_filtered[2] / 1000.));
 			udpSocketDrone->write(data);
 
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);

@@ -1,17 +1,17 @@
 clear all
 ImportLog
-samples = 25000*100;
+samples = 15*100;
 
-%x = x(1:samples)
-%y = y(1:samples)
-%z = z(1:samples)
-%velx = velx(1:samples)
-%vely = vely(1:samples)
-%velz = velz(1:samples)
-%euler1 = euler1(1:samples)
-%euler2 = euler2(1:samples)
-%euler3 = euler3(1:samples)
-%t = t(1:samples)
+% x = x(1:samples)
+% y = y(1:samples)
+% z = z(1:samples)
+% velx = velx(1:samples)
+% vely = vely(1:samples)
+% velz = velz(1:samples)
+% euler1 = euler1(1:samples)
+% euler2 = euler2(1:samples)
+% euler3 = euler3(1:samples)
+% t = t(1:samples)
 figure(1)
 subplot(3,1,1)
 plot(t, [x, y, z])
@@ -50,3 +50,13 @@ sprintf('Standard Deviation of Euler 3 is %f °', std(euler3))
 
 t=t-t(1);
 posz_sim=timeseries(z,t);
+
+velz_filtered = doFilter(velz);
+plot(t, velz, t, velz_filtered);
+ylim([-3000, 3000])
+
+velx_filtered = doFilter(velx);
+plot(t, velx, t, velx_filtered);
+ylim([-3000, 3000])
+
+

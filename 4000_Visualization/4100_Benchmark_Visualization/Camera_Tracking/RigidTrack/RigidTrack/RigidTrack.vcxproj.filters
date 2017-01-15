@@ -68,6 +68,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_communication.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="filt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="RigidTrack.h">
@@ -97,6 +100,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="_modelest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="filt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
