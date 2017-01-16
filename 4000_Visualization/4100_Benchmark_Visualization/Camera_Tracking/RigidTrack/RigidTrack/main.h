@@ -40,3 +40,4 @@ using namespace cv;
 	void projectCoordinateFrame(Mat pictureFrame);
 	void setUpUDP();
 	void setUpMMF();
+	void sendDataUDP(cv::Vec3d &WGS, cv::Vec3d &positionNED, cv::Vec3d &velocity, cv::Vec3d &Euler);

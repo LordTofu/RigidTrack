@@ -47,6 +47,7 @@ double frameTime = 1 / 100;
 double timeOld = 0.0;
 
 Vec3d position = Vec3d();
+Vec3d WGS84 = Vec3d();
 Vec3d eulerAngles = Vec3d();
 Vec3d positionOld = Vec3d();
 Vec3d velocity = Vec3d();
@@ -112,6 +113,10 @@ Core::DistortionModel distModel;
 // IP adress of the circuit breaker that disables the drone if a specified region is exited. 
 QUdpSocket *udpSocketCB;
 QUdpSocket *udpSocketDrone;
+QHostAddress IPAdressCB = QHostAddress("192.168.4.1");
+QHostAddress IPAdressDrone = QHostAddress("192.168.1.205");
+QByteArray datagram;
+QDataStream out;
 
 const int BACKBUFFER_BITSPERPIXEL = 8;
 std::string strBuf;
@@ -196,52 +201,18 @@ int main(int argc, char *argv[])
 	my_filter->write_freqres_to_file(outfile2);
 
 	setUpUDP();
-
-	velocity_filtered[0] = 23.123;
-	velocity_filtered[1] = 24.213;
-	velocity_filtered[2] = -25.123;
-	eulerAngles[0] = 99.1;
-	eulerAngles[1] = 99.2;
-	eulerAngles[2] = 99.3;
-
-
-
+	WGS84[0] = 0.0;
+	WGS84[1] = 0.0;
+	WGS84[2] = 0.0;
 	
-	//Send Latitude
-	//data.setNum((float)0);
-	//udpSocketDrone->write(data);
-	//Send Longitude
-	//data.setNum((float)0);
-	//udpSocketDrone->write(data);
-	//Send Altitude
-	//data.setNum((float)0);
-	//udpSocketDrone->write(data);
-	//Send Velocity X
-	//data.setNum((float)(velocity_filtered[0] / 1000.));
-	//udpSocketDrone->write(data);
-	//Send Velocity Y
-	//data.setNum((float)(velocity_filtered[1] / 1000.));
-	//udpSocketDrone->write(data);
-	//Send Velocity Z
-	data.setNum(-9991);
-	udpSocketDrone->write(data);
-	data.setNum((int)((velocity_filtered[2]+ 3276)*10));
-	udpSocketDrone->write(data);
-	//Send Roll
-	data.setNum(-9992);
-	udpSocketDrone->write(data);
-	data.setNum((int)((eulerAngles[0]) * 100));
-	udpSocketDrone->write(data);
-	//Send Pitch
-	data.setNum(-9993);
-	udpSocketDrone->write(data);
-	data.setNum((int)((eulerAngles[1]) * 100));
-	udpSocketDrone->write(data);
-	//Send Heading
-	data.setNum(-9994);
-	udpSocketDrone->write(data);
-	data.setNum((int)((eulerAngles[2]) * 100));
-	udpSocketDrone->write(data);
+	velocity_filtered[0] = 0.1;
+	velocity_filtered[1] = 0.2;
+	velocity_filtered[2] = 0.3;
+	eulerAngles[0] = 1.0;
+	eulerAngles[1] = 1.1;
+	eulerAngles[2] = 1.2;
+
+	sendDataUDP(WGS84, WGS84, velocity_filtered, eulerAngles);
 
 	return a.exec();
 }
@@ -457,6 +428,8 @@ int start_camera() {
 				velocity_filtered[1] = my_filter->do_sample((double)velocity[1]);
 				velocity_filtered[2] = my_filter->do_sample((double)velocity[2]);
 
+				velocity_filtered *= 0.001; // mm/s to m/s
+
 				positionOld = position;
 
 				Value[0] = position[0] / 1000.;
@@ -469,6 +442,8 @@ int start_camera() {
 				latitude = latitudeRef + atan(Value[0] / earthRadius);
 				longitude = longitudeRef + atan(Value[1] / earthRadius);
 
+				sendDataUDP(WGS84, WGS84, velocity_filtered, eulerAngles);
+				
 				CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
 
 				// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
@@ -530,26 +505,7 @@ int start_camera() {
 			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
 			logfile.close();
 
-			data.setNum(-9991);
-			udpSocketDrone->write(data);
-			data.setNum((int)((velocity_filtered[2] + 3276) * 10));
-			udpSocketDrone->write(data);
-			//Send Roll
-			data.setNum(-9992);
-			udpSocketDrone->write(data);
-			data.setNum((int)((eulerAngles[0]) * 100));
-			udpSocketDrone->write(data);
-			//Send Pitch
-			data.setNum(-9993);
-			udpSocketDrone->write(data);
-			data.setNum((int)((eulerAngles[1]) * 100));
-			udpSocketDrone->write(data);
-			//Send Heading
-			data.setNum(-9994);
-			udpSocketDrone->write(data);
-			data.setNum((int)((eulerAngles[2]) * 100));
-			udpSocketDrone->write(data);
-			
+
 
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
 
@@ -1132,9 +1088,6 @@ void setUpUDP()
 	QHostAddress bcast = QHostAddress("192.168.4.1");
 	udpSocketCB->connectToHost(bcast, 9156);
 
-	bcast = QHostAddress("192.168.43.196");
-	udpSocketDrone->connectToHost(bcast, 9155);
-
 	commObj.addLog("Opened UDP Port");
 
 }
@@ -1168,4 +1121,16 @@ void setUpMMF()
 	}
 
 	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
+}
+
+void sendDataUDP(cv::Vec3d &WGS, cv::Vec3d &positionNED, cv::Vec3d &velocity, cv::Vec3d &Euler)
+{  
+	datagram.clear();
+	QDataStream out(&datagram, QIODevice::WriteOnly);
+	out.setVersion(QDataStream::Qt_4_3);
+	out << (float)WGS[0]			<< (float)WGS[1]			<< (float)WGS[2];
+	out << (float)positionNED[0]	<< (float)positionNED[1]	<< (float)positionNED[2];
+	out << (float)velocity[0]		<< (float)velocity[1]		<< (float)velocity[2];
+	out << (float)Euler[0]			<< (float)Euler[1]			<< (float)Euler[2];
+	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
 }
