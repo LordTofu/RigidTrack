@@ -16,7 +16,7 @@ wifi.setmode(wifi.STATION)
 wifi.sta.config("DroneWifi","DroneWifi")
 print(wifi.sta.getip())
 
-NextFile = "circuitBreaker.lua"
+NextFile = "telemetry.lua"
     l = file.list();
     for k,v in pairs(l) do
         print("name:"..k, "size:"..v)
@@ -30,3 +30,4 @@ NextFile = "circuitBreaker.lua"
         
     end
 print("End of Startup")
+print(wifi.sta.getip())

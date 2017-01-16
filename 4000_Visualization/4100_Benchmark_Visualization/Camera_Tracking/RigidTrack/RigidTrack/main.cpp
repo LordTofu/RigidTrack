@@ -195,6 +195,54 @@ int main(int argc, char *argv[])
 	my_filter->write_taps_to_file(outfile1);
 	my_filter->write_freqres_to_file(outfile2);
 
+	setUpUDP();
+
+	velocity_filtered[0] = 23.123;
+	velocity_filtered[1] = 24.213;
+	velocity_filtered[2] = -25.123;
+	eulerAngles[0] = 99.1;
+	eulerAngles[1] = 99.2;
+	eulerAngles[2] = 99.3;
+
+
+
+	
+	//Send Latitude
+	//data.setNum((float)0);
+	//udpSocketDrone->write(data);
+	//Send Longitude
+	//data.setNum((float)0);
+	//udpSocketDrone->write(data);
+	//Send Altitude
+	//data.setNum((float)0);
+	//udpSocketDrone->write(data);
+	//Send Velocity X
+	//data.setNum((float)(velocity_filtered[0] / 1000.));
+	//udpSocketDrone->write(data);
+	//Send Velocity Y
+	//data.setNum((float)(velocity_filtered[1] / 1000.));
+	//udpSocketDrone->write(data);
+	//Send Velocity Z
+	data.setNum(-9991);
+	udpSocketDrone->write(data);
+	data.setNum((int)((velocity_filtered[2]+ 3276)*10));
+	udpSocketDrone->write(data);
+	//Send Roll
+	data.setNum(-9992);
+	udpSocketDrone->write(data);
+	data.setNum((int)((eulerAngles[0]) * 100));
+	udpSocketDrone->write(data);
+	//Send Pitch
+	data.setNum(-9993);
+	udpSocketDrone->write(data);
+	data.setNum((int)((eulerAngles[1]) * 100));
+	udpSocketDrone->write(data);
+	//Send Heading
+	data.setNum(-9994);
+	udpSocketDrone->write(data);
+	data.setNum((int)((eulerAngles[2]) * 100));
+	udpSocketDrone->write(data);
+
 	return a.exec();
 }
 
@@ -426,7 +474,7 @@ int start_camera() {
 				// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
 				if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
 				{
-					if ((eulerAngles[0] < 30 || eulerAngles[1] < 30 || eulerAngles[2] < 60) || debug == true)
+					if ((abs(eulerAngles[0]) < 30 || abs(eulerAngles[1]) < 30) || debug == true)
 					{
 						if (v == 3) {
 							data.setNum((int)(1));
@@ -482,31 +530,26 @@ int start_camera() {
 			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
 			logfile.close();
 
-			// The following lines send the data to the drone, not correct yet!!!
-			//Send Start Packet
-			data.setNum((int)(-9991));
+			data.setNum(-9991);
 			udpSocketDrone->write(data);
-			//Send Longitude
-			data.setNum(latitude);
+			data.setNum((int)((velocity_filtered[2] + 3276) * 10));
 			udpSocketDrone->write(data);
-			//Send latitude
-			data.setNum(longitude);
+			//Send Roll
+			data.setNum(-9992);
 			udpSocketDrone->write(data);
-			//Send Height
-			data.setNum((double)(Value[2]));
+			data.setNum((int)((eulerAngles[0]) * 100));
+			udpSocketDrone->write(data);
+			//Send Pitch
+			data.setNum(-9993);
+			udpSocketDrone->write(data);
+			data.setNum((int)((eulerAngles[1]) * 100));
 			udpSocketDrone->write(data);
 			//Send Heading
-			data.setNum((double)(eulerAngles[2]));
+			data.setNum(-9994);
 			udpSocketDrone->write(data);
-			//Send Velocity X
-			data.setNum((double)(velocity_filtered[0] / 1000.));
+			data.setNum((int)((eulerAngles[2]) * 100));
 			udpSocketDrone->write(data);
-			//Send Velocity Y
-			data.setNum((double)(velocity_filtered[1] / 1000.));
-			udpSocketDrone->write(data);
-			//Send Velocity Z
-			data.setNum((double)(velocity_filtered[2] / 1000.));
-			udpSocketDrone->write(data);
+			
 
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
 
@@ -1087,10 +1130,10 @@ void setUpUDP()
 	udpSocketDrone = new QUdpSocket(0);
 
 	QHostAddress bcast = QHostAddress("192.168.4.1");
-	udpSocketCB->connectToHost(bcast, 5000);
+	udpSocketCB->connectToHost(bcast, 9156);
 
-	bcast = QHostAddress("192.168.4.2");
-	udpSocketDrone->connectToHost(bcast, 5000);
+	bcast = QHostAddress("192.168.43.196");
+	udpSocketDrone->connectToHost(bcast, 9155);
 
 	commObj.addLog("Opened UDP Port");
 
