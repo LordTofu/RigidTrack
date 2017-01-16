@@ -1,3 +1,4 @@
+print("Started Circuit Breaker") 
 print(wifi.sta.getip())
 node.setcpufreq(node.CPU160MHZ)
 
@@ -7,8 +8,8 @@ safety_start = false
 
 gpio.mode(ENABLE_PIN, gpio.OUTPUT)
 
--- Timer every 50 ms
-tmr.register(0, 50, tmr.ALARM_SEMI, function() 
+-- Timer every 100 ms
+tmr.register(0, 100, tmr.ALARM_SEMI, function() 
     if enable then 
         gpio.write(ENABLE_PIN, 1)
         print("Armed");

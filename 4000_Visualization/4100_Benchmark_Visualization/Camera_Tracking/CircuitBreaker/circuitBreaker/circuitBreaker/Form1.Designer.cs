@@ -54,7 +54,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 40;
+            this.timer1.Interval = 25;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // tbIP
@@ -71,7 +71,7 @@
             this.tbPort.Name = "tbPort";
             this.tbPort.Size = new System.Drawing.Size(150, 20);
             this.tbPort.TabIndex = 4;
-            this.tbPort.Text = "5000";
+            this.tbPort.Text = "9156";
             // 
             // label2
             // 
