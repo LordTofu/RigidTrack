@@ -4,7 +4,7 @@ print("Started Telemetry")
 
 payload = {} -- 0 is vel z 1 is roll 2 is pitch 3 is heading
 for i = 1, 4 do
-    payload[i] = 0.01
+    payload[i] = "0000"
 end
 
 tmr.register(0, 100, tmr.ALARM_SEMI, function() 
@@ -26,6 +26,8 @@ function udp_received(srv, c)
     elseif command == -9994 then index = 4
     else
         command = string.format("%x", command);
+        if string.len(command)==0 then command = "0000"..command end
+        if string.len(command)==1 then command = "000"..command end
         if string.len(command)==2 then command = "00"..command end
         if string.len(command)==3 then command = "0"..command end
         payload[index] = command
