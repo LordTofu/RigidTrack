@@ -114,7 +114,8 @@ Core::DistortionModel distModel;
 QUdpSocket *udpSocketCB;
 QUdpSocket *udpSocketDrone;
 QHostAddress IPAdressCB = QHostAddress("192.168.4.1");
-QHostAddress IPAdressDrone = QHostAddress("192.168.1.205");
+QHostAddress IPAdressDrone = QHostAddress("127.0.0.1");
+//QHostAddress IPAdressDrone = QHostAddress("192.168.43.189");
 QByteArray datagram;
 QDataStream out;
 

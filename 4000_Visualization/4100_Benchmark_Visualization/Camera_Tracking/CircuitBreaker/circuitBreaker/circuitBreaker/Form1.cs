@@ -21,7 +21,7 @@ namespace circuitBreaker
         static void SendUdp(int srcPort, string dstIp, int dstPort, byte[] data)
         {
             using (UdpClient c = new UdpClient(srcPort))
-                c.Send(data, data.Length, dstIp, dstPort);
+            c.Send(data, data.Length, dstIp, dstPort);
         }
 
         public Form1()
