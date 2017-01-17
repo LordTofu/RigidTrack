@@ -212,7 +212,11 @@ int main(int argc, char *argv[])
 	eulerAngles[1] = 1.1;
 	eulerAngles[2] = 1.2;
 
-	sendDataUDP(WGS84, WGS84, velocity_filtered, eulerAngles);
+	sendDataUDP(WGS84, velocity_filtered, eulerAngles);
+	WGS84 *= -1;
+	velocity_filtered *= -1;
+	eulerAngles *= -1;
+	sendDataUDP(WGS84, velocity_filtered, eulerAngles);
 
 	return a.exec();
 }
@@ -318,6 +322,7 @@ int start_camera() {
 	//Helper Variables used to print ouput only every 30th time and kick Circuit Breaker
 	int u = 0;
 	int v = 0;
+	int w = 0;
 	int framesDropped = 0; // if a marker is not visible increase this counter.
 	double projectionError = 0; // equals the quality of the tracking
 
@@ -337,7 +342,7 @@ int start_camera() {
 			framesDropped++;
 			u++;
 			v++;
-
+			w++;
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
 			if (frame->ObjectCount() == numberMarkers || debug)
@@ -442,7 +447,12 @@ int start_camera() {
 				latitude = latitudeRef + atan(Value[0] / earthRadius);
 				longitude = longitudeRef + atan(Value[1] / earthRadius);
 
-				sendDataUDP(WGS84, WGS84, velocity_filtered, eulerAngles);
+				// Send Position over WiFi with 10 Hz
+				if (w == 10) {
+					sendDataUDP(WGS84, velocity_filtered, eulerAngles);
+					v = 0;
+				}
+				
 				
 				CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
 
@@ -1123,13 +1133,12 @@ void setUpMMF()
 	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
 }
 
-void sendDataUDP(cv::Vec3d &WGS, cv::Vec3d &positionNED, cv::Vec3d &velocity, cv::Vec3d &Euler)
+void sendDataUDP(cv::Vec3d &WGS, cv::Vec3d &velocity, cv::Vec3d &Euler)
 {  
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_3);
 	out << (float)WGS[0]			<< (float)WGS[1]			<< (float)WGS[2];
-	out << (float)positionNED[0]	<< (float)positionNED[1]	<< (float)positionNED[2];
 	out << (float)velocity[0]		<< (float)velocity[1]		<< (float)velocity[2];
 	out << (float)Euler[0]			<< (float)Euler[1]			<< (float)Euler[2];
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
