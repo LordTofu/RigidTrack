@@ -1,13 +1,17 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-
+extern "C" {
+  #include "user_interface.h"
+  }
 WiFiUDP Udp1;
   unsigned int localUdpPort = 9155;
   char incomingPacket[36];
+  char myhostname[] = "ESP_Telemetry";
   
 
 void setup()
 {
+  wifi_station_set_hostname(myhostname);
   Serial.begin(115200);
   WiFi.begin("DroneWifi", "DroneWifi");
   

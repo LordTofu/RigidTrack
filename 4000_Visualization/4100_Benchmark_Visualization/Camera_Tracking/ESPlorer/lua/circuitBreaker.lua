@@ -9,13 +9,11 @@ safety_start = false
 gpio.mode(ENABLE_PIN, gpio.OUTPUT)
 
 -- Timer every 100 ms
-tmr.register(0, 100, tmr.ALARM_SEMI, function() 
+tmr.register(0, 200, tmr.ALARM_SEMI, function() 
     if enable then 
         gpio.write(ENABLE_PIN, 1)
-        print("Armed");
     else
         gpio.write(ENABLE_PIN, 0)
-        print("Disabled");
     end
     enable = false
     tmr.start(0)
