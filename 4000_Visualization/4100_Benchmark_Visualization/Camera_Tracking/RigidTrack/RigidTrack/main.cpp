@@ -67,7 +67,7 @@ std::ofstream logfile;
 
 
 int intIntensity = 6; // max Intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
-int intExposure = 60; // max is 60 increase if markers are badly visible
+int intExposure = 100; // max is 480 increase if markers are badly visible
 int intFrameRate = 100;
 int intThreshold = 100;
 
@@ -102,7 +102,7 @@ double minPointDistance = 5000;
 int currentMinIndex = 0;
 bool gotOrder = true;
 
-bool enableKalman = false;
+bool enableKalman = true;
 KalmanFilter KF(6, 3, 0);
 Mat_<float> measurement(3, 1);
 
@@ -161,10 +161,11 @@ int main(int argc, char *argv[])
 	//list_points3d[3] = cv::Point3d(-1000.0,     0.0, 40.0);
 
 	// Coordinates of the markers in plane reference or arbitrary other frame for x-Star
-	list_points3d[0] = cv::Point3d(406.0, -155.0, 0.0);
-	list_points3d[1] = cv::Point3d(0.0, -495.0, 0.0);
-	list_points3d[2] = cv::Point3d(-60.0, -80.0, -205.0);
-	list_points3d[3] = cv::Point3d(-500.0, 00.0, 0.0);
+	//list_points3d[0] = cv::Point3d(7.5, 0.0, -26.5);
+	list_points3d[0] = cv::Point3d(212.1, 0.0, -21.5);
+	list_points3d[1] = cv::Point3d(-66.5, 920.0, -23.0);
+	list_points3d[2] = cv::Point3d(-159.0, 250.0, -7.0);
+	list_points3d[3] = cv::Point3d(-720.0, 0.0, -13.0);
 
 	//list_points3d[0] = cv::Point3d( 1500.0, -2160.0/2.0, 0.0);
 	//list_points3d[1] = cv::Point3d(    0.0, -2160.0/2.0, 0.0);
@@ -205,7 +206,7 @@ int main(int argc, char *argv[])
 	WGS84[0] = 0.0;
 	WGS84[1] = 0.0;
 	WGS84[2] = 0.0;
-	
+
 	velocity_filtered[0] = 0.1;
 	velocity_filtered[1] = 0.2;
 	velocity_filtered[2] = 0.3;
@@ -453,8 +454,8 @@ int start_camera() {
 					sendDataUDP(WGS84, velocity_filtered, eulerAngles);
 					v = 0;
 				}
-				
-				
+
+
 				CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
 
 				// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
@@ -1052,6 +1053,51 @@ void test_Algorithm()
 
 	Rvec = RvecOriginal;
 	Tvec = TvecOriginal;
+
+	if (numberMarkers == 4)
+	{
+		logfile.open("MarkerSimRes.txt", std::ios::app);
+		for (int u = 0; u < 1000; u++)
+		{
+			for (int i = 0; i < numberMarkers; i++)
+			{
+				list_points2dProjected[i].x = 0; 
+				list_points2dProjected[i].y = 0;
+			}
+			projectPoints(list_points3d, RvecOriginal, TvecOriginal, cameraMatrix, distCoeffs, list_points2dProjected);
+			Mat mean = (cv::Mat_<double>(4, 1) << 0.0, 0.0, 0.0, 0.0);
+			Mat stddev = (cv::Mat_<double>(4, 1) << 0.1, 0.1, 0.1, 0.1);
+			randn(noise, mean, stddev);
+			add(list_points2dProjected, noise, list_points2dProjected);
+
+			_methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
+			Rvec = cv::Mat::zeros(3, 1, CV_64F);
+			Tvec = cv::Mat::zeros(3, 1, CV_64F);
+			solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
+			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+			for (int i = 0; i < numberMarkers; i++)
+			{
+				circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 3, Scalar(255, 0, 0), 3);
+			}
+			QPixmap QPFrame;
+			QPFrame = Mat2QPixmap(cFrame);
+			commObj.changeImage(QPFrame);
+			QCoreApplication::processEvents();
+			commObj.addLog(QString::fromStdString(ss.str()));
+
+			Rodrigues(Rvec, Rmat);
+			//==-- Euler Angles, finally 
+			getEulerAngles(Rmat, eulerAngles);
+
+			
+			logfile << Tvec.at<double>(0) << ";" << Tvec.at<double>(1) << ";" << Tvec.at<double>(2) << ";";
+			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << "\n";
+			
+
+
+		}
+		logfile.close();
+	}
 }
 
 void setupKalmanFilter()
@@ -1076,9 +1122,9 @@ void setupKalmanFilter()
 	KF.statePre.at<float>(5) = 0;
 
 	setIdentity(KF.measurementMatrix);
-	setIdentity(KF.processNoiseCov, Scalar::all(1e-0));
-	setIdentity(KF.measurementNoiseCov, Scalar::all(1e1));
-	setIdentity(KF.errorCovPost, Scalar::all(1e-0));
+	setIdentity(KF.processNoiseCov, Scalar::all(1e-2));
+	setIdentity(KF.measurementNoiseCov, Scalar::all(1e-2));
+	setIdentity(KF.errorCovPost, Scalar::all(1e-2));
 }
 
 void projectCoordinateFrame(Mat pictureFrame)
@@ -1135,12 +1181,12 @@ void setUpMMF()
 }
 
 void sendDataUDP(cv::Vec3d &WGS, cv::Vec3d &velocity, cv::Vec3d &Euler)
-{  
+{
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_3);
-	out << (float)WGS[0]			<< (float)WGS[1]			<< (float)WGS[2];
-	out << (float)velocity[0]		<< (float)velocity[1]		<< (float)velocity[2];
-	out << (float)Euler[0]			<< (float)Euler[1]			<< (float)Euler[2];
+	out << (float)WGS[0] << (float)WGS[1] << (float)WGS[2];
+	out << (float)velocity[0] << (float)velocity[1] << (float)velocity[2];
+	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2];
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
 }

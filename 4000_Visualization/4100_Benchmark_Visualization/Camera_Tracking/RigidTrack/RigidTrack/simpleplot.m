@@ -55,8 +55,8 @@ velz_filtered = doFilter(velz);
 plot(t, velz, t, velz_filtered);
 ylim([-3000, 3000])
 
-velx_filtered = doFilter(velx);
-plot(t, velx, t, velx_filtered);
-ylim([-3000, 3000])
+% velx_filtered = doFilter(velx);
+% plot(t, velx, t, velx_filtered);
+% ylim([-3000, 3000])
 
 
