@@ -31,6 +31,7 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <random>
 
 #include "main.h"
 #include "communication.h"
@@ -48,10 +49,9 @@ double timeOld = 0.0;
 
 Vec3d position = Vec3d();
 Vec3d WGS84 = Vec3d();
-Vec3d eulerAngles = Vec3d();
+Vec3d eulerAngles = Vec3d(); // Roll Pitch Heading in this order
 Vec3d positionOld = Vec3d();
 Vec3d velocity = Vec3d();
-Vec3d velocity_filtered = Vec3d();
 Vec3d posRef = Vec3d();
 Vec3d eulerRef = Vec3d();
 
@@ -102,9 +102,10 @@ double minPointDistance = 5000;
 int currentMinIndex = 0;
 bool gotOrder = true;
 
-bool enableKalman = true;
+bool enableKalman = false;
 KalmanFilter KF(6, 3, 0);
 Mat_<float> measurement(3, 1);
+int decimator = 10; // Decimate the velocity frequency from 100Hz to 10Hz
 
 Mat cameraMatrix;
 Mat distCoeffs;
@@ -161,8 +162,8 @@ int main(int argc, char *argv[])
 	//list_points3d[3] = cv::Point3d(-1000.0,     0.0, 40.0);
 
 	// Coordinates of the markers in plane reference or arbitrary other frame for x-Star
-	//list_points3d[0] = cv::Point3d(7.5, 0.0, -26.5);
-	list_points3d[0] = cv::Point3d(212.1, 0.0, -21.5);
+	list_points3d[0] = cv::Point3d(7.5, 0.0, -26.5);
+	//list_points3d[0] = cv::Point3d(212.1, 0.0, -21.5);
 	list_points3d[1] = cv::Point3d(-66.5, 920.0, -23.0);
 	list_points3d[2] = cv::Point3d(-159.0, 250.0, -7.0);
 	list_points3d[3] = cv::Point3d(-720.0, 0.0, -13.0);
@@ -194,7 +195,7 @@ int main(int argc, char *argv[])
 
 	test_Algorithm();
 
-	my_filter = new Filter(LPF, 4, 0.1, 0.025); // LPF with 100Hz sampling time and 25Hz stopband frequency
+	my_filter = new Filter(LPF, 3, 0.1, 0.005); // LPF with 100Hz sampling time and 5Hz stopband frequency
 	char outfile1[80] = "taps.txt";
 	char outfile2[80] = "freqres.txt";
 	fprintf(stderr, "error_flag = %d\n", my_filter->get_error_flag());
@@ -207,18 +208,18 @@ int main(int argc, char *argv[])
 	WGS84[1] = 0.0;
 	WGS84[2] = 0.0;
 
-	velocity_filtered[0] = 0.1;
-	velocity_filtered[1] = 0.2;
-	velocity_filtered[2] = 0.3;
+	velocity[0] = 0.1;
+	velocity[1] = 0.2;
+	velocity[2] = 0.3;
 	eulerAngles[0] = 1.0;
 	eulerAngles[1] = 1.1;
 	eulerAngles[2] = 1.2;
 
-	sendDataUDP(WGS84, velocity_filtered, eulerAngles);
+	sendDataUDP(velocity[2], eulerAngles);
 	WGS84 *= -1;
-	velocity_filtered *= -1;
+	velocity *= -1;
 	eulerAngles *= -1;
-	sendDataUDP(WGS84, velocity_filtered, eulerAngles);
+	sendDataUDP(velocity[2], eulerAngles);
 
 	return a.exec();
 }
@@ -342,9 +343,9 @@ int start_camera() {
 		if (frame)
 		{
 			framesDropped++;
-			u++;
-			v++;
-			w++;
+			u++;  // helper variable to print data every x-frame
+			v++;  // helper variable to print data every x-frame
+			w++;  // helper variable for decimator and udp send
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
 			if (frame->ObjectCount() == numberMarkers || debug)
@@ -425,19 +426,23 @@ int start_camera() {
 					position[2] = (double)estimation.at<float>(2);
 				}
 
-				frameTime = frame->TimeStamp() - timeOld;
-				timeOld = frame->TimeStamp();
-				velocity[0] = (position[0] - positionOld[0]) / frameTime;
-				velocity[1] = (position[1] - positionOld[1]) / frameTime;
-				velocity[2] = (position[2] - positionOld[2]) / frameTime;
+				// Calculate velocity and send it over WiFi with 10 Hz
+				if (w == decimator) {
+					frameTime = frame->TimeStamp() - timeOld;
+					timeOld = frame->TimeStamp();
+					velocity[0] = (position[0] - positionOld[0]) / frameTime;
+					velocity[1] = (position[1] - positionOld[1]) / frameTime;
+					velocity[2] = (position[2] - positionOld[2]) / frameTime;
+					positionOld = position;
+					sendDataUDP(velocity[2], eulerAngles);
+					w = 0;
+				}
 
-				velocity_filtered[0] = my_filter->do_sample((double)velocity[0]);
-				velocity_filtered[1] = my_filter->do_sample((double)velocity[1]);
-				velocity_filtered[2] = my_filter->do_sample((double)velocity[2]);
-
-				velocity_filtered *= 0.001; // mm/s to m/s
-
-				positionOld = position;
+				//velocity_filtered[0] = my_filter->do_sample((double)velocity[0]);
+				//velocity_filtered[1] = my_filter->do_sample((double)velocity[1]);
+				//velocity_filtered[2] = my_filter->do_sample((double)velocity[2]);
+				//
+				//velocity_filtered *= 0.001; // mm/s to m/s
 
 				Value[0] = position[0] / 1000.;
 				Value[1] = position[1] / 1000.;
@@ -449,21 +454,16 @@ int start_camera() {
 				latitude = latitudeRef + atan(Value[0] / earthRadius);
 				longitude = longitudeRef + atan(Value[1] / earthRadius);
 
-				// Send Position over WiFi with 10 Hz
-				if (w == 10) {
-					sendDataUDP(WGS84, velocity_filtered, eulerAngles);
-					v = 0;
-				}
+				
 
-
-				CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double));
+				//CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double)); // enable for UE visualization
 
 				// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
 				if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
 				{
 					if ((abs(eulerAngles[0]) < 30 || abs(eulerAngles[1]) < 30) || debug == true)
 					{
-						if (v == 3) {
+						if (v == 5) {
 							data.setNum((int)(1));
 							udpSocketCB->write(data);
 							v = 0;
@@ -487,7 +487,7 @@ int start_camera() {
 			}
 
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
-			if (projectionError > 50 && debug == false)
+			if (projectionError > 10 && debug == false)
 			{
 				framesDropped++;
 			}
@@ -522,6 +522,7 @@ int start_camera() {
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
 
 			cvtColor(matFrame, cFrame, COLOR_GRAY2RGB);
+
 			projectCoordinateFrame(cFrame);
 
 			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
@@ -1056,8 +1057,10 @@ void test_Algorithm()
 
 	if (numberMarkers == 4)
 	{
+		std::default_random_engine generator;
+		std::normal_distribution<double> distribution(0.0, 3);
 		logfile.open("MarkerSimRes.txt", std::ios::app);
-		for (int u = 0; u < 1000; u++)
+		for (int u = 0; u < 0; u++)
 		{
 			for (int i = 0; i < numberMarkers; i++)
 			{
@@ -1065,20 +1068,25 @@ void test_Algorithm()
 				list_points2dProjected[i].y = 0;
 			}
 			projectPoints(list_points3d, RvecOriginal, TvecOriginal, cameraMatrix, distCoeffs, list_points2dProjected);
-			Mat mean = (cv::Mat_<double>(4, 1) << 0.0, 0.0, 0.0, 0.0);
-			Mat stddev = (cv::Mat_<double>(4, 1) << 0.1, 0.1, 0.1, 0.1);
-			randn(noise, mean, stddev);
+			
+			for (int i = 0; i < numberMarkers; i++)
+			{
+				noise[i].x = distribution(generator);
+				noise[i].y = distribution(generator);
+			}
+
 			add(list_points2dProjected, noise, list_points2dProjected);
+			for (int i = 0; i < numberMarkers; i++)
+			{
+				circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 3, Scalar(255, 0, 0), 3);
+			}
 
 			_methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 			Rvec = cv::Mat::zeros(3, 1, CV_64F);
 			Tvec = cv::Mat::zeros(3, 1, CV_64F);
 			solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
 			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
-			for (int i = 0; i < numberMarkers; i++)
-			{
-				circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 3, Scalar(255, 0, 0), 3);
-			}
+			
 			QPixmap QPFrame;
 			QPFrame = Mat2QPixmap(cFrame);
 			commObj.changeImage(QPFrame);
@@ -1180,13 +1188,12 @@ void setUpMMF()
 	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
 }
 
-void sendDataUDP(cv::Vec3d &WGS, cv::Vec3d &velocity, cv::Vec3d &Euler)
+void sendDataUDP(double &velocityz, cv::Vec3d &Euler)
 {
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_3);
-	out << (float)WGS[0] << (float)WGS[1] << (float)WGS[2];
-	out << (float)velocity[0] << (float)velocity[1] << (float)velocity[2];
-	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2];
+	out << (float)velocityz;  // velocity z
+	out << (float)Euler[0] << (float)Euler[1]; // Roll Pitch 
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
 }

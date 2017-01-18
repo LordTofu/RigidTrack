@@ -38,16 +38,6 @@ ylim([-180, 180])
 grid on;
 grid minor;
 
-sprintf('Standard Deviation of Position X is %f mm', std(x))
-sprintf('Standard Deviation of Position Y is %f mm', std(y))
-sprintf('Standard Deviation of Position Z is %f mm', std(z))
-sprintf('Standard Deviation of Velocity X is %f mm/s', std(velx))
-sprintf('Standard Deviation of Velocity Y is %f mm/s', std(vely))
-sprintf('Standard Deviation of Velocity Z is %f mm/s', std(velz))
-sprintf('Standard Deviation of Euler 1 is %f °', std(euler1))
-sprintf('Standard Deviation of Euler 2 is %f °', std(euler2))
-sprintf('Standard Deviation of Euler 3 is %f °', std(euler3))
-
 t=t-t(1);
 posz_sim=timeseries(z,t);
 
@@ -69,4 +59,14 @@ velz_filtered = doFilter(velz);
 plot(t, velz, t_downSamp, velz_downSamp);
 ylim([-3000, 3000])
 
+sprintf('Standard Deviation of Position X is %f mm', std(x))
+sprintf('Standard Deviation of Position Y is %f mm', std(y))
+sprintf('Standard Deviation of Position Z is %f mm', std(z))
+sprintf('Standard Deviation of Velocity X is %f mm/s', std(velx))
+sprintf('Standard Deviation of Velocity Y is %f mm/s', std(vely))
+sprintf('Standard Deviation of Velocity Z is %f mm/s', std(velz))
+sprintf('Standard Deviation of Velocity Z DS is %f mm/s', std(velz_downSamp))
+sprintf('Standard Deviation of Euler 1 is %f °', std(euler1))
+sprintf('Standard Deviation of Euler 2 is %f °', std(euler2))
+sprintf('Standard Deviation of Euler 3 is %f °', std(euler3))
 
