@@ -51,12 +51,22 @@ sprintf('Standard Deviation of Euler 3 is %f °', std(euler3))
 t=t-t(1);
 posz_sim=timeseries(z,t);
 
-velz_filtered = doFilter(velz);
-plot(t, velz, t, velz_filtered);
-ylim([-3000, 3000])
+% compute velocity only with every 10th timestep
+t_downSamp = zeros(idivide(numel(t), int32(10)),1);
+posz_downSamp = zeros(numel(t_downSamp),1);
+velz_downSamp = zeros(numel(t_downSamp),1);
 
-velx_filtered = doFilter(velx);
-plot(t, velx, t, velx_filtered);
+for i=1:numel(t_downSamp)
+   t_downSamp(i) = t(i*10);
+   posz_downSamp(i) = z(i*10);
+end
+
+for i=2:numel(t_downSamp)
+   velz_downSamp(i) = (posz_downSamp(i) - posz_downSamp((i-1)))/(t_downSamp(i) - t_downSamp((i-1)));
+end
+
+velz_filtered = doFilter(velz);
+plot(t, velz, t_downSamp, velz_downSamp);
 ylim([-3000, 3000])
 
 
