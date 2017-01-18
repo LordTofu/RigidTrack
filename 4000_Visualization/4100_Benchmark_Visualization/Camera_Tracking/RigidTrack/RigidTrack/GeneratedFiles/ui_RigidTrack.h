@@ -13,14 +13,12 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -38,11 +36,6 @@ public:
     QLabel *lbLog;
     QPushButton *btnLoadCalib;
     QListWidget *listLog;
-    QGroupBox *groupBox;
-    QRadioButton *rbMethod4;
-    QRadioButton *rbMethod1;
-    QRadioButton *rbMethod2;
-    QRadioButton *rbMethod3;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -77,23 +70,6 @@ public:
         listLog->setObjectName(QStringLiteral("listLog"));
         listLog->setGeometry(QRect(20, 681, 791, 171));
         listLog->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-        groupBox = new QGroupBox(centralWidget);
-        groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setEnabled(false);
-        groupBox->setGeometry(QRect(260, 50, 101, 111));
-        rbMethod4 = new QRadioButton(groupBox);
-        rbMethod4->setObjectName(QStringLiteral("rbMethod4"));
-        rbMethod4->setGeometry(QRect(20, 80, 82, 17));
-        rbMethod1 = new QRadioButton(groupBox);
-        rbMethod1->setObjectName(QStringLiteral("rbMethod1"));
-        rbMethod1->setGeometry(QRect(20, 20, 82, 17));
-        rbMethod1->setChecked(true);
-        rbMethod2 = new QRadioButton(groupBox);
-        rbMethod2->setObjectName(QStringLiteral("rbMethod2"));
-        rbMethod2->setGeometry(QRect(20, 40, 82, 17));
-        rbMethod3 = new QRadioButton(groupBox);
-        rbMethod3->setObjectName(QStringLiteral("rbMethod3"));
-        rbMethod3->setGeometry(QRect(20, 60, 82, 17));
         RigidTrackClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(RigidTrackClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -122,11 +98,6 @@ public:
         lbLog->setText(QApplication::translate("RigidTrackClass", "TextLabel", 0));
         btnLoadCalib->setText(QApplication::translate("RigidTrackClass", "Load\n"
 "Calibration", 0));
-        groupBox->setTitle(QApplication::translate("RigidTrackClass", "PNP Method", 0));
-        rbMethod4->setText(QApplication::translate("RigidTrackClass", "UPNP", 0));
-        rbMethod1->setText(QApplication::translate("RigidTrackClass", "Iterative", 0));
-        rbMethod2->setText(QApplication::translate("RigidTrackClass", "EPNP", 0));
-        rbMethod3->setText(QApplication::translate("RigidTrackClass", "P3P", 0));
     } // retranslateUi
 
 };

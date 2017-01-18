@@ -38,3 +38,6 @@ using namespace cv;
 	void test_Algorithm();
 	void setupKalmanFilter();
 	void projectCoordinateFrame(Mat pictureFrame);
+	void setUpUDP();
+	void setUpMMF();
+	void sendDataUDP(cv::Vec3d &WGS, cv::Vec3d &velocity, cv::Vec3d &Euler);
