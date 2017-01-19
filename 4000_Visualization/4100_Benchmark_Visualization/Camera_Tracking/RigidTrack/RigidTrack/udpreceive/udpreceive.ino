@@ -42,7 +42,10 @@ void loop()
     }
     Udp1.flush();
     Serial.write(0x00);    // send 0x00 for heading 
-    Serial.write(0x00);   
+    Serial.write(0x00);    // send 0x00 for heading
+    Serial.write(0x00);    // send 0x00 for heading 
+    Serial.write(0x00);    // send 0x00 for heading
+    Serial.write(0x00);   //CRC Checksum, 0 for now
     Serial.write(0x00);   
   }
 }
