@@ -42,7 +42,7 @@ using namespace cv;
 
 commObject commObj;
 
-bool debug = true;
+bool debug = false;
 
 double frameTime = 1 / 100;
 double timeOld = 0.0;
@@ -69,7 +69,7 @@ std::ofstream logfile;
 int intIntensity = 6; // max Intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
 int intExposure = 100; // max is 480 increase if markers are badly visible
 int intFrameRate = 100;
-int intThreshold = 100;
+int intThreshold = 200;
 
 //== Rotation, translation etc. matrix for PnP results
 Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Matrix from Marker CoSy to Camera
@@ -83,9 +83,9 @@ Mat TvecOriginal;
 float Value[100] = { 0 };	//100 Values can be sent via MMF, can be more but should be enough for now
 
 bool useGuess = true; // set to true and the algorithm uses the last result as starting value
-int methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
+int methodPNP = 0; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 
-int numberMarkers = 6; // number of markers, the more the better. 5 is minimum, 6 minimum for position and heading
+int numberMarkers = 4; // number of markers
 //== Marker points in real world coordinates and in camera pixel coordinates	==--
 std::vector<Point3d> list_points3d;
 std::vector<Point2d> list_points2d;
@@ -102,10 +102,10 @@ double minPointDistance = 5000;
 int currentMinIndex = 0;
 bool gotOrder = true;
 
-bool enableKalman = false;
+bool enableKalman = true;
 KalmanFilter KF(6, 3, 0);
 Mat_<float> measurement(3, 1);
-int decimator = 10; // Decimate the velocity frequency from 100Hz to 10Hz
+int decimator = 1; // Decimate the velocity frequency from 100Hz to 10Hz
 
 Mat cameraMatrix;
 Mat distCoeffs;
@@ -161,12 +161,12 @@ int main(int argc, char *argv[])
 	//list_points3d[3] = cv::Point3d(-1000.0,     0.0, 40.0);
 
 	// Coordinates of the markers in plane reference or arbitrary other frame for x-Star
-	list_points3d[0] = cv::Point3d(212.1, 0.0, -21.5);
-	list_points3d[1] = cv::Point3d(9.1, 0.0, -27.0);
-	list_points3d[2] = cv::Point3d(-66.5, 920.0, -23.0);
-	list_points3d[3] = cv::Point3d(-157.6, 500.0, -8.6);
-	list_points3d[4] = cv::Point3d(-159.0, 250.0, -7.0);
-	list_points3d[5] = cv::Point3d(-720.0, 0.0, -13.0);
+	list_points3d[0] = cv::Point3d(227.1, 0.0, -21.5);
+	//list_points3d[1] = cv::Point3d(9.1, 0.0, -27.0);
+	list_points3d[1] = cv::Point3d(-66.5, 920.0, -23.0);
+	list_points3d[2] = cv::Point3d(-157.6, 500.0, -8.6);
+	//list_points3d[4] = cv::Point3d(-159.0, 250.0, -7.0);
+	list_points3d[3] = cv::Point3d(-720.0, 0.0, -13.0);
 
 	//list_points3d[0] = cv::Point3d( 1500.0, -2160.0/2.0, 0.0);
 	//list_points3d[1] = cv::Point3d(    0.0, -2160.0/2.0, 0.0);
@@ -194,6 +194,7 @@ int main(int argc, char *argv[])
 	coordinateFrame[3] = cv::Point3d(0, 0, 300);
 
 	test_Algorithm();
+	
 
 	my_filter = new Filter(LPF, 3, 0.1, 0.005); // LPF with 100Hz sampling time and 5Hz stopband frequency
 	char outfile1[80] = "taps.txt";
@@ -325,7 +326,7 @@ int start_camera() {
 	//Helper Variables used to print ouput only every 30th time and kick Circuit Breaker
 	int u = 0;
 	int v = 0;
-	int w = 0;
+	int decimatorHelper = 0;
 	int framesDropped = 0; // if a marker is not visible increase this counter.
 	double projectionError = 0; // equals the quality of the tracking
 
@@ -345,7 +346,7 @@ int start_camera() {
 			framesDropped++;
 			u++;  // helper variable to print data every x-frame
 			v++;  // helper variable to print data every x-frame
-			w++;  // helper variable for decimator and udp send
+			decimatorHelper++;  // helper variable for decimator and udp send
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
 			if (frame->ObjectCount() == numberMarkers || debug)
@@ -376,10 +377,10 @@ int start_camera() {
 					}
 				}
 
-				for (int w = 0; w < numberMarkers; w++)
+				for (int k = 0; k < numberMarkers; k++)
 				{
-					pointOrderIndices[w] = pointOrderIndicesNew[w];
-					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]];
+					pointOrderIndices[k] = pointOrderIndicesNew[k];
+					list_points2d[k] = list_points2dUnsorted[pointOrderIndices[k]];
 				}
 
 				list_points2dOld = list_points2dUnsorted;
@@ -424,7 +425,7 @@ int start_camera() {
 				}
 
 				// Calculate velocity and send it over WiFi with 10 Hz
-				if (w == decimator) {
+				if (decimatorHelper >= decimator) {
 					frameTime = frame->TimeStamp() - timeOld;
 					timeOld = frame->TimeStamp();
 					velocity[0] = (position[0] - positionOld[0]) / frameTime;
@@ -432,7 +433,7 @@ int start_camera() {
 					velocity[2] = (position[2] - positionOld[2]) / frameTime;
 					positionOld = position;
 					sendDataUDP(velocity[2], eulerAngles);
-					w = 0;
+					decimatorHelper = 0;
 				}
 
 				//velocity_filtered[0] = my_filter->do_sample((double)velocity[0]);
@@ -441,15 +442,15 @@ int start_camera() {
 				//
 				//velocity_filtered *= 0.001; // mm/s to m/s
 
-				Value[0] = position[0] / 1000.;
-				Value[1] = position[1] / 1000.;
-				Value[2] = position[2] / 1000.;
-				Value[3] = eulerAngles[0];
-				Value[4] = eulerAngles[1];
-				Value[5] = eulerAngles[2];
+				//Value[0] = position[0] / 1000.;
+				//Value[1] = position[1] / 1000.;
+				//Value[2] = position[2] / 1000.;
+				//Value[3] = eulerAngles[0];
+				//Value[4] = eulerAngles[1];
+				//Value[5] = eulerAngles[2];
 
-				latitude = latitudeRef + atan(Value[0] / earthRadius);
-				longitude = longitudeRef + atan(Value[1] / earthRadius);
+				//latitude = latitudeRef + atan(Value[0] / earthRadius);
+				//longitude = longitudeRef + atan(Value[1] / earthRadius);
 
 				
 
@@ -646,29 +647,29 @@ int setZero()
 					do {
 						Rvec = RvecOriginal;
 						Tvec = TvecOriginal;
-						for (int w = 0; w < numberMarkers; w++)
+						for (int m = 0; m< numberMarkers; m++)
 						{
-							list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]];
+							list_points2d[m] = list_points2dUnsorted[pointOrderIndices[m]];
 						}
 						
-						solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, true, methodPNP);
+						solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
 						double maxValue = 0;
 						double minValue = 0;
 						minMaxLoc(Tvec, &minValue, &maxValue);
 						if (maxValue < 10000 && minValue > -10000)
 						{
 							projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
-							for (int w = 0; w < numberMarkers; w++)
+							for (int n = 0; n < numberMarkers; n++)
 							{
-								currentPointDistance += norm(list_points2d[w] - list_points2dProjected[w]);
+								currentPointDistance += norm(list_points2d[n] - list_points2dProjected[n]);
 							}
 
 							if (currentPointDistance < minPointDistance)
 							{
 								minPointDistance = currentPointDistance;
-								for (int w = 0; w < numberMarkers; w++)
+								for (int b = 0; b < numberMarkers; b++)
 								{
-									pointOrderIndicesNew[w] = pointOrderIndices[w];
+									pointOrderIndicesNew[b] = pointOrderIndices[b];
 								}
 							}
 						}
@@ -677,11 +678,14 @@ int setZero()
 					for (int w = 0; w < numberMarkers; w++)
 					{
 						pointOrderIndices[w] = pointOrderIndicesNew[w];
-						list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]];
 					}
 					gotOrder = true;
 				}
 
+				for (int w = 0; w < numberMarkers; w++)
+				{
+					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]];
+				}
 				list_points2dOld = list_points2dUnsorted;
 
 				//Compute the pose from the 3D-2D corresponses
@@ -1011,9 +1015,6 @@ void test_Algorithm()
 	commObj.changeImage(QPFrame);
 	QCoreApplication::processEvents();
 	commObj.addLog(QString::fromStdString(ss.str()));
-
-	commObj.addLog(QString::fromStdString(ss.str()));
-
 	if (numberMarkers == 4)
 	{
 		_methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
@@ -1059,57 +1060,6 @@ void test_Algorithm()
 	Rvec = RvecOriginal;
 	Tvec = TvecOriginal;
 
-	if (numberMarkers == 4)
-	{
-		std::default_random_engine generator;
-		std::normal_distribution<double> distribution(0.0, 3);
-		logfile.open("MarkerSimRes.txt", std::ios::app);
-		for (int u = 0; u < 0; u++)
-		{
-			for (int i = 0; i < numberMarkers; i++)
-			{
-				list_points2dProjected[i].x = 0; 
-				list_points2dProjected[i].y = 0;
-			}
-			projectPoints(list_points3d, RvecOriginal, TvecOriginal, cameraMatrix, distCoeffs, list_points2dProjected);
-			
-			for (int i = 0; i < numberMarkers; i++)
-			{
-				noise[i].x = distribution(generator);
-				noise[i].y = distribution(generator);
-			}
-
-			add(list_points2dProjected, noise, list_points2dProjected);
-			for (int i = 0; i < numberMarkers; i++)
-			{
-				circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 3, Scalar(255, 0, 0), 3);
-			}
-
-			_methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
-			Rvec = cv::Mat::zeros(3, 1, CV_64F);
-			Tvec = cv::Mat::zeros(3, 1, CV_64F);
-			solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
-			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
-			
-			QPixmap QPFrame;
-			QPFrame = Mat2QPixmap(cFrame);
-			commObj.changeImage(QPFrame);
-			QCoreApplication::processEvents();
-			commObj.addLog(QString::fromStdString(ss.str()));
-
-			Rodrigues(Rvec, Rmat);
-			//==-- Euler Angles, finally 
-			getEulerAngles(Rmat, eulerAngles);
-
-			
-			logfile << Tvec.at<double>(0) << ";" << Tvec.at<double>(1) << ";" << Tvec.at<double>(2) << ";";
-			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << "\n";
-			
-
-
-		}
-		logfile.close();
-	}
 }
 
 void setupKalmanFilter()

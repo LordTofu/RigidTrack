@@ -18,7 +18,7 @@ plot(t, [x, y, z])
 xlabel('Time[s]')
 legend('x', 'y', 'z')
 grid on;
-ylim([-3000, 3000])
+ylim([-1600, 1600])
 grid minor;
 
 subplot(3,1,2)
@@ -26,7 +26,7 @@ plot(t, [velx, vely, velz])
 xlabel('Time[s]')
 legend('V_x', 'V_y', 'V_z')
 grid on;
-ylim([-3000, 3000])
+ylim([-1600, 1600])
 grid minor;
 
 subplot(3,1,3)
@@ -55,9 +55,9 @@ for i=2:numel(t_downSamp)
    velz_downSamp(i) = (posz_downSamp(i) - posz_downSamp((i-1)))/(t_downSamp(i) - t_downSamp((i-1)));
 end
 
-velz_filtered = doFilter(velz);
-plot(t, velz, t_downSamp, velz_downSamp);
-ylim([-3000, 3000])
+% velz_filtered = doFilter(velz);
+% plot(t, velz, t_downSamp, velz_downSamp);
+% ylim([-3000, 3000])
 
 sprintf('Standard Deviation of Position X is %f mm', std(x))
 sprintf('Standard Deviation of Position Y is %f mm', std(y))
