@@ -43,10 +43,9 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(296, 247);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(222, 201);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(344, 116);
+            this.button1.Size = new System.Drawing.Size(258, 94);
             this.button1.TabIndex = 0;
             this.button1.Text = "Arm FCC";
             this.button1.UseVisualStyleBackColor = true;
@@ -60,51 +59,46 @@
             // 
             // tbIP
             // 
-            this.tbIP.Location = new System.Drawing.Point(47, 262);
-            this.tbIP.Margin = new System.Windows.Forms.Padding(4);
+            this.tbIP.Location = new System.Drawing.Point(35, 213);
             this.tbIP.Name = "tbIP";
-            this.tbIP.Size = new System.Drawing.Size(199, 22);
+            this.tbIP.Size = new System.Drawing.Size(150, 20);
             this.tbIP.TabIndex = 3;
-            this.tbIP.Text = "192.168.137.158";
+            this.tbIP.Text = "192.168.43.189";
             // 
             // tbPort
             // 
-            this.tbPort.Location = new System.Drawing.Point(47, 331);
-            this.tbPort.Margin = new System.Windows.Forms.Padding(4);
+            this.tbPort.Location = new System.Drawing.Point(35, 269);
             this.tbPort.Name = "tbPort";
-            this.tbPort.Size = new System.Drawing.Size(199, 22);
+            this.tbPort.Size = new System.Drawing.Size(150, 20);
             this.tbPort.TabIndex = 4;
             this.tbPort.Text = "9156";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 242);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(32, 197);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(118, 17);
+            this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "CurcuitBreaker IP";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(43, 311);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(32, 253);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(165, 17);
+            this.label3.Size = new System.Drawing.Size(125, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "CurcuitBreaker UDP Port";
             // 
             // textBox1
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(47, 26);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Location = new System.Drawing.Point(35, 21);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(593, 209);
+            this.textBox1.Size = new System.Drawing.Size(445, 170);
             this.textBox1.TabIndex = 7;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -114,18 +108,19 @@
             // tbPing
             // 
             this.tbPing.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbPing.Location = new System.Drawing.Point(690, 26);
+            this.tbPing.Location = new System.Drawing.Point(518, 21);
+            this.tbPing.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbPing.Multiline = true;
             this.tbPing.Name = "tbPing";
             this.tbPing.ReadOnly = true;
-            this.tbPing.Size = new System.Drawing.Size(343, 22);
+            this.tbPing.Size = new System.Drawing.Size(257, 18);
             this.tbPing.TabIndex = 8;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 426);
+            this.ClientSize = new System.Drawing.Size(496, 346);
             this.Controls.Add(this.tbPing);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
@@ -133,7 +128,6 @@
             this.Controls.Add(this.tbPort);
             this.Controls.Add(this.tbIP);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Circuit Breaker";
             this.Load += new System.EventHandler(this.Form1_Load);

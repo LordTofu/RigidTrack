@@ -85,7 +85,7 @@ float Value[100] = { 0 };	//100 Values can be sent via MMF, can be more but shou
 bool useGuess = true; // set to true and the algorithm uses the last result as starting value
 int methodPNP = 2; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
 
-int numberMarkers = 4; // number of markers, the more the better. 5 is minimum, 6 minimum for position and heading
+int numberMarkers = 6; // number of markers, the more the better. 5 is minimum, 6 minimum for position and heading
 //== Marker points in real world coordinates and in camera pixel coordinates	==--
 std::vector<Point3d> list_points3d;
 std::vector<Point2d> list_points2d;
@@ -95,8 +95,8 @@ std::vector<Point2d> list_points2dProjected;
 std::vector<Point2d> list_points2dUnsorted;
 std::vector<Point3d> coordinateFrame;
 std::vector<Point2d> coordinateFrameProjected;
-int pointOrderIndices[] = { 0, 1, 2, 3 };
-int pointOrderIndicesNew[] = { 0, 1, 2, 3 };
+int pointOrderIndices[] = { 0, 1, 2, 3, 4, 5};
+int pointOrderIndicesNew[] = { 0, 1, 2, 3, 4, 5 };
 double currentPointDistance = 5000;
 double minPointDistance = 5000;
 int currentMinIndex = 0;
@@ -114,9 +114,8 @@ Core::DistortionModel distModel;
 // IP adress of the circuit breaker that disables the drone if a specified region is exited. 
 QUdpSocket *udpSocketCB;
 QUdpSocket *udpSocketDrone;
-QHostAddress IPAdressCB = QHostAddress("192.168.4.1");
-QHostAddress IPAdressDrone = QHostAddress("127.0.0.1");
-//QHostAddress IPAdressDrone = QHostAddress("192.168.43.189");
+QHostAddress IPAdressCB = QHostAddress("192.168.43.189");
+QHostAddress IPAdressDrone = QHostAddress("192.168.43.203");
 QByteArray datagram;
 QDataStream out;
 
@@ -162,11 +161,12 @@ int main(int argc, char *argv[])
 	//list_points3d[3] = cv::Point3d(-1000.0,     0.0, 40.0);
 
 	// Coordinates of the markers in plane reference or arbitrary other frame for x-Star
-	list_points3d[0] = cv::Point3d(7.5, 0.0, -26.5);
-	//list_points3d[0] = cv::Point3d(212.1, 0.0, -21.5);
-	list_points3d[1] = cv::Point3d(-66.5, 920.0, -23.0);
-	list_points3d[2] = cv::Point3d(-159.0, 250.0, -7.0);
-	list_points3d[3] = cv::Point3d(-720.0, 0.0, -13.0);
+	list_points3d[0] = cv::Point3d(212.1, 0.0, -21.5);
+	list_points3d[1] = cv::Point3d(9.1, 0.0, -27.0);
+	list_points3d[2] = cv::Point3d(-66.5, 920.0, -23.0);
+	list_points3d[3] = cv::Point3d(-157.6, 500.0, -8.6);
+	list_points3d[4] = cv::Point3d(-159.0, 250.0, -7.0);
+	list_points3d[5] = cv::Point3d(-720.0, 0.0, -13.0);
 
 	//list_points3d[0] = cv::Point3d( 1500.0, -2160.0/2.0, 0.0);
 	//list_points3d[1] = cv::Point3d(    0.0, -2160.0/2.0, 0.0);
@@ -375,17 +375,14 @@ int start_camera() {
 						}
 					}
 				}
+
 				for (int w = 0; w < numberMarkers; w++)
 				{
 					pointOrderIndices[w] = pointOrderIndicesNew[w];
+					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]];
 				}
 
 				list_points2dOld = list_points2dUnsorted;
-
-				list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
-				list_points2d[1] = list_points2dUnsorted[pointOrderIndices[1]];
-				list_points2d[2] = list_points2dUnsorted[pointOrderIndices[2]];
-				list_points2d[3] = list_points2dUnsorted[pointOrderIndices[3]];
 
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
@@ -649,10 +646,11 @@ int setZero()
 					do {
 						Rvec = RvecOriginal;
 						Tvec = TvecOriginal;
-						list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
-						list_points2d[1] = list_points2dUnsorted[pointOrderIndices[1]];
-						list_points2d[2] = list_points2dUnsorted[pointOrderIndices[2]];
-						list_points2d[3] = list_points2dUnsorted[pointOrderIndices[3]];
+						for (int w = 0; w < numberMarkers; w++)
+						{
+							list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]];
+						}
+						
 						solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, true, methodPNP);
 						double maxValue = 0;
 						double minValue = 0;
@@ -679,15 +677,10 @@ int setZero()
 					for (int w = 0; w < numberMarkers; w++)
 					{
 						pointOrderIndices[w] = pointOrderIndicesNew[w];
+						list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]];
 					}
 					gotOrder = true;
 				}
-
-				//Order of Points does matter!!!!
-				list_points2d[0] = list_points2dUnsorted[pointOrderIndices[0]];
-				list_points2d[1] = list_points2dUnsorted[pointOrderIndices[1]];
-				list_points2d[2] = list_points2dUnsorted[pointOrderIndices[2]];
-				list_points2d[3] = list_points2dUnsorted[pointOrderIndices[3]];
 
 				list_points2dOld = list_points2dUnsorted;
 
@@ -1007,6 +1000,17 @@ void test_Algorithm()
 	ss << Rvec << "\n";
 	ss << "tvec: " << "\n";
 	ss << Tvec << "\n";
+
+	projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+	for (int i = 0; i < numberMarkers; i++)
+	{
+		circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 3, Scalar(255, 0, 0), 3);
+	}
+	QPixmap QPFrame;
+	QPFrame = Mat2QPixmap(cFrame);
+	commObj.changeImage(QPFrame);
+	QCoreApplication::processEvents();
+	commObj.addLog(QString::fromStdString(ss.str()));
 
 	commObj.addLog(QString::fromStdString(ss.str()));
 
