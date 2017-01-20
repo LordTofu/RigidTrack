@@ -16,7 +16,7 @@ namespace circuitBreaker
 {
     public partial class Form1 : Form
     {
-        int port = 5000;
+        int port = 9156;
         string ip = "192.168.43.189";
         bool spacePressed = false;
 

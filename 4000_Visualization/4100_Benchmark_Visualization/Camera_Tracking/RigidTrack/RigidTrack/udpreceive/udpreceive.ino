@@ -5,7 +5,7 @@ extern "C" {
   }
 WiFiUDP Udp1;
   unsigned int localUdpPort = 9155;
-  char incomingPacket[12];
+  char incomingPacket[16];
   char myhostname[] = "ESP_Telemetry";
   
 
@@ -36,7 +36,7 @@ void loop()
       Serial.write(0x00);     
     }
     Udp1.read(incomingPacket, 16);
-    for(int i = 0; i < 12; i++)
+    for(int i = 0; i < 16; i++)
     {
       Serial.write(incomingPacket[i]);     
     }

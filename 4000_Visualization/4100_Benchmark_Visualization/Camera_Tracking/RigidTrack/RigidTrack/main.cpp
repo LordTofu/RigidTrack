@@ -42,7 +42,7 @@ using namespace cv;
 
 commObject commObj;
 
-bool debug = true;
+bool debug = false;
 
 double frameTime = 1 / 100;
 double timeOld = 0.0;
@@ -132,6 +132,7 @@ TCHAR szMsg[] = TEXT("MMF Text");
 Filter *my_filter;
 
 
+
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
@@ -197,7 +198,8 @@ int main(int argc, char *argv[])
 	test_Algorithm();
 	
 
-	my_filter = new Filter(LPF, 4, 0.1, 0.005); // LPF with 100Hz sampling time and 5Hz stopband frequency
+	my_filter = new Filter(LPF, 3, 0.1, 0.030); // LPF with 100Hz sampling time and 5Hz stopband frequency
+	
 	char outfile1[80] = "taps.txt";
 	char outfile2[80] = "freqres.txt";
 	fprintf(stderr, "error_flag = %d\n", my_filter->get_error_flag());
@@ -217,7 +219,7 @@ int main(int argc, char *argv[])
 	eulerAngles[1] = 1.1;
 	eulerAngles[2] = 1.2;
 
-	sendDataUDP(velocity[2], eulerAngles, enable);
+	
 	WGS84 *= -1;
 	velocity *= -1;
 	eulerAngles *= -1;
@@ -425,8 +427,6 @@ int start_camera() {
 					position[2] = (double)estimation.at<float>(2);
 				}
 
-				position[0] = my_filter->do_sample((double)position[0]);
-				position[1] = my_filter->do_sample((double)position[1]);
 				position[2] = my_filter->do_sample((double)position[2]);
 
 				frameTime = frame->TimeStamp() - timeOld;
@@ -453,38 +453,48 @@ int start_camera() {
 				//CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double)); // enable for UE visualization
 
 				// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
-				if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
+				
+			}
+
+			if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
+			{
+				if ((abs(eulerAngles[0]) < 30 && abs(eulerAngles[1]) < 30) || debug == true)
 				{
-					if ((abs(eulerAngles[0]) < 30 || abs(eulerAngles[1]) < 30) || debug == true)
-					{
-						if (v == 5) {
-							//data.setNum((int)(1));
-							//udpSocketCB->write(data);
-							enable = 1;
-							v = 0;
-						}
-					}
-					else
-					{
-						//data.setNum((int)(0));
+					if (v == 5) {
+						data.setNum((int)(1));
 						//udpSocketCB->write(data);
-						enable = 0;
-						sendDataUDP(velocity[2], eulerAngles, enable);
-						commObj.addLog("Drone exceeded allowed Euler Angles, shutting it down!");
-						return 1;
+
+						v = 0;
 					}
 				}
 				else
 				{
-					//data.setNum((int)(0));
-					//udpSocketCB->write(data);
-					enable = 0;
-					sendDataUDP(velocity[2], eulerAngles, enable);
-					commObj.addLog("Drone left allowed Area, shutting it down!");
-					return 1;
+					data.setNum((int)(0));
+					udpSocketCB->write(data);
+					enable = 0.0;
+					framesDropped++;
+					if (enable < 0.5)
+					{
+						velocity[2] = 10500.0;
+					}
+					commObj.addLog("Drone exceeded allowed Euler Angles, shutting it down!");
+
 				}
 			}
+			else
+			{
+				data.setNum((int)(0));
+				udpSocketCB->write(data);
+				enable = 0.0;
+				framesDropped++;
+				if (enable < 0.5)
+				{
+					velocity[2] = 10500.0;
+				}
+				commObj.addLog("Drone left allowed Area, shutting it down!");
 
+			}
+			
 			//send it over WiFi with 10 Hz
 			if (decimatorHelper >= decimator) {
 				sendDataUDP(velocity[2], eulerAngles, enable);
@@ -502,10 +512,13 @@ int start_camera() {
 			{
 				//data.setNum((int)(0));
 				//udpSocketCB->write(data);
-				enable = 0;
+				enable = 0.0;
+				if(enable < 0.5)
+				{
+				velocity[2] = 10500.0;
+				}
 				sendDataUDP(velocity[2], eulerAngles, enable);
 				commObj.addLog("Lost Marker Points or Accuracy was bad!");
-				return 1;
 			}
 
 			// Output every second if debug is true
@@ -1158,7 +1171,7 @@ void sendDataUDP(double &velocityz, cv::Vec3d &Euler, double &enable)
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_3);
-	out << (float)enable << (float)velocityz;  // velocity z // send enable signal as velocity y
+	out << (float)1.0 << (float)velocityz;  // velocity z // send enable signal as velocity y
 	out << (float)Euler[0] << (float)Euler[1]; // Roll Pitch 
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
 }

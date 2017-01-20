@@ -26,7 +26,7 @@ plot(t, [velx, vely, velz])
 xlabel('Time[s]')
 legend('V_x', 'V_y', 'V_z')
 grid on;
-ylim([-1600, 1600])
+ylim([-1.6, 1.6])
 grid minor;
 
 subplot(3,1,3)
