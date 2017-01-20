@@ -31,11 +31,11 @@ void loop()
     Serial.write("n");
     Serial.write(0xFF); //id 
     Serial.write(0x24); // length, 36 bytes: 3x wgs, 3x Velocity NED, 3x Euler
-    for(int i = 0; i < 20; i++) // send 0x00 for wgs and velocity x and velocity y
+    for(int i = 0; i < 16; i++) // send 0x00 for wgs and velocity x and velocity y
     {
       Serial.write(0x00);     
     }
-    Udp1.read(incomingPacket, 12);
+    Udp1.read(incomingPacket, 16);
     for(int i = 0; i < 12; i++)
     {
       Serial.write(incomingPacket[i]);     

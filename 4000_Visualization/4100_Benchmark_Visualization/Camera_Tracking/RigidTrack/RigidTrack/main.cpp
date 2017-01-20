@@ -42,7 +42,7 @@ using namespace cv;
 
 commObject commObj;
 
-bool debug = false;
+bool debug = true;
 
 double frameTime = 1 / 100;
 double timeOld = 0.0;
@@ -105,7 +105,7 @@ bool gotOrder = true;
 bool enableKalman = false;
 KalmanFilter KF(6, 3, 0);
 Mat_<float> measurement(3, 1);
-int decimator = 1; // Decimate the velocity frequency from 100Hz to 10Hz
+int decimator = 10; // Decimate the velocity frequency from 100Hz to 10Hz
 
 Mat cameraMatrix;
 Mat distCoeffs;
@@ -118,6 +118,7 @@ QHostAddress IPAdressCB = QHostAddress("192.168.137.253");
 QHostAddress IPAdressDrone = QHostAddress("192.168.137.200");
 QByteArray datagram;
 QDataStream out;
+double enable = 1;
 
 const int BACKBUFFER_BITSPERPIXEL = 8;
 std::string strBuf;
@@ -196,7 +197,7 @@ int main(int argc, char *argv[])
 	test_Algorithm();
 	
 
-	my_filter = new Filter(LPF, 3, 0.1, 0.005); // LPF with 100Hz sampling time and 5Hz stopband frequency
+	my_filter = new Filter(LPF, 4, 0.1, 0.005); // LPF with 100Hz sampling time and 5Hz stopband frequency
 	char outfile1[80] = "taps.txt";
 	char outfile2[80] = "freqres.txt";
 	fprintf(stderr, "error_flag = %d\n", my_filter->get_error_flag());
@@ -216,11 +217,11 @@ int main(int argc, char *argv[])
 	eulerAngles[1] = 1.1;
 	eulerAngles[2] = 1.2;
 
-	sendDataUDP(velocity[2], eulerAngles);
+	sendDataUDP(velocity[2], eulerAngles, enable);
 	WGS84 *= -1;
 	velocity *= -1;
 	eulerAngles *= -1;
-	sendDataUDP(velocity[2], eulerAngles);
+	sendDataUDP(velocity[2], eulerAngles, enable);
 
 	return a.exec();
 }
@@ -428,17 +429,14 @@ int start_camera() {
 				position[1] = my_filter->do_sample((double)position[1]);
 				position[2] = my_filter->do_sample((double)position[2]);
 
-				// Calculate velocity and send it over WiFi with 10 Hz
-				if (decimatorHelper >= decimator) {
-					frameTime = frame->TimeStamp() - timeOld;
-					timeOld = frame->TimeStamp();
-					velocity[0] = (position[0] - positionOld[0]) / frameTime;
-					velocity[1] = (position[1] - positionOld[1]) / frameTime;
-					velocity[2] = (position[2] - positionOld[2]) / frameTime;
-					sendDataUDP(velocity[2], eulerAngles);
-					decimatorHelper = 0;
-					positionOld = position;
-				}
+				frameTime = frame->TimeStamp() - timeOld;
+				timeOld = frame->TimeStamp();
+				velocity[0] = (position[0] - positionOld[0]) / frameTime;
+				velocity[1] = (position[1] - positionOld[1]) / frameTime;
+				velocity[2] = (position[2] - positionOld[2]) / frameTime;
+				positionOld = position;
+				velocity *= 0.001;
+				
 
 				//Value[0] = position[0] / 1000.;
 				//Value[1] = position[1] / 1000.;
@@ -460,26 +458,37 @@ int start_camera() {
 					if ((abs(eulerAngles[0]) < 30 || abs(eulerAngles[1]) < 30) || debug == true)
 					{
 						if (v == 5) {
-							data.setNum((int)(1));
-							udpSocketCB->write(data);
+							//data.setNum((int)(1));
+							//udpSocketCB->write(data);
+							enable = 1;
 							v = 0;
 						}
 					}
 					else
 					{
-						data.setNum((int)(0));
-						udpSocketCB->write(data);
+						//data.setNum((int)(0));
+						//udpSocketCB->write(data);
+						enable = 0;
+						sendDataUDP(velocity[2], eulerAngles, enable);
 						commObj.addLog("Drone exceeded allowed Euler Angles, shutting it down!");
 						return 1;
 					}
 				}
 				else
 				{
-					data.setNum((int)(0));
-					udpSocketCB->write(data);
+					//data.setNum((int)(0));
+					//udpSocketCB->write(data);
+					enable = 0;
+					sendDataUDP(velocity[2], eulerAngles, enable);
 					commObj.addLog("Drone left allowed Area, shutting it down!");
 					return 1;
 				}
+			}
+
+			//send it over WiFi with 10 Hz
+			if (decimatorHelper >= decimator) {
+				sendDataUDP(velocity[2], eulerAngles, enable);
+				decimatorHelper = 0;
 			}
 
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
@@ -491,8 +500,10 @@ int start_camera() {
 			//Stop the drone is tracking system is disturbed (marker lost or so)
 			if (framesDropped > 10 && debug == false)
 			{
-				data.setNum((int)(0));
-				udpSocketCB->write(data);
+				//data.setNum((int)(0));
+				//udpSocketCB->write(data);
+				enable = 0;
+				sendDataUDP(velocity[2], eulerAngles, enable);
 				commObj.addLog("Lost Marker Points or Accuracy was bad!");
 				return 1;
 			}
@@ -502,7 +513,7 @@ int start_camera() {
 				ss.str("");
 				ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
 				ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
-				ss << "pitch  =  " << eulerAngles[0] << "\tyaw  =  " << eulerAngles[1] << "\troll  = " << eulerAngles[2];
+				ss << "roll  =  " << eulerAngles[0] << "\t pitch  =  " << eulerAngles[1] << "\t heading  = " << eulerAngles[2];
 				commObj.addLog(QString::fromStdString(ss.str()));
 				u = 0;
 			}
@@ -531,6 +542,8 @@ int start_camera() {
 			commObj.changeImage(QPFrame);
 			QCoreApplication::processEvents();
 			frame->Release();
+
+			
 		}
 	}
 
@@ -1140,12 +1153,12 @@ void setUpMMF()
 	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
 }
 
-void sendDataUDP(double &velocityz, cv::Vec3d &Euler)
+void sendDataUDP(double &velocityz, cv::Vec3d &Euler, double &enable)
 {
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_3);
-	out << (float)velocityz;  // velocity z
+	out << (float)enable << (float)velocityz;  // velocity z // send enable signal as velocity y
 	out << (float)Euler[0] << (float)Euler[1]; // Roll Pitch 
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
 }
