@@ -46,6 +46,7 @@ namespace circuitBreaker
 
         private void btnArm(object sender, EventArgs e)
         {
+            button1.BackColor = Color.Green;
             port =  Int32.Parse(tbPort.Text.ToString());
             ip = tbIP.Text.ToString();
             if(spacePressed)
@@ -67,6 +68,7 @@ namespace circuitBreaker
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
+            button1.BackColor = Color.Red;
             SendUdp(port, ip, port, Encoding.ASCII.GetBytes("0"));
             spacePressed = false;
             button1.Enabled = false;

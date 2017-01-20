@@ -102,7 +102,7 @@ double minPointDistance = 5000;
 int currentMinIndex = 0;
 bool gotOrder = true;
 
-bool enableKalman = true;
+bool enableKalman = false;
 KalmanFilter KF(6, 3, 0);
 Mat_<float> measurement(3, 1);
 int decimator = 1; // Decimate the velocity frequency from 100Hz to 10Hz
@@ -114,8 +114,8 @@ Core::DistortionModel distModel;
 // IP adress of the circuit breaker that disables the drone if a specified region is exited. 
 QUdpSocket *udpSocketCB;
 QUdpSocket *udpSocketDrone;
-QHostAddress IPAdressCB = QHostAddress("192.168.43.189");
-QHostAddress IPAdressDrone = QHostAddress("192.168.43.203");
+QHostAddress IPAdressCB = QHostAddress("192.168.137.253");
+QHostAddress IPAdressDrone = QHostAddress("192.168.137.200");
 QByteArray datagram;
 QDataStream out;
 
@@ -424,6 +424,10 @@ int start_camera() {
 					position[2] = (double)estimation.at<float>(2);
 				}
 
+				position[0] = my_filter->do_sample((double)position[0]);
+				position[1] = my_filter->do_sample((double)position[1]);
+				position[2] = my_filter->do_sample((double)position[2]);
+
 				// Calculate velocity and send it over WiFi with 10 Hz
 				if (decimatorHelper >= decimator) {
 					frameTime = frame->TimeStamp() - timeOld;
@@ -431,16 +435,10 @@ int start_camera() {
 					velocity[0] = (position[0] - positionOld[0]) / frameTime;
 					velocity[1] = (position[1] - positionOld[1]) / frameTime;
 					velocity[2] = (position[2] - positionOld[2]) / frameTime;
-					positionOld = position;
 					sendDataUDP(velocity[2], eulerAngles);
 					decimatorHelper = 0;
+					positionOld = position;
 				}
-
-				//velocity_filtered[0] = my_filter->do_sample((double)velocity[0]);
-				//velocity_filtered[1] = my_filter->do_sample((double)velocity[1]);
-				//velocity_filtered[2] = my_filter->do_sample((double)velocity[2]);
-				//
-				//velocity_filtered *= 0.001; // mm/s to m/s
 
 				//Value[0] = position[0] / 1000.;
 				//Value[1] = position[1] / 1000.;
@@ -485,7 +483,7 @@ int start_camera() {
 			}
 
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
-			if (projectionError > 10 && debug == false)
+			if (projectionError > 50 && debug == false)
 			{
 				framesDropped++;
 			}
