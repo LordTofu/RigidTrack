@@ -5,7 +5,9 @@ extern "C" {
   }
 WiFiUDP Udp1;
   unsigned int localUdpPort = 9155;
+  char hostDownlink[] = "192.168.137.205";
   char incomingPacket[16];
+  char outgoingPacket[30];
   char myhostname[] = "ESP_Telemetry";
   
 
@@ -47,5 +49,16 @@ void loop()
     Serial.write(0x00);    // send 0x00 for heading
     Serial.write(0x00);   //CRC Checksum, 0 for now
     Serial.write(0x00);   
+  }
+  
+  if (Serial.available() > 0)
+  {
+                for(int i = 0; i < 30; i++) // send 0x00 for wgs and velocity x and velocity y
+                {
+                  outgoingPacket[i] = Serial.read();     
+                }
+                Udp1.beginPacket(hostDownlink, 9155);
+                Udp1.write(outgoingPacket, 30);
+                Udp1.endPacket();
   }
 }
