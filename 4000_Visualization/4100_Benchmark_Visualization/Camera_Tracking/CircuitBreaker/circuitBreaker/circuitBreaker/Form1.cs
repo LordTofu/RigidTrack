@@ -16,9 +16,11 @@ namespace circuitBreaker
 {
     public partial class Form1 : Form
     {
+        int timerCount = 0;
         int port = 9156;
         string ip = "192.168.43.189";
         bool spacePressed = false;
+        byte[] dataMessage = { 0x46, 0x24, 0x10, 0x00, 0x46, 0x24, 0x10, 0x00, 0x46, 0x24, 0x10, 0x00, 0x46, 0x24, 0x10, 0x00 };
 
         static void SendUdp(int srcPort, string dstIp, int dstPort, byte[] data)
         {
@@ -41,7 +43,8 @@ namespace circuitBreaker
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-                SendUdp(port, ip, port, Encoding.ASCII.GetBytes("1"));
+            //SendUdp(port, ip, port, Encoding.ASCII.GetBytes("1"));
+            SendUdp(port, ip, port, dataMessage);
         }
 
         private void btnArm(object sender, EventArgs e)
@@ -51,9 +54,9 @@ namespace circuitBreaker
             ip = tbIP.Text.ToString();
             if(spacePressed)
             {
-                SendUdp(port, ip, port, Encoding.ASCII.GetBytes("9"));
-                SendUdp(port, ip, port, Encoding.ASCII.GetBytes("1"));
-                timer1.Start();
+                //SendUdp(port, ip, port, Encoding.ASCII.GetBytes("9"));
+                //SendUdp(port, ip, port, Encoding.ASCII.GetBytes("1"));
+                timer1.Stop();
             }
         }
 
@@ -72,7 +75,7 @@ namespace circuitBreaker
             SendUdp(port, ip, port, Encoding.ASCII.GetBytes("0"));
             spacePressed = false;
             button1.Enabled = false;
-            timer1.Stop();
+            timer1.Start();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

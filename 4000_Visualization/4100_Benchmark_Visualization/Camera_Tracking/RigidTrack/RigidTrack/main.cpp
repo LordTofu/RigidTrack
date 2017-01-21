@@ -105,7 +105,7 @@ bool gotOrder = true;
 bool enableKalman = false;
 KalmanFilter KF(6, 3, 0);
 Mat_<float> measurement(3, 1);
-int decimator = 10; // Decimate the velocity frequency from 100Hz to 10Hz
+int decimator = 5; // Decimate the velocity frequency from 100Hz to 20Hz
 
 Mat cameraMatrix;
 Mat distCoeffs;
@@ -495,7 +495,7 @@ int start_camera() {
 
 			}
 			
-			//send it over WiFi with 10 Hz
+			//send it over WiFi with 20 Hz
 			if (decimatorHelper >= decimator) {
 				sendDataUDP(velocity[2], eulerAngles, enable);
 				decimatorHelper = 0;
