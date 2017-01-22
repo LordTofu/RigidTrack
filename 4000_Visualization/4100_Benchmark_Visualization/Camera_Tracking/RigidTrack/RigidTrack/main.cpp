@@ -95,8 +95,8 @@ std::vector<Point2d> list_points2dProjected;
 std::vector<Point2d> list_points2dUnsorted;
 std::vector<Point3d> coordinateFrame;
 std::vector<Point2d> coordinateFrameProjected;
-int pointOrderIndices[] = { 0, 1, 2, 3, 4, 5};
-int pointOrderIndicesNew[] = { 0, 1, 2, 3, 4, 5 };
+int pointOrderIndices[] = { 0, 1, 2, 3};
+int pointOrderIndicesNew[] = { 0, 1, 2, 3 };
 double currentPointDistance = 5000;
 double minPointDistance = 5000;
 int currentMinIndex = 0;
@@ -574,6 +574,7 @@ int start_camera() {
 
 int setZero()
 {
+	gotOrder = false;
 	posRef = 0;
 	eulerRef = 0;
 	RmatRef = 0;
