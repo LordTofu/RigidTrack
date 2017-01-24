@@ -1,5 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
+
 extern "C" {
   #include "user_interface.h"
   }
@@ -22,6 +23,11 @@ void setup()
     delay(500);  
   }
   Udp1.begin(localUdpPort);
+
+  // only for latency measurement
+  pinMode(3, OUTPUT);
+  digitalWrite(3, LOW);
+  digitalWrite(3, HIGH);
 }
 
 void loop()
@@ -48,7 +54,9 @@ void loop()
     Serial.write(0x00);    // send 0x00 for heading 
     Serial.write(0x00);    // send 0x00 for heading
     Serial.write(0x00);   //CRC Checksum, 0 for now
-    Serial.write(0x00);   
+    Serial.write(0x00); 
+    // only for latency measurement  
+    digitalWrite(3, LOW);   
   }
   
   if (Serial.available() > 0)

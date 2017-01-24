@@ -415,7 +415,12 @@ int start_camera() {
 				//CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double)); // enable for UE visualization
 
 				// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
-				
+
+				//send it over WiFi with 100 Hz
+				if (decimatorHelper >= decimator) {
+					sendDataUDP(velocity[2], eulerAngles, enable);
+					decimatorHelper = 0;
+				}
 			}
 
 			if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
@@ -424,7 +429,7 @@ int start_camera() {
 				{
 					if (v == 5) {
 						data.setNum((int)(1));
-						//udpSocketCB->write(data);
+						udpSocketCB->write(data);
 
 						v = 0;
 					}
@@ -457,11 +462,7 @@ int start_camera() {
 
 			}
 			
-			//send it over WiFi with 100 Hz
-			if (decimatorHelper >= decimator) {
-				sendDataUDP(velocity[2], eulerAngles, enable);
-				decimatorHelper = 0;
-			}
+			
 
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
 			if (projectionError > 50 && debug == false)
