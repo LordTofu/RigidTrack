@@ -100,7 +100,7 @@ int pointOrderIndicesNew[] = { 0, 1, 2, 3 };
 double currentPointDistance = 5000;
 double minPointDistance = 5000;
 int currentMinIndex = 0;
-bool gotOrder = true;
+bool gotOrder = false;
 
 bool enableKalman = false;
 KalmanFilter KF(6, 3, 0);
@@ -115,7 +115,7 @@ Core::DistortionModel distModel;
 QUdpSocket *udpSocketCB;
 QUdpSocket *udpSocketDrone;
 QHostAddress IPAdressCB = QHostAddress("192.168.137.253");
-QHostAddress IPAdressDrone = QHostAddress("192.168.137.200");
+QHostAddress IPAdressDrone = QHostAddress("192.168.137.18");
 QByteArray datagram;
 QDataStream out;
 double enable = 1;
@@ -182,8 +182,8 @@ int main(int argc, char *argv[])
 	//list_points3d[3] = cv::Point3d(50.0, 70.0, 0.0);
 
 	//Initial Guesses, important for Iterative Method!
-	Tvec.at<double>(0) = 0;
-	Tvec.at<double>(1) = 0;
+	Tvec.at<double>(0) = 45;
+	Tvec.at<double>(1) = 45;
 	Tvec.at<double>(2) = 4500;
 	Rvec.at<double>(0) = 0 * 3.141592653589 / 180.0;
 	Rvec.at<double>(1) = 0 * 3.141592653589 / 180.0;
@@ -198,7 +198,7 @@ int main(int argc, char *argv[])
 	test_Algorithm();
 	
 
-	my_filter = new Filter(LPF, 3, 0.1, 0.030); // LPF with 100Hz sampling time and 5Hz stopband frequency
+	my_filter = new Filter(LPF, 8, 0.1, 0.010); // LPF with 100Hz sampling time and 10Hz stopband frequency
 	
 	char outfile1[80] = "taps.txt";
 	char outfile2[80] = "freqres.txt";
@@ -360,6 +360,11 @@ int start_camera() {
 					cObject *obj = frame->Object(i);
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
+
+				logfile.open("markerPoints.txt", std::ios::app);
+				logfile << list_points2dUnsorted[0] << ";" << list_points2dUnsorted[1] << ";" << list_points2dUnsorted[2] << ";" << list_points2dUnsorted[3] << "\n";
+				logfile.close();
+
 
 				// Now its time to determine the order of the points
 				// for that the distance from the new points to the old points is calculated
@@ -574,7 +579,7 @@ int start_camera() {
 
 int setZero()
 {
-	gotOrder = false;
+	
 	posRef = 0;
 	eulerRef = 0;
 	RmatRef = 0;
@@ -680,8 +685,9 @@ int setZero()
 						solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
 						double maxValue = 0;
 						double minValue = 0;
+						currentPointDistance = 0;
 						minMaxLoc(Tvec, &minValue, &maxValue);
-						if (maxValue < 10000 && minValue > -10000)
+						if (maxValue < 5000 && minValue > -5000)
 						{
 							projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 							for (int n = 0; n < numberMarkers; n++)

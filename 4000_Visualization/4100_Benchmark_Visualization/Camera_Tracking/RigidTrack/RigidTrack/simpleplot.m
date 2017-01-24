@@ -1,7 +1,6 @@
 clear all
 ImportLog
 samples = 15*100;
-
 % x = x(1:samples)
 % y = y(1:samples)
 % z = z(1:samples)
@@ -18,7 +17,7 @@ plot(t, [x, y, z])
 xlabel('Time[s]')
 legend('x', 'y', 'z')
 grid on;
-ylim([-1600, 1600])
+ylim([-2000, 2000])
 grid minor;
 
 subplot(3,1,2)
@@ -26,7 +25,7 @@ plot(t, [velx, vely, velz])
 xlabel('Time[s]')
 legend('V_x', 'V_y', 'V_z')
 grid on;
-ylim([-1.6, 1.6])
+ylim([-2, 2])
 grid minor;
 
 subplot(3,1,3)
