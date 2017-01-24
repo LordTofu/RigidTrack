@@ -35,7 +35,6 @@
 
 #include "main.h"
 #include "communication.h"
-#include "filt.h"
 
 using namespace CameraLibrary;
 using namespace cv;
@@ -102,10 +101,7 @@ double minPointDistance = 5000;
 int currentMinIndex = 0;
 bool gotOrder = false;
 
-bool enableKalman = false;
-KalmanFilter KF(6, 3, 0);
-Mat_<float> measurement(3, 1);
-int decimator = 5; // Decimate the velocity frequency from 100Hz to 20Hz
+int decimator = 1; // Decimate the velocity frequency from 100Hz to 100Hz
 
 Mat cameraMatrix;
 Mat distCoeffs;
@@ -128,10 +124,6 @@ HANDLE hMapFile;
 LPCTSTR pBuf;
 
 TCHAR szMsg[] = TEXT("MMF Text");
-
-Filter *my_filter;
-
-
 
 int main(int argc, char *argv[])
 {
@@ -197,16 +189,6 @@ int main(int argc, char *argv[])
 
 	test_Algorithm();
 	
-
-	my_filter = new Filter(LPF, 8, 0.1, 0.010); // LPF with 100Hz sampling time and 10Hz stopband frequency
-	
-	char outfile1[80] = "taps.txt";
-	char outfile2[80] = "freqres.txt";
-	fprintf(stderr, "error_flag = %d\n", my_filter->get_error_flag());
-	if (my_filter->get_error_flag() < 0) exit(1);
-	my_filter->write_taps_to_file(outfile1);
-	my_filter->write_freqres_to_file(outfile2);
-
 	setUpUDP();
 	WGS84[0] = 0.0;
 	WGS84[1] = 0.0;
@@ -218,12 +200,6 @@ int main(int argc, char *argv[])
 	eulerAngles[0] = 1.0;
 	eulerAngles[1] = 1.1;
 	eulerAngles[2] = 1.2;
-
-	
-	WGS84 *= -1;
-	velocity *= -1;
-	eulerAngles *= -1;
-	sendDataUDP(velocity[2], eulerAngles, enable);
 
 	return a.exec();
 }
@@ -320,12 +296,6 @@ int start_camera() {
 	// Matrix that stores the colored picture
 	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
 
-	//==-- Kalman Filter creation and init values
-	if (enableKalman)
-	{
-		setupKalmanFilter();
-	}
-
 	//Helper Variables used to print ouput only every 30th time and kick Circuit Breaker
 	int u = 0;
 	int v = 0;
@@ -421,19 +391,6 @@ int start_camera() {
 				//==-- Euler Angles, finally 
 				getEulerAngles(Rmat, eulerAngles);
 
-				if (enableKalman) {
-					Mat prediction = KF.predict();
-					measurement(0) = (float)position[0];
-					measurement(1) = (float)position[1];
-					measurement(2) = (float)position[2];
-					Mat estimation = KF.correct(measurement);
-					position[0] = (double)estimation.at<float>(0);
-					position[1] = (double)estimation.at<float>(1);
-					position[2] = (double)estimation.at<float>(2);
-				}
-
-				position[2] = my_filter->do_sample((double)position[2]);
-
 				frameTime = frame->TimeStamp() - timeOld;
 				timeOld = frame->TimeStamp();
 				velocity[0] = (position[0] - positionOld[0]) / frameTime;
@@ -500,7 +457,7 @@ int start_camera() {
 
 			}
 			
-			//send it over WiFi with 20 Hz
+			//send it over WiFi with 100 Hz
 			if (decimatorHelper >= decimator) {
 				sendDataUDP(velocity[2], eulerAngles, enable);
 				decimatorHelper = 0;
@@ -541,8 +498,6 @@ int start_camera() {
 			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
 			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
 			logfile.close();
-
-
 
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
 
@@ -739,7 +694,7 @@ int setZero()
 				{
 					add(posRef, Tvec, posRef);
 					add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
-					numberSamples += 1;	//==-- one sample more :D
+					numberSamples++;	//==-- one sample more :D
 					ss.str("");
 					ss << "Tvec = " << Tvec << "\n";
 					commObj.addLog(QString::fromStdString(ss.str()));
@@ -1091,33 +1046,6 @@ void test_Algorithm()
 	Rvec = RvecOriginal;
 	Tvec = TvecOriginal;
 
-}
-
-void setupKalmanFilter()
-{
-	//==-- Transition Matrix:
-	//==	1	0	0	1	0	0
-	//==	0	1	0	0	1	0
-	//==	0	0	1	0	0	1
-	//==	0	0	0	1	0	0
-	//==	0	0	0	0	1	0
-	//==	0	0	0	0	0	1
-
-	KF.transitionMatrix = (Mat_<float>(6, 6) << 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1);
-	measurement.setTo(Scalar(0));
-
-	//==-- Position is position and Velocity is 0
-	KF.statePre.at<float>(0) = 0;
-	KF.statePre.at<float>(1) = 0;
-	KF.statePre.at<float>(2) = 0;
-	KF.statePre.at<float>(3) = 0;
-	KF.statePre.at<float>(4) = 0;
-	KF.statePre.at<float>(5) = 0;
-
-	setIdentity(KF.measurementMatrix);
-	setIdentity(KF.processNoiseCov, Scalar::all(1e-2));
-	setIdentity(KF.measurementNoiseCov, Scalar::all(1e-2));
-	setIdentity(KF.errorCovPost, Scalar::all(1e-2));
 }
 
 void projectCoordinateFrame(Mat pictureFrame)

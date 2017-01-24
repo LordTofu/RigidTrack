@@ -36,7 +36,6 @@ using namespace cv;
 	int calibrate_camera();
 	void load_calibration();
 	void test_Algorithm();
-	void setupKalmanFilter();
 	void projectCoordinateFrame(Mat pictureFrame);
 	void setUpUDP();
 	void setUpMMF();
