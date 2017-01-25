@@ -55,7 +55,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 10;
+            this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // tbIP
@@ -64,7 +64,7 @@
             this.tbIP.Name = "tbIP";
             this.tbIP.Size = new System.Drawing.Size(150, 20);
             this.tbIP.TabIndex = 3;
-            this.tbIP.Text = "192.168.137.254";
+            this.tbIP.Text = "192.168.4.1";
             // 
             // tbPort
             // 
@@ -72,7 +72,7 @@
             this.tbPort.Name = "tbPort";
             this.tbPort.Size = new System.Drawing.Size(150, 20);
             this.tbPort.TabIndex = 4;
-            this.tbPort.Text = "9155";
+            this.tbPort.Text = "9156";
             // 
             // label2
             // 

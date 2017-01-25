@@ -3,10 +3,10 @@ print("IP:")
 print(wifi.sta.getip())
 node.setcpufreq(node.CPU160MHZ)
 
-ENABLE_PIN = 4
-RED_PIN = 5
-GREEN_PIN = 6
-BLUE_PIN = 7
+ENABLE_PIN = 1
+RED_PIN = 7
+GREEN_PIN = 5
+BLUE_PIN = 6
 
 enable = false
 safety_start = false
@@ -19,31 +19,24 @@ gpio.mode(BLUE_PIN, gpio.OUTPUT)
 -- disable CB
 gpio.write(ENABLE_PIN, 0)
 -- set led to red 
-gpio.write(GREEN_PIN, 0)
-gpio.write(RED_PIN, 1)
-gpio.write(BLUE_PIN, 0)
-
--- if connected set led to blue
-if wifi.sta.getip() ~= nil then 
-    gpio.write(GREEN_PIN, 0)
-    gpio.write(RED_PIN, 0)
-    gpio.write(BLUE_PIN, 1)
-end
+gpio.write(GREEN_PIN, 1)
+gpio.write(RED_PIN, 0)
+gpio.write(BLUE_PIN, 1)
 
 -- Timer every 100 ms
 tmr.register(0, 100, tmr.ALARM_SEMI, function() 
     -- enable CB and set light to green
     if enable then 
         gpio.write(ENABLE_PIN, 1)
-        gpio.write(GREEN_PIN, 1)
-        gpio.write(RED_PIN, 0)
-        gpio.write(BLUE_PIN, 0)
+        gpio.write(GREEN_PIN, 0)
+        gpio.write(RED_PIN, 1)
+        gpio.write(BLUE_PIN, 1)
     -- disable CB and set light to red
     else
         gpio.write(ENABLE_PIN, 0)
-        gpio.write(GREEN_PIN, 0)
-        gpio.write(RED_PIN, 1)
-        gpio.write(BLUE_PIN, 0)
+        gpio.write(GREEN_PIN, 1)
+        gpio.write(RED_PIN, 0)
+        gpio.write(BLUE_PIN, 1)
     end
     enable = false
     tmr.start(0)
