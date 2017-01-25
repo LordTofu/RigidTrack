@@ -3,20 +3,20 @@
 --netsh wlan start hostednetwork
 
 -- Uncomment files to set up an AP by the ESP8266
---station_cfg={}
---station_cfg.ssid="DroneWifi"
---station_cfg.pwd="DroneWifi"
---wifi.ap.config(station_cfg)
---wifi.setmode(wifi.SOFTAP)
---print(wifi.ap.getip())
---print("Password is DroneWifi")
+station_cfg={}
+station_cfg.ssid="DroneWifi"
+station_cfg.pwd="DroneWifi"
+wifi.ap.config(station_cfg)
+wifi.setmode(wifi.SOFTAP)
+print(wifi.ap.getip())
+print("Password is DroneWifi")
 
 -- Connect to an existing AP
-wifi.setmode(wifi.STATION)
-wifi.sta.config("DroneWifi","DroneWifi")
-print(wifi.sta.getip())
+--wifi.setmode(wifi.STATION)
+--wifi.sta.config("DroneWifi","DroneWifi")
+--print(wifi.sta.getip())
 
-NextFile = "telemetry.lua"
+NextFile = "circuitBreaker.lua"
     l = file.list();
     for k,v in pairs(l) do
         print("name:"..k, "size:"..v)
@@ -30,4 +30,4 @@ NextFile = "telemetry.lua"
         
     end
 print("End of Startup")
-print(wifi.sta.getip())
+
