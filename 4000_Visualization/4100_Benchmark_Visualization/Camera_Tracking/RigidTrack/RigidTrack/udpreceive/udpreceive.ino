@@ -6,6 +6,7 @@ extern "C" {
   }
 WiFiUDP Udp1;
   unsigned int localUdpPort = 9155;
+  unsigned int ledPin = 4;
   char hostDownlink[] = "192.168.137.205";
   char incomingPacket[16];
   char outgoingPacket[54];
@@ -23,11 +24,11 @@ void setup()
     delay(500);  
   }
   Udp1.begin(localUdpPort);
-
+  delay(5000);  
   // only for latency measurement
-  pinMode(3, OUTPUT);
-  digitalWrite(3, LOW);
-  digitalWrite(3, HIGH);
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+  digitalWrite(ledPin, HIGH);
 }
 
 void loop()
@@ -56,7 +57,7 @@ void loop()
     Serial.write(0x00);   //CRC Checksum, 0 for now
     Serial.write(0x00); 
     // only for latency measurement  
-    digitalWrite(3, LOW);   
+    digitalWrite(ledPin, LOW);   
   }
   
   if (Serial.available() > 0)
