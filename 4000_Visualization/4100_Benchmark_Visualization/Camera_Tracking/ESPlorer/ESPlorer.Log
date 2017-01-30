@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057698</millis>
+  <date>2017-01-30T13:24:35</date>
+  <millis>1485779075871</millis>
   <sequence>6</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>Load saved settings: Firmware:NodeMCU</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057708</millis>
+  <date>2017-01-30T13:24:35</date>
+  <millis>1485779075880</millis>
   <sequence>7</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -24,8 +24,8 @@
   <message>Snippets: loading...</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057715</millis>
+  <date>2017-01-30T13:24:35</date>
+  <millis>1485779075885</millis>
   <sequence>8</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -35,8 +35,8 @@
   <message>Snippets load: Success.</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057746</millis>
+  <date>2017-01-30T13:24:35</date>
+  <millis>1485779075917</millis>
   <sequence>9</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -46,8 +46,8 @@
   <message>Set new color theme: Success.</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057750</millis>
+  <date>2017-01-30T13:24:35</date>
+  <millis>1485779075921</millis>
   <sequence>10</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -57,8 +57,8 @@
   <message>Load saved settings: DONE.</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057752</millis>
+  <date>2017-01-30T13:24:35</date>
+  <millis>1485779075922</millis>
   <sequence>11</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -68,8 +68,8 @@
   <message>Snippets: loading...</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057754</millis>
+  <date>2017-01-30T13:24:35</date>
+  <millis>1485779075924</millis>
   <sequence>12</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -79,8 +79,8 @@
   <message>Snippets load: Success.</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057938</millis>
+  <date>2017-01-30T13:24:36</date>
+  <millis>1485779076120</millis>
   <sequence>13</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -90,8 +90,8 @@
   <message>Scan system...</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057942</millis>
+  <date>2017-01-30T13:24:36</date>
+  <millis>1485779076123</millis>
   <sequence>14</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -101,8 +101,8 @@
   <message>found COM1</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057943</millis>
+  <date>2017-01-30T13:24:36</date>
+  <millis>1485779076124</millis>
   <sequence>15</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -112,8 +112,8 @@
   <message>found COM3</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057944</millis>
+  <date>2017-01-30T13:24:36</date>
+  <millis>1485779076126</millis>
   <sequence>16</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -123,19 +123,19 @@
   <message>found last saved serial port COM4</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057945</millis>
+  <date>2017-01-30T13:24:36</date>
+  <millis>1485779076127</millis>
   <sequence>17</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
   <thread>13</thread>
-  <message>found COM12</message>
+  <message>found COM16</message>
 </record>
 <record>
-  <date>2017-01-27T14:00:57</date>
-  <millis>1485522057947</millis>
+  <date>2017-01-30T13:24:36</date>
+  <millis>1485779076129</millis>
   <sequence>18</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
@@ -145,383 +145,20 @@
   <message>Scan done.</message>
 </record>
 <record>
-  <date>2017-01-27T14:01:04</date>
-  <millis>1485522064278</millis>
+  <date>2017-01-30T13:24:37</date>
+  <millis>1485779077300</millis>
   <sequence>19</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
   <thread>13</thread>
-  <message>Try to open file circuitBreakerSender.lua</message>
+  <message>Serial port COM4 save as default.</message>
 </record>
 <record>
-  <date>2017-01-27T14:01:04</date>
-  <millis>1485522064279</millis>
+  <date>2017-01-30T13:24:37</date>
+  <millis>1485779077301</millis>
   <sequence>20</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>File name: C:\Users\Florian Wachter\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\ESPlorer\lua\circuitBreakerSender.lua</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:04</date>
-  <millis>1485522064281</millis>
-  <sequence>21</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Try to load file circuitBreakerSender.lua</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:04</date>
-  <millis>1485522064333</millis>
-  <sequence>22</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Loading circuitBreakerSender.lua: Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:04</date>
-  <millis>1485522064333</millis>
-  <sequence>23</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Open "circuitBreakerSender.lua": Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:06</date>
-  <millis>1485522066732</millis>
-  <sequence>24</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Serial port COM12 save as default.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:06</date>
-  <millis>1485522066733</millis>
-  <sequence>25</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Baud rate 9600 save as default.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:06</date>
-  <millis>1485522066733</millis>
-  <sequence>26</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Try to open port COM12, baud 9600, 8N1</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:06</date>
-  <millis>1485522066739</millis>
-  <sequence>27</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Open port COM12 - Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:17</date>
-  <millis>1485522077418</millis>
-  <sequence>28</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Close port COM12 - Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:19</date>
-  <millis>1485522079144</millis>
-  <sequence>29</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Serial port COM4 save as default.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:19</date>
-  <millis>1485522079145</millis>
-  <sequence>30</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Baud rate 9600 save as default.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:19</date>
-  <millis>1485522079145</millis>
-  <sequence>31</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Try to open port COM4, baud 9600, 8N1</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:19</date>
-  <millis>1485522079148</millis>
-  <sequence>32</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Open port COM4 - Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:25</date>
-  <millis>1485522085616</millis>
-  <sequence>33</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>We save known file circuitBreakerSender.lua</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:25</date>
-  <millis>1485522085617</millis>
-  <sequence>34</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Try to saving file circuitBreakerSender.lua ...</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:25</date>
-  <millis>1485522085618</millis>
-  <sequence>35</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Save file circuitBreakerSender.lua: Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:25</date>
-  <millis>1485522085621</millis>
-  <sequence>36</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>FileSaveESP: Try to save file to ESP...</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:25</date>
-  <millis>1485522085630</millis>
-  <sequence>37</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>DataSender: start "Smart Mode"</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:25</date>
-  <millis>1485522085630</millis>
-  <sequence>38</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>FileSaveESP: Starting...</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:25</date>
-  <millis>1485522085649</millis>
-  <sequence>39</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>0</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:25</date>
-  <millis>1485522085650</millis>
-  <sequence>40</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:file.remove("circuitBreakerSender.lua");&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:28</date>
-  <millis>1485522088658</millis>
-  <sequence>41</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Operation done. Duration = 3036 ms</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:28</date>
-  <millis>1485522088660</millis>
-  <sequence>42</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Waiting answer from ESP - Timeout reached. Command aborted.</message>
-</record>
-<record>
-  <date>2017-01-27T14:01:31</date>
-  <millis>1485522091505</millis>
-  <sequence>43</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Close port COM4 - Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:00</date>
-  <millis>1485522180818</millis>
-  <sequence>44</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Serial port COM4 save as default.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:00</date>
-  <millis>1485522180819</millis>
-  <sequence>45</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Baud rate 9600 save as default.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:00</date>
-  <millis>1485522180819</millis>
-  <sequence>46</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Try to open port COM4, baud 9600, 8N1</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:00</date>
-  <millis>1485522180822</millis>
-  <sequence>47</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Open port COM4 - Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:09</date>
-  <millis>1485522189722</millis>
-  <sequence>48</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Try to reconnect with baud 115200...</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:09</date>
-  <millis>1485522189723</millis>
-  <sequence>49</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:print(uart.setup(0, 115200, 8, 0, 1, 1 ))&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:09</date>
-  <millis>1485522189925</millis>
-  <sequence>50</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Reconnect: Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:10</date>
-  <millis>1485522190305</millis>
-  <sequence>51</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Close port COM4 - Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:10</date>
-  <millis>1485522190849</millis>
-  <sequence>52</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Serial port COM4 save as default.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:10</date>
-  <millis>1485522190850</millis>
-  <sequence>53</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -530,9 +167,9 @@
   <message>Baud rate 115200 save as default.</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:10</date>
-  <millis>1485522190850</millis>
-  <sequence>54</sequence>
+  <date>2017-01-30T13:24:37</date>
+  <millis>1485779077301</millis>
+  <sequence>21</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -541,9 +178,9 @@
   <message>Try to open port COM4, baud 115200, 8N1</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:10</date>
-  <millis>1485522190853</millis>
-  <sequence>55</sequence>
+  <date>2017-01-30T13:24:37</date>
+  <millis>1485779077308</millis>
+  <sequence>22</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -552,31 +189,9 @@
   <message>Open port COM4 - Success.</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:13</date>
-  <millis>1485522193858</millis>
-  <sequence>56</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Operation done. Duration = 108236 ms</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:13</date>
-  <millis>1485522193859</millis>
-  <sequence>57</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Waiting answer from ESP - Timeout reached. Command aborted.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:22</date>
-  <millis>1485522202098</millis>
-  <sequence>58</sequence>
+  <date>2017-01-30T13:24:39</date>
+  <millis>1485779079845</millis>
+  <sequence>23</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -585,9 +200,9 @@
   <message>Try to open file init.lua</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:22</date>
-  <millis>1485522202098</millis>
-  <sequence>59</sequence>
+  <date>2017-01-30T13:24:39</date>
+  <millis>1485779079845</millis>
+  <sequence>24</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -596,9 +211,9 @@
   <message>File name: C:\Users\Florian Wachter\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\ESPlorer\lua\init.lua</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:22</date>
-  <millis>1485522202101</millis>
-  <sequence>60</sequence>
+  <date>2017-01-30T13:24:39</date>
+  <millis>1485779079847</millis>
+  <sequence>25</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -607,9 +222,9 @@
   <message>Try to load file init.lua</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:22</date>
-  <millis>1485522202117</millis>
-  <sequence>61</sequence>
+  <date>2017-01-30T13:24:39</date>
+  <millis>1485779079891</millis>
+  <sequence>26</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -618,9 +233,9 @@
   <message>Loading init.lua: Success.</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:22</date>
-  <millis>1485522202117</millis>
-  <sequence>62</sequence>
+  <date>2017-01-30T13:24:39</date>
+  <millis>1485779079892</millis>
+  <sequence>27</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -629,9 +244,9 @@
   <message>Open "init.lua": Success.</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232469</millis>
-  <sequence>63</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081452</millis>
+  <sequence>28</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -640,9 +255,9 @@
   <message>We save known file init.lua</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232470</millis>
-  <sequence>64</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081453</millis>
+  <sequence>29</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -651,9 +266,9 @@
   <message>Try to saving file init.lua ...</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232471</millis>
-  <sequence>65</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081454</millis>
+  <sequence>30</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -662,9 +277,9 @@
   <message>Save file init.lua: Success.</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232474</millis>
-  <sequence>66</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081456</millis>
+  <sequence>31</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -673,9 +288,9 @@
   <message>FileSaveESP: Try to save file to ESP...</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232479</millis>
-  <sequence>67</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081463</millis>
+  <sequence>32</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -684,9 +299,9 @@
   <message>DataSender: start "Smart Mode"</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232480</millis>
-  <sequence>68</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081464</millis>
+  <sequence>33</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -695,9 +310,9 @@
   <message>FileSaveESP: Starting...</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232495</millis>
-  <sequence>69</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081485</millis>
+  <sequence>34</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -706,9 +321,9 @@
   <message>0</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232495</millis>
-  <sequence>70</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081486</millis>
+  <sequence>35</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -717,229 +332,31 @@
   <message>sending:file.remove("init.lua");&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232500</millis>
-  <sequence>71</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081491</millis>
+  <sequence>36</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>37</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;NodeMCU custom build by fright</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232502</millis>
-  <sequence>72</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>recv:anic.com&lt;CR&gt;&lt;LF&gt;	branch: master&lt;CR&gt;&lt;LF&gt;	comm</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232505</millis>
-  <sequence>73</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>recv:it: 7b83bbb2ea134cd85ac9d6310860</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232507</millis>
-  <sequence>74</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>recv:3cc02c4e20f7&lt;CR&gt;&lt;LF&gt;	SSL: false&lt;CR&gt;&lt;LF&gt;	modu</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232510</millis>
-  <sequence>75</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>recv:les: bit,cjson,coap,crypto,endus</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232513</millis>
-  <sequence>76</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>recv:er_setup,file,gpio,http,i2c,mdns</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232516</millis>
-  <sequence>77</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>recv:,net,node,rtcfifo,rtcmem,rtctime</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232518</millis>
-  <sequence>78</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>recv:,sntp,spi,tmr,uart,wifi&lt;CR&gt;&lt;LF&gt; build </message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232521</millis>
-  <sequence>79</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>recv:	built on: 2016-11-23 09:35&lt;CR&gt;&lt;LF&gt; po</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232524</millis>
-  <sequence>80</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>recv:wered by Lua 5.1.4 on SDK 1.5.4.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:52</date>
-  <millis>1485522232545</millis>
-  <sequence>81</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>37</thread>
-  <message>Operation done. Duration = 71 ms</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239909</millis>
-  <sequence>82</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>We save known file init.lua</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239910</millis>
-  <sequence>83</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Try to saving file init.lua ...</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239912</millis>
-  <sequence>84</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Save file init.lua: Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239914</millis>
-  <sequence>85</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>FileSaveESP: Try to save file to ESP...</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239923</millis>
-  <sequence>86</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>DataSender: start "Smart Mode"</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239923</millis>
-  <sequence>87</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>FileSaveESP: Starting...</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239940</millis>
-  <sequence>88</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>0</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239940</millis>
-  <sequence>89</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:file.remove("init.lua");&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239944</millis>
-  <sequence>90</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:file.remove("init.lua");&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239956</millis>
-  <sequence>91</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081496</millis>
+  <sequence>37</sequence>
+  <logger>ESPlorer.ESPlorer</logger>
+  <level>INFO</level>
+  <class>ESPlorer.ESPlorer</class>
+  <method>log</method>
+  <thread>28</thread>
+  <message>recv:&gt; </message>
+</record>
+<record>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081504</millis>
+  <sequence>38</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -948,9 +365,9 @@
   <message>1</message>
 </record>
 <record>
-  <date>2017-01-27T14:03:59</date>
-  <millis>1485522239956</millis>
-  <sequence>92</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081505</millis>
+  <sequence>39</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -959,20 +376,20 @@
   <message>sending:file.open("init.lua","w+");&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240036</millis>
-  <sequence>93</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081509</millis>
+  <sequence>40</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
-  <message>recv:&gt; file.open("init.lua","w+");&lt;CR&gt;&lt;LF&gt;</message>
+  <thread>28</thread>
+  <message>recv:file.open("init.lua","w+");&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240048</millis>
-  <sequence>94</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081522</millis>
+  <sequence>41</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -981,9 +398,9 @@
   <message>2</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240048</millis>
-  <sequence>95</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081522</millis>
+  <sequence>42</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -992,31 +409,31 @@
   <message>sending:w = file.writeline&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240189</millis>
-  <sequence>96</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081666</millis>
+  <sequence>43</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; w = file.writeline&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240192</millis>
-  <sequence>97</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081668</millis>
+  <sequence>44</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240202</millis>
-  <sequence>98</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081679</millis>
+  <sequence>45</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1025,9 +442,9 @@
   <message>3</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240202</millis>
-  <sequence>99</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081680</millis>
+  <sequence>46</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1036,42 +453,42 @@
   <message>sending:w([==[-- Commands to set up a Wifi AP on Windows 10]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240206</millis>
-  <sequence>100</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081684</millis>
+  <sequence>47</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[-- Commands to set up a Wi</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240210</millis>
-  <sequence>101</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081687</millis>
+  <sequence>48</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:fi AP on Windows 10]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240213</millis>
-  <sequence>102</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081690</millis>
+  <sequence>49</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240223</millis>
-  <sequence>103</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081699</millis>
+  <sequence>50</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1080,9 +497,9 @@
   <message>4</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240223</millis>
-  <sequence>104</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081699</millis>
+  <sequence>51</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1091,53 +508,53 @@
   <message>sending:w([==[--netsh wlan set hostednetwork mode=allow ssid=DroneWifi key=DroneWifi]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240227</millis>
-  <sequence>105</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081703</millis>
+  <sequence>52</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[--netsh wlan set hostednet</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240230</millis>
-  <sequence>106</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081706</millis>
+  <sequence>53</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:work mode=allow ssid=DroneWifi k</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240233</millis>
-  <sequence>107</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081709</millis>
+  <sequence>54</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:ey=DroneWifi]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240236</millis>
-  <sequence>108</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081712</millis>
+  <sequence>55</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240246</millis>
-  <sequence>109</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081720</millis>
+  <sequence>56</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1146,9 +563,9 @@
   <message>5</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240248</millis>
-  <sequence>110</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081721</millis>
+  <sequence>57</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1157,42 +574,42 @@
   <message>sending:w([==[--netsh wlan start hostednetwork]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240251</millis>
-  <sequence>111</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081724</millis>
+  <sequence>58</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[--netsh wlan start hostedn</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240254</millis>
-  <sequence>112</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081727</millis>
+  <sequence>59</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:etwork]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240257</millis>
-  <sequence>113</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081730</millis>
+  <sequence>60</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240266</millis>
-  <sequence>114</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081739</millis>
+  <sequence>61</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1201,9 +618,9 @@
   <message>6</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240267</millis>
-  <sequence>115</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081739</millis>
+  <sequence>62</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1212,31 +629,31 @@
   <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240270</millis>
-  <sequence>116</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081742</millis>
+  <sequence>63</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240273</millis>
-  <sequence>117</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081745</millis>
+  <sequence>64</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240282</millis>
-  <sequence>118</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081754</millis>
+  <sequence>65</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1245,9 +662,9 @@
   <message>7</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240283</millis>
-  <sequence>119</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081755</millis>
+  <sequence>66</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1256,42 +673,42 @@
   <message>sending:w([==[-- Uncomment files to set up an AP by the ESP8266]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240286</millis>
-  <sequence>120</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081759</millis>
+  <sequence>67</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[-- Uncomment files to set </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240290</millis>
-  <sequence>121</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081762</millis>
+  <sequence>68</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:up an AP by the ESP8266]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240293</millis>
-  <sequence>122</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081766</millis>
+  <sequence>69</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240302</millis>
-  <sequence>123</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081774</millis>
+  <sequence>70</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1300,9 +717,9 @@
   <message>8</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240302</millis>
-  <sequence>124</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081775</millis>
+  <sequence>71</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1311,31 +728,31 @@
   <message>sending:w([==[--station_cfg={}]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240306</millis>
-  <sequence>125</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081779</millis>
+  <sequence>72</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[--station_cfg={}]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240309</millis>
-  <sequence>126</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081782</millis>
+  <sequence>73</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240319</millis>
-  <sequence>127</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081794</millis>
+  <sequence>74</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1344,9 +761,9 @@
   <message>9</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240319</millis>
-  <sequence>128</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081794</millis>
+  <sequence>75</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1355,42 +772,42 @@
   <message>sending:w([==[--station_cfg.ssid="DroneWifi"]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240323</millis>
-  <sequence>129</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081798</millis>
+  <sequence>76</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[--station_cfg.ssid="DroneW</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240325</millis>
-  <sequence>130</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081800</millis>
+  <sequence>77</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:ifi"]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240328</millis>
-  <sequence>131</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081803</millis>
+  <sequence>78</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240338</millis>
-  <sequence>132</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081812</millis>
+  <sequence>79</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1399,9 +816,9 @@
   <message>10</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240338</millis>
-  <sequence>133</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081813</millis>
+  <sequence>80</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1410,42 +827,42 @@
   <message>sending:w([==[--station_cfg.pwd="DroneWifi"]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240342</millis>
-  <sequence>134</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081816</millis>
+  <sequence>81</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[--station_cfg.pwd="DroneWi</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240343</millis>
-  <sequence>135</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081818</millis>
+  <sequence>82</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:fi"]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240348</millis>
-  <sequence>136</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081823</millis>
+  <sequence>83</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240355</millis>
-  <sequence>137</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081831</millis>
+  <sequence>84</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1454,9 +871,9 @@
   <message>11</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240356</millis>
-  <sequence>138</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081831</millis>
+  <sequence>85</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1465,42 +882,42 @@
   <message>sending:w([==[--wifi.ap.config(station_cfg)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240359</millis>
-  <sequence>139</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081835</millis>
+  <sequence>86</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[--wifi.ap.config(station_c</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240361</millis>
-  <sequence>140</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081837</millis>
+  <sequence>87</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:fg)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240365</millis>
-  <sequence>141</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081840</millis>
+  <sequence>88</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240374</millis>
-  <sequence>142</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081849</millis>
+  <sequence>89</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1509,9 +926,9 @@
   <message>12</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240374</millis>
-  <sequence>143</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081849</millis>
+  <sequence>90</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1520,42 +937,42 @@
   <message>sending:w([==[--wifi.setmode(wifi.SOFTAP)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240378</millis>
-  <sequence>144</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081853</millis>
+  <sequence>91</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[--wifi.setmode(wifi.SOFTAP</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240379</millis>
-  <sequence>145</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081855</millis>
+  <sequence>92</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240382</millis>
-  <sequence>146</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081858</millis>
+  <sequence>93</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240391</millis>
-  <sequence>147</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081867</millis>
+  <sequence>94</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1564,9 +981,9 @@
   <message>13</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240391</millis>
-  <sequence>148</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081867</millis>
+  <sequence>95</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1575,42 +992,42 @@
   <message>sending:w([==[--print(wifi.ap.getip())]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240395</millis>
-  <sequence>149</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081871</millis>
+  <sequence>96</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[--print(wifi.ap.getip())]=</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240397</millis>
-  <sequence>150</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081873</millis>
+  <sequence>97</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:=]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240399</millis>
-  <sequence>151</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081876</millis>
+  <sequence>98</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240410</millis>
-  <sequence>152</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081884</millis>
+  <sequence>99</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1619,9 +1036,9 @@
   <message>14</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240410</millis>
-  <sequence>153</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081884</millis>
+  <sequence>100</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1630,42 +1047,42 @@
   <message>sending:w([==[--print("Password is DroneWifi")]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240414</millis>
-  <sequence>154</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081888</millis>
+  <sequence>101</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[--print("Password is Drone</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240416</millis>
-  <sequence>155</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081891</millis>
+  <sequence>102</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:Wifi")]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240420</millis>
-  <sequence>156</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081894</millis>
+  <sequence>103</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240428</millis>
-  <sequence>157</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081902</millis>
+  <sequence>104</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1674,9 +1091,9 @@
   <message>15</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240428</millis>
-  <sequence>158</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081902</millis>
+  <sequence>105</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1685,31 +1102,31 @@
   <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240431</millis>
-  <sequence>159</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081906</millis>
+  <sequence>106</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240434</millis>
-  <sequence>160</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081908</millis>
+  <sequence>107</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240444</millis>
-  <sequence>161</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081918</millis>
+  <sequence>108</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1718,9 +1135,9 @@
   <message>16</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240444</millis>
-  <sequence>162</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081918</millis>
+  <sequence>109</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1729,42 +1146,42 @@
   <message>sending:w([==[-- Connect to an existing AP]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240448</millis>
-  <sequence>163</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081922</millis>
+  <sequence>110</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[-- Connect to an existing </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240450</millis>
-  <sequence>164</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081924</millis>
+  <sequence>111</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:AP]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240453</millis>
-  <sequence>165</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081927</millis>
+  <sequence>112</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240462</millis>
-  <sequence>166</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081936</millis>
+  <sequence>113</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1773,9 +1190,9 @@
   <message>17</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240462</millis>
-  <sequence>167</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081936</millis>
+  <sequence>114</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1784,42 +1201,42 @@
   <message>sending:w([==[wifi.setmode(wifi.STATION)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240466</millis>
-  <sequence>168</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081940</millis>
+  <sequence>115</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[wifi.setmode(wifi.STATION)</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240467</millis>
-  <sequence>169</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081942</millis>
+  <sequence>116</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240470</millis>
-  <sequence>170</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081945</millis>
+  <sequence>117</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240479</millis>
-  <sequence>171</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081954</millis>
+  <sequence>118</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1828,9 +1245,9 @@
   <message>18</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240480</millis>
-  <sequence>172</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081955</millis>
+  <sequence>119</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1839,42 +1256,42 @@
   <message>sending:w([==[wifi.sta.config("DroneWifi","DroneWifi")]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240483</millis>
-  <sequence>173</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081959</millis>
+  <sequence>120</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[wifi.sta.config("DroneWifi</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240487</millis>
-  <sequence>174</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081962</millis>
+  <sequence>121</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:","DroneWifi")]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240489</millis>
-  <sequence>175</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081965</millis>
+  <sequence>122</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240499</millis>
-  <sequence>176</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081974</millis>
+  <sequence>123</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1883,9 +1300,9 @@
   <message>19</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240499</millis>
-  <sequence>177</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081974</millis>
+  <sequence>124</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1894,42 +1311,42 @@
   <message>sending:w([==[print(wifi.sta.getip())]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240503</millis>
-  <sequence>178</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081978</millis>
+  <sequence>125</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[print(wifi.sta.getip())]==</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240505</millis>
-  <sequence>179</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081980</millis>
+  <sequence>126</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240509</millis>
-  <sequence>180</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081984</millis>
+  <sequence>127</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240516</millis>
-  <sequence>181</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081991</millis>
+  <sequence>128</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1938,9 +1355,9 @@
   <message>20</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240516</millis>
-  <sequence>182</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081991</millis>
+  <sequence>129</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1949,31 +1366,31 @@
   <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240519</millis>
-  <sequence>183</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081994</millis>
+  <sequence>130</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240522</millis>
-  <sequence>184</sequence>
+  <date>2017-01-30T13:24:41</date>
+  <millis>1485779081997</millis>
+  <sequence>131</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240531</millis>
-  <sequence>185</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082006</millis>
+  <sequence>132</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1982,9 +1399,9 @@
   <message>21</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240531</millis>
-  <sequence>186</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082006</millis>
+  <sequence>133</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -1993,42 +1410,42 @@
   <message>sending:w([==[NextFile = "circuitBreakerSender.lua"]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240535</millis>
-  <sequence>187</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082010</millis>
+  <sequence>134</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[NextFile = "circuitBreaker</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240538</millis>
-  <sequence>188</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082012</millis>
+  <sequence>135</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:Sender.lua"]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240541</millis>
-  <sequence>189</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082015</millis>
+  <sequence>136</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240551</millis>
-  <sequence>190</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082024</millis>
+  <sequence>137</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2037,9 +1454,9 @@
   <message>22</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240551</millis>
-  <sequence>191</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082024</millis>
+  <sequence>138</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2048,42 +1465,42 @@
   <message>sending:w([==[    l = file.list();]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240554</millis>
-  <sequence>192</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082028</millis>
+  <sequence>139</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[    l = file.list();]==]);</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240556</millis>
-  <sequence>193</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082029</millis>
+  <sequence>140</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240559</millis>
-  <sequence>194</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082032</millis>
+  <sequence>141</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240566</millis>
-  <sequence>195</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082039</millis>
+  <sequence>142</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2092,9 +1509,9 @@
   <message>23</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240566</millis>
-  <sequence>196</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082040</millis>
+  <sequence>143</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2103,42 +1520,42 @@
   <message>sending:w([==[    for k,v in pairs(l) do]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240569</millis>
-  <sequence>197</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082043</millis>
+  <sequence>144</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[    for k,v in pairs(l) do</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240571</millis>
-  <sequence>198</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082045</millis>
+  <sequence>145</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240574</millis>
-  <sequence>199</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082048</millis>
+  <sequence>146</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240583</millis>
-  <sequence>200</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082057</millis>
+  <sequence>147</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2147,9 +1564,9 @@
   <message>24</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240583</millis>
-  <sequence>201</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082057</millis>
+  <sequence>148</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2158,42 +1575,42 @@
   <message>sending:w([==[        print("name:"..k, "size:"..v)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240588</millis>
-  <sequence>202</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082061</millis>
+  <sequence>149</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[        print("name:"..k, </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240589</millis>
-  <sequence>203</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082064</millis>
+  <sequence>150</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:"size:"..v)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240592</millis>
-  <sequence>204</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082067</millis>
+  <sequence>151</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240602</millis>
-  <sequence>205</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082075</millis>
+  <sequence>152</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2202,9 +1619,9 @@
   <message>25</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240602</millis>
-  <sequence>206</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082076</millis>
+  <sequence>153</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2213,42 +1630,42 @@
   <message>sending:w([==[        if k == NextFile then]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240605</millis>
-  <sequence>207</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082079</millis>
+  <sequence>154</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[        if k == NextFile t</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240608</millis>
-  <sequence>208</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082082</millis>
+  <sequence>155</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:hen]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240611</millis>
-  <sequence>209</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082085</millis>
+  <sequence>156</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240621</millis>
-  <sequence>210</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082094</millis>
+  <sequence>157</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2257,9 +1674,9 @@
   <message>26</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240621</millis>
-  <sequence>211</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082094</millis>
+  <sequence>158</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2268,53 +1685,53 @@
   <message>sending:w([==[        tmr.alarm(1,5000,0,function() print(wifi.sta.getip()) end)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240625</millis>
-  <sequence>212</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082098</millis>
+  <sequence>159</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[        tmr.alarm(1,5000,0</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240628</millis>
-  <sequence>213</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082100</millis>
+  <sequence>160</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:,function() print(wifi.sta.getip</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240630</millis>
-  <sequence>214</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082103</millis>
+  <sequence>161</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:()) end)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240634</millis>
-  <sequence>215</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082106</millis>
+  <sequence>162</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240643</millis>
-  <sequence>216</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082116</millis>
+  <sequence>163</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2323,9 +1740,9 @@
   <message>27</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240643</millis>
-  <sequence>217</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082116</millis>
+  <sequence>164</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2334,42 +1751,42 @@
   <message>sending:w([==[        print("Wait 10 Seconds")]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240646</millis>
-  <sequence>218</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082120</millis>
+  <sequence>165</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[        print("Wait 10 Sec</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240649</millis>
-  <sequence>219</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082122</millis>
+  <sequence>166</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:onds")]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240654</millis>
-  <sequence>220</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082127</millis>
+  <sequence>167</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240662</millis>
-  <sequence>221</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082134</millis>
+  <sequence>168</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2378,9 +1795,9 @@
   <message>28</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240662</millis>
-  <sequence>222</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082134</millis>
+  <sequence>169</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2389,53 +1806,53 @@
   <message>sending:w([==[        tmr.alarm(0,10000,0,function() dofile(NextFile) end)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240666</millis>
-  <sequence>223</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082138</millis>
+  <sequence>170</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[        tmr.alarm(0,10000,</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240668</millis>
-  <sequence>224</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082140</millis>
+  <sequence>171</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:0,function() dofile(NextFile) en</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240671</millis>
-  <sequence>225</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082142</millis>
+  <sequence>172</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:d)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240674</millis>
-  <sequence>226</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082146</millis>
+  <sequence>173</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240682</millis>
-  <sequence>227</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082155</millis>
+  <sequence>174</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2444,9 +1861,9 @@
   <message>29</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240682</millis>
-  <sequence>228</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082155</millis>
+  <sequence>175</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2455,42 +1872,42 @@
   <message>sending:w([==[        print("Started file "..NextFile)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240686</millis>
-  <sequence>229</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082159</millis>
+  <sequence>176</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[        print("Started fil</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240689</millis>
-  <sequence>230</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082163</millis>
+  <sequence>177</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:e "..NextFile)]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240692</millis>
-  <sequence>231</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082165</millis>
+  <sequence>178</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240701</millis>
-  <sequence>232</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082174</millis>
+  <sequence>179</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2499,9 +1916,9 @@
   <message>30</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240701</millis>
-  <sequence>233</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082174</millis>
+  <sequence>180</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2510,31 +1927,31 @@
   <message>sending:w([==[        else]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240705</millis>
-  <sequence>234</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082178</millis>
+  <sequence>181</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[        else]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240708</millis>
-  <sequence>235</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082181</millis>
+  <sequence>182</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240717</millis>
-  <sequence>236</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082190</millis>
+  <sequence>183</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2543,9 +1960,9 @@
   <message>31</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240717</millis>
-  <sequence>237</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082190</millis>
+  <sequence>184</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2554,31 +1971,31 @@
   <message>sending:w([==[        end]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240722</millis>
-  <sequence>238</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082194</millis>
+  <sequence>185</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[        end]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240724</millis>
-  <sequence>239</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082197</millis>
+  <sequence>186</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240733</millis>
-  <sequence>240</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082207</millis>
+  <sequence>187</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2587,9 +2004,9 @@
   <message>32</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240733</millis>
-  <sequence>241</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082208</millis>
+  <sequence>188</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2598,31 +2015,31 @@
   <message>sending:w([==[        ]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240737</millis>
-  <sequence>242</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082212</millis>
+  <sequence>189</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[        ]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240740</millis>
-  <sequence>243</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082214</millis>
+  <sequence>190</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240748</millis>
-  <sequence>244</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082223</millis>
+  <sequence>191</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2631,9 +2048,9 @@
   <message>33</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240748</millis>
-  <sequence>245</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082224</millis>
+  <sequence>192</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2642,31 +2059,31 @@
   <message>sending:w([==[    end]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240752</millis>
-  <sequence>246</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082227</millis>
+  <sequence>193</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[    end]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240755</millis>
-  <sequence>247</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082230</millis>
+  <sequence>194</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240764</millis>
-  <sequence>248</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082240</millis>
+  <sequence>195</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2675,9 +2092,9 @@
   <message>34</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240764</millis>
-  <sequence>249</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082240</millis>
+  <sequence>196</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2686,42 +2103,42 @@
   <message>sending:w([==[print("End of Startup")]==]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240768</millis>
-  <sequence>250</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082243</millis>
+  <sequence>197</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:w([==[print("End of Startup")]==</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240770</millis>
-  <sequence>251</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082245</millis>
+  <sequence>198</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:]);&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240772</millis>
-  <sequence>252</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082248</millis>
+  <sequence>199</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240781</millis>
-  <sequence>253</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082258</millis>
+  <sequence>200</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2730,9 +2147,9 @@
   <message>35</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240782</millis>
-  <sequence>254</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082258</millis>
+  <sequence>201</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2741,31 +2158,31 @@
   <message>sending:file.close();&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240785</millis>
-  <sequence>255</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082261</millis>
+  <sequence>202</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:file.close();&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240790</millis>
-  <sequence>256</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082266</millis>
+  <sequence>203</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:&gt; </message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240797</millis>
-  <sequence>257</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082274</millis>
+  <sequence>204</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2774,9 +2191,9 @@
   <message>36</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240797</millis>
-  <sequence>258</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082275</millis>
+  <sequence>205</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -2785,3243 +2202,31 @@
   <message>sending:dofile("init.lua");&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240801</millis>
-  <sequence>259</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082278</millis>
+  <sequence>206</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
+  <thread>28</thread>
   <message>recv:dofile("init.lua");&lt;CR&gt;&lt;LF&gt;</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:00</date>
-  <millis>1485522240817</millis>
-  <sequence>260</sequence>
+  <date>2017-01-30T13:24:42</date>
+  <millis>1485779082295</millis>
+  <sequence>207</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
   <method>log</method>
-  <thread>39</thread>
-  <message>Operation done. Duration = 902 ms</message>
+  <thread>28</thread>
+  <message>Operation done. Duration = 838 ms</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242910</millis>
-  <sequence>261</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>We save known file circuitBreakerSender.lua</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242910</millis>
-  <sequence>262</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Try to saving file circuitBreakerSender.lua ...</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242911</millis>
-  <sequence>263</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>Save file circuitBreakerSender.lua: Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242915</millis>
-  <sequence>264</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>FileSaveESP: Try to save file to ESP...</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242922</millis>
-  <sequence>265</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>DataSender: start "Smart Mode"</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242923</millis>
-  <sequence>266</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>FileSaveESP: Starting...</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242938</millis>
-  <sequence>267</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>0</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242939</millis>
-  <sequence>268</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:file.remove("circuitBreakerSender.lua");&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242942</millis>
-  <sequence>269</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:file.remove("circuitBreakerSende</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242944</millis>
-  <sequence>270</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:r.lua");&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242957</millis>
-  <sequence>271</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>1</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:02</date>
-  <millis>1485522242957</millis>
-  <sequence>272</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:file.open("circuitBreakerSender.lua","w+");&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243035</millis>
-  <sequence>273</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; file.open("circuitBreakerSende</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243037</millis>
-  <sequence>274</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:r.lua","w+");&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243048</millis>
-  <sequence>275</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>2</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243048</millis>
-  <sequence>276</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w = file.writeline&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243188</millis>
-  <sequence>277</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; w = file.writeline&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243190</millis>
-  <sequence>278</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243199</millis>
-  <sequence>279</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>3</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243199</millis>
-  <sequence>280</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[print("Started Circuit BreakerSender") ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243203</millis>
-  <sequence>281</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[print("Started Circuit Bre</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243206</millis>
-  <sequence>282</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:akerSender") ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243209</millis>
-  <sequence>283</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243217</millis>
-  <sequence>284</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>4</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243217</millis>
-  <sequence>285</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[print("IP:") ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243221</millis>
-  <sequence>286</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[print("IP:") ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243225</millis>
-  <sequence>287</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243233</millis>
-  <sequence>288</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>5</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243234</millis>
-  <sequence>289</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[print(wifi.sta.getip())]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243238</millis>
-  <sequence>290</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[print(wifi.sta.getip())]==</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243239</millis>
-  <sequence>291</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243242</millis>
-  <sequence>292</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243250</millis>
-  <sequence>293</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>6</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243250</millis>
-  <sequence>294</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[node.setcpufreq(node.CPU160MHZ)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243254</millis>
-  <sequence>295</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[node.setcpufreq(node.CPU16</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243256</millis>
-  <sequence>296</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:0MHZ)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243259</millis>
-  <sequence>297</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243268</millis>
-  <sequence>298</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>7</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243268</millis>
-  <sequence>299</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243272</millis>
-  <sequence>300</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243275</millis>
-  <sequence>301</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243283</millis>
-  <sequence>302</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>8</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243283</millis>
-  <sequence>303</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[ENABLE_PIN = 6]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243288</millis>
-  <sequence>304</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[ENABLE_PIN = 6]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243290</millis>
-  <sequence>305</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243299</millis>
-  <sequence>306</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>9</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243299</millis>
-  <sequence>307</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[timesPressed=0]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243304</millis>
-  <sequence>308</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[timesPressed=0]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243307</millis>
-  <sequence>309</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243316</millis>
-  <sequence>310</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>10</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243316</millis>
-  <sequence>311</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[increase = 1]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243320</millis>
-  <sequence>312</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[increase = 1]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243323</millis>
-  <sequence>313</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243333</millis>
-  <sequence>314</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>11</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243333</millis>
-  <sequence>315</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243337</millis>
-  <sequence>316</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243340</millis>
-  <sequence>317</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243349</millis>
-  <sequence>318</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>12</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243350</millis>
-  <sequence>319</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[gpio.mode(ENABLE_PIN, gpio.OUTPUT, gpio.PULLUP)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243353</millis>
-  <sequence>320</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[gpio.mode(ENABLE_PIN, gpio</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243357</millis>
-  <sequence>321</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:.OUTPUT, gpio.PULLUP)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243360</millis>
-  <sequence>322</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243369</millis>
-  <sequence>323</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>13</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243369</millis>
-  <sequence>324</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243372</millis>
-  <sequence>325</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243375</millis>
-  <sequence>326</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243384</millis>
-  <sequence>327</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>14</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243384</millis>
-  <sequence>328</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[-- Timer every 10 ms]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243387</millis>
-  <sequence>329</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[-- Timer every 10 ms]==]);</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243389</millis>
-  <sequence>330</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243392</millis>
-  <sequence>331</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243400</millis>
-  <sequence>332</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>15</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243400</millis>
-  <sequence>333</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[tmr.register(0, 10, tmr.ALARM_SEMI, function() ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243404</millis>
-  <sequence>334</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[tmr.register(0, 10, tmr.AL</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243407</millis>
-  <sequence>335</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:ARM_SEMI, function() ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243412</millis>
-  <sequence>336</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243420</millis>
-  <sequence>337</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>16</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243420</millis>
-  <sequence>338</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[    -- enable CB and set light to green]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243423</millis>
-  <sequence>339</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[    -- enable CB and set l</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243426</millis>
-  <sequence>340</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:ight to green]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243430</millis>
-  <sequence>341</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243438</millis>
-  <sequence>342</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>17</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243438</millis>
-  <sequence>343</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[    if gpio.read(6) == 1 then ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243442</millis>
-  <sequence>344</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[    if gpio.read(6) == 1 t</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243444</millis>
-  <sequence>345</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:hen ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243447</millis>
-  <sequence>346</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243456</millis>
-  <sequence>347</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>18</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243456</millis>
-  <sequence>348</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        if increase == 0 then]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243459</millis>
-  <sequence>349</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        if increase == 0 t</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243462</millis>
-  <sequence>350</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:hen]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243464</millis>
-  <sequence>351</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243474</millis>
-  <sequence>352</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>19</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243474</millis>
-  <sequence>353</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        conn:connect(9156,"192.168.4.1")]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243477</millis>
-  <sequence>354</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        conn:connect(9156,</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243480</millis>
-  <sequence>355</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:"192.168.4.1")]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243484</millis>
-  <sequence>356</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243492</millis>
-  <sequence>357</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>20</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243492</millis>
-  <sequence>358</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        conn:send(0)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243495</millis>
-  <sequence>359</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        conn:send(0)]==]);</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243497</millis>
-  <sequence>360</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243500</millis>
-  <sequence>361</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243508</millis>
-  <sequence>362</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>21</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243508</millis>
-  <sequence>363</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        conn:close()]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243512</millis>
-  <sequence>364</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        conn:close()]==]);</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243513</millis>
-  <sequence>365</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243516</millis>
-  <sequence>366</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243524</millis>
-  <sequence>367</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>22</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243524</millis>
-  <sequence>368</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        increase = 1]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243527</millis>
-  <sequence>369</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        increase = 1]==]);</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243529</millis>
-  <sequence>370</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243532</millis>
-  <sequence>371</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243540</millis>
-  <sequence>372</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>23</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243540</millis>
-  <sequence>373</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243544</millis>
-  <sequence>374</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243549</millis>
-  <sequence>375</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243555</millis>
-  <sequence>376</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>24</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243555</millis>
-  <sequence>377</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        timesPressed = 0]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243558</millis>
-  <sequence>378</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        timesPressed = 0]=</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243560</millis>
-  <sequence>379</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:=]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243563</millis>
-  <sequence>380</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243571</millis>
-  <sequence>381</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>25</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243571</millis>
-  <sequence>382</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[    else ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243575</millis>
-  <sequence>383</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[    else ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243578</millis>
-  <sequence>384</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243588</millis>
-  <sequence>385</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>26</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243588</millis>
-  <sequence>386</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        timesPressed = timesPressed + increase]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243591</millis>
-  <sequence>387</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        timesPressed = tim</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243595</millis>
-  <sequence>388</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:esPressed + increase]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243598</millis>
-  <sequence>389</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243606</millis>
-  <sequence>390</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>27</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243606</millis>
-  <sequence>391</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        if timesPressed == 100 then]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243609</millis>
-  <sequence>392</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        if timesPressed ==</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243612</millis>
-  <sequence>393</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv: 100 then]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243615</millis>
-  <sequence>394</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243624</millis>
-  <sequence>395</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>28</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243624</millis>
-  <sequence>396</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[         conn:connect(9156,"192.168.4.1")]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243627</millis>
-  <sequence>397</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[         conn:connect(9156</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243631</millis>
-  <sequence>398</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:,"192.168.4.1")]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243634</millis>
-  <sequence>399</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243642</millis>
-  <sequence>400</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>29</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243642</millis>
-  <sequence>401</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        conn:send(9)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243645</millis>
-  <sequence>402</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        conn:send(9)]==]);</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243647</millis>
-  <sequence>403</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243650</millis>
-  <sequence>404</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243656</millis>
-  <sequence>405</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>30</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243656</millis>
-  <sequence>406</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        conn:send(1)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243660</millis>
-  <sequence>407</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        conn:send(1)]==]);</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243661</millis>
-  <sequence>408</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243664</millis>
-  <sequence>409</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243671</millis>
-  <sequence>410</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>31</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243671</millis>
-  <sequence>411</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        conn:close()]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243675</millis>
-  <sequence>412</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        conn:close()]==]);</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243676</millis>
-  <sequence>413</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243679</millis>
-  <sequence>414</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243686</millis>
-  <sequence>415</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>32</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243687</millis>
-  <sequence>416</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        timesPressed = 101]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243690</millis>
-  <sequence>417</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        timesPressed = 101</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243692</millis>
-  <sequence>418</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243697</millis>
-  <sequence>419</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243703</millis>
-  <sequence>420</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>33</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243703</millis>
-  <sequence>421</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        increase = 0]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243707</millis>
-  <sequence>422</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        increase = 0]==]);</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243708</millis>
-  <sequence>423</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243711</millis>
-  <sequence>424</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243718</millis>
-  <sequence>425</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>34</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243718</millis>
-  <sequence>426</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        elseif timesPressed == 101 then]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243722</millis>
-  <sequence>427</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        elseif timesPresse</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243725</millis>
-  <sequence>428</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:d == 101 then]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243727</millis>
-  <sequence>429</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243737</millis>
-  <sequence>430</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>35</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243737</millis>
-  <sequence>431</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[            conn:connect(9156,"192.168.4.1")]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243740</millis>
-  <sequence>432</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[            conn:connect(9</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243744</millis>
-  <sequence>433</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:156,"192.168.4.1")]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243747</millis>
-  <sequence>434</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243756</millis>
-  <sequence>435</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>36</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243756</millis>
-  <sequence>436</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[            conn:send(1)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243760</millis>
-  <sequence>437</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[            conn:send(1)]=</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243761</millis>
-  <sequence>438</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:=]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243765</millis>
-  <sequence>439</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243773</millis>
-  <sequence>440</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>37</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243773</millis>
-  <sequence>441</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[            conn:close()]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243776</millis>
-  <sequence>442</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[            conn:close()]=</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243778</millis>
-  <sequence>443</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:=]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243781</millis>
-  <sequence>444</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243789</millis>
-  <sequence>445</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>38</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243789</millis>
-  <sequence>446</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243793</millis>
-  <sequence>447</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243796</millis>
-  <sequence>448</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243804</millis>
-  <sequence>449</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>39</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243805</millis>
-  <sequence>450</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[    end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243808</millis>
-  <sequence>451</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[    end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243811</millis>
-  <sequence>452</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243820</millis>
-  <sequence>453</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>40</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243820</millis>
-  <sequence>454</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[    tmr.start(0)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243824</millis>
-  <sequence>455</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[    tmr.start(0)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243827</millis>
-  <sequence>456</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243837</millis>
-  <sequence>457</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>41</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243838</millis>
-  <sequence>458</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[end)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243841</millis>
-  <sequence>459</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[end)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243844</millis>
-  <sequence>460</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243853</millis>
-  <sequence>461</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>42</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243853</millis>
-  <sequence>462</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243856</millis>
-  <sequence>463</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243859</millis>
-  <sequence>464</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243868</millis>
-  <sequence>465</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>43</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243868</millis>
-  <sequence>466</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[function udp_send(srv, c)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243871</millis>
-  <sequence>467</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[function udp_send(srv, c)]</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243873</millis>
-  <sequence>468</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243876</millis>
-  <sequence>469</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243886</millis>
-  <sequence>470</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>44</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243886</millis>
-  <sequence>471</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        command = tonumber(c)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243889</millis>
-  <sequence>472</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        command = tonumber</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243892</millis>
-  <sequence>473</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:(c)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243896</millis>
-  <sequence>474</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243904</millis>
-  <sequence>475</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>45</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243904</millis>
-  <sequence>476</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        if command == 9 then safety_start = true end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243907</millis>
-  <sequence>477</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        if command == 9 th</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243910</millis>
-  <sequence>478</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:en safety_start = true end]==]);</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243912</millis>
-  <sequence>479</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243915</millis>
-  <sequence>480</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243923</millis>
-  <sequence>481</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>46</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243923</millis>
-  <sequence>482</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        if command == 1 and safety_start then enable = true end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243926</millis>
-  <sequence>483</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        if command == 1 an</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243929</millis>
-  <sequence>484</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:d safety_start then enable = tru</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243932</millis>
-  <sequence>485</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:e end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243935</millis>
-  <sequence>486</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243943</millis>
-  <sequence>487</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>47</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243943</millis>
-  <sequence>488</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[        if command == 0 then  enable = false safety_start = false end   ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243946</millis>
-  <sequence>489</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[        if command == 0 th</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243949</millis>
-  <sequence>490</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:en  enable = false safety_start </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243952</millis>
-  <sequence>491</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:= false end   ]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243956</millis>
-  <sequence>492</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243964</millis>
-  <sequence>493</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>48</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243964</millis>
-  <sequence>494</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243967</millis>
-  <sequence>495</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[end]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243970</millis>
-  <sequence>496</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243979</millis>
-  <sequence>497</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>49</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243979</millis>
-  <sequence>498</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243982</millis>
-  <sequence>499</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243985</millis>
-  <sequence>500</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243994</millis>
-  <sequence>501</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>50</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243994</millis>
-  <sequence>502</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[tmr.start(0)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:03</date>
-  <millis>1485522243998</millis>
-  <sequence>503</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[tmr.start(0)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244001</millis>
-  <sequence>504</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244011</millis>
-  <sequence>505</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>51</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244011</millis>
-  <sequence>506</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[port=9156]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244015</millis>
-  <sequence>507</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[port=9156]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244018</millis>
-  <sequence>508</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244026</millis>
-  <sequence>509</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>52</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244026</millis>
-  <sequence>510</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[srv=net.createServer(net.UDP)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244029</millis>
-  <sequence>511</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[srv=net.createServer(net.U</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244031</millis>
-  <sequence>512</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:DP)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244037</millis>
-  <sequence>513</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244043</millis>
-  <sequence>514</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>53</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244043</millis>
-  <sequence>515</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[srv:on("receive", function(srv, c) udp_received(srv, c) end )]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244047</millis>
-  <sequence>516</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[srv:on("receive", function</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244050</millis>
-  <sequence>517</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:(srv, c) udp_received(srv, c) en</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244052</millis>
-  <sequence>518</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:d )]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244055</millis>
-  <sequence>519</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244064</millis>
-  <sequence>520</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>54</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244064</millis>
-  <sequence>521</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[srv:listen(port)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244068</millis>
-  <sequence>522</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[srv:listen(port)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244072</millis>
-  <sequence>523</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244081</millis>
-  <sequence>524</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>55</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244081</millis>
-  <sequence>525</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244084</millis>
-  <sequence>526</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244087</millis>
-  <sequence>527</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244096</millis>
-  <sequence>528</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>56</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244096</millis>
-  <sequence>529</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[conn = net.createConnection(net.UDP, 0)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244100</millis>
-  <sequence>530</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[conn = net.createConnectio</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244103</millis>
-  <sequence>531</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:n(net.UDP, 0)]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244106</millis>
-  <sequence>532</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244114</millis>
-  <sequence>533</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>57</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244114</millis>
-  <sequence>534</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244117</millis>
-  <sequence>535</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244120</millis>
-  <sequence>536</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244130</millis>
-  <sequence>537</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>58</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244130</millis>
-  <sequence>538</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:w([==[conn:connect(9156,"192.168.4.1")]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244133</millis>
-  <sequence>539</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:w([==[conn:connect(9156,"192.168</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244136</millis>
-  <sequence>540</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:.4.1")]==]);&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244139</millis>
-  <sequence>541</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244147</millis>
-  <sequence>542</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>59</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244148</millis>
-  <sequence>543</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:file.close();&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244151</millis>
-  <sequence>544</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:file.close();&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244156</millis>
-  <sequence>545</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:&gt; </message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244164</millis>
-  <sequence>546</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>60</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244164</millis>
-  <sequence>547</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>sending:dofile("circuitBreakerSender.lua");&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244167</millis>
-  <sequence>548</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:dofile("circuitBreakerSender.lua</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244169</millis>
-  <sequence>549</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>recv:");&lt;CR&gt;&lt;LF&gt;</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:04</date>
-  <millis>1485522244186</millis>
-  <sequence>550</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>41</thread>
-  <message>Operation done. Duration = 1270 ms</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:06</date>
-  <millis>1485522246186</millis>
-  <sequence>551</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>FileTab removed: Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:06</date>
-  <millis>1485522246187</millis>
-  <sequence>552</sequence>
-  <logger>ESPlorer.ESPlorer</logger>
-  <level>INFO</level>
-  <class>ESPlorer.ESPlorer</class>
-  <method>log</method>
-  <thread>13</thread>
-  <message>File close: Success.</message>
-</record>
-<record>
-  <date>2017-01-27T14:04:06</date>
-  <millis>1485522246206</millis>
-  <sequence>553</sequence>
+  <date>2017-01-30T13:24:56</date>
+  <millis>1485779096097</millis>
+  <sequence>208</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>
@@ -6030,9 +2235,9 @@
   <message>FileTab cleared: Success.</message>
 </record>
 <record>
-  <date>2017-01-27T14:04:06</date>
-  <millis>1485522246207</millis>
-  <sequence>554</sequence>
+  <date>2017-01-30T13:24:56</date>
+  <millis>1485779096098</millis>
+  <sequence>209</sequence>
   <logger>ESPlorer.ESPlorer</logger>
   <level>INFO</level>
   <class>ESPlorer.ESPlorer</class>

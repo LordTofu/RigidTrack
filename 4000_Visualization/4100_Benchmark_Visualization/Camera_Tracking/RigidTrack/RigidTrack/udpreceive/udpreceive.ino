@@ -6,7 +6,7 @@ extern "C" {
   }
 WiFiUDP Udp1;
   unsigned int localUdpPort = 9155;
-  char hostDownlink[] = "192.168.4.3";
+  char hostDownlink[] = "192.168.4.5";
   char incomingPacket[36];
   char outgoingPacket[54];
   char myhostname[] = "ESP_Telemetry";

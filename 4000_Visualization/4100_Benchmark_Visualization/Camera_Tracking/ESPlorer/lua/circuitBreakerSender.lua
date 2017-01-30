@@ -1,6 +1,4 @@
 print("Started Circuit BreakerSender") 
-print("IP:") 
-print(wifi.sta.getip())
 node.setcpufreq(node.CPU160MHZ)
 
 ENABLE_PIN = 6
