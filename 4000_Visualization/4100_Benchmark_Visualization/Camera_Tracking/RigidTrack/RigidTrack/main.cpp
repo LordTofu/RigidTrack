@@ -110,8 +110,8 @@ Core::DistortionModel distModel;
 // IP adress of the circuit breaker that disables the drone if a specified region is exited. 
 QUdpSocket *udpSocketCB;
 QUdpSocket *udpSocketDrone;
-QHostAddress IPAdressCB = QHostAddress("192.168.137.253");
-QHostAddress IPAdressDrone = QHostAddress("192.168.137.18");
+QHostAddress IPAdressCB = QHostAddress("192.168.4.1"); // IP Adress of the Corcuit Breaker, stays the same
+QHostAddress IPAdressDrone = QHostAddress("192.168.4.2");	// IP Adress of the drone wifi telemetry chip, can change to 192.168.4.x
 QByteArray datagram;
 QDataStream out;
 double enable = 1;
@@ -407,10 +407,8 @@ int start_camera() {
 				//Value[4] = eulerAngles[1];
 				//Value[5] = eulerAngles[2];
 
-				//latitude = latitudeRef + atan(Value[0] / earthRadius);
-				//longitude = longitudeRef + atan(Value[1] / earthRadius);
-
-				
+				latitude = latitudeRef + atan(Value[0] / earthRadius);
+				longitude = longitudeRef + atan(Value[1] / earthRadius);
 
 				//CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double)); // enable for UE visualization
 
@@ -418,7 +416,7 @@ int start_camera() {
 
 				//send it over WiFi with 100 Hz
 				if (decimatorHelper >= decimator) {
-					sendDataUDP(velocity[2], eulerAngles, enable);
+					sendDataUDP(latitude, longitude, position[2], velocity, eulerAngles);
 					decimatorHelper = 0;
 				}
 			}
@@ -430,7 +428,6 @@ int start_camera() {
 					if (v == 5) {
 						data.setNum((int)(1));
 						udpSocketCB->write(data);
-
 						v = 0;
 					}
 				}
@@ -438,12 +435,6 @@ int start_camera() {
 				{
 					data.setNum((int)(0));
 					udpSocketCB->write(data);
-					enable = 0.0;
-					framesDropped++;
-					if (enable < 0.5)
-					{
-						velocity[2] = 10500.0;
-					}
 					commObj.addLog("Drone exceeded allowed Euler Angles, shutting it down!");
 
 				}
@@ -452,18 +443,10 @@ int start_camera() {
 			{
 				data.setNum((int)(0));
 				udpSocketCB->write(data);
-				enable = 0.0;
-				framesDropped++;
-				if (enable < 0.5)
-				{
-					velocity[2] = 10500.0;
-				}
 				commObj.addLog("Drone left allowed Area, shutting it down!");
 
 			}
 			
-			
-
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
 			if (projectionError > 50 && debug == false)
 			{
@@ -473,14 +456,8 @@ int start_camera() {
 			//Stop the drone is tracking system is disturbed (marker lost or so)
 			if (framesDropped > 10 && debug == false)
 			{
-				//data.setNum((int)(0));
-				//udpSocketCB->write(data);
-				enable = 0.0;
-				if(enable < 0.5)
-				{
-				velocity[2] = 10500.0;
-				}
-				sendDataUDP(velocity[2], eulerAngles, enable);
+				data.setNum((int)(0));
+				udpSocketCB->write(data);
 				commObj.addLog("Lost Marker Points or Accuracy was bad!");
 			}
 
@@ -516,8 +493,6 @@ int start_camera() {
 			commObj.changeImage(QPFrame);
 			QCoreApplication::processEvents();
 			frame->Release();
-
-			
 		}
 	}
 
@@ -1102,12 +1077,16 @@ void setUpMMF()
 	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
 }
 
-void sendDataUDP(double &velocityz, cv::Vec3d &Euler, double &enable)
+void sendDataUDP(double &Latitude, double &Longitude, double &Altitude, cv::Vec3d &Velocity, cv::Vec3d &Euler)
 {
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_3);
-	out << (float)1.0 << (float)velocityz;  // velocity z // send enable signal as velocity y
-	out << (float)Euler[0] << (float)Euler[1]; // Roll Pitch 
+	Latitude *= 10 ^ 7;		// save bandwith 
+	Longitude *= 10 ^ 7;	// save bandwith
+	Altitude *= 0.001; // mm to meter
+	out << (int)Latitude << (int)Longitude << (float)Altitude;
+	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
+	out << (float)Velocity[0] << (float)Velocity[1] << (float)Velocity[2];
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
 }
