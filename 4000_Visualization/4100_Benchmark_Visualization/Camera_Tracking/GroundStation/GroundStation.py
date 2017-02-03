@@ -6,7 +6,7 @@ import struct
 import numpy as np
 import math
 
-UDP_IP = '127.0.0.1'
+UDP_IP = '192.168.4.5'
 UDP_PORT = 9155
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 
@@ -124,18 +124,18 @@ ax[0][0].add_patch(tiltRight)
 ax[0][1].add_patch(horizon)
 ax[0][1].add_patch(horizonLine)
 
-text1 = ax[0][0].text(-72, 30, "RPM 1: 0", fontsize=10)
-text2 = ax[0][0].text( 28, 30, "RPM 2: 0", fontsize=10)
-text3 = ax[0][0].text(-24, 80, "RPM 3: 0", fontsize=10)
-text4 = ax[0][0].text(-24,-20, "RPM 4: 0", fontsize=10)
+text1 = ax[0][0].text(-90, 30, "RPM 1: 0", fontsize=10)
+text2 = ax[0][0].text( 26, 30, "RPM 2: 0", fontsize=10)
+text3 = ax[0][0].text(-27, 80, "RPM 3: 0", fontsize=10)
+text4 = ax[0][0].text(-27,-20, "RPM 4: 0", fontsize=10)
 
 textPitch = ax[0][1].text(-170,-140, "Roll: 0")
 textRoll = ax[0][1].text(-50,-140, "Pitch : 0")
 
-text1percent = ax[0][0].text(-60, 0, "00%" , fontsize=10)
-text2percent = ax[0][0].text( 40, 0, "00%" , fontsize=10)
-text3percent = ax[0][0].text(-10, 47, "00%", fontsize=10)
-text4percent = ax[0][0].text(-10,-53, "00%", fontsize=10)
+text1percent = ax[0][0].text(-61, -3, "00%" , fontsize=10)
+text2percent = ax[0][0].text( 39, -3, "00%" , fontsize=10)
+text3percent = ax[0][0].text(-12, 47, "00%", fontsize=10)
+text4percent = ax[0][0].text(-12,-53, "00%", fontsize=10)
 
 actualTime = 0
 while True:
