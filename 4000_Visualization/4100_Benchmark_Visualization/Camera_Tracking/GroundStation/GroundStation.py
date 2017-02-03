@@ -18,9 +18,10 @@ posz = 0
 number = 0
 plt.ion()
 
-fig, ax = plt.subplots(2, 2)
+fig, ax = plt.subplots(2, 2, figsize=(12, 7), dpi=80)
 plt.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.05)
 fig.set_facecolor('w')
+
 
 fig.show()
 
