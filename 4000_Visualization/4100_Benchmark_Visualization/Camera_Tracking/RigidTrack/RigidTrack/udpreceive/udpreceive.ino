@@ -84,9 +84,18 @@ void loop()
   
   if (Serial.available() > 0)
   {             
-                Serial.readBytes(outgoingPacket, 54);
-                Udp1.beginPacket(hostDownlink, 9155);
-                Udp1.write(outgoingPacket, 54);
-                Udp1.endPacket();
+                Serial.readBytes(outgoingPacket, 2);
+                if(outgoingPacket[0] == 0x0A && outgoingPacket[1] == 0x6E)
+                {
+                  Serial.readBytes(outgoingPacket, 52);
+                  Udp1.beginPacket(hostDownlink, 9155);
+                  Udp1.write(outgoingPacket, 54);
+                  Udp1.endPacket();
+                }
+                else
+                {
+                  
+                }
+                
   }
 }
