@@ -1,12 +1,12 @@
 import socket
 import matplotlib as mpl
-from matplotlib import pyplot as plt
+import vispy.mpl_plot as plt
 from matplotlib import patches as patches
 import struct
 import numpy as np
 import math
 
-UDP_IP = '192.168.4.5'
+UDP_IP = '127.0.0.1'
 UDP_PORT = 9155
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 
@@ -103,8 +103,14 @@ tiltRight = patches.Wedge((80,0),25,0,30,width=5,facecolor='#91D100')
 stickLeft = plt.Circle((-80,0), 10)
 stickRight = plt.Circle((80,0), 10)
 
-horizon = patches.Ellipse((0,0), 5000,200, facecolor='#9b4712')
-horizonLine = patches.FancyArrowPatch((-170, 0), (180,0))
+horizon = patches.Ellipse((0,0), 5000,200, facecolor='#54360a')
+horizonCenter = plt.Circle((0,0), 5, color='w')
+horizonLineLeft = patches.FancyArrowPatch((-60, 0), (-30,0), color='w')
+horizonLineRight = patches.FancyArrowPatch((60, 0), (30,0), color='w')
+horizonLineTop = patches.FancyArrowPatch((0, 65), (0,55), color='w', linewidth=2)
+rollLinesStyle = patches.ArrowStyle.BarAB(5,0,5,0)
+horizonRollLine1 = patches.FancyArrowPatch((-50, 0), (0,50), color='w', linewidth=2, connectionstyle="arc3, rad=0.174532", arrowstyle=rollLinesStyle)
+horizonRollLine2 = patches.FancyArrowPatch((-50, 0), (0,50), color='w', linewidth=2, connectionstyle="arc3, rad=-0.174532", arrowstyle=rollLinesStyle)
 
 ax[1][1].add_artist(stickLeft)
 ax[1][1].add_artist(stickRight)
@@ -121,8 +127,12 @@ ax[0][0].add_patch(rpm4)
 ax[0][0].add_patch(tiltLeft)
 ax[0][0].add_patch(tiltRight)
 
+ax[0][1].set_axis_bgcolor('#365fed')
 ax[0][1].add_patch(horizon)
-ax[0][1].add_patch(horizonLine)
+ax[0][1].add_patch(horizonLineLeft)
+ax[0][1].add_patch(horizonLineRight)
+ax[0][1].add_patch(horizonLineTop)
+ax[0][1].add_patch(horizonCenter)
 
 text1 = ax[0][0].text(-90, 30, "RPM 1: 0", fontsize=10)
 text2 = ax[0][0].text( 26, 30, "RPM 2: 0", fontsize=10)
@@ -136,6 +146,7 @@ text1percent = ax[0][0].text(-61, -3, "00%" , fontsize=10)
 text2percent = ax[0][0].text( 39, -3, "00%" , fontsize=10)
 text3percent = ax[0][0].text(-12, 47, "00%", fontsize=10)
 text4percent = ax[0][0].text(-12,-53, "00%", fontsize=10)
+
 
 actualTime = 0
 while True:
@@ -197,6 +208,10 @@ while True:
     text2percent.set_text('{:3.0f}%'.format(angle2/3.60))
     text3percent.set_text('{:3.0f}%'.format(angle3/3.60))
     text4percent.set_text('{:3.0f}%'.format(angle4/3.60))
+
+    textPitch.set_text('Pitch: {:2.1f}'.format(pitch))
+    textRoll.set_text('Roll: {:2.1f}'.format(roll))
+
 
     rpm1.set_theta1(-angle1+90)
     rpm2.set_theta1(-angle2+90)
