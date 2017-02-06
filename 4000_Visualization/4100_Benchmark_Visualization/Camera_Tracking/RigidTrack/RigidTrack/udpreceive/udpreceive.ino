@@ -8,6 +8,8 @@ WiFiUDP Udp1;
   unsigned int localUdpPort = 9155;
   char hostDownlink[] = "192.168.4.5";
   char incomingPacket[36];
+  unsigned char *CRC;
+  uint8_t DataCRC[13];
   char outgoingPacket[54];
   char myhostname[] = "ESP_Telemetry";
   
@@ -24,6 +26,9 @@ void setup()
   Udp1.begin(localUdpPort);
   delay(5000);  
   // only for latency measurement
+
+  DataCRC[0] = 0xEE;
+  DataCRC[1] = 0x0A;
 }
 
 #define poly 0x11021
@@ -55,15 +60,18 @@ void loop()
     Serial.write("\n"); 
     Serial.write("n");
     Serial.write(0xee); //id 
-    Serial.write(0x0c); // length, 12 bytes: stick left up down, stick left left-right stick right ud stick right lr
+    Serial.write(0x0A); // length, 12 bytes: stick left up down, stick left left-right stick right ud stick right lr and state command
     Udp1.read(incomingPacket, 10);
     Udp1.flush();
     for(int i = 0; i < 10; i++)
     {
-      Serial.write(incomingPacket[i]);     
+      Serial.write(incomingPacket[i]);
+      //DataCRC[i+2] = incomingPacket[i];
     }
-    Serial.write(0x00);   //CRC Checksum, 0 for now
-    Serial.write(0x00);
+    
+    //CRC = reinterpret_cast<unsigned char *>(calculateCRC(DataCRC, 13));
+    Serial.write(0x00);   //CRC Checksum
+    Serial.write(0x00);   //CRC Checksum
   }
   
   if (packetSize == 36)  // received position tracking data
@@ -84,18 +92,9 @@ void loop()
   
   if (Serial.available() > 0)
   {             
-                Serial.readBytes(outgoingPacket, 2);
-                if(outgoingPacket[0] == 0x0A && outgoingPacket[1] == 0x6E)
-                {
-                  Serial.readBytes(outgoingPacket, 52);
+                  Serial.readBytes(outgoingPacket, 54);
                   Udp1.beginPacket(hostDownlink, 9155);
                   Udp1.write(outgoingPacket, 54);
                   Udp1.endPacket();
-                }
-                else
-                {
-                  
-                }
-                
   }
 }

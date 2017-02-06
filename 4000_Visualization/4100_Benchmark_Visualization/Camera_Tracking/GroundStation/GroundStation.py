@@ -6,7 +6,7 @@ import struct
 import numpy as np
 import math
 
-UDP_IP = '127.0.0.1'
+UDP_IP = '192.168.4.5'
 UDP_PORT = 9155
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 
@@ -97,8 +97,8 @@ rpm1 = patches.Wedge((-50,0),25,0,90,width=10,facecolor='#91D100')
 rpm2 = patches.Wedge((50,0),25,0,90,width=10,facecolor='#91D100')
 rpm3 = patches.Wedge((0,50),25,0,90,width=10,facecolor='#91D100')
 rpm4 = patches.Wedge((0,-50),25,0,90,width=10,facecolor='#91D100')
-tiltLeft = patches.Wedge((-80,0),25,160,180,width=5,facecolor='#91D100')
-tiltRight = patches.Wedge((80,0),25,0,30,width=5,facecolor='#91D100')
+tiltLeft = patches.Wedge((-80,0),40,160,180,width=10,facecolor='#91D100')
+tiltRight = patches.Wedge((80,0),40,0,30,width=10,facecolor='#91D100')
 
 stickLeft = plt.Circle((-80,0), 10)
 stickRight = plt.Circle((80,0), 10)
@@ -115,8 +115,8 @@ horizonRollLine2 = patches.FancyArrowPatch((-50, 0), (0,50), color='w', linewidt
 ax[1][1].add_artist(stickLeft)
 ax[1][1].add_artist(stickRight)
 
-stickLeftBorder  = plt.Circle((-80,0), 80, fill=False)
-stickRightBorder = plt.Circle((80,0), 80, fill=False)
+stickLeftBorder  = plt.Rectangle((-160,-80), 160, 160, fill=False)
+stickRightBorder = plt.Rectangle((0,-80), 160, 160, fill=False)
 ax[1][1].add_artist(stickLeftBorder)
 ax[1][1].add_artist(stickRightBorder)
 
@@ -155,25 +155,26 @@ while True:
         actualTime = 0
         ax[1][0].cla()
         ax[1][0].set_xlim(0, 100)
+        ax[1][0].set_ylim(0, 12000)
 
     data, addr = sock.recvfrom(54)  # buffer size is 1024 bytes
     #print "received message:", data
 
     dataFloat = data[4:8]
-    rpm1Value = struct.unpack('<f', dataFloat)[0]
-    angle1 = (struct.unpack('<f', dataFloat)[0] -rpmMin1)/(rpmMax1-rpmMin1)*360
+    rpm1Value = round(struct.unpack('<f', dataFloat)[0])
+    angle1 = (rpm1Value -rpmMin1)/(rpmMax1-rpmMin1)*360
 
     dataFloat = data[8:12]
-    rpm2Value = struct.unpack('<f', dataFloat)[0]
-    angle2 = (struct.unpack('<f', dataFloat)[0] -rpmMin2)/(rpmMax2-rpmMin2)*360
+    rpm2Value = round(struct.unpack('<f', dataFloat)[0])
+    angle2 = (rpm2Value -rpmMin2)/(rpmMax2-rpmMin2)*360
 
     dataFloat = data[12:16]
-    rpm3Value = struct.unpack('<f', dataFloat)[0]
-    angle3 = (struct.unpack('<f', dataFloat)[0] -rpmMin3)/(rpmMax3-rpmMin3)*360
+    rpm3Value = round(struct.unpack('<f', dataFloat)[0])
+    angle3 = (rpm3Value -rpmMin3)/(rpmMax3-rpmMin3)*360
 
     dataFloat = data[16:20]
-    rpm4Value = struct.unpack('<f', dataFloat)[0]
-    angle4 = (struct.unpack('<f', dataFloat)[0] -rpmMin4)/(rpmMax4-rpmMin4)*360
+    rpm4Value = round(struct.unpack('<f', dataFloat)[0])
+    angle4 = (rpm4Value -rpmMin4)/(rpmMax4-rpmMin4)*360
 
     dataFloat = data[20:24]
     angleTL = struct.unpack('<f', dataFloat)[0]*180.0/3.1415
@@ -212,7 +213,6 @@ while True:
     textPitch.set_text('Pitch: {:2.1f}'.format(pitch))
     textRoll.set_text('Roll: {:2.1f}'.format(roll))
 
-
     rpm1.set_theta1(-angle1+90)
     rpm2.set_theta1(-angle2+90)
     rpm3.set_theta1(-angle3+90)
@@ -235,8 +235,8 @@ while True:
     stickLeft.center = stickLLR-80, stickLUD
     stickRight.center = stickRLR+80, stickRUD
 
-    horizon.center = 0,  math.sin(math.radians(pitch))*10-100
-    horizon.angle = -roll
+    horizon.center = 0, -1* math.sin(math.radians(pitch))*500-100
+    horizon.angle = roll
 
     rpm1.set_facecolor(plt.cm.jet(angle1 / 360))
     rpm2.set_facecolor(plt.cm.jet(angle2 / 360))
