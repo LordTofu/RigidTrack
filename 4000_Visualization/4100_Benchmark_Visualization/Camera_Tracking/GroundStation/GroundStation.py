@@ -5,6 +5,7 @@ from matplotlib import patches as patches
 import struct
 import numpy as np
 import math
+from collections import deque
 
 UDP_IP = '192.168.4.5'
 UDP_PORT = 9155
@@ -16,6 +17,8 @@ posx = 0
 posy = 0
 posz = 0
 number = 0
+synced = False
+data = bytearray(108)
 plt.ion()
 
 fig, ax = plt.subplots(2, 2, figsize=(12, 7), dpi=80)
@@ -157,8 +160,19 @@ while True:
         ax[1][0].set_xlim(0, 100)
         ax[1][0].set_ylim(0, 12000)
 
-    data, addr = sock.recvfrom(54)  # buffer size is 1024 bytes
-    #print "received message:", data
+    if not synced:
+        sock.recvfrom_into(data)
+        startIndex = 0
+        while data[startIndex] != 0x0A and data[startIndex+1] != 0x6E:
+            startIndex += 1
+        synced = True
+        print startIndex
+
+
+
+    data = bytearray(100)
+    sock.recvfrom_into(data)  # buffer size is 1024 bytes
+    data =  data[startIndex:-1]
 
     dataFloat = data[4:8]
     rpm1Value = round(struct.unpack('<f', dataFloat)[0])
