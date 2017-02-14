@@ -43,97 +43,98 @@ commObject commObj;
 
 bool debug = false;
 
-double frameTime = 1 / 100;
-double timeOld = 0.0;
+double frameTime = 0.01; // 100 Hz frame rate
+double timeOld = 0.0;		// old time for finite differences velocity calculation
 
-Vec3d position = Vec3d();
-Vec3d WGS84 = Vec3d();
+Vec3d position = Vec3d();	// position vector x,y,z for drone position in O-frame
+Vec3d WGS84 = Vec3d();		// WGS vector, latitude, longitude and height 
 Vec3d eulerAngles = Vec3d(); // Roll Pitch Heading in this order
-Vec3d positionOld = Vec3d();
-Vec3d velocity = Vec3d();
-Vec3d posRef = Vec3d();
-Vec3d eulerRef = Vec3d();
+Vec3d positionOld = Vec3d();	// old position in O-frame for finite differences velocity calculation 
+Vec3d velocity = Vec3d();	// velocity vector of drone in o-frame in respect to o-frame
+Vec3d posRef = Vec3d();		// zero position of drone in camera frame
+Vec3d eulerRef = Vec3d();	// euler angle of drone respectivley to camera frame
+Vec3d ropePosition = Vec3d();	// point where the rope is attached or redirected in o-frame
 
-double distFromRef = 0;
-double latitudeRef = 47;
-double longitudeRef = 11;
-double heightRef = 0;
-double latitude = 47;
-double longitude = 11;
-double height = 0;
+double ropeLength = 0;	// nominal rope length, hence the distance from the rope redirection point to the drone position
+double latitudeRef = 47;	// latitude reference for flat earth WGS84 calculation, corresponds to munich
+double longitudeRef = 11;	// longitude reference for flat earth WGS84 calculation, corresponds to munich
+double heightRef = 0;	//WGS84 reference height
+double latitude = 47;	// actual WGS84 latitude sent to drone
+double longitude = 11;	// actual WGS84 longitude sent to drone
+double height = 0;	// actual WGS84 height sent to drone
 double earthRadius = 6366743.0; // Radius of the Earth at 47° North in Meters
-std::ofstream logfile;
 
+std::ofstream logfile;	// file handler for writing the log file
 
-int intIntensity = 6; // max Intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
+int intIntensity = 6; // max infra red spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
 int intExposure = 100; // max is 480 increase if markers are badly visible
-int intFrameRate = 100;
-int intThreshold = 200;
+int intFrameRate = 100;	// frame rate of camera, maximum is 100 fps
+int intThreshold = 200;	// threshold value for marker detection. If markers are badly visible lower this value
 
 //== Rotation, translation etc. matrix for PnP results
-Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Matrix from Marker CoSy to Camera
-Mat RmatRef = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Reference Rotation Matrix from Marker CoSy to Camera
-Mat M_NC = cv::Mat_<double>(3, 3);							// Rotation Matrix from Camera to Ground
-Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Rotation Vector (Axis-Angle) from Marker CoSy to Camera
-Mat Tvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//Translation Vector from Marker CoSy to Camera
-Mat RvecOriginal;
-Mat TvecOriginal;
+Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// rotation matrix from camera frame to marker frame
+Mat RmatRef = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// reference rotation matrix from camera frame to marker frame
+Mat M_NC = cv::Mat_<double>(3, 3);							// rotation matrix from camera to ground
+Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// rotation vector (axis-angle notation) from camera frame to marker frame
+Mat Tvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// translation vector from camera frame to marker frame in camera frame
+Mat RvecOriginal;	// initial values as start values for algorithms
+Mat TvecOriginal;	// initial values as start values for algorithms
 
-float Value[100] = { 0 };	//100 Values can be sent via MMF, can be more but should be enough for now
+float Value[100] = { 0 };	//100 values that are sent via MMF, can be more but should be enough for now
 
 bool useGuess = true; // set to true and the algorithm uses the last result as starting value
-int methodPNP = 0; // 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // not used
+int methodPNP = 0; // solvePNP algorithm 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // 4 and 1 are the same
 
 int numberMarkers = 4; // number of markers
-//== Marker points in real world coordinates and in camera pixel coordinates	==--
-std::vector<Point3d> list_points3d;
-std::vector<Point2d> list_points2d;
-std::vector<Point2d> list_points2dOld;
-std::vector<double> list_points2dDifference;
-std::vector<Point2d> list_points2dProjected;
-std::vector<Point2d> list_points2dUnsorted;
-std::vector<Point3d> coordinateFrame;
-std::vector<Point2d> coordinateFrameProjected;
-int pointOrderIndices[] = { 0, 1, 2, 3};
-int pointOrderIndicesNew[] = { 0, 1, 2, 3 };
-double currentPointDistance = 5000;
-double minPointDistance = 5000;
-int currentMinIndex = 0;
-bool gotOrder = false;
+std::vector<Point3d> list_points3d;	// marker positions in marker frame 
+std::vector<Point2d> list_points2d;	// marker positions projected in 2D in camera image frame
+std::vector<Point2d> list_points2dOld;	// marker positions of previous frame in 2D in camera image frame
+std::vector<double> list_points2dDifference;	// difference of the old and new 2D marker position to determine the order of the points
+std::vector<Point2d> list_points2dProjected;	// 3D marker points projected to 2D in camera image frame with the algorithm projectPoints
+std::vector<Point2d> list_points2dUnsorted;	// marker points in 2D camera image frame, sorted with increasing x (camera image frame) but not sorted to correspond with list_points3d
+std::vector<Point3d> coordinateFrame;	// coordinate visualisazion of marker frame
+std::vector<Point2d> coordinateFrameProjected;	// marker frame projected from 3D to 2D camera image frame
+int pointOrderIndices[] = { 0, 1, 2, 3 };	// old correspondence from list_points3d and list_points_2d
+int pointOrderIndicesNew[] = { 0, 1, 2, 3 };	// new correspondence from list_points3d and list_points_2d
+double currentPointDistance = 5000;	// distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image frame 
+double minPointDistance = 5000;	// minimum distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image frame 
+int currentMinIndex = 0;	// helper variable set to the point order that holds the current minimum point distance 
+bool gotOrder = false;	// order of the list_points3d and list_points3d already tetermined or not 
 
 int decimator = 1; // Decimate the velocity frequency from 100Hz to 100Hz
 
-Mat cameraMatrix;
-Mat distCoeffs;
-Core::DistortionModel distModel;
+Mat cameraMatrix;	// camera matrix of the camera
+Mat distCoeffs;	// distortion coefficients of the camera
+Core::DistortionModel distModel;	// distortion model of the camera
 
 // IP adress of the circuit breaker that disables the drone if a specified region is exited. 
-QUdpSocket *udpSocketCB;
-QUdpSocket *udpSocketDrone;
-QHostAddress IPAdressCB = QHostAddress("192.168.4.1"); // IP Adress of the Corcuit Breaker, stays the same
-QHostAddress IPAdressDrone = QHostAddress("192.168.4.2");	// IP Adress of the drone wifi telemetry chip, can change to 192.168.4.x
-QByteArray datagram;
-QDataStream out;
-double enable = 1;
+QUdpSocket *udpSocketCB;	// socket for the communication with the circuit breaker
+QUdpSocket *udpSocketDrone;	// socket for the communication with the drone
+QUdpSocket *udpSocketWinch;	// socket for the communication with the rope winch
+QHostAddress IPAdressCB = QHostAddress("192.168.4.1"); // IPv4 adress of the circuit breaker, stays the same
+QHostAddress IPAdressDrone = QHostAddress("192.168.4.2");	// IPv4 adress of the drone wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
+QHostAddress IPAdressWinch = QHostAddress("192.168.4.4");	// IPv4 adress of the rope winch,
+QByteArray datagram;	// data package that is sent to the drone 
+QByteArray data;	// data package that's sent to the circuit breaker
+QDataStream out;	// stream that sends the datagram package via UDP
 
-const int BACKBUFFER_BITSPERPIXEL = 8;
-std::string strBuf;
-std::stringstream ss;
-QByteArray data;
-HANDLE hMapFile;
-LPCTSTR pBuf;
+const int BACKBUFFER_BITSPERPIXEL = 8;	// 8 bit per pixel and greyscale image from camera
+std::string strBuf;	// buffer that holds the strings that are sent to the Qt GUI
+std::stringstream ss;	// stream that sends the strBuf buffer to the Qt GUI
 
-TCHAR szMsg[] = TEXT("MMF Text");
-
+// main inizialised the GUI and values for the marker position
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	RigidTrack w;
-	w.show();
+	w.show();	// show the GUI
+
+	// connect the Qt slots and signals for event handling
 	QObject::connect(&commObj, SIGNAL(statusChanged(QString)), &w, SLOT(setStatus(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), Qt::DirectConnection);
 
+	// inizialise vectors with correct length
 	list_points3d = std::vector<Point3d>(numberMarkers);
 	list_points2d = std::vector<Point2d>(numberMarkers);
 	list_points2dOld = std::vector<Point2d>(numberMarkers);
@@ -143,37 +144,13 @@ int main(int argc, char *argv[])
 	coordinateFrame = std::vector<Point3d>(numberMarkers);
 	coordinateFrameProjected = std::vector<Point2d>(numberMarkers);
 
-	//list_points3d[0] = cv::Point3d( 203.0,    0.0,  0.0);
-	//list_points3d[1] = cv::Point3d(   0.0, -309.0,  0.0);
-	//list_points3d[2] = cv::Point3d(-319.0,    0.0,  0.0);
-	//list_points3d[3] = cv::Point3d(-470.0,  158.0,  0.0);
-
-	// Coordinates of the markers in plane reference or arbitrary other frame
-	//list_points3d[0] = cv::Point3d(  -25.0, -1000.0, 20.0);
-	//list_points3d[1] = cv::Point3d( -200.0,  +380.0, 40.0);
-	//list_points3d[2] = cv::Point3d( -400.0,     0.0, 40.0);
-	//list_points3d[3] = cv::Point3d(-1000.0,     0.0, 40.0);
-
-	// Coordinates of the markers in plane reference or arbitrary other frame for x-Star
+	// coordinates of the markers the marker frame
 	list_points3d[0] = cv::Point3d(227.1, 0.0, -21.5);
-	//list_points3d[1] = cv::Point3d(9.1, 0.0, -27.0);
 	list_points3d[1] = cv::Point3d(-66.5, 920.0, -23.0);
 	list_points3d[2] = cv::Point3d(-157.6, 500.0, -8.6);
-	//list_points3d[4] = cv::Point3d(-159.0, 250.0, -7.0);
 	list_points3d[3] = cv::Point3d(-720.0, 0.0, -13.0);
 
-	//list_points3d[0] = cv::Point3d( 1500.0, -2160.0/2.0, 0.0);
-	//list_points3d[1] = cv::Point3d(    0.0, -2160.0/2.0, 0.0);
-	//list_points3d[2] = cv::Point3d( -100.0,  2160.0/2.0, 0.0);
-	//list_points3d[3] = cv::Point3d(-1500.0,  2160.0/2.0, 0.0);
-
-	// Cardboard Frame Prototype
-	//list_points3d[1] = cv::Point3d(0.0, 160.0, 0.0);
-	//list_points3d[2] = cv::Point3d(200.0, 100.0, 0.0);
-	//list_points3d[0] = cv::Point3d(100.0, 70.0, 0.0);
-	//list_points3d[3] = cv::Point3d(50.0, 70.0, 0.0);
-
-	//Initial Guesses, important for Iterative Method!
+	// initial guesses for position and rotation, important for Iterative Method!
 	Tvec.at<double>(0) = 45;
 	Tvec.at<double>(1) = 45;
 	Tvec.at<double>(2) = 4500;
@@ -181,29 +158,34 @@ int main(int argc, char *argv[])
 	Rvec.at<double>(1) = 0 * 3.141592653589 / 180.0;
 	Rvec.at<double>(2) = -45 * 3.141592653589 / 180.0;
 
-	// Points that make up the coordinate frame 
+	// Points that make up the marker frame axis system, hence one line in each axis direction
 	coordinateFrame[0] = cv::Point3d(0, 0, 0);
 	coordinateFrame[1] = cv::Point3d(300, 0, 0);
 	coordinateFrame[2] = cv::Point3d(0, 300, 0);
 	coordinateFrame[3] = cv::Point3d(0, 0, 300);
 
-	test_Algorithm();
-	
-	setUpUDP();
-	WGS84[0] = 0.0;
-	WGS84[1] = 0.0;
-	WGS84[2] = 0.0;
+	ropePosition = cv::Point3d(0, 0, -4500); // the rope is redirected 4.5m above the o-frame
+	ropeLength = ropePosition[2];	// set the rope length to initial value
 
-	velocity[0] = 0.1;
-	velocity[1] = 0.2;
-	velocity[2] = 0.3;
-	eulerAngles[0] = 1.0;
-	eulerAngles[1] = 1.1;
-	eulerAngles[2] = 1.2;
+	test_Algorithm();	// test the algorithms and their accuracy 
+
+	setUpUDP();	// open sockets and ports for UDP communication
+	WGS84[0] = latitudeRef;	// latitude in WGS84 set to reference latitude
+	WGS84[1] = longitudeRef; // longitude in WGS84 set to reference longitude
+	WGS84[2] = heightRef;	// height in WGS84 set to reference height
+
+	velocity[0] = 0.1;	// set velocity initial values
+	velocity[1] = 0.2;	// set velocity initial values
+	velocity[2] = 0.3;	// set velocity initial values
+
+	eulerAngles[0] = 1.0;	// set initial euler angles to arbitrary values for testing
+	eulerAngles[1] = 1.1;	// set initial euler angles to arbitrary values for testing
+	eulerAngles[2] = 1.2;	// set initial euler angles to arbitrary values for testing
 
 	return a.exec();
 }
 
+// convert a opencv matrix that represents a picture to a Qt Pixmap object
 QPixmap Mat2QPixmap(cv::Mat src)
 {
 	QImage dest((const uchar *)src.data, src.cols, src.rows, src.step, QImage::Format_RGB888);
@@ -213,6 +195,7 @@ QPixmap Mat2QPixmap(cv::Mat src)
 	return pixmapDest;
 }
 
+// calculate the chess board corner positions, used for the camera calibration
 void calcBoardCornerPositions(Size boardSize, float squareSize, std::vector<Point3f>& corners)
 {
 	corners.clear();
@@ -222,6 +205,7 @@ void calcBoardCornerPositions(Size boardSize, float squareSize, std::vector<Poin
 			corners.push_back(Point3f(float(j*squareSize), float(i*squareSize), 0));
 }
 
+// get the euler angles from a rotation matrix
 void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 
 	Mat cameraMatrix, rotMatrix, transVect, rotMatrixX, rotMatrixY, rotMatrixZ;
@@ -240,10 +224,8 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 		eulerAngles);
 }
 
+// start the loop that fetches frames, computes the position etc and sends it to the drone and CB
 int start_camera() {
-
-	setUpUDP();
-	setUpMMF();
 
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//== want to stop execution for an extended time while debugging without disconnecting
@@ -272,7 +254,7 @@ int start_camera() {
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
 
-	camera->SetVideoType(Core::PrecisionMode);
+	camera->SetVideoType(Core::PrecisionMode);	// set the camera mode to precision mode, it used greyscale imformation for marker property calculations
 
 	//== Start camera output ==--
 	camera->Start();
@@ -281,14 +263,13 @@ int start_camera() {
 	//== working even if there is nothing in the camera's view. ===---
 	camera->SetTextOverlay(true);
 
-	camera->SetExposure(intExposure);
-	camera->SetIntensity(intIntensity);
-	camera->SetFrameRate(intFrameRate);
-	camera->SetIRFilter(true);
-	camera->SetHighPowerMode(true);
-	camera->SetContinuousIR(false);
-	camera->SetHighPowerMode(true);
-	camera->SetThreshold(intThreshold);
+	camera->SetExposure(intExposure);	// set the camera exposure
+	camera->SetIntensity(intIntensity);	// set the camera infrared LED intensity
+	camera->SetFrameRate(intFrameRate);	// set the camera framerate to 100 Hz
+	camera->SetIRFilter(true);	// enable the filter that blocks visible light and only passes infrared light
+	camera->SetHighPowerMode(true);	// enable high power mode of the leds
+	camera->SetContinuousIR(false);	// enable continuous LED light
+	camera->SetThreshold(intThreshold);	// set threshold for marker detection
 
 	// Create a new matrix that stores the picture
 	Mat matFrame = Mat::zeros(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
@@ -296,19 +277,20 @@ int start_camera() {
 	// Matrix that stores the colored picture
 	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
 
-	//Helper Variables used to print ouput only every 30th time and kick Circuit Breaker
+	//helper variables used to print ouput only every 30th time and kick circuit breaker
 	int u = 0;
 	int v = 0;
 	int decimatorHelper = 0;
-	int framesDropped = 0; // if a marker is not visible increase this counter.
+	int framesDropped = 0; // if a marker is not visible or accuracy is bad increase this counter.
 	double projectionError = 0; // equals the quality of the tracking
 
-	//Enable Circuit Breaker
+	// enable circuit breaker, hence send a 9 and then a 1 to it
 	data.setNum((int)(9));
 	udpSocketCB->write(data);
 	data.setNum((int)(1));
 	udpSocketCB->write(data);
 
+	// now enter the main loop that processes each frame
 	while (1)
 	{
 		//== Fetch a new frame from the camera ===---
@@ -322,51 +304,63 @@ int start_camera() {
 			decimatorHelper++;  // helper variable for decimator and udp send
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
+
+			// only use this frame it the right number of markers is found in the picture or debug is on
 			if (frame->ObjectCount() == numberMarkers || debug)
 			{
-				framesDropped = 0;
+				framesDropped = 0;	// set number of subsequent frames dropped to zero
+				// get the marker points in 2D in the camera image frame and store them in the list_points2dUnsorted vector
 				for (int i = 0; i < numberMarkers; i++)
 				{
 					cObject *obj = frame->Object(i);
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
 
-				logfile.open("markerPoints.txt", std::ios::app);
-				logfile << list_points2dUnsorted[0] << ";" << list_points2dUnsorted[1] << ";" << list_points2dUnsorted[2] << ";" << list_points2dUnsorted[3] << "\n";
-				logfile.close();
-
+				// save the marker positions in a file for debug and test purposes
+				if (debug == true)
+				{
+					logfile.open("markerPoints.txt", std::ios::app);
+					logfile << list_points2dUnsorted[0] << ";" << list_points2dUnsorted[1] << ";" << list_points2dUnsorted[2] << ";" << list_points2dUnsorted[3] << "\n";
+					logfile.close();
+				}
 
 				// Now its time to determine the order of the points
 				// for that the distance from the new points to the old points is calculated
 				// for each point the new index corresponds to the old point with the smallest distance
 				// Loop over every point and calculate the min distance to every other point. 
 				// Then pick the smallest one and assign its index to the new order pointOrderIndices.
+				// (number of markers)^2 possible orders, check every each of them
 				for (int j = 0; j < numberMarkers; j++)
 				{
 					minPointDistance = 5000;
 					for (int k = 0; k < numberMarkers; k++)
 					{
+						// calculate N_2 norm of unsorted points minus old points
 						currentPointDistance = norm(list_points2dUnsorted[pointOrderIndices[j]] - list_points2dOld[k]);
+						// if the norm is smaller than minPointDistance the correspondence is more likely to be correct
 						if (currentPointDistance < minPointDistance)
 						{
+							// update the array that saves the new point order
 							minPointDistance = currentPointDistance;
 							pointOrderIndicesNew[j] = k;
 						}
 					}
 				}
 
+				// set the point order to the new value
 				for (int k = 0; k < numberMarkers; k++)
 				{
 					pointOrderIndices[k] = pointOrderIndicesNew[k];
 					list_points2d[k] = list_points2dUnsorted[pointOrderIndices[k]];
 				}
 
+				// save the unsorted position of the marker points for the next loop
 				list_points2dOld = list_points2dUnsorted;
 
-				//Compute the pose from the 3D-2D corresponses
+				//Compute the drone pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
 
-				// project the 3d points with the solution and calculate reprojection error
+				// project the marker 3d points with the solution into the camera image frame and calculate difference to true camera image
 				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 				projectionError = norm(list_points2dProjected, list_points2d);
 
@@ -374,6 +368,7 @@ int start_camera() {
 				double minValue = 0;
 				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
 
+				// sanity check of values. negative z means the marker frame is behind the camera, that's not possible. And usually the marker frame is nearer than 10000mm
 				if ((maxValue > 10000 || minValue < 0) && debug == false)
 				{
 					commObj.addLog("Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n");
@@ -381,72 +376,71 @@ int start_camera() {
 					framesDropped++;
 				}
 
-				subtract(posRef, Tvec, position);
-				Mat V = -1 * M_NC.t() * (Mat)position; // transformation to ground (Navigation Frame) system 
-				position = V;
+				subtract(posRef, Tvec, position);	// compute the relative drone position from the reference position to the current one, given in the camera frame
+				Mat V = -1 * M_NC.t() * (Mat)position;	// transform the position from the camera frame to the ground frame 
+				position = V;	// position is the result of the preceeding calculation
 
 				// Realtive angle between reference orientation and current orientation
-				Rodrigues(Rvec, Rmat);
-				Rmat = RmatRef.t() *Rmat;
+				Rodrigues(Rvec, Rmat);	// compute the rotation matrix from the axis angle respresentation
+				Rmat = RmatRef.t() *Rmat;	// the difference of the reference rotation and the current rotation
 				//==-- Euler Angles, finally 
-				getEulerAngles(Rmat, eulerAngles);
+				getEulerAngles(Rmat, eulerAngles);	// get the euler angles from the rotation matrix 
 
-				frameTime = frame->TimeStamp() - timeOld;
-				timeOld = frame->TimeStamp();
-				velocity[0] = (position[0] - positionOld[0]) / frameTime;
-				velocity[1] = (position[1] - positionOld[1]) / frameTime;
-				velocity[2] = (position[2] - positionOld[2]) / frameTime;
-				positionOld = position;
-				velocity *= 0.001;
-				
+				frameTime = frame->TimeStamp() - timeOld;	// time between the old frame and the current frame
+				timeOld = frame->TimeStamp();	// set the old frame time to the current  one
+				velocity[0] = (position[0] - positionOld[0]) / frameTime;	// calculate the velocity with finite differences
+				velocity[1] = (position[1] - positionOld[1]) / frameTime;	// calculate the velocity with finite differences
+				velocity[2] = (position[2] - positionOld[2]) / frameTime;	// calculate the velocity with finite differences
+				positionOld = position;	// set the old position to the current one for next frame
+				velocity *= 0.001;	// convert from mm/s to m/s
 
-				//Value[0] = position[0] / 1000.;
-				//Value[1] = position[1] / 1000.;
-				//Value[2] = position[2] / 1000.;
-				//Value[3] = eulerAngles[0];
-				//Value[4] = eulerAngles[1];
-				//Value[5] = eulerAngles[2];
+				latitude = latitudeRef + atan(Value[0] / earthRadius);	// calculate the current latitude in WGS84 
+				longitude = longitudeRef + atan(Value[1] / earthRadius);	// calculate the current lon in WGS84 
 
-				latitude = latitudeRef + atan(Value[0] / earthRadius);
-				longitude = longitudeRef + atan(Value[1] / earthRadius);
-
-				//CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(double)); // enable for UE visualization
-
-				// send enable signal to Circuit Breaker if everything is fine and drone is within allowed area
-
-				//send it over WiFi with 100 Hz
+				//send position and everything else to drone over WiFi with 100 Hz
 				if (decimatorHelper >= decimator) {
-					sendDataUDP(latitude, longitude, position[2], velocity, eulerAngles);
+					sendDataUDPDrone(latitude, longitude, position[2], velocity, eulerAngles);
 					decimatorHelper = 0;
 				}
 			}
 
+			// send the new rope length to the winch
+			ropeLength = norm(ropePosition - position);
+			data.setNum((int)(ropeLength));
+			udpSocketWinch->write(data);
+
+			// check if the position and euler angles are below the allowed value, if yes send enable to the circuit breaker, if not send shutdown signal
+			// absolute x, y and z position in ground frame must be smaller than 1.5m
 			if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
 			{
+				// absolute euler angles must be smaller than 30 degrees 
 				if ((abs(eulerAngles[0]) < 30 && abs(eulerAngles[1]) < 30) || debug == true)
 				{
+					// send the enable signal to the circuit breaker to keep it enabled
 					if (v == 5) {
 						data.setNum((int)(1));
 						udpSocketCB->write(data);
 						v = 0;
 					}
 				}
+				// The euler angles of the drone exceeded the allowed euler angles, shut the drone down
 				else
 				{
-					data.setNum((int)(0));
+					data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
 					udpSocketCB->write(data);
 					commObj.addLog("Drone exceeded allowed Euler Angles, shutting it down!");
 
 				}
 			}
+			// The position of the drone exceeded the allowed position, shut the drone down
 			else
 			{
-				data.setNum((int)(0));
+				data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
 				udpSocketCB->write(data);
 				commObj.addLog("Drone left allowed Area, shutting it down!");
 
 			}
-			
+
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
 			if (projectionError > 50 && debug == false)
 			{
@@ -456,38 +450,45 @@ int start_camera() {
 			//Stop the drone is tracking system is disturbed (marker lost or so)
 			if (framesDropped > 10 && debug == false)
 			{
-				data.setNum((int)(0));
+				data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
 				udpSocketCB->write(data);
 				commObj.addLog("Lost Marker Points or Accuracy was bad!");
 			}
 
-			// Output every second if debug is true
+			// Output every second if debug is true. This can slow down the whole programm and introduce spikes or lags in the measurements 
 			if (u == 100 && debug) {
 				ss.str("");
 				ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
 				ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
 				ss << "roll  =  " << eulerAngles[0] << "\t pitch  =  " << eulerAngles[1] << "\t heading  = " << eulerAngles[2];
-				commObj.addLog(QString::fromStdString(ss.str()));
+				commObj.addLog(QString::fromStdString(ss.str()));	// send the string to the GUI 
 				u = 0;
 			}
 
+			// save the values in a log file 
 			logfile.open("logData.txt", std::ios::app);
 			logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
 			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
 			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
 			logfile.close();
 
+			// rasterize the frame so it can be shown in the GUI
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
 
+			// convert the frame from greyscale as it comes from the camera to rgb color 
 			cvtColor(matFrame, cFrame, COLOR_GRAY2RGB);
 
+			// project the marker frame into 2D and save it in the cFrame image
 			projectCoordinateFrame(cFrame);
 
+			// project the marker points from 3D to the camera image frame (2d) with the computed pose
 			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
 			for (int i = 0; i < numberMarkers; i++)
-			{
+			{	
+				// draw a circle around the projected points so the result can be better compared to the real marker position
 				circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
 			}
+
 			QPixmap QPFrame;
 			QPFrame = Mat2QPixmap(cFrame);
 			commObj.changeImage(QPFrame);
@@ -498,8 +499,6 @@ int start_camera() {
 
 	//== Release camera ==--
 	camera->Release();
-	UnmapViewOfFile(pBuf);
-	CloseHandle(hMapFile);
 
 	//== Shutdown Camera Library ==--
 	CameraManager::X().Shutdown();
@@ -508,9 +507,9 @@ int start_camera() {
 	return 0;
 }
 
+// determine the initial position of the drone that serves as reference point or as ground frame origin
 int setZero()
 {
-	
 	posRef = 0;
 	eulerRef = 0;
 	RmatRef = 0;
@@ -608,11 +607,11 @@ int setZero()
 					do {
 						Rvec = RvecOriginal;
 						Tvec = TvecOriginal;
-						for (int m = 0; m< numberMarkers; m++)
+						for (int m = 0; m < numberMarkers; m++)
 						{
 							list_points2d[m] = list_points2dUnsorted[pointOrderIndices[m]];
 						}
-						
+
 						solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
 						double maxValue = 0;
 						double minValue = 0;
@@ -1038,46 +1037,16 @@ void setUpUDP()
 	commObj.addLog("Opening UDP Port");
 	udpSocketCB = new QUdpSocket(0);
 	udpSocketDrone = new QUdpSocket(0);
+	udpSocketWinch = new QUdpSocket(0);
 
-	QHostAddress bcast = QHostAddress("192.168.4.1");
-	udpSocketCB->connectToHost(bcast, 9156);
+	udpSocketCB->connectToHost(IPAdressCB, 9156);
+	udpSocketWinch->connectToHost(IPAdressWinch, 9155);
 
 	commObj.addLog("Opened UDP Port");
 
 }
 
-void setUpMMF()
-{
-	commObj.addLog("Creating MMF");
-
-	hMapFile = CreateFileMapping(
-		INVALID_HANDLE_VALUE,    // use paging file
-		NULL,                    // default security
-		PAGE_READWRITE,          // read/write access
-		0,                       // maximum object size (high-order DWORD)
-		256,                // maximum object size (low-order DWORD)
-		L"SIMULINK_MMF");                 // name of mapping object
-
-	if (hMapFile == NULL)
-	{
-		commObj.addLog("Could not create file mapping object");
-	}
-
-	pBuf = (LPTSTR)MapViewOfFile(hMapFile,   // handle to map object
-		FILE_MAP_ALL_ACCESS, // read/write permission
-		0,
-		0,
-		256);
-
-	if (pBuf == NULL)
-	{
-		commObj.addLog("Could not map view of file");
-	}
-
-	CopyMemory((PVOID)pBuf, &Value, 100 * sizeof(float));
-}
-
-void sendDataUDP(double &Latitude, double &Longitude, double &Altitude, cv::Vec3d &Velocity, cv::Vec3d &Euler)
+void sendDataUDPDrone(double &Latitude, double &Longitude, double &Altitude, cv::Vec3d &Velocity, cv::Vec3d &Euler)
 {
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
