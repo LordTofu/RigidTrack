@@ -102,8 +102,5 @@
     <ClInclude Include="_modelest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="filt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

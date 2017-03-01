@@ -11,6 +11,7 @@ public:
 	void changeStatus(QString newText);
 	void changeImage(QPixmap image);
 	void addLog(QString LogText);
+	
 
 	signals:
 	   void statusChanged(QString newText);

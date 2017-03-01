@@ -1,5 +1,6 @@
 #include "RigidTrack.h"
 #include <QtWidgets/QApplication>
+#include <QThread>
 #include <QUdpSocket>
 #include "cameralibrary.h"     //== Camera Library header file ======================---
 #include "modulevector.h"
@@ -32,6 +33,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <thread>
 
 #include "main.h"
 #include "communication.h"
@@ -74,7 +76,8 @@ int intThreshold = 200;	// threshold value for marker detection. If markers are 
 //== Rotation, translation etc. matrix for PnP results
 Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// rotation matrix from camera frame to marker frame
 Mat RmatRef = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// reference rotation matrix from camera frame to marker frame
-Mat M_NC = cv::Mat_<double>(3, 3);							// rotation matrix from camera to ground
+Mat M_NC = cv::Mat_<double>(3, 3);							// rotation matrix from camera to ground, fixed for given camera position
+Mat M_HeadingOffset = cv::Mat_<double>(3, 3);							// rotation matrix that turns the ground system to the INS magnetic heading for alignment
 Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// rotation vector (axis-angle notation) from camera frame to marker frame
 Mat Tvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// translation vector from camera frame to marker frame in camera frame
 Mat RvecOriginal;	// initial values as start values for algorithms
@@ -100,6 +103,7 @@ double currentPointDistance = 5000;	// distance from the projected 3D points (he
 double minPointDistance = 5000;	// minimum distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image frame 
 int currentMinIndex = 0;	// helper variable set to the point order that holds the current minimum point distance 
 bool gotOrder = false;	// order of the list_points3d and list_points3d already tetermined or not 
+bool camera_started = false; // variable thats needed to exit the main while loop
 
 int decimator = 1; // Decimate the velocity frequency from 100Hz to 100Hz
 
@@ -124,11 +128,11 @@ std::stringstream ss;	// stream that sends the strBuf buffer to the Qt GUI
 
 // main inizialised the GUI and values for the marker position
 int main(int argc, char *argv[])
-{
+{	
+
 	QApplication a(argc, argv);
 	RigidTrack w;
 	w.show();	// show the GUI
-
 	// connect the Qt slots and signals for event handling
 	QObject::connect(&commObj, SIGNAL(statusChanged(QString)), &w, SLOT(setStatus(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), Qt::DirectConnection);
@@ -169,7 +173,6 @@ int main(int argc, char *argv[])
 
 	test_Algorithm();	// test the algorithms and their accuracy 
 
-	setUpUDP();	// open sockets and ports for UDP communication
 	WGS84[0] = latitudeRef;	// latitude in WGS84 set to reference latitude
 	WGS84[1] = longitudeRef; // longitude in WGS84 set to reference longitude
 	WGS84[2] = heightRef;	// height in WGS84 set to reference height
@@ -227,6 +230,8 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 // start the loop that fetches frames, computes the position etc and sends it to the drone and CB
 int start_camera() {
 
+	camera_started = true; // set to true so the main while loop that processes the images is entered
+	
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//== want to stop execution for an extended time while debugging without disconnecting
 	//== the Ethernet devices.  Lets do that now:
@@ -276,7 +281,7 @@ int start_camera() {
 	QPixmap QPFrame;
 	// Matrix that stores the colored picture
 	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
-
+	
 	//helper variables used to print ouput only every 30th time and kick circuit breaker
 	int u = 0;
 	int v = 0;
@@ -291,7 +296,7 @@ int start_camera() {
 	udpSocketCB->write(data);
 
 	// now enter the main loop that processes each frame
-	while (1)
+	while (camera_started == TRUE);
 	{
 		//== Fetch a new frame from the camera ===---
 		Frame *frame = camera->GetFrame();
@@ -377,7 +382,7 @@ int start_camera() {
 				}
 
 				subtract(posRef, Tvec, position);	// compute the relative drone position from the reference position to the current one, given in the camera frame
-				Mat V = -1 * M_NC.t() * (Mat)position;	// transform the position from the camera frame to the ground frame 
+				Mat V = -1 * M_HeadingOffset * M_NC.t() * (Mat)position;	// transform the position from the camera frame to the ground frame with INS alligned heading
 				position = V;	// position is the result of the preceeding calculation
 
 				// Realtive angle between reference orientation and current orientation
@@ -394,8 +399,8 @@ int start_camera() {
 				positionOld = position;	// set the old position to the current one for next frame
 				velocity *= 0.001;	// convert from mm/s to m/s
 
-				latitude = latitudeRef + atan(Value[0] / earthRadius);	// calculate the current latitude in WGS84 
-				longitude = longitudeRef + atan(Value[1] / earthRadius);	// calculate the current lon in WGS84 
+				latitude = latitudeRef + atan(position[0] / earthRadius);	// calculate the current latitude in WGS84 
+				longitude = longitudeRef + atan(position[1] / earthRadius);	// calculate the current lon in WGS84 
 
 				//send position and everything else to drone over WiFi with 100 Hz
 				if (decimatorHelper >= decimator) {
@@ -405,9 +410,9 @@ int start_camera() {
 			}
 
 			// send the new rope length to the winch
-			ropeLength = norm(ropePosition - position);
-			data.setNum((int)(ropeLength));
-			udpSocketWinch->write(data);
+			//ropeLength = norm(ropePosition - position);
+			//data.setNum((int)(ropeLength));
+			//udpSocketWinch->write(data);
 
 			// check if the position and euler angles are below the allowed value, if yes send enable to the circuit breaker, if not send shutdown signal
 			// absolute x, y and z position in ground frame must be smaller than 1.5m
@@ -507,9 +512,21 @@ int start_camera() {
 	return 0;
 }
 
+void start_cameraThread()
+{
+	camera_started = true;
+	std::thread t1(start_camera);
+}
+
+void stop_camera()
+{
+	camera_started = false;
+}
+
 // determine the initial position of the drone that serves as reference point or as ground frame origin
 int setZero()
 {
+	setUpUDP();	// open sockets and ports for UDP communication
 	posRef = 0;
 	eulerRef = 0;
 	RmatRef = 0;
@@ -892,7 +909,6 @@ void load_calibration() {
 	ss.str("");
 	ss << "Camera Matrix\n" << "\n" << cameraMatrix << "\n";
 	ss << "Distortion Coeff\n" << "\n" << distCoeffs << "\n";
-	commObj.changeStatus(QString::fromStdString(strBuf));
 	commObj.addLog(QString::fromStdString(ss.str()));
 }
 
@@ -1034,16 +1050,46 @@ void projectCoordinateFrame(Mat pictureFrame)
 void setUpUDP()
 {
 	// Creating UDP slot
-	commObj.addLog("Opening UDP Port");
+	commObj.addLog("Opening UDP Ports");
 	udpSocketCB = new QUdpSocket(0);
 	udpSocketDrone = new QUdpSocket(0);
 	udpSocketWinch = new QUdpSocket(0);
 
 	udpSocketCB->connectToHost(IPAdressCB, 9156);
 	udpSocketWinch->connectToHost(IPAdressWinch, 9155);
+	udpSocketDrone->connectToHost(IPAdressDrone, 9155);
 
-	commObj.addLog("Opened UDP Port");
+	commObj.addLog("Opened UDP Ports");
 
+}
+
+void setHeadingOffset(double d)
+{
+	d = d * 3.141592653589 / 180.0; // Convert heading offset from degrees to rad
+
+	// Calculate rotation about x axis
+	Mat R_x = (Mat_<double>(3, 3) <<
+		1, 0, 0,
+		0, 1, 0,
+		0, 0, 1
+		);
+
+	// Calculate rotation about y axis
+	Mat R_y = (Mat_<double>(3, 3) <<
+		1, 0, 0,
+		0, 1, 0,
+		0, 0, 1
+		);
+
+	// Calculate rotation about z axis
+	Mat R_z = (Mat_<double>(3, 3) <<
+		cos(d), -sin(d), 0,
+		sin(d), cos(d), 0,
+		0, 0, 1);
+
+
+	// Combined rotation matrix
+	M_HeadingOffset = R_z * R_y * R_x;
 }
 
 void sendDataUDPDrone(double &Latitude, double &Longitude, double &Altitude, cv::Vec3d &Velocity, cv::Vec3d &Euler)
@@ -1058,4 +1104,12 @@ void sendDataUDPDrone(double &Latitude, double &Longitude, double &Altitude, cv:
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
 	out << (float)Velocity[0] << (float)Velocity[1] << (float)Velocity[2];
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
+}
+
+void change_IPAddress(QString ipaddress)
+{
+	IPAdressDrone = QHostAddress(ipaddress);
+	commObj.addLog("Drone IP changed to:");
+	commObj.addLog(ipaddress);
+	setUpUDP();
 }

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'RigidTrack.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -13,8 +13,10 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -33,9 +35,13 @@ public:
     QLabel *lbStatus;
     QPushButton *btnZero;
     QPushButton *btnCalibrate;
-    QLabel *lbLog;
     QPushButton *btnLoadCalib;
     QListWidget *listLog;
+    QDoubleSpinBox *sbHeadingOffset;
+    QLabel *label;
+    QLineEdit *leIPDrone;
+    QLabel *label_2;
+    QPushButton *btnStopCamera;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -49,27 +55,44 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         btnStartCamera = new QPushButton(centralWidget);
         btnStartCamera->setObjectName(QStringLiteral("btnStartCamera"));
-        btnStartCamera->setGeometry(QRect(20, 120, 221, 41));
+        btnStartCamera->setGeometry(QRect(20, 80, 221, 41));
         lbStatus = new QLabel(centralWidget);
         lbStatus->setObjectName(QStringLiteral("lbStatus"));
         lbStatus->setEnabled(true);
         lbStatus->setGeometry(QRect(30, 190, 771, 461));
         btnZero = new QPushButton(centralWidget);
         btnZero->setObjectName(QStringLiteral("btnZero"));
-        btnZero->setGeometry(QRect(20, 70, 221, 41));
+        btnZero->setGeometry(QRect(20, 30, 221, 41));
         btnCalibrate = new QPushButton(centralWidget);
         btnCalibrate->setObjectName(QStringLiteral("btnCalibrate"));
-        btnCalibrate->setGeometry(QRect(20, 20, 101, 41));
-        lbLog = new QLabel(centralWidget);
-        lbLog->setObjectName(QStringLiteral("lbLog"));
-        lbLog->setGeometry(QRect(270, 10, 231, 41));
+        btnCalibrate->setGeometry(QRect(420, 30, 101, 41));
         btnLoadCalib = new QPushButton(centralWidget);
         btnLoadCalib->setObjectName(QStringLiteral("btnLoadCalib"));
-        btnLoadCalib->setGeometry(QRect(140, 20, 101, 41));
+        btnLoadCalib->setGeometry(QRect(530, 30, 101, 41));
         listLog = new QListWidget(centralWidget);
         listLog->setObjectName(QStringLiteral("listLog"));
         listLog->setGeometry(QRect(20, 681, 791, 171));
         listLog->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        sbHeadingOffset = new QDoubleSpinBox(centralWidget);
+        sbHeadingOffset->setObjectName(QStringLiteral("sbHeadingOffset"));
+        sbHeadingOffset->setGeometry(QRect(260, 40, 136, 20));
+        sbHeadingOffset->setDecimals(1);
+        sbHeadingOffset->setMinimum(-180);
+        sbHeadingOffset->setMaximum(180);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(260, 20, 136, 21));
+        leIPDrone = new QLineEdit(centralWidget);
+        leIPDrone->setObjectName(QStringLiteral("leIPDrone"));
+        leIPDrone->setGeometry(QRect(260, 100, 136, 20));
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(260, 70, 141, 26));
+        label_2->setWordWrap(true);
+        btnStopCamera = new QPushButton(centralWidget);
+        btnStopCamera->setObjectName(QStringLiteral("btnStopCamera"));
+        btnStopCamera->setGeometry(QRect(20, 130, 221, 41));
+        btnStopCamera->setFocusPolicy(Qt::ClickFocus);
         RigidTrackClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(RigidTrackClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -89,15 +112,18 @@ public:
 
     void retranslateUi(QMainWindow *RigidTrackClass)
     {
-        RigidTrackClass->setWindowTitle(QApplication::translate("RigidTrackClass", "RigidTrack", 0));
-        btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", 0));
-        lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", 0));
-        btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", 0));
+        RigidTrackClass->setWindowTitle(QApplication::translate("RigidTrackClass", "RigidTrack", Q_NULLPTR));
+        btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", Q_NULLPTR));
+        lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", Q_NULLPTR));
+        btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", Q_NULLPTR));
         btnCalibrate->setText(QApplication::translate("RigidTrackClass", "Calibrate\n"
-"Camera", 0));
-        lbLog->setText(QApplication::translate("RigidTrackClass", "TextLabel", 0));
+"Camera", Q_NULLPTR));
         btnLoadCalib->setText(QApplication::translate("RigidTrackClass", "Load\n"
-"Calibration", 0));
+"Calibration", Q_NULLPTR));
+        label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", Q_NULLPTR));
+        leIPDrone->setText(QApplication::translate("RigidTrackClass", "192.168.4.2", Q_NULLPTR));
+        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress of Drone Wifi Chip Press Return to Apply Changes", Q_NULLPTR));
+        btnStopCamera->setText(QApplication::translate("RigidTrackClass", "Stop Tracking", Q_NULLPTR));
     } // retranslateUi
 
 };

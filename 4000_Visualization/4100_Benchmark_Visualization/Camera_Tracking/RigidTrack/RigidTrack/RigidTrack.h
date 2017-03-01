@@ -15,12 +15,14 @@ public:
 public slots:
 	
 	void on_btnStartCamera_clicked();
-	void setStatus(QString status_text);
+	void on_btnStopCamera_clicked();
 	void on_btnZero_clicked();
 	void on_btnCalibrate_clicked();
 	void setImage(QPixmap image);
 	void on_btnLoadCalib_clicked();
 	void setLog(QString logText);
+	void on_sbHeadingOffset_valueChanged(double d);
+	void on_leIPDrone_returnPressed();
 
 private:
 	Ui::RigidTrackClass ui;

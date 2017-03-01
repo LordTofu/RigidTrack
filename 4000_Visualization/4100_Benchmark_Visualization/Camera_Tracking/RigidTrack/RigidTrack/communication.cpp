@@ -22,5 +22,3 @@ void commObject::addLog(QString LogText) {
 	emit logAdded(LogText);
 	QCoreApplication::processEvents();
 }
-
-

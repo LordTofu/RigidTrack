@@ -9,9 +9,9 @@ RigidTrack::RigidTrack(QWidget *parent)
 	
 }
 
-void RigidTrack::setStatus(QString status_text)
+void RigidTrack::on_btnStopCamera_clicked()
 {
-	RigidTrack::ui.lbLog->setText(status_text);
+	stop_camera();
 }
 
 void RigidTrack::on_btnZero_clicked()
@@ -40,10 +40,19 @@ void RigidTrack::setLog(QString logText)
 	RigidTrack::ui.listLog->scrollToBottom();
 }
 
+void RigidTrack::on_sbHeadingOffset_valueChanged(double d)
+{
+	setHeadingOffset(d);
+}
+
+void RigidTrack::on_leIPDrone_returnPressed()
+{
+	change_IPAddress(RigidTrack::ui.leIPDrone->text());
+}
+
 void RigidTrack::on_btnStartCamera_clicked()
 {
 	RigidTrack::ui.btnStartCamera->setText("Camera Started");
-	int error = 0;
-	error = start_camera();
+	start_cameraThread();
 }
 
