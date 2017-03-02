@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'RigidTrack.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.1
+** Created by: Qt User Interface Compiler version 5.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -112,18 +112,18 @@ public:
 
     void retranslateUi(QMainWindow *RigidTrackClass)
     {
-        RigidTrackClass->setWindowTitle(QApplication::translate("RigidTrackClass", "RigidTrack", Q_NULLPTR));
-        btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", Q_NULLPTR));
-        lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", Q_NULLPTR));
-        btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", Q_NULLPTR));
+        RigidTrackClass->setWindowTitle(QApplication::translate("RigidTrackClass", "RigidTrack", 0));
+        btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", 0));
+        lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", 0));
+        btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", 0));
         btnCalibrate->setText(QApplication::translate("RigidTrackClass", "Calibrate\n"
-"Camera", Q_NULLPTR));
+"Camera", 0));
         btnLoadCalib->setText(QApplication::translate("RigidTrackClass", "Load\n"
-"Calibration", Q_NULLPTR));
-        label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", Q_NULLPTR));
-        leIPDrone->setText(QApplication::translate("RigidTrackClass", "192.168.4.2", Q_NULLPTR));
-        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress of Drone Wifi Chip Press Return to Apply Changes", Q_NULLPTR));
-        btnStopCamera->setText(QApplication::translate("RigidTrackClass", "Stop Tracking", Q_NULLPTR));
+"Calibration", 0));
+        label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", 0));
+        leIPDrone->setText(QApplication::translate("RigidTrackClass", "192.168.4.2", 0));
+        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress of Drone Wifi Chip Press Return to Apply Changes", 0));
+        btnStopCamera->setText(QApplication::translate("RigidTrackClass", "Stop Tracking", 0));
     } // retranslateUi
 
 };

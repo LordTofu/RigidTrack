@@ -43,7 +43,7 @@ using namespace cv;
 
 commObject commObj;
 
-bool debug = false;
+bool debug = true;
 
 double frameTime = 0.01; // 100 Hz frame rate
 double timeOld = 0.0;		// old time for finite differences velocity calculation
@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
 	coordinateFrame = std::vector<Point3d>(numberMarkers);
 	coordinateFrameProjected = std::vector<Point2d>(numberMarkers);
 
-	// coordinates of the markers the marker frame
+	// coordinates of the markers the marker frame [mm]
 	list_points3d[0] = cv::Point3d(227.1, 0.0, -21.5);
 	list_points3d[1] = cv::Point3d(-66.5, 920.0, -23.0);
 	list_points3d[2] = cv::Point3d(-157.6, 500.0, -8.6);
@@ -185,6 +185,7 @@ int main(int argc, char *argv[])
 	eulerAngles[1] = 1.1;	// set initial euler angles to arbitrary values for testing
 	eulerAngles[2] = 1.2;	// set initial euler angles to arbitrary values for testing
 
+	setHeadingOffset(0.0); // set the heading offset to 0 
 	return a.exec();
 }
 
@@ -229,9 +230,6 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 
 // start the loop that fetches frames, computes the position etc and sends it to the drone and CB
 int start_camera() {
-
-	camera_started = true; // set to true so the main while loop that processes the images is entered
-	
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//== want to stop execution for an extended time while debugging without disconnecting
 	//== the Ethernet devices.  Lets do that now:
@@ -267,7 +265,6 @@ int start_camera() {
 	//== Turn on some overlay text so it's clear things are     ===---
 	//== working even if there is nothing in the camera's view. ===---
 	camera->SetTextOverlay(true);
-
 	camera->SetExposure(intExposure);	// set the camera exposure
 	camera->SetIntensity(intIntensity);	// set the camera infrared LED intensity
 	camera->SetFrameRate(intFrameRate);	// set the camera framerate to 100 Hz
@@ -290,13 +287,13 @@ int start_camera() {
 	double projectionError = 0; // equals the quality of the tracking
 
 	// enable circuit breaker, hence send a 9 and then a 1 to it
-	data.setNum((int)(9));
-	udpSocketCB->write(data);
-	data.setNum((int)(1));
-	udpSocketCB->write(data);
+	//data.setNum((int)(9));
+	//udpSocketCB->write(data);
+	//data.setNum((int)(1));
+	//udpSocketCB->write(data);
 
 	// now enter the main loop that processes each frame
-	while (camera_started == TRUE);
+	while (true)
 	{
 		//== Fetch a new frame from the camera ===---
 		Frame *frame = camera->GetFrame();
@@ -382,8 +379,8 @@ int start_camera() {
 				}
 
 				subtract(posRef, Tvec, position);	// compute the relative drone position from the reference position to the current one, given in the camera frame
-				Mat V = -1 * M_HeadingOffset * M_NC.t() * (Mat)position;	// transform the position from the camera frame to the ground frame with INS alligned heading
-				position = V;	// position is the result of the preceeding calculation
+				Mat V = -0.001 * M_HeadingOffset * M_NC.t() * (Mat)position;	// transform the position from the camera frame to the ground frame with INS alligned heading and into [m]
+				position = V;	// position is the result of the preceeding calculation 
 
 				// Realtive angle between reference orientation and current orientation
 				Rodrigues(Rvec, Rmat);	// compute the rotation matrix from the axis angle respresentation
@@ -397,7 +394,6 @@ int start_camera() {
 				velocity[1] = (position[1] - positionOld[1]) / frameTime;	// calculate the velocity with finite differences
 				velocity[2] = (position[2] - positionOld[2]) / frameTime;	// calculate the velocity with finite differences
 				positionOld = position;	// set the old position to the current one for next frame
-				velocity *= 0.001;	// convert from mm/s to m/s
 
 				latitude = latitudeRef + atan(position[0] / earthRadius);	// calculate the current latitude in WGS84 
 				longitude = longitudeRef + atan(position[1] / earthRadius);	// calculate the current lon in WGS84 
@@ -514,8 +510,7 @@ int start_camera() {
 
 void start_cameraThread()
 {
-	camera_started = true;
-	std::thread t1(start_camera);
+	start_camera();
 }
 
 void stop_camera()
@@ -629,13 +624,13 @@ int setZero()
 							list_points2d[m] = list_points2dUnsorted[pointOrderIndices[m]];
 						}
 
-						solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+						// Call solve PNP with P3P since its more robust and sufficient for start value determination
+						solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, SOLVEPNP_P3P);
 						double maxValue = 0;
 						double minValue = 0;
 						currentPointDistance = 0;
-						minMaxLoc(Tvec, &minValue, &maxValue);
-						if (maxValue < 5000 && minValue > -5000)
-						{
+						minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
+						
 							projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 							for (int n = 0; n < numberMarkers; n++)
 							{
@@ -650,7 +645,8 @@ int setZero()
 									pointOrderIndicesNew[b] = pointOrderIndices[b];
 								}
 							}
-						}
+						
+
 					} while (std::next_permutation(pointOrderIndices, pointOrderIndices + 4));
 
 					for (int w = 0; w < numberMarkers; w++)
@@ -675,12 +671,12 @@ int setZero()
 
 				if (maxValue > 10000 || minValue < 0)
 				{
-					//ss.str("");
-					//ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
-					//commObj.addLog(QString::fromStdString(ss.str()));
-					//frame->Release();
-					//
-					//return 1;
+					ss.str("");
+					ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
+					commObj.addLog(QString::fromStdString(ss.str()));
+					frame->Release();
+					
+					return 1;
 				}
 				if (norm(positionOld) - norm(Tvec) < 0.05)	//Iterative Method needs time to converge to solution
 				{
