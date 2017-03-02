@@ -139,7 +139,7 @@ Calibration</string>
      </rect>
     </property>
     <property name="text">
-     <string>192.168.4.2</string>
+     <string>192.168.137.254</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">

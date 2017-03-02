@@ -74,17 +74,22 @@ void loop()
     Serial.write(0x00);   //CRC Checksum
   }
   
-  if (packetSize == 36)  // received position tracking data
+  if (packetSize == 24)  // received position tracking data
   {
     Serial.write("\n"); 
     Serial.write("n");
     Serial.write(0xFF); //id 
-    Serial.write(0x24); // length, 36 bytes: 3x wgs, 3x Velocity NED, 3x Euler
-    Udp1.read(incomingPacket, 36);
+    Serial.write(0x18); // length, 36 bytes: 3x wgs, 3x Velocity NED, 3x Euler
+    Udp1.read(incomingPacket, 24);
     Udp1.flush();
-    for(int i = 0; i < 36; i++)
+    for(int i = 0; i < 6; i++)
     {
-      Serial.write(incomingPacket[i]);     
+     
+      Serial.write(incomingPacket[i*4+3]);  
+      Serial.write(incomingPacket[i*4+2]); 
+      Serial.write(incomingPacket[i*4+1]); 
+      Serial.write(incomingPacket[i*4]); 
+      
     }
     Serial.write(0x00);   //CRC Checksum, 0 for now
     Serial.write(0x00);

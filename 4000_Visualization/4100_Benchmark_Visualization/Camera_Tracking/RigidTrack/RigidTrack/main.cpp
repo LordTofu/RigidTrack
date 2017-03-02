@@ -44,6 +44,7 @@ using namespace cv;
 commObject commObj;
 
 bool debug = true;
+bool safetyEnable = false;
 
 double frameTime = 0.01; // 100 Hz frame rate
 double timeOld = 0.0;		// old time for finite differences velocity calculation
@@ -69,8 +70,8 @@ double headingOffset = 0;
 
 std::ofstream logfile;	// file handler for writing the log file
 
-int intIntensity = 6; // max infra red spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
-int intExposure = 100; // max is 480 increase if markers are badly visible
+int intIntensity = 15; // max infra red spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
+int intExposure = 480; // max is 480 increase if markers are badly visible
 int intFrameRate = 100;	// frame rate of camera, maximum is 100 fps
 int intThreshold = 200;	// threshold value for marker detection. If markers are badly visible lower this value
 
@@ -117,7 +118,7 @@ QUdpSocket *udpSocketCB;	// socket for the communication with the circuit breake
 QUdpSocket *udpSocketDrone;	// socket for the communication with the drone
 QUdpSocket *udpSocketWinch;	// socket for the communication with the rope winch
 QHostAddress IPAdressCB = QHostAddress("192.168.4.1"); // IPv4 adress of the circuit breaker, stays the same
-QHostAddress IPAdressDrone = QHostAddress("192.168.4.2");	// IPv4 adress of the drone wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
+QHostAddress IPAdressDrone = QHostAddress("192.168.137.254");	// IPv4 adress of the drone wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
 QHostAddress IPAdressWinch = QHostAddress("192.168.4.4");	// IPv4 adress of the rope winch,
 QByteArray datagram;	// data package that is sent to the drone 
 QByteArray data;	// data package that's sent to the circuit breaker
@@ -309,7 +310,7 @@ int start_camera() {
 			//== with it.
 
 			// only use this frame it the right number of markers is found in the picture or debug is on
-			if (frame->ObjectCount() == numberMarkers || debug)
+			if (frame->ObjectCount() == numberMarkers || debug )
 			{
 				framesDropped = 0;	// set number of subsequent frames dropped to zero
 				// get the marker points in 2D in the camera image frame and store them in the list_points2dUnsorted vector
@@ -414,6 +415,8 @@ int start_camera() {
 
 			// check if the position and euler angles are below the allowed value, if yes send enable to the circuit breaker, if not send shutdown signal
 			// absolute x, y and z position in ground frame must be smaller than 1.5m
+			if(safetyEnable)
+			{
 			if ((abs(position[0]) < 1.500 && abs(position[1]) < 1.500 && abs(position[2]) < 1.500) || debug == true)
 			{
 				// absolute euler angles must be smaller than 30 degrees 
@@ -442,6 +445,7 @@ int start_camera() {
 				udpSocketCB->write(data);
 				commObj.addLog("Drone left allowed Area, shutting it down!");
 
+			}
 			}
 
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
@@ -919,6 +923,7 @@ void load_calibration() {
 
 void test_Algorithm()
 {
+
 	int _methodPNP;
 	load_calibration();
 
@@ -1105,10 +1110,8 @@ void sendDataUDPDrone(double &Latitude, double &Longitude, double &Altitude, cv:
 	out.setVersion(QDataStream::Qt_4_3);
 	Latitude *= 10 ^ 7;		// save bandwith 
 	Longitude *= 10 ^ 7;	// save bandwith
-	Altitude *= 0.001; // mm to meter
 	out << (int)Latitude << (int)Longitude << (float)Altitude;
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
-	out << (float)Velocity[0] << (float)Velocity[1] << (float)Velocity[2];
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
 }
 
