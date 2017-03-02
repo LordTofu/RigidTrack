@@ -459,6 +459,7 @@ int start_camera() {
 				camera->Release();
 				//== Shutdown Camera Library ==--
 				CameraManager::X().Shutdown();
+				
 				return 1;
 			}
 
