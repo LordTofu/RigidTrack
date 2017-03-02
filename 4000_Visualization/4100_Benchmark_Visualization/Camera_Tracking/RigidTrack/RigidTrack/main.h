@@ -46,3 +46,4 @@ using namespace cv;
 	void setHeadingOffset(double d);
 	void sendDataUDPDrone(double &latitude, double &longitude, double &Altitude, cv::Vec3d &Velocity, cv::Vec3d &Euler);
 	void change_IPAddress(QString ipaddress);
+	void show_Help();

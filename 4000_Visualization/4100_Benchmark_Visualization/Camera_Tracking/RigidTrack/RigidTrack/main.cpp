@@ -65,6 +65,7 @@ double latitude = 47;	// actual WGS84 latitude sent to drone
 double longitude = 11;	// actual WGS84 longitude sent to drone
 double height = 0;	// actual WGS84 height sent to drone
 double earthRadius = 6366743.0; // Radius of the Earth at 47° North in Meters
+double headingOffset = 0;
 
 std::ofstream logfile;	// file handler for writing the log file
 
@@ -386,6 +387,7 @@ int start_camera() {
 				Rodrigues(Rvec, Rmat);	// compute the rotation matrix from the axis angle respresentation
 				Rmat = RmatRef.t() *Rmat;	// the difference of the reference rotation and the current rotation
 				//==-- Euler Angles, finally 
+				eulerAngles[2] += headingOffset; // add the heading offset to the heading angle
 				getEulerAngles(Rmat, eulerAngles);	// get the euler angles from the rotation matrix 
 
 				frameTime = frame->TimeStamp() - timeOld;	// time between the old frame and the current frame
@@ -1067,7 +1069,8 @@ void setUpUDP()
 }
 
 void setHeadingOffset(double d)
-{
+{	
+	headingOffset = d;
 	d = d * 3.141592653589 / 180.0; // Convert heading offset from degrees to rad
 
 	// Calculate rotation about x axis
@@ -1115,4 +1118,9 @@ void change_IPAddress(QString ipaddress)
 	commObj.addLog("Drone IP changed to:");
 	commObj.addLog(ipaddress);
 	setUpUDP();
+}
+
+void show_Help()
+{
+	
 }
