@@ -64,6 +64,8 @@ double longitudeRef = 11;	// longitude reference for flat earth WGS84 calculatio
 double heightRef = 0;	//WGS84 reference height
 double latitude = 47;	// actual WGS84 latitude sent to drone
 double longitude = 11;	// actual WGS84 longitude sent to drone
+int32_t intLatitude = 47;	// actual WGS84 latitude sent to drone converted to int32
+int32_t intLongitude = 11;	// actual WGS84 longitude sent to drone converted to int32
 double height = 0;	// actual WGS84 height sent to drone
 double earthRadius = 6366743.0; // Radius of the Earth at 47° North in Meters
 double headingOffset = 0;
@@ -81,7 +83,9 @@ Mat RmatRef = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// reference rotation m
 Mat M_NC = cv::Mat_<double>(3, 3);							// rotation matrix from camera to ground, fixed for given camera position
 Mat M_HeadingOffset = cv::Mat_<double>(3, 3);							// rotation matrix that turns the ground system to the INS magnetic heading for alignment
 Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// rotation vector (axis-angle notation) from camera frame to marker frame
+Mat Rvec_Average = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// Average Rvec over the last 10 points as starting value for the iterative PnP algorithm
 Mat Tvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// translation vector from camera frame to marker frame in camera frame
+Mat Tvec_Average = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// // Average Tvec over the last 10 points as starting value for the iterative PnP algorithm
 Mat RvecOriginal;	// initial values as start values for algorithms
 Mat TvecOriginal;	// initial values as start values for algorithms
 
@@ -363,6 +367,7 @@ int start_camera() {
 
 				//Compute the drone pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+
 
 				// project the marker 3d points with the solution into the camera image frame and calculate difference to true camera image
 				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
@@ -1110,7 +1115,10 @@ void sendDataUDPDrone(double &Latitude, double &Longitude, double &Altitude, cv:
 	out.setVersion(QDataStream::Qt_4_3);
 	Latitude *= 10 ^ 7;		// save bandwith 
 	Longitude *= 10 ^ 7;	// save bandwith
-	out << (int)Latitude << (int)Longitude << (float)Altitude;
+	intLatitude = static_cast<int32_t>(Latitude);
+	intLongitude = static_cast<int32_t>(Longitude);
+	Altitude *= -1;
+	out << intLatitude << intLongitude << (float)Altitude;
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
 }

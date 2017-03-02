@@ -1,7 +1,7 @@
 clear all
 ImportLog
-samples_end = 43*100;
-samples_start =40*100;
+samples_end = 1200*100;
+samples_start =1180*100;
 x = x(samples_start:samples_end)
 y = y(samples_start:samples_end)
 z = z(samples_start:samples_end)
@@ -18,7 +18,7 @@ plot(t, [x, y, z])
 xlabel('Time[s]')
 legend('x', 'y', 'z')
 grid on;
-ylim([-2000, 2000])
+ylim([-2, 2])
 grid minor;
 
 subplot(3,1,2)
