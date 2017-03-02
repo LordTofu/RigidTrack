@@ -412,7 +412,7 @@ int start_camera() {
 
 			// check if the position and euler angles are below the allowed value, if yes send enable to the circuit breaker, if not send shutdown signal
 			// absolute x, y and z position in ground frame must be smaller than 1.5m
-			if ((abs(position[0]) < 1500 && abs(position[1]) < 1500 && abs(position[2]) < 1500) || debug == true)
+			if ((abs(position[0]) < 1.500 && abs(position[1]) < 1.500 && abs(position[2]) < 1.500) || debug == true)
 			{
 				// absolute euler angles must be smaller than 30 degrees 
 				if ((abs(eulerAngles[0]) < 30 && abs(eulerAngles[1]) < 30) || debug == true)
@@ -454,6 +454,12 @@ int start_camera() {
 				data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
 				udpSocketCB->write(data);
 				commObj.addLog("Lost Marker Points or Accuracy was bad!");
+
+				// Stop tracking system and release the camera
+				camera->Release();
+				//== Shutdown Camera Library ==--
+				CameraManager::X().Shutdown();
+				return 1;
 			}
 
 			// Output every second if debug is true. This can slow down the whole programm and introduce spikes or lags in the measurements 
