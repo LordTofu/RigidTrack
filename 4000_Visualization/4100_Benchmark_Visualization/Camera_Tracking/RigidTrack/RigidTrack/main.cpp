@@ -310,7 +310,7 @@ int start_camera() {
 			//== with it.
 
 			// only use this frame it the right number of markers is found in the picture or debug is on
-			if (frame->ObjectCount() == numberMarkers || debug )
+			if (frame->ObjectCount() == numberMarkers)
 			{
 				framesDropped = 0;	// set number of subsequent frames dropped to zero
 				// get the marker points in 2D in the camera image frame and store them in the list_points2dUnsorted vector
