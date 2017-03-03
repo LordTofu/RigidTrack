@@ -143,6 +143,7 @@ int main(int argc, char *argv[])
 	QObject::connect(&commObj, SIGNAL(statusChanged(QString)), &w, SLOT(setStatus(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), Qt::DirectConnection);
+	QObject::connect(&commObj, SIGNAL(logCleared()), &w, SLOT(clearLog(QString)), Qt::DirectConnection);
 
 	// inizialise vectors with correct length
 	list_points3d = std::vector<Point3d>(numberMarkers);
@@ -405,12 +406,12 @@ int start_camera() {
 				velocity[2] = (position[2] - positionOld[2]) / frameTime;	// calculate the velocity with finite differences
 				positionOld = position;	// set the old position to the current one for next frame
 
-				latitude = latitudeRef + atan(position[0] / earthRadius);	// calculate the current latitude in WGS84 
-				longitude = longitudeRef + atan(position[1] / earthRadius);	// calculate the current lon in WGS84 
+				//latitude = latitudeRef + atan(position[0] / earthRadius);	// calculate the current latitude in WGS84 
+				//longitude = longitudeRef + atan(position[1] / earthRadius);	// calculate the current lon in WGS84 
 
 				//send position and everything else to drone over WiFi with 100 Hz
 				if (decimatorHelper >= decimator) {
-					sendDataUDPDrone(latitude, longitude, position[2], velocity, eulerAngles);
+					sendDataUDPDrone(position[0], position[1], position[2], eulerAngles);
 					decimatorHelper = 0;
 				}
 			}
@@ -599,47 +600,63 @@ int setZero()
 	int numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
 
 	// Determine minimum exposure, hence when are numberMarkers+1 objects detected
-	while (numberObjects != numberMarkers && numberTries < 450)
+	while (numberObjects != numberMarkers && numberTries < 48)
 	{
 		Frame *frame = camera->GetFrame();
 		if (frame)
 		{
 			numberObjects = frame->ObjectCount();
-			if (numberObjects == numberMarkers) { minExposure = intExposure; }
+			if (numberObjects == numberMarkers) { minExposure = intExposure; frame->Release(); break; }
 			numberTries++;
-			intExposure++;
+			intExposure += 10;
 			camera->SetExposure(intExposure);
 			ss.str("");
 			ss << "Exposure		  =  " << intExposure << "\n";
 			ss << "Objects found  =  " << numberObjects << "\n";
 			commObj.addLog(QString::fromStdString(ss.str()));
+			frame->Release();
 
 		}
 	}
 
+	commObj.clearLog();// Delete entries in the log because a lot of entries make it slow
 	// Determine maximum exposure, hence when are numberMarkers+1 objects detected
 	numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
 	intExposure = maxExposure;
-	while (numberObjects != numberMarkers && numberTries < 450)
+	while (numberObjects != numberMarkers && numberTries < 48)
 	{
 		Frame *frame = camera->GetFrame();
 		if (frame)
 		{
 			numberObjects = frame->ObjectCount();
-			if (numberObjects == numberMarkers) { maxExposure = intExposure; }
-			intExposure--;
+			if (numberObjects == numberMarkers) { maxExposure = intExposure; frame->Release(); break; }
+			intExposure -= 10;
 			numberTries++;
 			camera->SetExposure(intExposure);
 			ss.str("");
 			ss << "Exposure		  =  " << intExposure << "\n";
 			ss << "Objects found  =  " << numberObjects << "\n";
 			commObj.addLog(QString::fromStdString(ss.str()));
-
+			frame->Release();
 		}
 	}
 
 	// set the exposure to the mean of min and max exposure determined
 	camera->SetExposure((minExposure + maxExposure) / 2.0);
+
+	Frame *frame = camera->GetFrame();
+	if (frame)
+	{
+		numberObjects = frame->ObjectCount();
+		if (numberObjects != numberMarkers) 
+		{ 
+			frame->Release(); 
+			commObj.addLog("Was not able to detect the right amount of markers.");
+			//== Release camera ==--
+			camera->Release();
+			return 1; 
+		}
+	}
 
 	// sample some frames and calculate the position and attitude. then average those values and use that as zero position
 	int numberSamples = 0;
@@ -1142,17 +1159,13 @@ void setHeadingOffset(double d)
 	M_HeadingOffset = R_z * R_y * R_x;
 }
 
-void sendDataUDPDrone(double &Latitude, double &Longitude, double &Altitude, cv::Vec3d &Velocity, cv::Vec3d &Euler)
+void sendDataUDPDrone(double &PositionNord, double &PositionEast, double &Altitude, cv::Vec3d &Euler)
 {
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_4_3);
-	Latitude *= 10 ^ 7;		// save bandwith 
-	Longitude *= 10 ^ 7;	// save bandwith
-	intLatitude = static_cast<int32_t>(Latitude);
-	intLongitude = static_cast<int32_t>(Longitude);
 	Altitude *= -1;
-	out << intLatitude << intLongitude << (float)Altitude;
+	out << (float)PositionNord << (float)PositionEast << (float)Altitude;
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
 }

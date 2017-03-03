@@ -22,3 +22,9 @@ void commObject::addLog(QString LogText) {
 	emit logAdded(LogText);
 	QCoreApplication::processEvents();
 }
+
+void commObject::clearLog() {
+
+	emit logCleared();
+	QCoreApplication::processEvents();
+}

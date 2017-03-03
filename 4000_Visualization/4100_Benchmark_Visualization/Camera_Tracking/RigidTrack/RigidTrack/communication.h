@@ -11,12 +11,14 @@ public:
 	void changeStatus(QString newText);
 	void changeImage(QPixmap image);
 	void addLog(QString LogText);
+	void clearLog();
 	
 
 	signals:
 	   void statusChanged(QString newText);
 	   void imageChanged(QPixmap image);
 	   void logAdded(QString LogText);
+	   void logCleared();
 
 };
 #endif // EMITTING_H

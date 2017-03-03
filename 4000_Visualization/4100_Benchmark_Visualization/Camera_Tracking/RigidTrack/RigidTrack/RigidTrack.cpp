@@ -30,6 +30,11 @@ void RigidTrack::setImage(QPixmap image)
 	ui.lbStatus->setPixmap(image);
 }
 
+void RigidTrack::clearLog()
+{
+	ui.listLog->reset();
+}
+
 void RigidTrack::on_btnLoadCalib_clicked()
 {
 	load_calibration();

@@ -49,7 +49,7 @@ void test_Algorithm();
 void projectCoordinateFrame(Mat pictureFrame);
 void setUpUDP();
 void setHeadingOffset(double d);
-void sendDataUDPDrone(double &latitude, double &longitude, double &Altitude, cv::Vec3d &Velocity, cv::Vec3d &Euler);
+void sendDataUDPDrone(double &PositionNord, double &PositionEast, double &Altitude, cv::Vec3d &Euler);
 void change_IPAddress(QString ipaddress);
 void show_Help();
 void closeUDP();
