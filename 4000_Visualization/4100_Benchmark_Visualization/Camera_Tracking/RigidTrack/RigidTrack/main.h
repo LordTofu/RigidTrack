@@ -14,6 +14,8 @@
 #include <future>
 #include <atomic>
 
+#include "communication.h"
+
 #include "RigidTrack.h"
 #include <QtWidgets/QApplication>
 #include <QUdpSocket>
@@ -33,17 +35,21 @@
 
 using namespace CameraLibrary;
 using namespace cv;
-	
-	int start_camera();
-	void start_cameraThread();
-	void stop_camera();
-	int setZero();
-	int calibrate_camera();
-	void load_calibration();
-	void test_Algorithm();
-	void projectCoordinateFrame(Mat pictureFrame);
-	void setUpUDP();
-	void setHeadingOffset(double d);
-	void sendDataUDPDrone(double &latitude, double &longitude, double &Altitude, cv::Vec3d &Velocity, cv::Vec3d &Euler);
-	void change_IPAddress(QString ipaddress);
-	void show_Help();
+
+extern int methodPNP;
+extern commObject commObj;
+
+int start_camera();
+void start_cameraThread();
+void stop_camera();
+int setZero();
+int calibrate_camera();
+void load_calibration();
+void test_Algorithm();
+void projectCoordinateFrame(Mat pictureFrame);
+void setUpUDP();
+void setHeadingOffset(double d);
+void sendDataUDPDrone(double &latitude, double &longitude, double &Altitude, cv::Vec3d &Velocity, cv::Vec3d &Euler);
+void change_IPAddress(QString ipaddress);
+void show_Help();
+void closeUDP();

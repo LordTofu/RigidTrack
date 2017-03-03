@@ -4,6 +4,7 @@
 #include "ui_RigidTrack.h"
 #include <qpixmap.h>
 #include "main.h"
+#include "communication.h"
 
 class RigidTrack : public QMainWindow
 {
@@ -23,6 +24,8 @@ public slots:
 	void setLog(QString logText);
 	void on_sbHeadingOffset_valueChanged(double d);
 	void on_leIPDrone_returnPressed();
+	void on_rbP3P_clicked();
+	void on_rbIterative_clicked();
 
 private:
 	Ui::RigidTrackClass ui;

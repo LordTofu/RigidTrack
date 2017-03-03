@@ -1,5 +1,6 @@
 #include "RigidTrack.h"
 #include "main.h"
+#include "communication.h"
 
 
 RigidTrack::RigidTrack(QWidget *parent)
@@ -48,6 +49,18 @@ void RigidTrack::on_sbHeadingOffset_valueChanged(double d)
 void RigidTrack::on_leIPDrone_returnPressed()
 {
 	change_IPAddress(RigidTrack::ui.leIPDrone->text());
+}
+
+void RigidTrack::on_rbP3P_clicked()
+{
+	methodPNP = 2;
+	commObj.addLog("Changed PnP algorithm to P3P");
+}
+
+void RigidTrack::on_rbIterative_clicked()
+{
+	methodPNP = 0;
+	commObj.addLog("Changed PnP algorithm to Iterative");
 }
 
 void RigidTrack::on_btnStartCamera_clicked()

@@ -73,7 +73,7 @@ double headingOffset = 0;
 std::ofstream logfile;	// file handler for writing the log file
 
 int intIntensity = 15; // max infra red spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
-int intExposure = 480; // max is 480 increase if markers are badly visible
+int intExposure = 1; // max is 480 increase if markers are badly visible
 int intFrameRate = 100;	// frame rate of camera, maximum is 100 fps
 int intThreshold = 200;	// threshold value for marker detection. If markers are badly visible lower this value
 
@@ -134,7 +134,7 @@ std::stringstream ss;	// stream that sends the strBuf buffer to the Qt GUI
 
 // main inizialised the GUI and values for the marker position
 int main(int argc, char *argv[])
-{	
+{
 
 	QApplication a(argc, argv);
 	RigidTrack w;
@@ -284,13 +284,15 @@ int start_camera() {
 	QPixmap QPFrame;
 	// Matrix that stores the colored picture
 	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
-	
+
 	//helper variables used to print ouput only every 30th time and kick circuit breaker
 	int u = 0;
 	int v = 0;
 	int decimatorHelper = 0;
 	int framesDropped = 0; // if a marker is not visible or accuracy is bad increase this counter.
 	double projectionError = 0; // equals the quality of the tracking
+
+	setUpUDP();	// open sockets and ports for UDP communication
 
 	// enable circuit breaker, hence send a 9 and then a 1 to it
 	//data.setNum((int)(9));
@@ -420,37 +422,37 @@ int start_camera() {
 
 			// check if the position and euler angles are below the allowed value, if yes send enable to the circuit breaker, if not send shutdown signal
 			// absolute x, y and z position in ground frame must be smaller than 1.5m
-			if(safetyEnable)
+			if (safetyEnable)
 			{
-			if ((abs(position[0]) < 1.500 && abs(position[1]) < 1.500 && abs(position[2]) < 1.500) || debug == true)
-			{
-				// absolute euler angles must be smaller than 30 degrees 
-				if ((abs(eulerAngles[0]) < 30 && abs(eulerAngles[1]) < 30) || debug == true)
+				if ((abs(position[0]) < 1.500 && abs(position[1]) < 1.500 && abs(position[2]) < 1.500) || debug == true)
 				{
-					// send the enable signal to the circuit breaker to keep it enabled
-					if (v == 5) {
-						data.setNum((int)(1));
+					// absolute euler angles must be smaller than 30 degrees 
+					if ((abs(eulerAngles[0]) < 30 && abs(eulerAngles[1]) < 30) || debug == true)
+					{
+						// send the enable signal to the circuit breaker to keep it enabled
+						if (v == 5) {
+							data.setNum((int)(1));
+							udpSocketCB->write(data);
+							v = 0;
+						}
+					}
+					// The euler angles of the drone exceeded the allowed euler angles, shut the drone down
+					else
+					{
+						data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
 						udpSocketCB->write(data);
-						v = 0;
+						commObj.addLog("Drone exceeded allowed Euler Angles, shutting it down!");
+
 					}
 				}
-				// The euler angles of the drone exceeded the allowed euler angles, shut the drone down
+				// The position of the drone exceeded the allowed position, shut the drone down
 				else
 				{
 					data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
 					udpSocketCB->write(data);
-					commObj.addLog("Drone exceeded allowed Euler Angles, shutting it down!");
+					commObj.addLog("Drone left allowed Area, shutting it down!");
 
 				}
-			}
-			// The position of the drone exceeded the allowed position, shut the drone down
-			else
-			{
-				data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
-				udpSocketCB->write(data);
-				commObj.addLog("Drone left allowed Area, shutting it down!");
-
-			}
 			}
 
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
@@ -470,7 +472,7 @@ int start_camera() {
 				camera->Release();
 				//== Shutdown Camera Library ==--
 				CameraManager::X().Shutdown();
-				
+
 				return 1;
 			}
 
@@ -503,7 +505,7 @@ int start_camera() {
 			// project the marker points from 3D to the camera image frame (2d) with the computed pose
 			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
 			for (int i = 0; i < numberMarkers; i++)
-			{	
+			{
 				// draw a circle around the projected points so the result can be better compared to the real marker position
 				circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
 			}
@@ -519,10 +521,11 @@ int start_camera() {
 	//== Release camera ==--
 	camera->Release();
 
-	//== Shutdown Camera Library ==--
+	//== Shutdown Camera Library and UDP Connections
 	CameraManager::X().Shutdown();
+	closeUDP();
 
-	//== Exit the application.  Simple! ==--
+	//== Exit the application
 	return 0;
 }
 
@@ -539,7 +542,6 @@ void stop_camera()
 // determine the initial position of the drone that serves as reference point or as ground frame origin
 int setZero()
 {
-	setUpUDP();	// open sockets and ports for UDP communication
 	posRef = 0;
 	eulerRef = 0;
 	RmatRef = 0;
@@ -580,37 +582,65 @@ int setZero()
 
 	//== Turn on some overlay text so it's clear things are     ===---
 	//== working even if there is nothing in the camera's view. ===---
-
+	// Set some other parameters as well of the camera
 	camera->SetTextOverlay(true);
-	camera->SetExposure(intExposure);
 	camera->SetFrameRate(intFrameRate);
 	camera->SetIntensity(intIntensity);
 	camera->SetIRFilter(true);
 	camera->SetContinuousIR(false);
 	camera->SetHighPowerMode(false);
 
-	int numberSamples = 0;
-	int numberToSample = 100;
-
 	//set exposure such that num markers are visible
 
-	int numberObjects = 0;
+	int numberObjects = 0;	// Number of objects (markers) found in the current picture with the given exposure	
+	int minExposure = 0;	// exposure when objects detected the first time is numberMarkers 
+	int maxExposure = 480;	// exposure when objects detected is first time numberMarkers+1
+	intExposure = minExposure;	// set the exposure to the smallest value possible
+
+	// Determine minimum exposure, hence when are numberMarkers+1 objects detected
 	while (numberObjects != numberMarkers)
 	{
 		Frame *frame = camera->GetFrame();
 		if (frame)
 		{
 			numberObjects = frame->ObjectCount();
-			if (numberObjects > numberMarkers) { intExposure--; }
-			if (numberObjects < numberMarkers) { intExposure++; }
+			if (numberObjects == numberMarkers) { minExposure = intExposure; }
+			intExposure++;
 			camera->SetExposure(intExposure);
 			ss.str("");
 			ss << "Exposure		  =  " << intExposure << "\n";
 			ss << "Objects found  =  " << numberObjects << "\n";
 			commObj.addLog(QString::fromStdString(ss.str()));
+
 		}
 	}
 
+	// Determine maximum exposure, hence when are numberMarkers+1 objects detected
+	intExposure = maxExposure;
+	while (numberObjects != numberMarkers)
+	{
+		Frame *frame = camera->GetFrame();
+		if (frame)
+		{
+			numberObjects = frame->ObjectCount();
+			if (numberObjects == numberMarkers) { maxExposure = intExposure; }
+			intExposure--;
+			camera->SetExposure(intExposure);
+			ss.str("");
+			ss << "Exposure		  =  " << intExposure << "\n";
+			ss << "Objects found  =  " << numberObjects << "\n";
+			commObj.addLog(QString::fromStdString(ss.str()));
+
+		}
+	}
+
+	// set the exposure to the mean of min and max exposure determined
+	camera->SetExposure((minExposure + maxExposure) / 2.0);
+
+	// sample some frames and calculate the position and attitude. then average those values and use that as zero position
+	int numberSamples = 0;
+	int numberToSample = 200;
+	
 	while (numberSamples < numberToSample)
 	{
 		//== Fetch a new frame from the camera ===---
@@ -648,22 +678,22 @@ int setZero()
 						double minValue = 0;
 						currentPointDistance = 0;
 						minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
-						
-							projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
-							for (int n = 0; n < numberMarkers; n++)
-							{
-								currentPointDistance += norm(list_points2d[n] - list_points2dProjected[n]);
-							}
 
-							if (currentPointDistance < minPointDistance)
+						projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+						for (int n = 0; n < numberMarkers; n++)
+						{
+							currentPointDistance += norm(list_points2d[n] - list_points2dProjected[n]);
+						}
+
+						if (currentPointDistance < minPointDistance)
+						{
+							minPointDistance = currentPointDistance;
+							for (int b = 0; b < numberMarkers; b++)
 							{
-								minPointDistance = currentPointDistance;
-								for (int b = 0; b < numberMarkers; b++)
-								{
-									pointOrderIndicesNew[b] = pointOrderIndices[b];
-								}
+								pointOrderIndicesNew[b] = pointOrderIndices[b];
 							}
-						
+						}
+
 
 					} while (std::next_permutation(pointOrderIndices, pointOrderIndices + 4));
 
@@ -693,7 +723,7 @@ int setZero()
 					ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
 					commObj.addLog(QString::fromStdString(ss.str()));
 					frame->Release();
-					
+
 					return 1;
 				}
 				if (norm(positionOld) - norm(Tvec) < 0.05)	//Iterative Method needs time to converge to solution
@@ -1079,7 +1109,7 @@ void setUpUDP()
 }
 
 void setHeadingOffset(double d)
-{	
+{
 	headingOffset = d;
 	d = d * 3.141592653589 / 180.0; // Convert heading offset from degrees to rad
 
@@ -1128,10 +1158,16 @@ void change_IPAddress(QString ipaddress)
 	IPAdressDrone = QHostAddress(ipaddress);
 	commObj.addLog("Drone IP changed to:");
 	commObj.addLog(ipaddress);
-	setUpUDP();
 }
 
 void show_Help()
 {
-	
+
+}
+
+void closeUDP()
+{
+	udpSocketCB->close();
+	udpSocketWinch->close();
+	udpSocketDrone->close();
 }
