@@ -68,6 +68,11 @@ void RigidTrack::on_rbIterative_clicked()
 	commObj.addLog("Changed PnP algorithm to Iterative");
 }
 
+void RigidTrack::on_actionShow_Help_triggered()
+{
+	show_Help();
+}
+
 void RigidTrack::on_btnStartCamera_clicked()
 {
 	RigidTrack::ui.btnStartCamera->setText("Camera Started");

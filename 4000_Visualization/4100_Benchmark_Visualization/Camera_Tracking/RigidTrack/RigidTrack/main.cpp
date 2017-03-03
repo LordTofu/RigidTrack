@@ -1,5 +1,7 @@
 #include "RigidTrack.h"
 #include <QtWidgets/QApplication>
+#include <QDesktopServices>
+#include <QUrl>
 #include <QThread>
 #include <QUdpSocket>
 #include "cameralibrary.h"     //== Camera Library header file ======================---
@@ -34,6 +36,7 @@
 #include <algorithm>
 #include <random>
 #include <thread>
+#include <strsafe.h>
 
 #include "main.h"
 #include "communication.h"
@@ -1179,7 +1182,15 @@ void change_IPAddress(QString ipaddress)
 
 void show_Help()
 {
-
+	wchar_t buffer[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	std::wstring strBuffer(buffer);
+	int pos = strBuffer.find_last_of(L"\\ / ");
+	std::wstring strPath = strBuffer.substr(0, pos);
+	QString qtString = QString::fromWCharArray(strPath.c_str());
+	QString qtStrFile = "\\help.html";
+	QString file = qtString + qtStrFile;
+	QDesktopServices::openUrl(QUrl::fromLocalFile(file));
 }
 
 void closeUDP()

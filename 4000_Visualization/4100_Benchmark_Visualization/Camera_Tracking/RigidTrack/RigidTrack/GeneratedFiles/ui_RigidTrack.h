@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'RigidTrack.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -151,24 +151,24 @@ public:
 
     void retranslateUi(QMainWindow *RigidTrackClass)
     {
-        RigidTrackClass->setWindowTitle(QApplication::translate("RigidTrackClass", "RigidTrack", 0));
-        actionShow_Help->setText(QApplication::translate("RigidTrackClass", "Show Help", 0));
-        btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", 0));
-        lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", 0));
-        btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", 0));
+        RigidTrackClass->setWindowTitle(QApplication::translate("RigidTrackClass", "RigidTrack", Q_NULLPTR));
+        actionShow_Help->setText(QApplication::translate("RigidTrackClass", "Show Help", Q_NULLPTR));
+        btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", Q_NULLPTR));
+        lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", Q_NULLPTR));
+        btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", Q_NULLPTR));
         btnCalibrate->setText(QApplication::translate("RigidTrackClass", "Calibrate\n"
-"Camera", 0));
+"Camera", Q_NULLPTR));
         btnLoadCalib->setText(QApplication::translate("RigidTrackClass", "Load\n"
-"Calibration", 0));
-        label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", 0));
-        leIPDrone->setText(QApplication::translate("RigidTrackClass", "192.168.137.254", 0));
-        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress of Drone Wifi Chip Press Return to Apply Changes", 0));
-        lbSafetyArea->setText(QApplication::translate("RigidTrackClass", "Safety Area Dimensions ", 0));
-        lbSafetyArea_2->setText(QApplication::translate("RigidTrackClass", "Safety Area Angles", 0));
-        groupBox->setTitle(QApplication::translate("RigidTrackClass", "PnP Algorithm", 0));
-        rbIterative->setText(QApplication::translate("RigidTrackClass", "Iterative", 0));
-        rbP3P->setText(QApplication::translate("RigidTrackClass", "P3P", 0));
-        menuHelp->setTitle(QApplication::translate("RigidTrackClass", "Help", 0));
+"Calibration", Q_NULLPTR));
+        label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", Q_NULLPTR));
+        leIPDrone->setText(QApplication::translate("RigidTrackClass", "192.168.137.254", Q_NULLPTR));
+        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress of Drone Wifi Chip Press Return to Apply Changes", Q_NULLPTR));
+        lbSafetyArea->setText(QApplication::translate("RigidTrackClass", "Safety Area Dimensions ", Q_NULLPTR));
+        lbSafetyArea_2->setText(QApplication::translate("RigidTrackClass", "Safety Area Angles", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("RigidTrackClass", "PnP Algorithm", Q_NULLPTR));
+        rbIterative->setText(QApplication::translate("RigidTrackClass", "Iterative", Q_NULLPTR));
+        rbP3P->setText(QApplication::translate("RigidTrackClass", "P3P", Q_NULLPTR));
+        menuHelp->setTitle(QApplication::translate("RigidTrackClass", "Help", Q_NULLPTR));
     } // retranslateUi
 
 };

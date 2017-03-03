@@ -27,6 +27,7 @@ public slots:
 	void on_leIPDrone_returnPressed();
 	void on_rbP3P_clicked();
 	void on_rbIterative_clicked();
+	void on_actionShow_Help_triggered();
 
 private:
 	Ui::RigidTrackClass ui;
