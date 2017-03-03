@@ -596,15 +596,17 @@ int setZero()
 	int minExposure = 0;	// exposure when objects detected the first time is numberMarkers 
 	int maxExposure = 480;	// exposure when objects detected is first time numberMarkers+1
 	intExposure = minExposure;	// set the exposure to the smallest value possible
+	int numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
 
 	// Determine minimum exposure, hence when are numberMarkers+1 objects detected
-	while (numberObjects != numberMarkers)
+	while (numberObjects != numberMarkers && numberTries < 450)
 	{
 		Frame *frame = camera->GetFrame();
 		if (frame)
 		{
 			numberObjects = frame->ObjectCount();
 			if (numberObjects == numberMarkers) { minExposure = intExposure; }
+			numberTries++;
 			intExposure++;
 			camera->SetExposure(intExposure);
 			ss.str("");
@@ -616,8 +618,9 @@ int setZero()
 	}
 
 	// Determine maximum exposure, hence when are numberMarkers+1 objects detected
+	numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
 	intExposure = maxExposure;
-	while (numberObjects != numberMarkers)
+	while (numberObjects != numberMarkers && numberTries < 450)
 	{
 		Frame *frame = camera->GetFrame();
 		if (frame)
@@ -625,6 +628,7 @@ int setZero()
 			numberObjects = frame->ObjectCount();
 			if (numberObjects == numberMarkers) { maxExposure = intExposure; }
 			intExposure--;
+			numberTries++;
 			camera->SetExposure(intExposure);
 			ss.str("");
 			ss << "Exposure		  =  " << intExposure << "\n";
