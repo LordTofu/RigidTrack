@@ -488,7 +488,7 @@ int start_camera() {
 			// Output every second if debug is true. This can slow down the whole programm and introduce spikes or lags in the measurements 
 			if (u == 100 && debug) {
 				ss.str("");
-				ss << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
+				ss << std::setprecision(3) << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
 				ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
 				ss << "roll  =  " << eulerAngles[0] << "\t pitch  =  " << eulerAngles[1] << "\t heading  = " << eulerAngles[2];
 				commObj.addLog(QString::fromStdString(ss.str()));	// send the string to the GUI 

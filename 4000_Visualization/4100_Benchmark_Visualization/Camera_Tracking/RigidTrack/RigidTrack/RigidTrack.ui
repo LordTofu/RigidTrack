@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>830</width>
-    <height>908</height>
+    <width>740</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RigidTrack</string>
+   <string notr="true">Optical Position Tracking</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="btnStartCamera">
@@ -33,10 +33,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>190</y>
-      <width>771</width>
-      <height>461</height>
+      <x>50</x>
+      <y>180</y>
+      <width>640</width>
+      <height>480</height>
      </rect>
     </property>
     <property name="text">
@@ -87,10 +87,10 @@ Calibration</string>
    <widget class="QListWidget" name="listLog">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>681</y>
-      <width>791</width>
-      <height>171</height>
+      <x>10</x>
+      <y>680</y>
+      <width>720</width>
+      <height>170</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
@@ -221,6 +221,9 @@ Calibration</string>
        <height>17</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.</string>
+     </property>
      <property name="text">
       <string>Enable Safety Area</string>
      </property>
@@ -237,6 +240,9 @@ Calibration</string>
        <height>22</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Maximum distance of the object to the starting point in each dimension. If exceeded a disable signal is sent via UDP</string>
+     </property>
     </widget>
     <widget class="QSpinBox" name="sbAngle">
      <property name="enabled">
@@ -250,15 +256,21 @@ Calibration</string>
        <height>22</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>Maximum bank and pitch angle of the object. If exceeded a disable signal is sent via UDP</string>
+     </property>
     </widget>
     <widget class="QLabel" name="lbSafetyArea">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>40</y>
-       <width>111</width>
+       <width>61</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>Maximum distance of the object to the starting point in each dimension. If exceeded a disable signal is sent via UDP</string>
      </property>
      <property name="text">
       <string>Safety Area Dimensions </string>
@@ -275,6 +287,9 @@ Calibration</string>
        <width>91</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>Maximum bank and pitch angle of the object. If exceeded a disable signal is sent via UDP</string>
      </property>
      <property name="text">
       <string>Safety Area Angles</string>
@@ -322,7 +337,7 @@ Calibration</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>830</width>
+     <width>740</width>
      <height>21</height>
     </rect>
    </property>
