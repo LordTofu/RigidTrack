@@ -4,6 +4,7 @@
 #include <QUrl>
 #include <QThread>
 #include <QUdpSocket>
+#include <QFileDialog> 
 #include "cameralibrary.h"     //== Camera Library header file ======================---
 #include "modulevector.h"
 #include "modulevectorprocessing.h"
@@ -48,6 +49,8 @@ commObject commObj;
 
 bool debug = true;
 bool safetyEnable = false;
+double safetyBoxLength = 1.5; // length of the safety area cube in meters
+int safetyAngle = 30; // bank and pitch angle protection in degrees
 
 double frameTime = 0.01; // 100 Hz frame rate
 double timeOld = 0.0;		// old time for finite differences velocity calculation
@@ -181,6 +184,7 @@ int main(int argc, char *argv[])
 	ropePosition = cv::Point3d(0, 0, -4500); // the rope is redirected 4.5m above the o-frame
 	ropeLength = ropePosition[2];	// set the rope length to initial value
 
+	load_calibration(0); // load the calibration file with the camera intrinsics
 	test_Algorithm();	// test the algorithms and their accuracy 
 
 	WGS84[0] = latitudeRef;	// latitude in WGS84 set to reference latitude
@@ -428,10 +432,10 @@ int start_camera() {
 			// absolute x, y and z position in ground frame must be smaller than 1.5m
 			if (safetyEnable)
 			{
-				if ((abs(position[0]) < 1.500 && abs(position[1]) < 1.500 && abs(position[2]) < 1.500) || debug == true)
+				if ((abs(position[0]) < safetyBoxLength && abs(position[1]) < safetyBoxLength && abs(position[2]) < safetyBoxLength) || debug == true)
 				{
 					// absolute euler angles must be smaller than 30 degrees 
-					if ((abs(eulerAngles[0]) < 30 && abs(eulerAngles[1]) < 30) || debug == true)
+					if ((abs(eulerAngles[0]) < safetyAngle && abs(eulerAngles[1]) < safetyAngle) || debug == true)
 					{
 						// send the enable signal to the circuit breaker to keep it enabled
 						if (v == 5) {
@@ -956,8 +960,9 @@ int calibrate_camera()
 	//== Release camera ==--
 	camera->Release();
 
-	//== Shutdown Camera Library ==--
-	FileStorage fs("calibration.xml", FileStorage::WRITE);//+ FileStorage::MEMORY);
+	// Save the obtained calibration coefficients in a file for later use
+	QString fileName = QFileDialog::getSaveFileName(nullptr, "Save Calibration File", "","Calibration File (*.xml);;All Files (*)");
+	FileStorage fs(fileName.toUtf8().constData() , FileStorage::WRITE);//+ FileStorage::MEMORY);
 	fs << "CameraMatrix" << cameraMatrix;
 	fs << "DistCoeff" << distCoeffs;
 	fs << "RMS" << rms;
@@ -967,10 +972,19 @@ int calibrate_camera()
 	return 0;
 }
 
-void load_calibration() {
+void load_calibration(int method) {
+
+	QString fileName;
+	if (method == 0)
+	{
+		fileName = "calibration.xml";
+	}
+	else
+	{
+		fileName = QFileDialog::getOpenFileName(nullptr, "Choose a previous saved calibration file", "","Calibration Files (*.xml);;All Files (*)");
+	}
 	FileStorage fs;
-	fs.open("calibration.xml", FileStorage::READ);
-	//fs.open("calibrationOptitrack.xml", FileStorage::READ);
+	fs.open(fileName.toUtf8().constData(), FileStorage::READ);
 	fs["CameraMatrix"] >> cameraMatrix;
 	fs["DistCoeff"] >> distCoeffs;
 	commObj.addLog("Loaded Calibration!");
@@ -984,7 +998,6 @@ void test_Algorithm()
 {
 
 	int _methodPNP;
-	load_calibration();
 
 	std::vector<Point2d> noise(numberMarkers);
 
@@ -1171,13 +1184,6 @@ void sendDataUDPDrone(double &PositionNord, double &PositionEast, double &Altitu
 	out << (float)PositionNord << (float)PositionEast << (float)Altitude;
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
 	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
-}
-
-void change_IPAddress(QString ipaddress)
-{
-	IPAdressDrone = QHostAddress(ipaddress);
-	commObj.addLog("Drone IP changed to:");
-	commObj.addLog(ipaddress);
 }
 
 void show_Help()

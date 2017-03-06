@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
@@ -46,13 +47,17 @@ public:
     QLabel *label;
     QLineEdit *leIPDrone;
     QLabel *label_2;
-    QLabel *lbSafetyArea;
-    QSpinBox *spinBox_2;
-    QDoubleSpinBox *doubleSpinBox;
-    QLabel *lbSafetyArea_2;
     QGroupBox *groupBox;
     QRadioButton *rbIterative;
     QRadioButton *rbP3P;
+    QGroupBox *groupBox_2;
+    QCheckBox *cbSafety;
+    QDoubleSpinBox *dsbDimension;
+    QSpinBox *sbAngle;
+    QLabel *lbSafetyArea;
+    QLabel *lbSafetyArea_2;
+    QLineEdit *leIPCB;
+    QLabel *label_3;
     QMenuBar *menuBar;
     QMenu *menuHelp;
     QToolBar *mainToolBar;
@@ -79,47 +84,33 @@ public:
         btnZero->setGeometry(QRect(20, 30, 131, 41));
         btnCalibrate = new QPushButton(centralWidget);
         btnCalibrate->setObjectName(QStringLiteral("btnCalibrate"));
-        btnCalibrate->setGeometry(QRect(330, 30, 101, 41));
+        btnCalibrate->setGeometry(QRect(160, 30, 101, 41));
         btnLoadCalib = new QPushButton(centralWidget);
         btnLoadCalib->setObjectName(QStringLiteral("btnLoadCalib"));
-        btnLoadCalib->setGeometry(QRect(330, 80, 101, 41));
+        btnLoadCalib->setGeometry(QRect(160, 80, 101, 41));
         listLog = new QListWidget(centralWidget);
         listLog->setObjectName(QStringLiteral("listLog"));
         listLog->setGeometry(QRect(20, 681, 791, 171));
         listLog->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         sbHeadingOffset = new QDoubleSpinBox(centralWidget);
         sbHeadingOffset->setObjectName(QStringLiteral("sbHeadingOffset"));
-        sbHeadingOffset->setGeometry(QRect(170, 40, 136, 20));
+        sbHeadingOffset->setGeometry(QRect(280, 50, 71, 20));
         sbHeadingOffset->setDecimals(1);
         sbHeadingOffset->setMinimum(-180);
         sbHeadingOffset->setMaximum(180);
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(170, 20, 136, 21));
+        label->setGeometry(QRect(280, 30, 136, 21));
         leIPDrone = new QLineEdit(centralWidget);
         leIPDrone->setObjectName(QStringLiteral("leIPDrone"));
-        leIPDrone->setGeometry(QRect(170, 100, 136, 20));
+        leIPDrone->setGeometry(QRect(280, 110, 136, 20));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(170, 70, 141, 26));
+        label_2->setGeometry(QRect(280, 80, 141, 26));
         label_2->setWordWrap(true);
-        lbSafetyArea = new QLabel(centralWidget);
-        lbSafetyArea->setObjectName(QStringLiteral("lbSafetyArea"));
-        lbSafetyArea->setGeometry(QRect(460, 10, 111, 31));
-        lbSafetyArea->setWordWrap(true);
-        spinBox_2 = new QSpinBox(centralWidget);
-        spinBox_2->setObjectName(QStringLiteral("spinBox_2"));
-        spinBox_2->setGeometry(QRect(460, 90, 42, 22));
-        doubleSpinBox = new QDoubleSpinBox(centralWidget);
-        doubleSpinBox->setObjectName(QStringLiteral("doubleSpinBox"));
-        doubleSpinBox->setGeometry(QRect(460, 40, 62, 22));
-        lbSafetyArea_2 = new QLabel(centralWidget);
-        lbSafetyArea_2->setObjectName(QStringLiteral("lbSafetyArea_2"));
-        lbSafetyArea_2->setGeometry(QRect(460, 60, 111, 31));
-        lbSafetyArea_2->setWordWrap(true);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(570, 40, 101, 71));
+        groupBox->setGeometry(QRect(630, 30, 101, 71));
         rbIterative = new QRadioButton(groupBox);
         rbIterative->setObjectName(QStringLiteral("rbIterative"));
         rbIterative->setGeometry(QRect(10, 40, 82, 17));
@@ -127,6 +118,36 @@ public:
         rbP3P = new QRadioButton(groupBox);
         rbP3P->setObjectName(QStringLiteral("rbP3P"));
         rbP3P->setGeometry(QRect(10, 20, 82, 17));
+        groupBox_2 = new QGroupBox(centralWidget);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        groupBox_2->setGeometry(QRect(440, 10, 171, 161));
+        cbSafety = new QCheckBox(groupBox_2);
+        cbSafety->setObjectName(QStringLiteral("cbSafety"));
+        cbSafety->setGeometry(QRect(10, 20, 131, 17));
+        dsbDimension = new QDoubleSpinBox(groupBox_2);
+        dsbDimension->setObjectName(QStringLiteral("dsbDimension"));
+        dsbDimension->setEnabled(false);
+        dsbDimension->setGeometry(QRect(10, 70, 62, 22));
+        sbAngle = new QSpinBox(groupBox_2);
+        sbAngle->setObjectName(QStringLiteral("sbAngle"));
+        sbAngle->setEnabled(false);
+        sbAngle->setGeometry(QRect(90, 70, 61, 22));
+        lbSafetyArea = new QLabel(groupBox_2);
+        lbSafetyArea->setObjectName(QStringLiteral("lbSafetyArea"));
+        lbSafetyArea->setGeometry(QRect(10, 40, 111, 31));
+        lbSafetyArea->setWordWrap(true);
+        lbSafetyArea_2 = new QLabel(groupBox_2);
+        lbSafetyArea_2->setObjectName(QStringLiteral("lbSafetyArea_2"));
+        lbSafetyArea_2->setGeometry(QRect(90, 40, 91, 31));
+        lbSafetyArea_2->setWordWrap(true);
+        leIPCB = new QLineEdit(groupBox_2);
+        leIPCB->setObjectName(QStringLiteral("leIPCB"));
+        leIPCB->setEnabled(false);
+        leIPCB->setGeometry(QRect(10, 130, 136, 20));
+        label_3 = new QLabel(groupBox_2);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(10, 100, 161, 26));
+        label_3->setWordWrap(true);
         RigidTrackClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(RigidTrackClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -163,11 +184,15 @@ public:
         label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", Q_NULLPTR));
         leIPDrone->setText(QApplication::translate("RigidTrackClass", "192.168.137.254", Q_NULLPTR));
         label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress of Drone Wifi Chip Press Return to Apply Changes", Q_NULLPTR));
-        lbSafetyArea->setText(QApplication::translate("RigidTrackClass", "Safety Area Dimensions ", Q_NULLPTR));
-        lbSafetyArea_2->setText(QApplication::translate("RigidTrackClass", "Safety Area Angles", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("RigidTrackClass", "PnP Algorithm", Q_NULLPTR));
         rbIterative->setText(QApplication::translate("RigidTrackClass", "Iterative", Q_NULLPTR));
         rbP3P->setText(QApplication::translate("RigidTrackClass", "P3P", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("RigidTrackClass", "Safety Protection", Q_NULLPTR));
+        cbSafety->setText(QApplication::translate("RigidTrackClass", "Enable Safety Area", Q_NULLPTR));
+        lbSafetyArea->setText(QApplication::translate("RigidTrackClass", "Safety Area Dimensions ", Q_NULLPTR));
+        lbSafetyArea_2->setText(QApplication::translate("RigidTrackClass", "Safety Area Angles", Q_NULLPTR));
+        leIPCB->setText(QApplication::translate("RigidTrackClass", "192.168.137.2", Q_NULLPTR));
+        label_3->setText(QApplication::translate("RigidTrackClass", "IP Adress of Emergency Switch Press Return to Apply", Q_NULLPTR));
         menuHelp->setTitle(QApplication::translate("RigidTrackClass", "Help", Q_NULLPTR));
     } // retranslateUi
 

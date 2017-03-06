@@ -25,9 +25,13 @@ public slots:
 	void setLog(QString logText);
 	void on_sbHeadingOffset_valueChanged(double d);
 	void on_leIPDrone_returnPressed();
+	void on_leIPCB_returnPressed();
 	void on_rbP3P_clicked();
 	void on_rbIterative_clicked();
 	void on_actionShow_Help_triggered();
+	void on_cbSafety_stateChanged(int state);
+	void on_dsbDimension_valueChanged(double d);
+	void on_sbAngle_valueChanged(int i);
 
 private:
 	Ui::RigidTrackClass ui;

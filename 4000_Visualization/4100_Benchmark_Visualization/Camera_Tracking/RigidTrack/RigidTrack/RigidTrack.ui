@@ -59,7 +59,7 @@
    <widget class="QPushButton" name="btnCalibrate">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>160</x>
       <y>30</y>
       <width>101</width>
       <height>41</height>
@@ -73,7 +73,7 @@ Camera</string>
    <widget class="QPushButton" name="btnLoadCalib">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>160</x>
       <y>80</y>
       <width>101</width>
       <height>41</height>
@@ -100,9 +100,9 @@ Calibration</string>
    <widget class="QDoubleSpinBox" name="sbHeadingOffset">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>40</y>
-      <width>136</width>
+      <x>280</x>
+      <y>50</y>
+      <width>71</width>
       <height>20</height>
      </rect>
     </property>
@@ -119,8 +119,8 @@ Calibration</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>20</y>
+      <x>280</x>
+      <y>30</y>
       <width>136</width>
       <height>21</height>
      </rect>
@@ -132,8 +132,8 @@ Calibration</string>
    <widget class="QLineEdit" name="leIPDrone">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>100</y>
+      <x>280</x>
+      <y>110</y>
       <width>136</width>
       <height>20</height>
      </rect>
@@ -145,8 +145,8 @@ Calibration</string>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>70</y>
+      <x>280</x>
+      <y>80</y>
       <width>141</width>
       <height>26</height>
      </rect>
@@ -158,63 +158,11 @@ Calibration</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="lbSafetyArea">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>10</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Safety Area Dimensions </string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="spinBox_2">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>90</y>
-      <width>42</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>40</y>
-      <width>62</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbSafetyArea_2">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>60</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Safety Area Angles</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>40</y>
+      <x>630</x>
+      <y>30</y>
       <width>101</width>
       <height>71</height>
      </rect>
@@ -249,6 +197,122 @@ Calibration</string>
      </property>
      <property name="text">
       <string>P3P</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>10</y>
+      <width>171</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Safety Protection</string>
+    </property>
+    <widget class="QCheckBox" name="cbSafety">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>131</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Enable Safety Area</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="dsbDimension">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>62</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="sbAngle">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>70</y>
+       <width>61</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbSafetyArea">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Safety Area Dimensions </string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbSafetyArea_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>40</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Safety Area Angles</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="leIPCB">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>136</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>192.168.137.2</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>161</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>IP Adress of Emergency Switch Press Return to Apply</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
