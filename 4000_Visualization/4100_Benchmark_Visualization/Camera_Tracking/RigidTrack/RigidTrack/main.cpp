@@ -151,8 +151,7 @@ int main(int argc, char *argv[])
 	QObject::connect(&commObj, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(logCleared()), &w, SLOT(clearLog(QString)), Qt::DirectConnection);
-
-	loadMarkerConfig(0); // load the standard marker configuration
+	QObject::connect(&commObj, SIGNAL(P3Penabled(bool)), &w, SLOT(enableP3P(bool)), Qt::DirectConnection);
 
 	// initial guesses for position and rotation, important for Iterative Method!
 	Tvec.at<double>(0) = 45;
@@ -163,6 +162,9 @@ int main(int argc, char *argv[])
 	Rvec.at<double>(2) = -45 * 3.141592653589 / 180.0;
 
 	// Points that make up the marker frame axis system, hence one line in each axis direction
+
+	coordinateFrame = std::vector<Point3d>(4);
+	coordinateFrameProjected = std::vector<Point2d>(4);
 	coordinateFrame[0] = cv::Point3d(0, 0, 0);
 	coordinateFrame[1] = cv::Point3d(300, 0, 0);
 	coordinateFrame[2] = cv::Point3d(0, 300, 0);
@@ -172,7 +174,8 @@ int main(int argc, char *argv[])
 	ropeLength = ropePosition[2];	// set the rope length to initial value
 
 	load_calibration(0); // load the calibration file with the camera intrinsics
-	test_Algorithm();	// test the algorithms and their accuracy 
+	loadMarkerConfig(0); // load the standard marker configuration
+	test_Algorithm();	// test the algorithms and their accuracy
 
 	WGS84[0] = latitudeRef;	// latitude in WGS84 set to reference latitude
 	WGS84[1] = longitudeRef; // longitude in WGS84 set to reference longitude
@@ -1209,7 +1212,11 @@ void loadMarkerConfig(int method)
 {
 	QString fileName;
 	if (method == 0)
-		numberMarkers = 4;
+	{
+		FileStorage fs;
+		fs.open("5tol_marker_standard.xml", FileStorage::READ);
+		fs["numberMarkers"] >> numberMarkers;
+		
 		// inizialise vectors with correct length
 		list_points3d = std::vector<Point3d>(numberMarkers);
 		list_points2d = std::vector<Point2d>(numberMarkers);
@@ -1217,39 +1224,54 @@ void loadMarkerConfig(int method)
 		list_points2dDifference = std::vector<double>(numberMarkers);
 		list_points2dProjected = std::vector<Point2d>(numberMarkers);
 		list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
-		coordinateFrame = std::vector<Point3d>(numberMarkers);
-		coordinateFrameProjected = std::vector<Point2d>(numberMarkers);
+
+		fs["list_points3d"] >> list_points3d;
+		commObj.addLog("Loaded Marker Configuration Data!");
+
 		
-		// coordinates of the markers the marker frame [mm]
-		list_points3d[0] = cv::Point3d(227.1, 0.0, -21.5);
-		list_points3d[1] = cv::Point3d(-66.5, 920.0, -23.0);
-		list_points3d[2] = cv::Point3d(-157.6, 500.0, -8.6);
-		list_points3d[3] = cv::Point3d(-720.0, 0.0, -13.0);
+		
 	}
 	else
 	{
-		// inizialise vectors with correct length
-		list_points3d = std::vector<Point3d>(numberMarkers);
-		list_points2d = std::vector<Point2d>(numberMarkers);
-		list_points2dOld = std::vector<Point2d>(numberMarkers);
-		list_points2dDifference = std::vector<double>(numberMarkers);
-		list_points2dProjected = std::vector<Point2d>(numberMarkers);
-		list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
-		coordinateFrame = std::vector<Point3d>(numberMarkers);
-		coordinateFrameProjected = std::vector<Point2d>(numberMarkers);
 		fileName = QFileDialog::getOpenFileName(nullptr, "Choose a previous saved marker configuration file", "", "marker configuratio files (*.xml);;All Files (*)");
 		FileStorage fs;
 		fs.open(fileName.toUtf8().constData(), FileStorage::READ);
 		fs["numberMarkers"] >> numberMarkers;
-		fs["DistCoeff"] >> distCoeffs;
-		commObj.addLog("Loaded Marker Configuration!");
-		ss.str("");
-		ss << "Camera Matrix\n" << "\n" << cameraMatrix << "\n";
-		ss << "Distortion Coeff\n" << "\n" << distCoeffs << "\n";
-		commObj.addLog(QString::fromStdString(ss.str()));
+
+		// inizialise vectors with correct length
+		list_points3d = std::vector<Point3d>(numberMarkers);
+		list_points2d = std::vector<Point2d>(numberMarkers);
+		list_points2dOld = std::vector<Point2d>(numberMarkers);
+		list_points2dDifference = std::vector<double>(numberMarkers);
+		list_points2dProjected = std::vector<Point2d>(numberMarkers);
+		list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
+
+		fs["list_points3d"] >> list_points3d;
+		commObj.addLog("Loaded Marker Configuration Data!");
+
 	}
 	
+	ss.str("");
+	ss << std::setprecision(4);
+	ss << "Number of Markers: " << numberMarkers << "\n";
+	ss << "Marker 3D Points X,Y and Z [mm]: \n";
+	for (int i = 0; i < numberMarkers; i++)
+	{
+		ss << "Marker " << i+1 << ":\t" << list_points3d[i].x << "\t" << list_points3d[i].y << "\t" << list_points3d[i].z << "\n";
+	}
+	commObj.addLog(QString::fromStdString(ss.str()));
 	
-
+	
+	if (numberMarkers == 4)
+	{
+		methodPNP = 0;
+		commObj.enableP3P(true);
+	}
+	else
+	{
+		methodPNP = 0;
+		commObj.enableP3P(false);
+		commObj.addLog("P3P Algorithm disabled, only works with 4 markers");
+	}
 	
 }

@@ -12,6 +12,7 @@ public:
 	void changeImage(QPixmap image);
 	void addLog(QString LogText);
 	void clearLog();
+	void enableP3P(bool value);
 	
 
 	signals:
@@ -19,6 +20,7 @@ public:
 	   void imageChanged(QPixmap image);
 	   void logAdded(QString LogText);
 	   void logCleared();
+	   void P3Penabled(bool value);
 
 };
 #endif // EMITTING_H

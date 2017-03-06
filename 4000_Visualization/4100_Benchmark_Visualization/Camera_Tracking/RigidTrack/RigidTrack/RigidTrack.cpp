@@ -113,6 +113,11 @@ void RigidTrack::on_pbLoadMarker_clicked()
 	loadMarkerConfig(1);
 }
 
+void RigidTrack::enableP3P(bool value)
+{
+	RigidTrack::ui.rbP3P->setEnabled(value);
+}
+
 void RigidTrack::on_btnStartCamera_clicked()
 {
 	if(RigidTrack::ui.btnStartCamera->text() == "Start Tracking")

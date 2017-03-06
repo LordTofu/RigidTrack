@@ -28,3 +28,9 @@ void commObject::clearLog() {
 	emit logCleared();
 	QCoreApplication::processEvents();
 }
+
+void commObject::enableP3P(bool value)
+{
+	emit P3Penabled(value);
+	QCoreApplication::processEvents();
+}
