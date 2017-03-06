@@ -192,13 +192,17 @@ int main(int argc, char *argv[])
 	WGS84[1] = longitudeRef; // longitude in WGS84 set to reference longitude
 	WGS84[2] = heightRef;	// height in WGS84 set to reference height
 
-	velocity[0] = 0.1;	// set velocity initial values
-	velocity[1] = 0.2;	// set velocity initial values
-	velocity[2] = 0.3;	// set velocity initial values
+	position[0] = 1.1234;
+	position[1] = 1.2345;
+	position[2] = 1.3456;
 
-	eulerAngles[0] = 1.0;	// set initial euler angles to arbitrary values for testing
-	eulerAngles[1] = 1.1;	// set initial euler angles to arbitrary values for testing
-	eulerAngles[2] = 1.2;	// set initial euler angles to arbitrary values for testing
+	velocity[0] = 0.123;	// set velocity initial values
+	velocity[1] = 0.234;	// set velocity initial values
+	velocity[2] = 0.345;	// set velocity initial values
+
+	eulerAngles[0] = 1.002;	// set initial euler angles to arbitrary values for testing
+	eulerAngles[1] = 1.003;	// set initial euler angles to arbitrary values for testing
+	eulerAngles[2] = 1.004;	// set initial euler angles to arbitrary values for testing
 
 	setHeadingOffset(0.0); // set the heading offset to 0 
 	return a.exec();
@@ -488,9 +492,9 @@ int start_camera() {
 			// Output every second if debug is true. This can slow down the whole programm and introduce spikes or lags in the measurements 
 			if (u == 100 && debug) {
 				ss.str("");
-				ss << std::setprecision(3) << "X      =  " << position[0] << "\tY    =  " << position[1] << "\tZ     = " << position[2] << "\n";
-				ss << "VX     =  " << velocity[0] << "\tVY   =  " << velocity[1] << "\tVZ    = " << velocity[2] << "\n";
-				ss << "roll  =  " << eulerAngles[0] << "\t pitch  =  " << eulerAngles[1] << "\t heading  = " << eulerAngles[2];
+				ss << std::setprecision(4) << "X: " << position[0] << "   Y: " << position[1] << "   Z: " << position[2] << "  [m]";
+				ss << "        VX: " << velocity[0] << "   VY: " << velocity[1] << "   VZ: " << velocity[2] << "  [m/s]";
+				ss << "        Roll: " << eulerAngles[0] << "   Pitch: " << eulerAngles[1] << "   Heading: " << eulerAngles[2] << "  [deg]";
 				commObj.addLog(QString::fromStdString(ss.str()));	// send the string to the GUI 
 				u = 0;
 			}
@@ -627,8 +631,8 @@ int setZero()
 			intExposure += 10;
 			camera->SetExposure(intExposure);
 			ss.str("");
-			ss << "Exposure		  =  " << intExposure << "\n";
-			ss << "Objects found  =  " << numberObjects << "\n";
+			ss << "Exposure: " << intExposure << "\t";
+			ss << "Objects found: " << numberObjects;
 			commObj.addLog(QString::fromStdString(ss.str()));
 			frame->Release();
 
@@ -650,8 +654,8 @@ int setZero()
 			numberTries++;
 			camera->SetExposure(intExposure);
 			ss.str("");
-			ss << "Exposure		  =  " << intExposure << "\n";
-			ss << "Objects found  =  " << numberObjects << "\n";
+			ss << "Exposure: " << intExposure << "\t";
+			ss << "Objects found: " << numberObjects;
 			commObj.addLog(QString::fromStdString(ss.str()));
 			frame->Release();
 		}
