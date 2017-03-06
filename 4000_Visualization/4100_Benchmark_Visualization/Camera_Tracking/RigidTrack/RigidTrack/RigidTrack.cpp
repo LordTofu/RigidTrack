@@ -108,6 +108,11 @@ void RigidTrack::on_sbAngle_valueChanged(int i)
 	safetyAngle = i;
 }
 
+void RigidTrack::on_pbLoadMarker_clicked()
+{
+	loadMarkerConfig(1);
+}
+
 void RigidTrack::on_btnStartCamera_clicked()
 {
 	if(RigidTrack::ui.btnStartCamera->text() == "Start Tracking")

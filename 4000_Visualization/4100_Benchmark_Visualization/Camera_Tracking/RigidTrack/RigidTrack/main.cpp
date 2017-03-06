@@ -152,21 +152,7 @@ int main(int argc, char *argv[])
 	QObject::connect(&commObj, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(logCleared()), &w, SLOT(clearLog(QString)), Qt::DirectConnection);
 
-	// inizialise vectors with correct length
-	list_points3d = std::vector<Point3d>(numberMarkers);
-	list_points2d = std::vector<Point2d>(numberMarkers);
-	list_points2dOld = std::vector<Point2d>(numberMarkers);
-	list_points2dDifference = std::vector<double>(numberMarkers);
-	list_points2dProjected = std::vector<Point2d>(numberMarkers);
-	list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
-	coordinateFrame = std::vector<Point3d>(numberMarkers);
-	coordinateFrameProjected = std::vector<Point2d>(numberMarkers);
-
-	// coordinates of the markers the marker frame [mm]
-	list_points3d[0] = cv::Point3d(227.1, 0.0, -21.5);
-	list_points3d[1] = cv::Point3d(-66.5, 920.0, -23.0);
-	list_points3d[2] = cv::Point3d(-157.6, 500.0, -8.6);
-	list_points3d[3] = cv::Point3d(-720.0, 0.0, -13.0);
+	loadMarkerConfig(0); // load the standard marker configuration
 
 	// initial guesses for position and rotation, important for Iterative Method!
 	Tvec.at<double>(0) = 45;
@@ -1217,4 +1203,53 @@ void closeUDP()
 	udpSocketCB->close();
 	udpSocketWinch->close();
 	udpSocketDrone->close();
+}
+
+void loadMarkerConfig(int method)
+{
+	QString fileName;
+	if (method == 0)
+		numberMarkers = 4;
+		// inizialise vectors with correct length
+		list_points3d = std::vector<Point3d>(numberMarkers);
+		list_points2d = std::vector<Point2d>(numberMarkers);
+		list_points2dOld = std::vector<Point2d>(numberMarkers);
+		list_points2dDifference = std::vector<double>(numberMarkers);
+		list_points2dProjected = std::vector<Point2d>(numberMarkers);
+		list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
+		coordinateFrame = std::vector<Point3d>(numberMarkers);
+		coordinateFrameProjected = std::vector<Point2d>(numberMarkers);
+		
+		// coordinates of the markers the marker frame [mm]
+		list_points3d[0] = cv::Point3d(227.1, 0.0, -21.5);
+		list_points3d[1] = cv::Point3d(-66.5, 920.0, -23.0);
+		list_points3d[2] = cv::Point3d(-157.6, 500.0, -8.6);
+		list_points3d[3] = cv::Point3d(-720.0, 0.0, -13.0);
+	}
+	else
+	{
+		// inizialise vectors with correct length
+		list_points3d = std::vector<Point3d>(numberMarkers);
+		list_points2d = std::vector<Point2d>(numberMarkers);
+		list_points2dOld = std::vector<Point2d>(numberMarkers);
+		list_points2dDifference = std::vector<double>(numberMarkers);
+		list_points2dProjected = std::vector<Point2d>(numberMarkers);
+		list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
+		coordinateFrame = std::vector<Point3d>(numberMarkers);
+		coordinateFrameProjected = std::vector<Point2d>(numberMarkers);
+		fileName = QFileDialog::getOpenFileName(nullptr, "Choose a previous saved marker configuration file", "", "marker configuratio files (*.xml);;All Files (*)");
+		FileStorage fs;
+		fs.open(fileName.toUtf8().constData(), FileStorage::READ);
+		fs["numberMarkers"] >> numberMarkers;
+		fs["DistCoeff"] >> distCoeffs;
+		commObj.addLog("Loaded Marker Configuration!");
+		ss.str("");
+		ss << "Camera Matrix\n" << "\n" << cameraMatrix << "\n";
+		ss << "Distortion Coeff\n" << "\n" << distCoeffs << "\n";
+		commObj.addLog(QString::fromStdString(ss.str()));
+	}
+	
+	
+
+	
 }

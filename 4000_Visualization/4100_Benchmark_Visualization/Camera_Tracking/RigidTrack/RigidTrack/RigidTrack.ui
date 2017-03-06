@@ -331,6 +331,20 @@ Calibration</string>
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="pbLoadMarker">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>130</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Load Marker
+Configuration</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

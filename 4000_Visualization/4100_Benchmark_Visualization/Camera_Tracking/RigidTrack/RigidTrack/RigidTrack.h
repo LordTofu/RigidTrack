@@ -32,6 +32,7 @@ public slots:
 	void on_cbSafety_stateChanged(int state);
 	void on_dsbDimension_valueChanged(double d);
 	void on_sbAngle_valueChanged(int i);
+	void on_pbLoadMarker_clicked();
 
 private:
 	Ui::RigidTrackClass ui;

@@ -57,3 +57,4 @@ void setHeadingOffset(double d);
 void sendDataUDPDrone(double &PositionNord, double &PositionEast, double &Altitude, cv::Vec3d &Euler);
 void show_Help();
 void closeUDP();
+void loadMarkerConfig(int method);
