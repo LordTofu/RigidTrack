@@ -110,7 +110,14 @@ void RigidTrack::on_sbAngle_valueChanged(int i)
 
 void RigidTrack::on_btnStartCamera_clicked()
 {
-	RigidTrack::ui.btnStartCamera->setText("Camera Started");
+	if(RigidTrack::ui.btnStartCamera->text() == "Start Tracking")
+	{
+		RigidTrack::ui.btnStartCamera->setText("Stop Tracking");
+	}
+	else
+	{
+		RigidTrack::ui.btnStartCamera->setText("Start Tracking");
+	}
 	start_cameraThread();
 }
 

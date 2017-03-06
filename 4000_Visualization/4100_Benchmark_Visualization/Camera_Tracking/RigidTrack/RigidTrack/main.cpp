@@ -51,6 +51,7 @@ bool debug = true;
 bool safetyEnable = false;
 double safetyBoxLength = 1.5; // length of the safety area cube in meters
 int safetyAngle = 30; // bank and pitch angle protection in degrees
+bool exitRequested = true; // variable if tracking loop should be exited
 
 double frameTime = 0.01; // 100 Hz frame rate
 double timeOld = 0.0;		// old time for finite differences velocity calculation
@@ -523,6 +524,11 @@ int start_camera() {
 			commObj.changeImage(QPFrame);
 			QCoreApplication::processEvents();
 			frame->Release();
+
+			if (exitRequested)
+			{
+				break;
+			}
 		}
 	}
 
@@ -539,7 +545,15 @@ int start_camera() {
 
 void start_cameraThread()
 {
-	start_camera();
+	if (exitRequested)
+	{
+		exitRequested = false;
+		start_camera();
+	}
+	else
+	{
+		exitRequested = true;
+	}
 }
 
 void stop_camera()
