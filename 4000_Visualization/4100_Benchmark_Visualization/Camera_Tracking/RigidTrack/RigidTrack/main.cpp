@@ -532,11 +532,6 @@ int start_camera() {
 		}
 	}
 
-	//== Release camera ==--
-	camera->Release();
-
-	//== Shutdown Camera Library and UDP Connections
-	CameraManager::X().Shutdown();
 	closeUDP();
 
 	//== Exit the application
