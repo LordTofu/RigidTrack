@@ -136,6 +136,7 @@ const int BACKBUFFER_BITSPERPIXEL = 8;	// 8 bit per pixel and greyscale image fr
 std::string strBuf;	// buffer that holds the strings that are sent to the Qt GUI
 std::stringstream ss;	// stream that sends the strBuf buffer to the Qt GUI
 QString logFileName; // Filename for the logfiles
+std::string logName; // Filename for the logfiles as standard string
 SYSTEMTIME logDate; // Systemtime struct that saves the current date and time thats needed for the log file name creation
 
 // main inizialised the GUI and values for the marker position
@@ -239,7 +240,9 @@ int start_camera() {
 
 	GetLocalTime(&logDate);
 	logFileName = "positionLog_" + QString::number(logDate.wDay) + "_" +  QString::number(logDate.wMonth) + "_" + QString::number(logDate.wYear);
-	logFileName += "_" + QString::number(logDate.wHour) + ":" + QString::number(logDate.wMinute) + ":" + QString::number(logDate.wMinute) + ".txt";
+	logFileName += "_" + QString::number(logDate.wHour) + "_" + QString::number(logDate.wMinute) + "_" + QString::number(logDate.wSecond) + ".txt";
+	logName = logFileName.toStdString(); // save the filename as standard string
+	
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//== want to stop execution for an extended time while debugging without disconnecting
 	//== the Ethernet devices.  Lets do that now:
@@ -289,10 +292,8 @@ int start_camera() {
 	// Matrix that stores the colored picture
 	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
 
-	//helper variables used to print ouput only every 30th time and kick circuit breaker
-	int u = 0;
-	int v = 0;
-	int decimatorHelper = 0;
+	int v = 0;	//helper variable used to kick safety switch
+
 	int framesDropped = 0; // if a marker is not visible or accuracy is bad increase this counter.
 	double projectionError = 0; // equals the quality of the tracking
 
@@ -313,9 +314,7 @@ int start_camera() {
 		if (frame)
 		{
 			framesDropped++;
-			u++;  // helper variable to print data every x-frame
 			v++;  // helper variable to print data every x-frame
-			decimatorHelper++;  // helper variable for decimator and udp send
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
 
@@ -447,15 +446,16 @@ int start_camera() {
 			}
 
 			//Stop the object is tracking system is disturbed (marker lost or so)
-			if (framesDropped > 10)
+			if (framesDropped > 10 && safetyEnable)
 			{
 				data.setNum((int)(0));	// 0 disables the circuit breaker, hence the object
 				udpSocketSafety->write(data);
 				commObj.addLog("Lost Marker Points or Accuracy was bad!");
+				framesDropped = 0;
 			}
 
 			// save the values in a log file 
-			logfile.open(logFileName.toStdString(), std::ios::app);
+			logfile.open(logName, std::ios::app);
 			logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
 			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
 			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
@@ -490,6 +490,9 @@ int start_camera() {
 	}
 
 	closeUDP();	// close the UDP connections so resources are deallocated
+
+	//== Release camera ==--
+	camera->Release();
 
 	//== Exit the application
 	return 0;
