@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>740</width>
-    <height>900</height>
+    <width>876</width>
+    <height>911</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>80</y>
+      <y>60</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -47,7 +47,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>30</y>
+      <y>10</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -60,7 +60,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>30</y>
+      <y>10</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -74,7 +74,7 @@ Camera</string>
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>80</y>
+      <y>60</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -89,7 +89,7 @@ Calibration</string>
      <rect>
       <x>10</x>
       <y>680</y>
-      <width>720</width>
+      <width>851</width>
       <height>170</height>
      </rect>
     </property>
@@ -101,7 +101,7 @@ Calibration</string>
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>50</y>
+      <y>30</y>
       <width>71</width>
       <height>20</height>
      </rect>
@@ -120,7 +120,7 @@ Calibration</string>
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>30</y>
+      <y>10</y>
       <width>136</width>
       <height>21</height>
      </rect>
@@ -129,30 +129,30 @@ Calibration</string>
      <string>Heading Offset</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="leIPDrone">
+   <widget class="QLineEdit" name="leIPObject">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>110</y>
+      <x>390</x>
+      <y>50</y>
       <width>136</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>192.168.137.254</string>
+     <string>192.168.137.254:9155</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>80</y>
+      <x>390</x>
+      <y>20</y>
       <width>141</width>
       <height>26</height>
      </rect>
     </property>
     <property name="text">
-     <string>IP Adress of Drone Wifi Chip Press Return to Apply Changes</string>
+     <string>IP Adress:Port of Object Wifi Chip Press Return to Apply Changes</string>
     </property>
     <property name="wordWrap">
      <bool>true</bool>
@@ -161,7 +161,7 @@ Calibration</string>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>770</x>
       <y>30</y>
       <width>101</width>
       <height>71</height>
@@ -203,7 +203,7 @@ Calibration</string>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>580</x>
       <y>10</y>
       <width>171</width>
       <height>161</height>
@@ -298,7 +298,7 @@ Calibration</string>
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="leIPCB">
+    <widget class="QLineEdit" name="leIPSafety">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -311,7 +311,7 @@ Calibration</string>
       </rect>
      </property>
      <property name="text">
-      <string>192.168.137.2</string>
+      <string>192.168.137.2:9155</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_3">
@@ -335,7 +335,7 @@ Calibration</string>
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>130</y>
+      <y>110</y>
       <width>101</width>
       <height>41</height>
      </rect>
@@ -345,13 +345,58 @@ Calibration</string>
 Configuration</string>
     </property>
    </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>80</y>
+      <width>181</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Additional Receiver</string>
+    </property>
+    <widget class="QCheckBox" name="cbSafety2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>151</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.</string>
+     </property>
+     <property name="text">
+      <string>Send to second Receiver</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="leIPSafety2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>136</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>192.168.137.254:9155</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>740</width>
+     <width>876</width>
      <height>21</height>
     </rect>
    </property>

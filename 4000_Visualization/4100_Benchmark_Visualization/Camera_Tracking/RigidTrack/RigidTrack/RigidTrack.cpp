@@ -10,11 +10,6 @@ RigidTrack::RigidTrack(QWidget *parent)
 	
 }
 
-void RigidTrack::on_btnStopCamera_clicked()
-{
-	stop_camera();
-}
-
 void RigidTrack::on_btnZero_clicked()
 {
 	setZero();
@@ -51,18 +46,37 @@ void RigidTrack::on_sbHeadingOffset_valueChanged(double d)
 	setHeadingOffset(d);
 }
 
-void RigidTrack::on_leIPDrone_returnPressed()
+void RigidTrack::on_leIPObject_returnPressed()
 {
-	IPAdressDrone = QHostAddress(RigidTrack::ui.leIPDrone->text());
-	commObj.addLog("Drone IP changed to:");
-	commObj.addLog(RigidTrack::ui.leIPDrone->text());
+	QString adress = RigidTrack::ui.leIPObject->text();
+	IPAdressObject = QHostAddress(adress.split(":")[0]);
+	portObject = adress.split(":")[1].toInt();
+	commObj.addLog("Object IP changed to:");
+	commObj.addLog(IPAdressObject.toString());
+	commObj.addLog("Object Port changed to:");
+	commObj.addLog(QString::number(portObject));
 }
 
-void RigidTrack::on_leIPCB_returnPressed()
+void RigidTrack::on_leIPSafety_returnPressed()
 {
-	IPAdressCB = QHostAddress(RigidTrack::ui.leIPCB->text());
+	QString adress = RigidTrack::ui.leIPSafety->text();
+	IPAdressSafety = QHostAddress(adress.split(":")[0]);
+	portSafety = adress.split(":")[1].toInt();
 	commObj.addLog("Safety Switch IP changed to:");
-	commObj.addLog(RigidTrack::ui.leIPCB->text());
+	commObj.addLog(IPAdressSafety.toString());
+	commObj.addLog("Safety Switch Port changed to:");
+	commObj.addLog(QString::number(portSafety));
+}
+
+void RigidTrack::on_leIPSafety2_returnPressed()
+{
+	QString adress = RigidTrack::ui.leIPSafety2->text();
+	IPAdressSafety2 = QHostAddress(adress.split(":")[0]);
+	portSafety2 = adress.split(":")[1].toInt();
+	commObj.addLog("Receiver 2 IP changed to:");
+	commObj.addLog(IPAdressSafety2.toString());
+	commObj.addLog("Receiver 2 Port changed to:");
+	commObj.addLog(QString::number(portSafety2));
 }
 
 void RigidTrack::on_rbP3P_clicked()
@@ -87,14 +101,30 @@ void RigidTrack::on_cbSafety_stateChanged(int state)
 	RigidTrack::ui.dsbDimension->setEnabled(state);
 	RigidTrack::ui.sbAngle->setEnabled(state);
 	safetyEnable = state;
-	RigidTrack::ui.leIPCB->setEnabled(state);
+	RigidTrack::ui.leIPSafety->setEnabled(state);
 	if (state)
 	{
 		commObj.addLog("Enabled Safety Area Protection");
+		on_leIPSafety_returnPressed();
 	}
 	else
 	{
 		commObj.addLog("Disabled Safety Area Protection");
+	}
+}
+
+void RigidTrack::on_cbSafety2_stateChanged(int state)
+{
+	RigidTrack::ui.leIPSafety2->setEnabled(state);
+	safety2Enable = state;
+	if (state)
+	{
+		commObj.addLog("Enabled second Receiver");
+		on_leIPSafety2_returnPressed();
+	}
+	else
+	{
+		commObj.addLog("Disabled second Receiver");
 	}
 }
 
@@ -128,6 +158,6 @@ void RigidTrack::on_btnStartCamera_clicked()
 	{
 		RigidTrack::ui.btnStartCamera->setText("Start Tracking");
 	}
-	start_cameraThread();
+	start_stopCamera();
 }
 

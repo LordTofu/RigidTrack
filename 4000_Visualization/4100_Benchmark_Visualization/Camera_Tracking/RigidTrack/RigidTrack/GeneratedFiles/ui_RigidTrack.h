@@ -45,7 +45,7 @@ public:
     QListWidget *listLog;
     QDoubleSpinBox *sbHeadingOffset;
     QLabel *label;
-    QLineEdit *leIPDrone;
+    QLineEdit *leIPObject;
     QLabel *label_2;
     QGroupBox *groupBox;
     QRadioButton *rbIterative;
@@ -56,9 +56,12 @@ public:
     QSpinBox *sbAngle;
     QLabel *lbSafetyArea;
     QLabel *lbSafetyArea_2;
-    QLineEdit *leIPCB;
+    QLineEdit *leIPSafety;
     QLabel *label_3;
     QPushButton *pbLoadMarker;
+    QGroupBox *groupBox_3;
+    QCheckBox *cbSafety2;
+    QLineEdit *leIPSafety2;
     QMenuBar *menuBar;
     QMenu *menuHelp;
     QToolBar *mainToolBar;
@@ -68,7 +71,7 @@ public:
     {
         if (RigidTrackClass->objectName().isEmpty())
             RigidTrackClass->setObjectName(QStringLiteral("RigidTrackClass"));
-        RigidTrackClass->resize(740, 900);
+        RigidTrackClass->resize(876, 911);
         RigidTrackClass->setWindowTitle(QStringLiteral("Optical Position Tracking"));
         actionShow_Help = new QAction(RigidTrackClass);
         actionShow_Help->setObjectName(QStringLiteral("actionShow_Help"));
@@ -76,43 +79,43 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         btnStartCamera = new QPushButton(centralWidget);
         btnStartCamera->setObjectName(QStringLiteral("btnStartCamera"));
-        btnStartCamera->setGeometry(QRect(20, 80, 131, 41));
+        btnStartCamera->setGeometry(QRect(20, 60, 131, 41));
         lbStatus = new QLabel(centralWidget);
         lbStatus->setObjectName(QStringLiteral("lbStatus"));
         lbStatus->setEnabled(true);
         lbStatus->setGeometry(QRect(50, 180, 640, 480));
         btnZero = new QPushButton(centralWidget);
         btnZero->setObjectName(QStringLiteral("btnZero"));
-        btnZero->setGeometry(QRect(20, 30, 131, 41));
+        btnZero->setGeometry(QRect(20, 10, 131, 41));
         btnCalibrate = new QPushButton(centralWidget);
         btnCalibrate->setObjectName(QStringLiteral("btnCalibrate"));
-        btnCalibrate->setGeometry(QRect(160, 30, 101, 41));
+        btnCalibrate->setGeometry(QRect(160, 10, 101, 41));
         btnLoadCalib = new QPushButton(centralWidget);
         btnLoadCalib->setObjectName(QStringLiteral("btnLoadCalib"));
-        btnLoadCalib->setGeometry(QRect(160, 80, 101, 41));
+        btnLoadCalib->setGeometry(QRect(160, 60, 101, 41));
         listLog = new QListWidget(centralWidget);
         listLog->setObjectName(QStringLiteral("listLog"));
-        listLog->setGeometry(QRect(10, 680, 720, 170));
+        listLog->setGeometry(QRect(10, 680, 851, 170));
         listLog->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         sbHeadingOffset = new QDoubleSpinBox(centralWidget);
         sbHeadingOffset->setObjectName(QStringLiteral("sbHeadingOffset"));
-        sbHeadingOffset->setGeometry(QRect(280, 50, 71, 20));
+        sbHeadingOffset->setGeometry(QRect(280, 30, 71, 20));
         sbHeadingOffset->setDecimals(1);
         sbHeadingOffset->setMinimum(-180);
         sbHeadingOffset->setMaximum(180);
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(280, 30, 136, 21));
-        leIPDrone = new QLineEdit(centralWidget);
-        leIPDrone->setObjectName(QStringLiteral("leIPDrone"));
-        leIPDrone->setGeometry(QRect(280, 110, 136, 20));
+        label->setGeometry(QRect(280, 10, 136, 21));
+        leIPObject = new QLineEdit(centralWidget);
+        leIPObject->setObjectName(QStringLiteral("leIPObject"));
+        leIPObject->setGeometry(QRect(390, 50, 136, 20));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(280, 80, 141, 26));
+        label_2->setGeometry(QRect(390, 20, 141, 26));
         label_2->setWordWrap(true);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(630, 30, 101, 71));
+        groupBox->setGeometry(QRect(770, 30, 101, 71));
         rbIterative = new QRadioButton(groupBox);
         rbIterative->setObjectName(QStringLiteral("rbIterative"));
         rbIterative->setGeometry(QRect(10, 40, 82, 17));
@@ -122,7 +125,7 @@ public:
         rbP3P->setGeometry(QRect(10, 20, 82, 17));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setGeometry(QRect(440, 10, 171, 161));
+        groupBox_2->setGeometry(QRect(580, 10, 171, 161));
         cbSafety = new QCheckBox(groupBox_2);
         cbSafety->setObjectName(QStringLiteral("cbSafety"));
         cbSafety->setGeometry(QRect(10, 20, 131, 17));
@@ -142,21 +145,31 @@ public:
         lbSafetyArea_2->setObjectName(QStringLiteral("lbSafetyArea_2"));
         lbSafetyArea_2->setGeometry(QRect(90, 40, 91, 31));
         lbSafetyArea_2->setWordWrap(true);
-        leIPCB = new QLineEdit(groupBox_2);
-        leIPCB->setObjectName(QStringLiteral("leIPCB"));
-        leIPCB->setEnabled(false);
-        leIPCB->setGeometry(QRect(10, 130, 136, 20));
+        leIPSafety = new QLineEdit(groupBox_2);
+        leIPSafety->setObjectName(QStringLiteral("leIPSafety"));
+        leIPSafety->setEnabled(false);
+        leIPSafety->setGeometry(QRect(10, 130, 136, 20));
         label_3 = new QLabel(groupBox_2);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(10, 100, 161, 26));
         label_3->setWordWrap(true);
         pbLoadMarker = new QPushButton(centralWidget);
         pbLoadMarker->setObjectName(QStringLiteral("pbLoadMarker"));
-        pbLoadMarker->setGeometry(QRect(160, 130, 101, 41));
+        pbLoadMarker->setGeometry(QRect(160, 110, 101, 41));
+        groupBox_3 = new QGroupBox(centralWidget);
+        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
+        groupBox_3->setGeometry(QRect(380, 80, 181, 80));
+        cbSafety2 = new QCheckBox(groupBox_3);
+        cbSafety2->setObjectName(QStringLiteral("cbSafety2"));
+        cbSafety2->setGeometry(QRect(10, 20, 151, 17));
+        leIPSafety2 = new QLineEdit(groupBox_3);
+        leIPSafety2->setObjectName(QStringLiteral("leIPSafety2"));
+        leIPSafety2->setEnabled(false);
+        leIPSafety2->setGeometry(QRect(10, 40, 136, 20));
         RigidTrackClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(RigidTrackClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 740, 21));
+        menuBar->setGeometry(QRect(0, 0, 876, 21));
         menuHelp = new QMenu(menuBar);
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
         RigidTrackClass->setMenuBar(menuBar);
@@ -186,8 +199,8 @@ public:
         btnLoadCalib->setText(QApplication::translate("RigidTrackClass", "Load\n"
 "Calibration", 0));
         label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", 0));
-        leIPDrone->setText(QApplication::translate("RigidTrackClass", "192.168.137.254", 0));
-        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress of Drone Wifi Chip Press Return to Apply Changes", 0));
+        leIPObject->setText(QApplication::translate("RigidTrackClass", "192.168.137.254:9155", 0));
+        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress:Port of Object Wifi Chip Press Return to Apply Changes", 0));
         groupBox->setTitle(QApplication::translate("RigidTrackClass", "PnP Algorithm", 0));
         rbIterative->setText(QApplication::translate("RigidTrackClass", "Iterative", 0));
         rbP3P->setText(QApplication::translate("RigidTrackClass", "P3P", 0));
@@ -210,10 +223,16 @@ public:
         lbSafetyArea_2->setToolTip(QApplication::translate("RigidTrackClass", "Maximum bank and pitch angle of the object. If exceeded a disable signal is sent via UDP", 0));
 #endif // QT_NO_TOOLTIP
         lbSafetyArea_2->setText(QApplication::translate("RigidTrackClass", "Safety Area Angles", 0));
-        leIPCB->setText(QApplication::translate("RigidTrackClass", "192.168.137.2", 0));
+        leIPSafety->setText(QApplication::translate("RigidTrackClass", "192.168.137.2:9155", 0));
         label_3->setText(QApplication::translate("RigidTrackClass", "IP Adress of Emergency Switch Press Return to Apply", 0));
         pbLoadMarker->setText(QApplication::translate("RigidTrackClass", "Load Marker\n"
 "Configuration", 0));
+        groupBox_3->setTitle(QApplication::translate("RigidTrackClass", "Additional Receiver", 0));
+#ifndef QT_NO_TOOLTIP
+        cbSafety2->setToolTip(QApplication::translate("RigidTrackClass", "If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.", 0));
+#endif // QT_NO_TOOLTIP
+        cbSafety2->setText(QApplication::translate("RigidTrackClass", "Send to second Receiver", 0));
+        leIPSafety2->setText(QApplication::translate("RigidTrackClass", "192.168.137.254:9155", 0));
         menuHelp->setTitle(QApplication::translate("RigidTrackClass", "Help", 0));
         Q_UNUSED(RigidTrackClass);
     } // retranslateUi

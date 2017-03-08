@@ -49,6 +49,7 @@ commObject commObj;
 
 bool debug = true;
 bool safetyEnable = false;
+bool safety2Enable = false;
 double safetyBoxLength = 1.5; // length of the safety area cube in meters
 int safetyAngle = 30; // bank and pitch angle protection in degrees
 bool exitRequested = true; // variable if tracking loop should be exited
@@ -56,24 +57,22 @@ bool exitRequested = true; // variable if tracking loop should be exited
 double frameTime = 0.01; // 100 Hz frame rate
 double timeOld = 0.0;		// old time for finite differences velocity calculation
 
-Vec3d position = Vec3d();	// position vector x,y,z for drone position in O-frame
+Vec3d position = Vec3d();	// position vector x,y,z for object position in O-frame
 Vec3d WGS84 = Vec3d();		// WGS vector, latitude, longitude and height 
 Vec3d eulerAngles = Vec3d(); // Roll Pitch Heading in this order
 Vec3d positionOld = Vec3d();	// old position in O-frame for finite differences velocity calculation 
-Vec3d velocity = Vec3d();	// velocity vector of drone in o-frame in respect to o-frame
-Vec3d posRef = Vec3d();		// zero position of drone in camera frame
-Vec3d eulerRef = Vec3d();	// euler angle of drone respectivley to camera frame
-Vec3d ropePosition = Vec3d();	// point where the rope is attached or redirected in o-frame
+Vec3d velocity = Vec3d();	// velocity vector of object in o-frame in respect to o-frame
+Vec3d posRef = Vec3d();		// zero position of object in camera frame
+Vec3d eulerRef = Vec3d();	// euler angle of object respectivley to camera frame
 
-double ropeLength = 0;	// nominal rope length, hence the distance from the rope redirection point to the drone position
 double latitudeRef = 47;	// latitude reference for flat earth WGS84 calculation, corresponds to munich
 double longitudeRef = 11;	// longitude reference for flat earth WGS84 calculation, corresponds to munich
 double heightRef = 0;	//WGS84 reference height
-double latitude = 47;	// actual WGS84 latitude sent to drone
-double longitude = 11;	// actual WGS84 longitude sent to drone
-int32_t intLatitude = 47;	// actual WGS84 latitude sent to drone converted to int32
-int32_t intLongitude = 11;	// actual WGS84 longitude sent to drone converted to int32
-double height = 0;	// actual WGS84 height sent to drone
+double latitude = 47;	// actual WGS84 latitude sent to object
+double longitude = 11;	// actual WGS84 longitude sent to object
+int32_t intLatitude = 47;	// actual WGS84 latitude sent to object converted to int32
+int32_t intLongitude = 11;	// actual WGS84 longitude sent to object converted to int32
+double height = 0;	// actual WGS84 height sent to object
 double earthRadius = 6366743.0; // Radius of the Earth at 47° North in Meters
 double headingOffset = 0;
 
@@ -124,14 +123,17 @@ Mat cameraMatrix;	// camera matrix of the camera
 Mat distCoeffs;	// distortion coefficients of the camera
 Core::DistortionModel distModel;	// distortion model of the camera
 
-// IP adress of the circuit breaker that disables the drone if a specified region is exited. 
-QUdpSocket *udpSocketCB;	// socket for the communication with the circuit breaker
-QUdpSocket *udpSocketDrone;	// socket for the communication with the drone
-QUdpSocket *udpSocketWinch;	// socket for the communication with the rope winch
-QHostAddress IPAdressCB = QHostAddress("192.168.4.1"); // IPv4 adress of the circuit breaker, stays the same
-QHostAddress IPAdressDrone = QHostAddress("192.168.137.254");	// IPv4 adress of the drone wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
-QHostAddress IPAdressWinch = QHostAddress("192.168.4.4");	// IPv4 adress of the rope winch,
-QByteArray datagram;	// data package that is sent to the drone 
+// IP adress of the circuit breaker that disables the object if a specified region is exited.
+QUdpSocket *udpSocketObject;	// socket for the communication with the object
+QUdpSocket *udpSocketSafety;	// socket for the communication with the circuit breaker
+QUdpSocket *udpSocketSafety2;	// socket for the communication with the rope winch
+QHostAddress IPAdressObject = QHostAddress("192.168.137.254");	// IPv4 adress of the object wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
+QHostAddress IPAdressSafety = QHostAddress("192.168.4.1"); // IPv4 adress of the circuit breaker, stays the same
+QHostAddress IPAdressSafety2 = QHostAddress("192.168.4.4");	// IPv4 adress of the rope winch,
+int portObject = 9155;
+int portSafety = 9155;
+int portSafety2 = 9155;
+QByteArray datagram;	// data package that is sent to the object 
 QByteArray data;	// data package that's sent to the circuit breaker
 QDataStream out;	// stream that sends the datagram package via UDP
 
@@ -142,6 +144,7 @@ std::stringstream ss;	// stream that sends the strBuf buffer to the Qt GUI
 // main inizialised the GUI and values for the marker position
 int main(int argc, char *argv[])
 {
+
 
 	QApplication a(argc, argv);
 	RigidTrack w;
@@ -169,9 +172,6 @@ int main(int argc, char *argv[])
 	coordinateFrame[1] = cv::Point3d(300, 0, 0);
 	coordinateFrame[2] = cv::Point3d(0, 300, 0);
 	coordinateFrame[3] = cv::Point3d(0, 0, 300);
-
-	ropePosition = cv::Point3d(0, 0, -4500); // the rope is redirected 4.5m above the o-frame
-	ropeLength = ropePosition[2];	// set the rope length to initial value
 
 	load_calibration(0); // load the calibration file with the camera intrinsics
 	loadMarkerConfig(0); // load the standard marker configuration
@@ -236,7 +236,7 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 		eulerAngles);
 }
 
-// start the loop that fetches frames, computes the position etc and sends it to the drone and CB
+// start the loop that fetches frames, computes the position etc and sends it to the object and CB
 int start_camera() {
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//== want to stop execution for an extended time while debugging without disconnecting
@@ -369,7 +369,7 @@ int start_camera() {
 				// save the unsorted position of the marker points for the next loop
 				list_points2dOld = list_points2dUnsorted;
 
-				//Compute the drone pose from the 3D-2D corresponses
+				//Compute the object pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
 
 
@@ -389,7 +389,7 @@ int start_camera() {
 					framesDropped++;
 				}
 
-				subtract(posRef, Tvec, position);	// compute the relative drone position from the reference position to the current one, given in the camera frame
+				subtract(posRef, Tvec, position);	// compute the relative object position from the reference position to the current one, given in the camera frame
 				Mat V = -0.001 * M_HeadingOffset * M_NC.t() * (Mat)position;	// transform the position from the camera frame to the ground frame with INS alligned heading and into [m]
 				position = V;	// position is the result of the preceeding calculation 
 
@@ -410,9 +410,9 @@ int start_camera() {
 				//latitude = latitudeRef + atan(position[0] / earthRadius);	// calculate the current latitude in WGS84 
 				//longitude = longitudeRef + atan(position[1] / earthRadius);	// calculate the current lon in WGS84 
 
-				//send position and everything else to drone over WiFi with 100 Hz
+				//send position and everything else to object over WiFi with 100 Hz
 				if (decimatorHelper >= decimator) {
-					sendDataUDPDrone(position[0], position[1], position[2], eulerAngles);
+					sendDataUDPObject(position[0], position[1], position[2], eulerAngles);
 					decimatorHelper = 0;
 				}
 			}
@@ -434,25 +434,25 @@ int start_camera() {
 						// send the enable signal to the circuit breaker to keep it enabled
 						if (v == 5) {
 							data.setNum((int)(1));
-							udpSocketCB->write(data);
+							udpSocketSafety->write(data);
 							v = 0;
 						}
 					}
-					// The euler angles of the drone exceeded the allowed euler angles, shut the drone down
+					// The euler angles of the object exceeded the allowed euler angles, shut the object down
 					else
 					{
-						data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
-						udpSocketCB->write(data);
-						commObj.addLog("Drone exceeded allowed Euler Angles, shutting it down!");
+						data.setNum((int)(0));	// 0 disables the circuit breaker, hence the object
+						udpSocketSafety->write(data);
+						commObj.addLog("object exceeded allowed Euler Angles, shutting it down!");
 
 					}
 				}
-				// The position of the drone exceeded the allowed position, shut the drone down
+				// The position of the object exceeded the allowed position, shut the object down
 				else
 				{
-					data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
-					udpSocketCB->write(data);
-					commObj.addLog("Drone left allowed Area, shutting it down!");
+					data.setNum((int)(0));	// 0 disables the circuit breaker, hence the object
+					udpSocketSafety->write(data);
+					commObj.addLog("object left allowed Area, shutting it down!");
 
 				}
 			}
@@ -463,11 +463,11 @@ int start_camera() {
 				framesDropped++;
 			}
 
-			//Stop the drone is tracking system is disturbed (marker lost or so)
+			//Stop the object is tracking system is disturbed (marker lost or so)
 			if (framesDropped > 10 && debug == false)
 			{
-				data.setNum((int)(0));	// 0 disables the circuit breaker, hence the drone
-				udpSocketCB->write(data);
+				data.setNum((int)(0));	// 0 disables the circuit breaker, hence the object
+				udpSocketSafety->write(data);
 				commObj.addLog("Lost Marker Points or Accuracy was bad!");
 
 				// Stop tracking system and release the camera
@@ -531,7 +531,7 @@ int start_camera() {
 	return 0;
 }
 
-void start_cameraThread()
+void start_stopCamera()
 {
 	if (exitRequested)
 	{
@@ -544,12 +544,7 @@ void start_cameraThread()
 	}
 }
 
-void stop_camera()
-{
-	camera_started = false;
-}
-
-// determine the initial position of the drone that serves as reference point or as ground frame origin
+// determine the initial position of the object that serves as reference point or as ground frame origin
 int setZero()
 {
 	posRef = 0;
@@ -984,15 +979,20 @@ void load_calibration(int method) {
 	else
 	{
 		fileName = QFileDialog::getOpenFileName(nullptr, "Choose a previous saved calibration file", "","Calibration Files (*.xml);;All Files (*)");
+		if(fileName.length() == 0)
+		{
+			fileName = "calibration.xml";
+		}
 	}
 	FileStorage fs;
 	fs.open(fileName.toUtf8().constData(), FileStorage::READ);
 	fs["CameraMatrix"] >> cameraMatrix;
 	fs["DistCoeff"] >> distCoeffs;
-	commObj.addLog("Loaded Calibration!");
+	commObj.addLog("Loaded calibration from file:");
+	commObj.addLog(fileName);
 	ss.str("");
-	ss << "Camera Matrix\n" << "\n" << cameraMatrix << "\n";
-	ss << "Distortion Coeff\n" << "\n" << distCoeffs << "\n";
+	ss << "\nCamera Matrix" << "\n" << cameraMatrix << "\n";
+	ss << "\nDistortion Coeff" << "\n" << distCoeffs << "\n";
 	commObj.addLog(QString::fromStdString(ss.str()));
 }
 
@@ -1135,13 +1135,13 @@ void setUpUDP()
 {
 	// Creating UDP slot
 	commObj.addLog("Opening UDP Ports");
-	udpSocketCB = new QUdpSocket(0);
-	udpSocketDrone = new QUdpSocket(0);
-	udpSocketWinch = new QUdpSocket(0);
-
-	udpSocketCB->connectToHost(IPAdressCB, 9156);
-	udpSocketWinch->connectToHost(IPAdressWinch, 9155);
-	udpSocketDrone->connectToHost(IPAdressDrone, 9155);
+	udpSocketSafety = new QUdpSocket(0);
+	udpSocketObject = new QUdpSocket(0);
+	udpSocketSafety2 = new QUdpSocket(0);
+	
+	udpSocketSafety->connectToHost(IPAdressSafety, 9155);
+	udpSocketSafety2->connectToHost(IPAdressSafety2, 9155);
+	udpSocketObject->connectToHost(IPAdressObject, 9155);
 
 	commObj.addLog("Opened UDP Ports");
 
@@ -1177,7 +1177,7 @@ void setHeadingOffset(double d)
 	M_HeadingOffset = R_z * R_y * R_x;
 }
 
-void sendDataUDPDrone(double &PositionNord, double &PositionEast, double &Altitude, cv::Vec3d &Euler)
+void sendDataUDPObject(double &PositionNord, double &PositionEast, double &Altitude, cv::Vec3d &Euler)
 {
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
@@ -1185,7 +1185,7 @@ void sendDataUDPDrone(double &PositionNord, double &PositionEast, double &Altitu
 	Altitude *= -1;
 	out << (float)PositionNord << (float)PositionEast << (float)Altitude;
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
-	udpSocketDrone->writeDatagram(datagram, IPAdressDrone, 9155);
+	udpSocketObject->writeDatagram(datagram, IPAdressObject, 9155);
 }
 
 void show_Help()
@@ -1203,9 +1203,9 @@ void show_Help()
 
 void closeUDP()
 {
-	udpSocketCB->close();
-	udpSocketWinch->close();
-	udpSocketDrone->close();
+	udpSocketSafety->close();
+	udpSocketSafety2->close();
+	udpSocketObject->close();
 }
 
 void loadMarkerConfig(int method)
@@ -1226,14 +1226,18 @@ void loadMarkerConfig(int method)
 		list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
 
 		fs["list_points3d"] >> list_points3d;
-		commObj.addLog("Loaded Marker Configuration Data!");
-
+		commObj.addLog("Loaded marker configuration from file:");
+		commObj.addLog(fileName);
 		
 		
 	}
 	else
 	{
 		fileName = QFileDialog::getOpenFileName(nullptr, "Choose a previous saved marker configuration file", "", "marker configuratio files (*.xml);;All Files (*)");
+		if (fileName.length() == 0)
+		{
+			fileName = "5tol_marker_standard.xml";
+		}
 		FileStorage fs;
 		fs.open(fileName.toUtf8().constData(), FileStorage::READ);
 		fs["numberMarkers"] >> numberMarkers;
@@ -1247,7 +1251,8 @@ void loadMarkerConfig(int method)
 		list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
 
 		fs["list_points3d"] >> list_points3d;
-		commObj.addLog("Loaded Marker Configuration Data!");
+		commObj.addLog("Loaded marker configuration from file:");
+		commObj.addLog(fileName);
 
 	}
 	
