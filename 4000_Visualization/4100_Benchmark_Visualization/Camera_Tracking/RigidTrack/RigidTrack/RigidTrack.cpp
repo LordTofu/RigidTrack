@@ -1,6 +1,7 @@
 #include "RigidTrack.h"
 #include "main.h"
 #include "communication.h"
+#include <exception>	
 
 
 RigidTrack::RigidTrack(QWidget *parent)
@@ -48,36 +49,77 @@ void RigidTrack::on_sbHeadingOffset_valueChanged(double d)
 
 void RigidTrack::on_leIPObject_returnPressed()
 {
+	try{
 	QString adress = RigidTrack::ui.leIPObject->text();
 	IPAdressObject = QHostAddress(adress.split(":")[0]);
+	if (IPAdressObject.isNull() || adress.split(":").length() == 1 || adress.split(":")[1]==0)
+	{
+		throw 2;
+	}
 	portObject = adress.split(":")[1].toInt();
 	commObj.addLog("Object IP changed to:");
 	commObj.addLog(IPAdressObject.toString());
 	commObj.addLog("Object Port changed to:");
 	commObj.addLog(QString::number(portObject));
+	}
+	catch (...)
+	{
+		commObj.addLog("Error Changing the IP Adress or Port! Restored Standard Values 192.168.0.1:9155");
+		IPAdressObject = QHostAddress("192.168.0.1");
+		portObject = 9155;
+		RigidTrack::ui.leIPObject->setText("192.168.0.1:9155");
+	}
 }
+
 
 void RigidTrack::on_leIPSafety_returnPressed()
 {
+	try{
 	QString adress = RigidTrack::ui.leIPSafety->text();
 	IPAdressSafety = QHostAddress(adress.split(":")[0]);
+	if (IPAdressSafety.isNull() || adress.split(":").length() == 1 || adress.split(":")[1] == 0)
+	{
+		throw 2;
+	}
 	portSafety = adress.split(":")[1].toInt();
 	commObj.addLog("Safety Switch IP changed to:");
 	commObj.addLog(IPAdressSafety.toString());
 	commObj.addLog("Safety Switch Port changed to:");
 	commObj.addLog(QString::number(portSafety));
-}
+	}
+	catch (...)
+	{
+		commObj.addLog("Error Changing the IP Adress or Port! Restored Standard Values 192.168.0.1:9155");
+		IPAdressSafety = QHostAddress("192.168.0.1");
+		portSafety = 9155;
+		RigidTrack::ui.leIPSafety->setText("192.168.0.1:9155");
+	}
+	}
 
 void RigidTrack::on_leIPSafety2_returnPressed()
 {
+	try {
 	QString adress = RigidTrack::ui.leIPSafety2->text();
 	IPAdressSafety2 = QHostAddress(adress.split(":")[0]);
+	if (IPAdressSafety2.isNull() || adress.split(":").length() == 1 || adress.split(":")[1] == 0)
+	{
+		throw 2;
+	}
 	portSafety2 = adress.split(":")[1].toInt();
 	commObj.addLog("Receiver 2 IP changed to:");
 	commObj.addLog(IPAdressSafety2.toString());
 	commObj.addLog("Receiver 2 Port changed to:");
 	commObj.addLog(QString::number(portSafety2));
+	}
+	catch (...)
+	{
+		commObj.addLog("Error Changing the IP Adress or Port! Restored Standard Values 192.168.0.1:9155");
+		IPAdressSafety2 = QHostAddress("192.168.0.1");
+		portSafety2 = 9155;
+		RigidTrack::ui.leIPSafety2->setText("192.168.0.1:9155");
+	}
 }
+
 
 void RigidTrack::on_rbP3P_clicked()
 {
