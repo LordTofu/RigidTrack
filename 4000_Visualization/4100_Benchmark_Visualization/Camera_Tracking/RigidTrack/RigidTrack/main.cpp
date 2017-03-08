@@ -70,15 +70,15 @@ double longitudeRef = 11;	// longitude reference for flat earth WGS84 calculatio
 double heightRef = 0;	//WGS84 reference height
 double latitude = 47;	// actual WGS84 latitude sent to object
 double longitude = 11;	// actual WGS84 longitude sent to object
-int32_t intLatitude = 47;	// actual WGS84 latitude sent to object converted to int32
-int32_t intLongitude = 11;	// actual WGS84 longitude sent to object converted to int32
+double intLatitude = 47;	// actual WGS84 latitude sent to object converted to int32
+double intLongitude = 11;	// actual WGS84 longitude sent to object converted to int32
 double height = 0;	// actual WGS84 height sent to object
 double earthRadius = 6366743.0; // Radius of the Earth at 47° North in Meters
 double headingOffset = 0;
 
 std::ofstream logfile;	// file handler for writing the log file
 
-int intIntensity = 15; // max infra red spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
+int intIntensity = 15; // max infrared spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
 int intExposure = 1; // max is 480 increase if markers are badly visible
 int intFrameRate = 100;	// frame rate of camera, maximum is 100 fps
 int intThreshold = 200;	// threshold value for marker detection. If markers are badly visible lower this value
@@ -95,11 +95,8 @@ Mat Tvec_Average = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// // Average Tvec
 Mat RvecOriginal;	// initial values as start values for algorithms
 Mat TvecOriginal;	// initial values as start values for algorithms
 
-float Value[100] = { 0 };	//100 values that are sent via MMF, can be more but should be enough for now
-
 bool useGuess = true; // set to true and the algorithm uses the last result as starting value
 int methodPNP = 0; // solvePNP algorithm 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  // 4 and 1 are the same
-
 int numberMarkers = 4; // number of markers
 std::vector<Point3d> list_points3d;	// marker positions in marker frame 
 std::vector<Point2d> list_points2d;	// marker positions projected in 2D in camera image frame
@@ -115,9 +112,8 @@ double currentPointDistance = 5000;	// distance from the projected 3D points (he
 double minPointDistance = 5000;	// minimum distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image frame 
 int currentMinIndex = 0;	// helper variable set to the point order that holds the current minimum point distance 
 bool gotOrder = false;	// order of the list_points3d and list_points3d already tetermined or not 
-bool camera_started = false; // variable thats needed to exit the main while loop
 
-int decimator = 1; // Decimate the velocity frequency from 100Hz to 100Hz
+bool camera_started = false; // variable thats needed to exit the main while loop
 
 Mat cameraMatrix;	// camera matrix of the camera
 Mat distCoeffs;	// distortion coefficients of the camera
@@ -140,12 +136,12 @@ QDataStream out;	// stream that sends the datagram package via UDP
 const int BACKBUFFER_BITSPERPIXEL = 8;	// 8 bit per pixel and greyscale image from camera
 std::string strBuf;	// buffer that holds the strings that are sent to the Qt GUI
 std::stringstream ss;	// stream that sends the strBuf buffer to the Qt GUI
+QString logFileName; // Filename for the logfiles
+SYSTEMTIME logDate;
 
 // main inizialised the GUI and values for the marker position
 int main(int argc, char *argv[])
 {
-
-
 	QApplication a(argc, argv);
 	RigidTrack w;
 	w.show();	// show the GUI
@@ -238,6 +234,10 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 
 // start the loop that fetches frames, computes the position etc and sends it to the object and CB
 int start_camera() {
+
+	GetLocalTime(&logDate);
+	logFileName = "positionLog_" + QString::number(logDate.wDay) + "_" +  QString::number(logDate.wMonth) + "_" + QString::number(logDate.wYear);
+	logFileName += "_" + QString::number(logDate.wHour) + ":" + QString::number(logDate.wMinute) + ":" + QString::number(logDate.wMinute) + ".txt";
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//== want to stop execution for an extended time while debugging without disconnecting
 	//== the Ethernet devices.  Lets do that now:
@@ -328,14 +328,6 @@ int start_camera() {
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
 
-				// save the marker positions in a file for debug and test purposes
-				if (debug == true)
-				{
-					logfile.open("markerPoints.txt", std::ios::app);
-					logfile << list_points2dUnsorted[0] << ";" << list_points2dUnsorted[1] << ";" << list_points2dUnsorted[2] << ";" << list_points2dUnsorted[3] << "\n";
-					logfile.close();
-				}
-
 				// Now its time to determine the order of the points
 				// for that the distance from the new points to the old points is calculated
 				// for each point the new index corresponds to the old point with the smallest distance
@@ -410,11 +402,8 @@ int start_camera() {
 				//latitude = latitudeRef + atan(position[0] / earthRadius);	// calculate the current latitude in WGS84 
 				//longitude = longitudeRef + atan(position[1] / earthRadius);	// calculate the current lon in WGS84 
 
-				//send position and everything else to object over WiFi with 100 Hz
-				if (decimatorHelper >= decimator) {
-					sendDataUDPObject(position[0], position[1], position[2], eulerAngles);
-					decimatorHelper = 0;
-				}
+				//send position and euler angles else to object over WiFi with 100 Hz
+				sendDataUDPObject(position[0], position[1], position[2], eulerAngles);
 			}
 
 			// send the new rope length to the winch
@@ -489,7 +478,7 @@ int start_camera() {
 			}
 
 			// save the values in a log file 
-			logfile.open("logData.txt", std::ios::app);
+			logfile.open(logFileName.toStdString(), std::ios::app);
 			logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
 			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
 			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
@@ -834,6 +823,8 @@ int setZero()
 
 int calibrate_camera()
 {
+	commObj.addLog("Started camera calibration");
+	commObj.addLog("80 pictures are going to be captured");
 	CameraLibrary_EnableDevelopment();
 
 	//== Initialize Camera SDK ==--
