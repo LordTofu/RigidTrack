@@ -83,7 +83,7 @@ public:
         lbStatus = new QLabel(centralWidget);
         lbStatus->setObjectName(QStringLiteral("lbStatus"));
         lbStatus->setEnabled(true);
-        lbStatus->setGeometry(QRect(50, 180, 640, 480));
+        lbStatus->setGeometry(QRect(120, 180, 640, 480));
         btnZero = new QPushButton(centralWidget);
         btnZero->setObjectName(QStringLiteral("btnZero"));
         btnZero->setGeometry(QRect(20, 10, 131, 41));

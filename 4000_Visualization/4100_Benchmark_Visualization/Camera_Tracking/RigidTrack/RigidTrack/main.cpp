@@ -47,7 +47,6 @@ using namespace cv;
 
 commObject commObj;
 
-bool debug = true;
 bool safetyEnable = false;
 bool safety2Enable = false;
 double safetyBoxLength = 1.5; // length of the safety area cube in meters
@@ -126,9 +125,9 @@ QUdpSocket *udpSocketSafety2;	// socket for the communication with the rope winc
 QHostAddress IPAdressObject = QHostAddress("192.168.137.254");	// IPv4 adress of the object wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
 QHostAddress IPAdressSafety = QHostAddress("192.168.4.1"); // IPv4 adress of the circuit breaker, stays the same
 QHostAddress IPAdressSafety2 = QHostAddress("192.168.4.4");	// IPv4 adress of the rope winch,
-int portObject = 9155;
-int portSafety = 9155;
-int portSafety2 = 9155;
+int portObject = 9155; // Port of the object
+int portSafety = 9155; // Port of the safety switch
+int portSafety2 = 9155; // Port of the second receiver
 QByteArray datagram;	// data package that is sent to the object 
 QByteArray data;	// data package that's sent to the circuit breaker
 QDataStream out;	// stream that sends the datagram package via UDP
@@ -137,7 +136,7 @@ const int BACKBUFFER_BITSPERPIXEL = 8;	// 8 bit per pixel and greyscale image fr
 std::string strBuf;	// buffer that holds the strings that are sent to the Qt GUI
 std::stringstream ss;	// stream that sends the strBuf buffer to the Qt GUI
 QString logFileName; // Filename for the logfiles
-SYSTEMTIME logDate;
+SYSTEMTIME logDate; // Systemtime struct that saves the current date and time thats needed for the log file name creation
 
 // main inizialised the GUI and values for the marker position
 int main(int argc, char *argv[])
@@ -169,10 +168,6 @@ int main(int argc, char *argv[])
 	coordinateFrame[2] = cv::Point3d(0, 300, 0);
 	coordinateFrame[3] = cv::Point3d(0, 0, 300);
 
-	load_calibration(0); // load the calibration file with the camera intrinsics
-	loadMarkerConfig(0); // load the standard marker configuration
-	test_Algorithm();	// test the algorithms and their accuracy
-
 	WGS84[0] = latitudeRef;	// latitude in WGS84 set to reference latitude
 	WGS84[1] = longitudeRef; // longitude in WGS84 set to reference longitude
 	WGS84[2] = heightRef;	// height in WGS84 set to reference height
@@ -190,6 +185,13 @@ int main(int argc, char *argv[])
 	eulerAngles[2] = 1.004;	// set initial euler angles to arbitrary values for testing
 
 	setHeadingOffset(0.0); // set the heading offset to 0 
+
+	ss << std::setprecision(4);
+
+	load_calibration(0); // load the calibration file with the camera intrinsics
+	loadMarkerConfig(0); // load the standard marker configuration
+	test_Algorithm();	// test the algorithms and their accuracy
+
 	return a.exec();
 }
 
@@ -232,7 +234,7 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 		eulerAngles);
 }
 
-// start the loop that fetches frames, computes the position etc and sends it to the object and CB
+// start the loop that fetches frames, computes the position etc and sends it to the object
 int start_camera() {
 
 	GetLocalTime(&logDate);
@@ -303,7 +305,7 @@ int start_camera() {
 	//udpSocketCB->write(data);
 
 	// now enter the main loop that processes each frame
-	while (true)
+	while (!exitRequested)
 	{
 		//== Fetch a new frame from the camera ===---
 		Frame *frame = camera->GetFrame();
@@ -317,7 +319,7 @@ int start_camera() {
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
 
-			// only use this frame it the right number of markers is found in the picture or debug is on
+			// only use this frame it the right number of markers is found in the picture
 			if (frame->ObjectCount() == numberMarkers)
 			{
 				framesDropped = 0;	// set number of subsequent frames dropped to zero
@@ -374,7 +376,7 @@ int start_camera() {
 				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
 
 				// sanity check of values. negative z means the marker frame is behind the camera, that's not possible. And usually the marker frame is nearer than 10000mm
-				if ((maxValue > 10000 || minValue < 0) && debug == false)
+				if ((maxValue > 10000 || minValue < 0))
 				{
 					commObj.addLog("Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n");
 					frame->Release();
@@ -389,8 +391,8 @@ int start_camera() {
 				Rodrigues(Rvec, Rmat);	// compute the rotation matrix from the axis angle respresentation
 				Rmat = RmatRef.t() *Rmat;	// the difference of the reference rotation and the current rotation
 				//==-- Euler Angles, finally 
-				eulerAngles[2] += headingOffset; // add the heading offset to the heading angle
 				getEulerAngles(Rmat, eulerAngles);	// get the euler angles from the rotation matrix 
+				eulerAngles[2] += headingOffset; // add the heading offset to the heading angle
 
 				frameTime = frame->TimeStamp() - timeOld;	// time between the old frame and the current frame
 				timeOld = frame->TimeStamp();	// set the old frame time to the current  one
@@ -399,26 +401,18 @@ int start_camera() {
 				velocity[2] = (position[2] - positionOld[2]) / frameTime;	// calculate the velocity with finite differences
 				positionOld = position;	// set the old position to the current one for next frame
 
-				//latitude = latitudeRef + atan(position[0] / earthRadius);	// calculate the current latitude in WGS84 
-				//longitude = longitudeRef + atan(position[1] / earthRadius);	// calculate the current lon in WGS84 
-
 				//send position and euler angles else to object over WiFi with 100 Hz
-				sendDataUDPObject(position[0], position[1], position[2], eulerAngles);
+				sendDataUDP(position, eulerAngles);
 			}
-
-			// send the new rope length to the winch
-			//ropeLength = norm(ropePosition - position);
-			//data.setNum((int)(ropeLength));
-			//udpSocketWinch->write(data);
 
 			// check if the position and euler angles are below the allowed value, if yes send enable to the circuit breaker, if not send shutdown signal
 			// absolute x, y and z position in ground frame must be smaller than 1.5m
 			if (safetyEnable)
 			{
-				if ((abs(position[0]) < safetyBoxLength && abs(position[1]) < safetyBoxLength && abs(position[2]) < safetyBoxLength) || debug == true)
+				if ((abs(position[0]) < safetyBoxLength && abs(position[1]) < safetyBoxLength && abs(position[2]) < safetyBoxLength))
 				{
 					// absolute euler angles must be smaller than 30 degrees 
-					if ((abs(eulerAngles[0]) < safetyAngle && abs(eulerAngles[1]) < safetyAngle) || debug == true)
+					if ((abs(eulerAngles[0]) < safetyAngle && abs(eulerAngles[1]) < safetyAngle))
 					{
 						// send the enable signal to the circuit breaker to keep it enabled
 						if (v == 5) {
@@ -447,34 +441,17 @@ int start_camera() {
 			}
 
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
-			if (projectionError > 50 && debug == false)
+			if (projectionError > 50)
 			{
 				framesDropped++;
 			}
 
 			//Stop the object is tracking system is disturbed (marker lost or so)
-			if (framesDropped > 10 && debug == false)
+			if (framesDropped > 10)
 			{
 				data.setNum((int)(0));	// 0 disables the circuit breaker, hence the object
 				udpSocketSafety->write(data);
 				commObj.addLog("Lost Marker Points or Accuracy was bad!");
-
-				// Stop tracking system and release the camera
-				camera->Release();
-				//== Shutdown Camera Library ==--
-				CameraManager::X().Shutdown();
-
-				return 1;
-			}
-
-			// Output every second if debug is true. This can slow down the whole programm and introduce spikes or lags in the measurements 
-			if (u == 100 && debug) {
-				ss.str("");
-				ss << std::setprecision(4) << "X: " << position[0] << "   Y: " << position[1] << "   Z: " << position[2] << "  [m]";
-				ss << "        VX: " << velocity[0] << "   VY: " << velocity[1] << "   VZ: " << velocity[2] << "  [m/s]";
-				ss << "        Roll: " << eulerAngles[0] << "   Pitch: " << eulerAngles[1] << "   Heading: " << eulerAngles[2] << "  [deg]";
-				commObj.addLog(QString::fromStdString(ss.str()));	// send the string to the GUI 
-				u = 0;
 			}
 
 			// save the values in a log file 
@@ -501,25 +478,24 @@ int start_camera() {
 				circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
 			}
 
+			// draw the current position and attitude values as text in the frame
+			drawPositionText(cFrame, position, eulerAngles);
+	
 			QPixmap QPFrame;
 			QPFrame = Mat2QPixmap(cFrame);
 			commObj.changeImage(QPFrame);
 			QCoreApplication::processEvents();
 			frame->Release();
-
-			if (exitRequested)
-			{
-				break;
-			}
 		}
 	}
 
-	closeUDP();
+	closeUDP();	// close the UDP connections so resources are deallocated
 
 	//== Exit the application
 	return 0;
 }
 
+// Start or stop the camera depending on if the camera is currently running or not
 void start_stopCamera()
 {
 	if (exitRequested)
@@ -821,6 +797,7 @@ int setZero()
 	return 0;
 }
 
+// start the camera calibration routine
 int calibrate_camera()
 {
 	commObj.addLog("Started camera calibration");
@@ -960,6 +937,7 @@ int calibrate_camera()
 	return 0;
 }
 
+// Load a previously saved calibration from a file
 void load_calibration(int method) {
 
 	QString fileName;
@@ -987,6 +965,7 @@ void load_calibration(int method) {
 	commObj.addLog(QString::fromStdString(ss.str()));
 }
 
+// project some points from 3D to 2D and then check the accuracy of the algorithms
 void test_Algorithm()
 {
 
@@ -1087,6 +1066,10 @@ void test_Algorithm()
 		{
 			circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 3, Scalar(255, 0, 0), 3);
 		}
+
+		putText(cFrame, "Testing Algorithms Finished", cv::Point(5, 420), 1, 1, cv::Scalar(255, 255, 255));
+		drawPositionText(cFrame, position, eulerAngles);
+		
 		QPixmap QPFrame;
 		QPFrame = Mat2QPixmap(cFrame);
 		commObj.changeImage(QPFrame);
@@ -1114,6 +1097,7 @@ void test_Algorithm()
 
 }
 
+// project a coordinate frame with the rotation and translation of the object for visualization
 void projectCoordinateFrame(Mat pictureFrame)
 {
 	projectPoints(coordinateFrame, Rvec, Tvec, cameraMatrix, distCoeffs, coordinateFrameProjected);
@@ -1122,22 +1106,37 @@ void projectCoordinateFrame(Mat pictureFrame)
 	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[2], Scalar(0, 255, 0), 2); //y-axis
 }
 
+// open the UDP ports 
 void setUpUDP()
 {
-	// Creating UDP slot
+	// Initialise the QDataStream that stores the data to be send
+	QDataStream out(&datagram, QIODevice::WriteOnly);
+	out.setVersion(QDataStream::Qt_4_3);
+
+	// Create UDP slots
 	commObj.addLog("Opening UDP Ports");
-	udpSocketSafety = new QUdpSocket(0);
 	udpSocketObject = new QUdpSocket(0);
-	udpSocketSafety2 = new QUdpSocket(0);
-	
-	udpSocketSafety->connectToHost(IPAdressSafety, 9155);
-	udpSocketSafety2->connectToHost(IPAdressSafety2, 9155);
-	udpSocketObject->connectToHost(IPAdressObject, 9155);
+	udpSocketObject->connectToHost(IPAdressObject, portObject);
+	commObj.addLog("Opened Object UDP Port");
 
-	commObj.addLog("Opened UDP Ports");
+	// if the safety feature is activated open the udp port
+	if(safetyEnable)
+	{ 
+		udpSocketSafety = new QUdpSocket(0);
+		udpSocketSafety->connectToHost(IPAdressSafety, portSafety);
+		commObj.addLog("Opened Safety UDP Port");
+	}
 
+	// if the second receiver feature is activated open the udp port
+	if (safety2Enable)
+	{
+		udpSocketSafety2 = new QUdpSocket(0);
+		udpSocketSafety2->connectToHost(IPAdressSafety2, portSafety2);
+		commObj.addLog("Opened Second Receiver UDP Port");
+	}
 }
 
+// Add a heading offset to the attitude for the case it is necessary
 void setHeadingOffset(double d)
 {
 	headingOffset = d;
@@ -1168,47 +1167,78 @@ void setHeadingOffset(double d)
 	M_HeadingOffset = R_z * R_y * R_x;
 }
 
-void sendDataUDPObject(double &PositionNord, double &PositionEast, double &Altitude, cv::Vec3d &Euler)
+// send the position and attitude over UDP to every receiver, the safety receiver is handled on its own in the start_camera function
+void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler)
 {
 	datagram.clear();
-	QDataStream out(&datagram, QIODevice::WriteOnly);
-	out.setVersion(QDataStream::Qt_4_3);
-	Altitude *= -1;
-	out << (float)PositionNord << (float)PositionEast << (float)Altitude;
+	out << (float)Position[0] << (float)Position[1] << (-1*(float)Position[2]);
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
-	udpSocketObject->writeDatagram(datagram, IPAdressObject, 9155);
+	udpSocketObject->writeDatagram(datagram, IPAdressObject, portObject);
+
+	// if second receiver is activated send it also the tracking data
+	if(safety2Enable)
+	{
+		udpSocketSafety2->writeDatagram(datagram, IPAdressSafety2, portSafety2);
+	}
+
 }
 
+// open the documentation of this software in the system interner browser
 void show_Help()
 {
+	// Get the current directory as the help html file is stored in the same directory
 	wchar_t buffer[MAX_PATH];
 	GetModuleFileName(NULL, buffer, MAX_PATH);
 	std::wstring strBuffer(buffer);
+
+	// Delete the last entry of the path since it is the file name of the executable
 	int pos = strBuffer.find_last_of(L"\\ / ");
 	std::wstring strPath = strBuffer.substr(0, pos);
 	QString qtString = QString::fromWCharArray(strPath.c_str());
+
+	// append help.html to the path since this is the documentation in html format
 	QString qtStrFile = "\\help.html";
 	QString file = qtString + qtStrFile;
+
+	// open the documentation help file in the standard browser
 	QDesktopServices::openUrl(QUrl::fromLocalFile(file));
 }
 
+// close the UDP ports again to release network interfaces etc. 
 void closeUDP()
 {
-	udpSocketSafety->close();
-	udpSocketSafety2->close();
-	udpSocketObject->close();
+	// check if the socket is open and if yes close it
+	if(udpSocketObject->isOpen())
+	{
+		udpSocketObject->close();
+	}
+
+	if (udpSocketSafety->isOpen())
+	{
+		udpSocketSafety->close();
+	}
+
+	if (udpSocketSafety2->isOpen())
+	{
+		udpSocketSafety2->close();
+	}	
 }
 
+// load a marker configuration from file. This has to be created by hand, use the standard marker configuration file as template
 void loadMarkerConfig(int method)
 {
 	QString fileName;
+	// during start up of the programm load the standard marker configuration
 	if (method == 0)
 	{
+		// open the standard marker configuration file
 		FileStorage fs;
-		fs.open("5tol_marker_standard.xml", FileStorage::READ);
+		fs.open("marker_standard.xml", FileStorage::READ);
+
+		// copy the values to the respective variables
 		fs["numberMarkers"] >> numberMarkers;
 		
-		// inizialise vectors with correct length
+		// inizialise vectors with correct length depending on the number of markers
 		list_points3d = std::vector<Point3d>(numberMarkers);
 		list_points2d = std::vector<Point2d>(numberMarkers);
 		list_points2dOld = std::vector<Point2d>(numberMarkers);
@@ -1216,24 +1246,35 @@ void loadMarkerConfig(int method)
 		list_points2dProjected = std::vector<Point2d>(numberMarkers);
 		list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
 
+		// save the marker locations in the points3d vector
 		fs["list_points3d"] >> list_points3d;
+		fs.release();
 		commObj.addLog("Loaded marker configuration from file:");
 		commObj.addLog(fileName);
+		
 		
 		
 	}
 	else
 	{
+		// if the load marker configuration button was clicked show a open file dialog 
 		fileName = QFileDialog::getOpenFileName(nullptr, "Choose a previous saved marker configuration file", "", "marker configuratio files (*.xml);;All Files (*)");
+		
+		// was cancel or abort clicked 
 		if (fileName.length() == 0)
 		{
-			fileName = "5tol_marker_standard.xml";
+			// if yes load the standard marker configuration
+			fileName = "marker_standard.xml";
 		}
+
+		// open the selected marker configuration file
 		FileStorage fs;
 		fs.open(fileName.toUtf8().constData(), FileStorage::READ);
+
+		// copy the values to the respective variables
 		fs["numberMarkers"] >> numberMarkers;
 
-		// inizialise vectors with correct length
+		// inizialise vectors with correct length depending on the number of markers
 		list_points3d = std::vector<Point3d>(numberMarkers);
 		list_points2d = std::vector<Point2d>(numberMarkers);
 		list_points2dOld = std::vector<Point2d>(numberMarkers);
@@ -1241,14 +1282,17 @@ void loadMarkerConfig(int method)
 		list_points2dProjected = std::vector<Point2d>(numberMarkers);
 		list_points2dUnsorted = std::vector<Point2d>(numberMarkers);
 
+		// save the marker locations in the points3d vector
 		fs["list_points3d"] >> list_points3d;
+		fs.release();
 		commObj.addLog("Loaded marker configuration from file:");
 		commObj.addLog(fileName);
 
 	}
 	
+	// Print out the number of markers and their position to the GUI
 	ss.str("");
-	ss << std::setprecision(4);
+	ss << std::setprecision(4);	// Set the precision of floats and doubles to 4 decimal values
 	ss << "Number of Markers: " << numberMarkers << "\n";
 	ss << "Marker 3D Points X,Y and Z [mm]: \n";
 	for (int i = 0; i < numberMarkers; i++)
@@ -1257,17 +1301,35 @@ void loadMarkerConfig(int method)
 	}
 	commObj.addLog(QString::fromStdString(ss.str()));
 	
-	
+	// check if P3P algorithm can be enabled, it needs exactly 4 marker points to work
 	if (numberMarkers == 4)
 	{
+		// if P3P is possible, let the user choose which algorithm he wants but keep iterative active
 		methodPNP = 0;
 		commObj.enableP3P(true);
 	}
 	else
 	{
+		// More (or less) marker than 4 loaded, P3P is not possible, hence user cant select P3P in GUI
 		methodPNP = 0;
 		commObj.enableP3P(false);
 		commObj.addLog("P3P Algorithm disabled, only works with 4 markers");
 	}
 	
+}
+
+// draw the position and attitude in the picture 
+void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler)
+{
+	ss.str("");
+	ss << "X: " << Position[0] << " m      " << "Heading: " << Euler[2] << " deg";
+	putText(Picture, ss.str() , cv::Point(5, 440), 1, 1, cv::Scalar(255, 255, 255));
+
+	ss.str("");
+	ss << "Y: " << Position[1] << " m      " << "Pitch: " << Euler[1] << " deg";
+	putText(Picture, ss.str(), cv::Point(5, 455), 1, 1, cv::Scalar(255, 255, 255));
+
+	ss.str("");
+	ss << "Z: " << Position[2] << " m      " << "Roll: " << Euler[0] << " deg";
+	putText(Picture, ss.str(), cv::Point(5, 470), 1, 1, cv::Scalar(255, 255, 255));
 }
