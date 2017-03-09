@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'RigidTrack.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.7.0)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.7.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,15 +12,15 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'RigidTrack.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.7.0. It"
+#error "This file was generated using the moc from 5.7.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_RigidTrack_t {
-    QByteArrayData data[28];
-    char stringdata0[484];
+    QByteArrayData data[29];
+    char stringdata0[509];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -55,8 +55,9 @@ QT_MOC_LITERAL(22, 389, 28), // "on_dsbDimension_valueChanged"
 QT_MOC_LITERAL(23, 418, 23), // "on_sbAngle_valueChanged"
 QT_MOC_LITERAL(24, 442, 1), // "i"
 QT_MOC_LITERAL(25, 444, 23), // "on_pbLoadMarker_clicked"
-QT_MOC_LITERAL(26, 468, 9), // "enableP3P"
-QT_MOC_LITERAL(27, 478, 5) // "value"
+QT_MOC_LITERAL(26, 468, 24), // "on_cbInvert_stateChanged"
+QT_MOC_LITERAL(27, 493, 9), // "enableP3P"
+QT_MOC_LITERAL(28, 503, 5) // "value"
 
     },
     "RigidTrack\0on_btnStartCamera_clicked\0"
@@ -72,7 +73,8 @@ QT_MOC_LITERAL(27, 478, 5) // "value"
     "on_cbSafety2_stateChanged\0"
     "on_dsbDimension_valueChanged\0"
     "on_sbAngle_valueChanged\0i\0"
-    "on_pbLoadMarker_clicked\0enableP3P\0"
+    "on_pbLoadMarker_clicked\0"
+    "on_cbInvert_stateChanged\0enableP3P\0"
     "value"
 };
 #undef QT_MOC_LITERAL
@@ -83,7 +85,7 @@ static const uint qt_meta_data_RigidTrack[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      20,   14, // methods
+      21,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -91,26 +93,27 @@ static const uint qt_meta_data_RigidTrack[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  114,    2, 0x0a /* Public */,
-       3,    0,  115,    2, 0x0a /* Public */,
-       4,    0,  116,    2, 0x0a /* Public */,
-       5,    1,  117,    2, 0x0a /* Public */,
-       7,    0,  120,    2, 0x0a /* Public */,
-       8,    0,  121,    2, 0x0a /* Public */,
-       9,    1,  122,    2, 0x0a /* Public */,
-      11,    1,  125,    2, 0x0a /* Public */,
-      13,    0,  128,    2, 0x0a /* Public */,
-      14,    0,  129,    2, 0x0a /* Public */,
-      15,    0,  130,    2, 0x0a /* Public */,
-      16,    0,  131,    2, 0x0a /* Public */,
-      17,    0,  132,    2, 0x0a /* Public */,
-      18,    0,  133,    2, 0x0a /* Public */,
-      19,    1,  134,    2, 0x0a /* Public */,
-      21,    1,  137,    2, 0x0a /* Public */,
-      22,    1,  140,    2, 0x0a /* Public */,
-      23,    1,  143,    2, 0x0a /* Public */,
-      25,    0,  146,    2, 0x0a /* Public */,
-      26,    1,  147,    2, 0x0a /* Public */,
+       1,    0,  119,    2, 0x0a /* Public */,
+       3,    0,  120,    2, 0x0a /* Public */,
+       4,    0,  121,    2, 0x0a /* Public */,
+       5,    1,  122,    2, 0x0a /* Public */,
+       7,    0,  125,    2, 0x0a /* Public */,
+       8,    0,  126,    2, 0x0a /* Public */,
+       9,    1,  127,    2, 0x0a /* Public */,
+      11,    1,  130,    2, 0x0a /* Public */,
+      13,    0,  133,    2, 0x0a /* Public */,
+      14,    0,  134,    2, 0x0a /* Public */,
+      15,    0,  135,    2, 0x0a /* Public */,
+      16,    0,  136,    2, 0x0a /* Public */,
+      17,    0,  137,    2, 0x0a /* Public */,
+      18,    0,  138,    2, 0x0a /* Public */,
+      19,    1,  139,    2, 0x0a /* Public */,
+      21,    1,  142,    2, 0x0a /* Public */,
+      22,    1,  145,    2, 0x0a /* Public */,
+      23,    1,  148,    2, 0x0a /* Public */,
+      25,    0,  151,    2, 0x0a /* Public */,
+      26,    1,  152,    2, 0x0a /* Public */,
+      27,    1,  155,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -132,7 +135,8 @@ static const uint qt_meta_data_RigidTrack[] = {
     QMetaType::Void, QMetaType::Double,   12,
     QMetaType::Void, QMetaType::Int,   24,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   27,
+    QMetaType::Void, QMetaType::Int,   20,
+    QMetaType::Void, QMetaType::Bool,   28,
 
        0        // eod
 };
@@ -162,7 +166,8 @@ void RigidTrack::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 16: _t->on_dsbDimension_valueChanged((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 17: _t->on_sbAngle_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 18: _t->on_pbLoadMarker_clicked(); break;
-        case 19: _t->enableP3P((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 19: _t->on_cbInvert_stateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 20: _t->enableP3P((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -193,13 +198,13 @@ int RigidTrack::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 20)
+        if (_id < 21)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 20;
+        _id -= 21;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 20)
+        if (_id < 21)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 20;
+        _id -= 21;
     }
     return _id;
 }

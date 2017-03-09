@@ -47,6 +47,7 @@ extern QHostAddress IPAdressSafety2;
 extern int portObject; 
 extern int portSafety;
 extern int portSafety2;
+extern int invertZ;
 extern commObject commObj;
 
 int start_camera();

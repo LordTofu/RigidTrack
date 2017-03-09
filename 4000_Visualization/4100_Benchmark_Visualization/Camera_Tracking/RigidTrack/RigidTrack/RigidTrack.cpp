@@ -185,6 +185,18 @@ void RigidTrack::on_pbLoadMarker_clicked()
 	loadMarkerConfig(1);
 }
 
+void RigidTrack::on_cbInvert_stateChanged(int state)
+{
+	if (state)
+	{
+		invertZ = -1;
+	}
+	else
+	{
+		invertZ = 1;
+	}
+}
+
 void RigidTrack::enableP3P(bool value)
 {
 	RigidTrack::ui.rbP3P->setEnabled(value);

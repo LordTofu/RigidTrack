@@ -390,6 +390,19 @@ Configuration</string>
      </property>
     </widget>
    </widget>
+   <widget class="QCheckBox" name="cbInvert">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>60</y>
+      <width>70</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Invert Z</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

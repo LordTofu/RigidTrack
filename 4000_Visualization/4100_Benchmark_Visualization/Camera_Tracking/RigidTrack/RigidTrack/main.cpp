@@ -52,6 +52,7 @@ bool safety2Enable = false;	// is the second receiver enabled
 double safetyBoxLength = 1.5; // length of the safety area cube in meters
 int safetyAngle = 30; // bank and pitch angle protection in degrees
 bool exitRequested = true; // variable if tracking loop should be exited
+int invertZ = 1; // dummy variable to invert Z direction on request
 
 double frameTime = 0.01; // 100 Hz CoSy rate, is later on replaced with the hardware timestamp delivered by the camera 
 double timeOld = 0.0;		// old time for finite differences velocity calculation. Is later on replaced with the hardware timestamp delivered by the camera
@@ -374,6 +375,7 @@ int start_camera() {
 				subtract(posRef, Tvec, position);	// compute the relative object position from the reference position to the current one, given in the camera CoSy
 				Mat V = -0.001 * M_HeadingOffset * M_NC.t() * (Mat)position;	// transform the position from the camera CoSy to the ground CoSy with INS alligned heading and into [m]
 				position = V;	// position is the result of the preceeding calculation 
+				position[2] *= invertZ;	// invert Z if check box in GUI is activated
 
 				// Realtive angle between reference orientation and current orientation
 				Rodrigues(Rvec, Rmat);	// compute the rotation matrix from the axis angle respresentation
