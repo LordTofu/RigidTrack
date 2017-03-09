@@ -490,11 +490,7 @@ int start_camera() {
 	}
 
 	closeUDP();	// close the UDP connections so resources are deallocated
-
-	//== Release camera ==--
-	camera->Release();
-
-	//== Exit the application
+	camera->Release();	//== Release camera ==--
 	return 0;
 }
 
@@ -1122,10 +1118,12 @@ void setUpUDP()
 	udpSocketObject->connectToHost(IPAdressObject, portObject);
 	commObj.addLog("Opened Object UDP Port");
 
+	udpSocketSafety = new QUdpSocket(0);
+	udpSocketSafety2 = new QUdpSocket(0);
+
 	// if the safety feature is activated open the udp port
 	if(safetyEnable)
 	{ 
-		udpSocketSafety = new QUdpSocket(0);
 		udpSocketSafety->connectToHost(IPAdressSafety, portSafety);
 		commObj.addLog("Opened Safety UDP Port");
 	}
@@ -1133,7 +1131,6 @@ void setUpUDP()
 	// if the second receiver feature is activated open the udp port
 	if (safety2Enable)
 	{
-		udpSocketSafety2 = new QUdpSocket(0);
 		udpSocketSafety2->connectToHost(IPAdressSafety2, portSafety2);
 		commObj.addLog("Opened Second Receiver UDP Port");
 	}
