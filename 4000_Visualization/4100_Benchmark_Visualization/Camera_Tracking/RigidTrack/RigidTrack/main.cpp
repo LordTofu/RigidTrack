@@ -169,7 +169,9 @@ int main(int argc, char *argv[])
 
 	setHeadingOffset(0.0); // set the heading offset to 0 
 
-	ss << std::setprecision(4);	// outputs in the log etc are limited to 3 decimal values
+	ss.precision(4); // outputs in the log etc are limited to 3 decimal values
+	ss.fill('0');
+	ss.width(6);
 
 	loadCameraPosition(); // load the rotation matrix from camera CoSy to ground CoSy
 	load_calibration(0); // load the calibration file with the camera intrinsics
@@ -1296,7 +1298,6 @@ void loadMarkerConfig(int method)
 	
 	// Print out the number of markers and their position to the GUI
 	ss.str("");
-	ss << std::setprecision(4);	// Set the precision of floats and doubles to 4 decimal values
 	ss << "Number of Markers: " << numberMarkers << "\n";
 	ss << "Marker 3D Points X,Y and Z [mm]: \n";
 	for (int i = 0; i < numberMarkers; i++)
@@ -1326,16 +1327,28 @@ void loadMarkerConfig(int method)
 void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler)
 {
 	ss.str("");
-	ss << "X: " << Position[0] << " m      " << "Heading: " << Euler[2] << " deg";
-	putText(Picture, ss.str() , cv::Point(5, 440), 1, 1, cv::Scalar(255, 255, 255));
+	ss << "X: " << Position[0] << " m";
+	putText(Picture, ss.str() , cv::Point(200, 440), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
-	ss << "Y: " << Position[1] << " m      " << "Pitch: " << Euler[1] << " deg";
-	putText(Picture, ss.str(), cv::Point(5, 455), 1, 1, cv::Scalar(255, 255, 255));
+	ss << "Y: " << Position[1] << " m";
+	putText(Picture, ss.str(), cv::Point(200, 455), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
-	ss << "Z: " << Position[2] << " m      " << "Roll: " << Euler[0] << " deg";
-	putText(Picture, ss.str(), cv::Point(5, 470), 1, 1, cv::Scalar(255, 255, 255));
+	ss << "Z: " << Position[2] << " m";
+	putText(Picture, ss.str(), cv::Point(200, 470), 1, 1, cv::Scalar(255, 255, 255));
+
+	ss.str("");
+	ss  << "Heading: " << Euler[2] << " deg";
+	putText(Picture, ss.str(), cv::Point(350, 440), 1, 1, cv::Scalar(255, 255, 255));
+
+	ss.str("");
+	ss << "Pitch: " << Euler[1] << " deg";
+	putText(Picture, ss.str(), cv::Point(350, 455), 1, 1, cv::Scalar(255, 255, 255));
+
+	ss.str("");
+	ss << "Roll: " << Euler[0] << " deg";
+	putText(Picture, ss.str(), cv::Point(350, 470), 1, 1, cv::Scalar(255, 255, 255));
 }
 
 // load the rotation matrix from camera CoSy to ground CoSy
