@@ -236,6 +236,7 @@
     </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_RigidTrack.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="_modelest.h" />
     <ClInclude Include="precomp.hpp" />
     <ClInclude Include="supportcode.h" />
@@ -262,6 +263,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="RigidTrack.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

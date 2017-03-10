@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string notr="true">Rigid Track</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>pattern.png</normaloff>pattern.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="btnStartCamera">
     <property name="geometry">
