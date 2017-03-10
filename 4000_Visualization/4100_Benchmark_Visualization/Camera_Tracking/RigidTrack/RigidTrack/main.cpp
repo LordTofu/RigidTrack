@@ -139,6 +139,7 @@ int main(int argc, char *argv[])
 	QObject::connect(&commObj, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(logCleared()), &w, SLOT(clearLog(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(P3Penabled(bool)), &w, SLOT(enableP3P(bool)), Qt::DirectConnection);
+	QObject::connect(&commObj, SIGNAL(progressUpdated(int)), &w, SLOT(progressUpdate(int)), Qt::DirectConnection);
 
 	commObj.addLog("RigidTrack Version:");
 	commObj.addLog(QString::number(_MSC_FULL_VER));
@@ -756,7 +757,7 @@ int setZero()
 					add(posRef, Tvec, posRef);
 					add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
 					numberSamples++;	//==-- one sample more :D
-					commObj.addLog(QString::number(numberSamples*100 / numberToSample));
+					commObj.progressUpdate(numberSamples*100 / numberToSample);
 				}
 				positionOld = Tvec;
 
@@ -810,7 +811,7 @@ int setZero()
 		ss << "Caution, distance between reference position and last position is: " << error << "\n Start the set zero routine once again.";
 	}
 	commObj.addLog(QString::fromStdString(ss.str()));
-
+	commObj.progressUpdate(0);
 	return 0;
 }
 

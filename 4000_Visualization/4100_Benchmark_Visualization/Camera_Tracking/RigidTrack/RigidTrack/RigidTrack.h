@@ -20,6 +20,7 @@ public slots:
 	void on_btnCalibrate_clicked();
 	void setImage(QPixmap image);
 	void clearLog();
+	void progressUpdate(int value);
 	void on_btnLoadCalib_clicked();
 	void setLog(QString logText);
 	void on_sbHeadingOffset_valueChanged(double d);

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'RigidTrack.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -23,6 +23,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSpinBox>
@@ -63,6 +64,7 @@ public:
     QCheckBox *cbSafety2;
     QLineEdit *leIPSafety2;
     QCheckBox *cbInvert;
+    QProgressBar *progressBar;
     QMenuBar *menuBar;
     QMenu *menuHelp;
     QToolBar *mainToolBar;
@@ -72,7 +74,7 @@ public:
     {
         if (RigidTrackClass->objectName().isEmpty())
             RigidTrackClass->setObjectName(QStringLiteral("RigidTrackClass"));
-        RigidTrackClass->resize(876, 911);
+        RigidTrackClass->resize(876, 924);
         RigidTrackClass->setWindowTitle(QStringLiteral("Rigid Track"));
         QIcon icon;
         icon.addFile(QStringLiteral("pattern.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -99,7 +101,7 @@ public:
         btnLoadCalib->setGeometry(QRect(160, 60, 101, 41));
         listLog = new QListWidget(centralWidget);
         listLog->setObjectName(QStringLiteral("listLog"));
-        listLog->setGeometry(QRect(10, 680, 851, 170));
+        listLog->setGeometry(QRect(10, 700, 851, 170));
         listLog->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         sbHeadingOffset = new QDoubleSpinBox(centralWidget);
         sbHeadingOffset->setObjectName(QStringLiteral("sbHeadingOffset"));
@@ -173,6 +175,12 @@ public:
         cbInvert = new QCheckBox(centralWidget);
         cbInvert->setObjectName(QStringLiteral("cbInvert"));
         cbInvert->setGeometry(QRect(280, 60, 70, 17));
+        progressBar = new QProgressBar(centralWidget);
+        progressBar->setObjectName(QStringLiteral("progressBar"));
+        progressBar->setGeometry(QRect(10, 670, 850, 20));
+        progressBar->setValue(0);
+        progressBar->setTextVisible(true);
+        progressBar->setOrientation(Qt::Horizontal);
         RigidTrackClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(RigidTrackClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -197,51 +205,51 @@ public:
 
     void retranslateUi(QMainWindow *RigidTrackClass)
     {
-        actionShow_Help->setText(QApplication::translate("RigidTrackClass", "Show Help", 0));
-        btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", 0));
-        lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", 0));
-        btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", 0));
+        actionShow_Help->setText(QApplication::translate("RigidTrackClass", "Show Help", Q_NULLPTR));
+        btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", Q_NULLPTR));
+        lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", Q_NULLPTR));
+        btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", Q_NULLPTR));
         btnCalibrate->setText(QApplication::translate("RigidTrackClass", "Calibrate\n"
-"Camera", 0));
+"Camera", Q_NULLPTR));
         btnLoadCalib->setText(QApplication::translate("RigidTrackClass", "Load\n"
-"Calibration", 0));
-        label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", 0));
-        leIPObject->setText(QApplication::translate("RigidTrackClass", "192.168.137.254:9155", 0));
-        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress:Port of Object Wifi Chip Press Return to Apply Changes", 0));
-        groupBox->setTitle(QApplication::translate("RigidTrackClass", "PnP Algorithm", 0));
-        rbIterative->setText(QApplication::translate("RigidTrackClass", "Iterative", 0));
-        rbP3P->setText(QApplication::translate("RigidTrackClass", "P3P", 0));
-        groupBox_2->setTitle(QApplication::translate("RigidTrackClass", "Safety Protection", 0));
+"Calibration", Q_NULLPTR));
+        label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", Q_NULLPTR));
+        leIPObject->setText(QApplication::translate("RigidTrackClass", "192.168.137.254:9155", Q_NULLPTR));
+        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress:Port of Object Wifi Chip Press Return to Apply Changes", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("RigidTrackClass", "PnP Algorithm", Q_NULLPTR));
+        rbIterative->setText(QApplication::translate("RigidTrackClass", "Iterative", Q_NULLPTR));
+        rbP3P->setText(QApplication::translate("RigidTrackClass", "P3P", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("RigidTrackClass", "Safety Protection", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        cbSafety->setToolTip(QApplication::translate("RigidTrackClass", "If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.", 0));
+        cbSafety->setToolTip(QApplication::translate("RigidTrackClass", "If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        cbSafety->setText(QApplication::translate("RigidTrackClass", "Enable Safety Area", 0));
+        cbSafety->setText(QApplication::translate("RigidTrackClass", "Enable Safety Area", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        dsbDimension->setToolTip(QApplication::translate("RigidTrackClass", "Maximum distance of the object to the starting point in each dimension. If exceeded a disable signal is sent via UDP", 0));
-#endif // QT_NO_TOOLTIP
-#ifndef QT_NO_TOOLTIP
-        sbAngle->setToolTip(QApplication::translate("RigidTrackClass", "Maximum bank and pitch angle of the object. If exceeded a disable signal is sent via UDP", 0));
+        dsbDimension->setToolTip(QApplication::translate("RigidTrackClass", "Maximum distance of the object to the starting point in each dimension. If exceeded a disable signal is sent via UDP", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
-        lbSafetyArea->setToolTip(QApplication::translate("RigidTrackClass", "Maximum distance of the object to the starting point in each dimension. If exceeded a disable signal is sent via UDP", 0));
+        sbAngle->setToolTip(QApplication::translate("RigidTrackClass", "Maximum bank and pitch angle of the object. If exceeded a disable signal is sent via UDP", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        lbSafetyArea->setText(QApplication::translate("RigidTrackClass", "Safety Area Dimensions ", 0));
 #ifndef QT_NO_TOOLTIP
-        lbSafetyArea_2->setToolTip(QApplication::translate("RigidTrackClass", "Maximum bank and pitch angle of the object. If exceeded a disable signal is sent via UDP", 0));
+        lbSafetyArea->setToolTip(QApplication::translate("RigidTrackClass", "Maximum distance of the object to the starting point in each dimension. If exceeded a disable signal is sent via UDP", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        lbSafetyArea_2->setText(QApplication::translate("RigidTrackClass", "Safety Area Angles", 0));
-        leIPSafety->setText(QApplication::translate("RigidTrackClass", "192.168.137.2:9155", 0));
-        label_3->setText(QApplication::translate("RigidTrackClass", "IP Adress of Emergency Switch Press Return to Apply", 0));
+        lbSafetyArea->setText(QApplication::translate("RigidTrackClass", "Safety Area Dimensions ", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        lbSafetyArea_2->setToolTip(QApplication::translate("RigidTrackClass", "Maximum bank and pitch angle of the object. If exceeded a disable signal is sent via UDP", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        lbSafetyArea_2->setText(QApplication::translate("RigidTrackClass", "Safety Area Angles", Q_NULLPTR));
+        leIPSafety->setText(QApplication::translate("RigidTrackClass", "192.168.137.2:9155", Q_NULLPTR));
+        label_3->setText(QApplication::translate("RigidTrackClass", "IP Adress of Emergency Switch Press Return to Apply", Q_NULLPTR));
         pbLoadMarker->setText(QApplication::translate("RigidTrackClass", "Load Marker\n"
-"Configuration", 0));
-        groupBox_3->setTitle(QApplication::translate("RigidTrackClass", "Additional Receiver", 0));
+"Configuration", Q_NULLPTR));
+        groupBox_3->setTitle(QApplication::translate("RigidTrackClass", "Additional Receiver", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        cbSafety2->setToolTip(QApplication::translate("RigidTrackClass", "If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.", 0));
+        cbSafety2->setToolTip(QApplication::translate("RigidTrackClass", "If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        cbSafety2->setText(QApplication::translate("RigidTrackClass", "Send to second Receiver", 0));
-        leIPSafety2->setText(QApplication::translate("RigidTrackClass", "192.168.137.254:9155", 0));
-        cbInvert->setText(QApplication::translate("RigidTrackClass", "Invert Z", 0));
-        menuHelp->setTitle(QApplication::translate("RigidTrackClass", "Help", 0));
+        cbSafety2->setText(QApplication::translate("RigidTrackClass", "Send to second Receiver", Q_NULLPTR));
+        leIPSafety2->setText(QApplication::translate("RigidTrackClass", "192.168.137.254:9155", Q_NULLPTR));
+        cbInvert->setText(QApplication::translate("RigidTrackClass", "Invert Z", Q_NULLPTR));
+        menuHelp->setTitle(QApplication::translate("RigidTrackClass", "Help", Q_NULLPTR));
         Q_UNUSED(RigidTrackClass);
     } // retranslateUi
 

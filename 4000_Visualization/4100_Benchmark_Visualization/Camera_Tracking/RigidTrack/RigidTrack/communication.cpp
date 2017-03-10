@@ -34,3 +34,9 @@ void commObject::enableP3P(bool value)
 	emit P3Penabled(value);
 	QCoreApplication::processEvents();
 }
+
+void commObject::progressUpdate(int value)
+{
+	emit progressUpdated(value);
+	QCoreApplication::processEvents();
+}

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_commObject_t {
-    QByteArrayData data[11];
-    char stringdata0[98];
+    QByteArrayData data[12];
+    char stringdata0[114];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,12 +39,13 @@ QT_MOC_LITERAL(6, 53, 8), // "logAdded"
 QT_MOC_LITERAL(7, 62, 7), // "LogText"
 QT_MOC_LITERAL(8, 70, 10), // "logCleared"
 QT_MOC_LITERAL(9, 81, 10), // "P3Penabled"
-QT_MOC_LITERAL(10, 92, 5) // "value"
+QT_MOC_LITERAL(10, 92, 5), // "value"
+QT_MOC_LITERAL(11, 98, 15) // "progressUpdated"
 
     },
     "commObject\0statusChanged\0\0newText\0"
     "imageChanged\0image\0logAdded\0LogText\0"
-    "logCleared\0P3Penabled\0value"
+    "logCleared\0P3Penabled\0value\0progressUpdated"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,19 +55,20 @@ static const uint qt_meta_data_commObject[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       5,       // signalCount
+       6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x06 /* Public */,
-       4,    1,   42,    2, 0x06 /* Public */,
-       6,    1,   45,    2, 0x06 /* Public */,
-       8,    0,   48,    2, 0x06 /* Public */,
-       9,    1,   49,    2, 0x06 /* Public */,
+       1,    1,   44,    2, 0x06 /* Public */,
+       4,    1,   47,    2, 0x06 /* Public */,
+       6,    1,   50,    2, 0x06 /* Public */,
+       8,    0,   53,    2, 0x06 /* Public */,
+       9,    1,   54,    2, 0x06 /* Public */,
+      11,    1,   57,    2, 0x06 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -74,6 +76,7 @@ static const uint qt_meta_data_commObject[] = {
     QMetaType::Void, QMetaType::QString,    7,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   10,
+    QMetaType::Void, QMetaType::Int,   10,
 
        0        // eod
 };
@@ -89,6 +92,7 @@ void commObject::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->logAdded((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->logCleared(); break;
         case 4: _t->P3Penabled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 5: _t->progressUpdated((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -129,6 +133,13 @@ void commObject::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 return;
             }
         }
+        {
+            typedef void (commObject::*_t)(int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&commObject::progressUpdated)) {
+                *result = 5;
+                return;
+            }
+        }
     }
 }
 
@@ -157,13 +168,13 @@ int commObject::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }
@@ -200,5 +211,12 @@ void commObject::P3Penabled(bool _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 4, _a);
+}
+
+// SIGNAL 5
+void commObject::progressUpdated(int _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
 }
 QT_END_MOC_NAMESPACE

@@ -31,6 +31,11 @@ void RigidTrack::clearLog()
 	ui.listLog->reset();
 }
 
+void RigidTrack::progressUpdate(int value)
+{
+	RigidTrack::ui.progressBar->setValue(value);
+}
+
 void RigidTrack::on_btnLoadCalib_clicked()
 {
 	load_calibration(1);

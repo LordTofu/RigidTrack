@@ -13,6 +13,7 @@ public:
 	void addLog(QString LogText);
 	void clearLog();
 	void enableP3P(bool value);
+	void progressUpdate(int value);
 	
 
 	signals:
@@ -21,6 +22,7 @@ public:
 	   void logAdded(QString LogText);
 	   void logCleared();
 	   void P3Penabled(bool value);
+	   void progressUpdated(int value);
 
 };
 #endif // EMITTING_H
