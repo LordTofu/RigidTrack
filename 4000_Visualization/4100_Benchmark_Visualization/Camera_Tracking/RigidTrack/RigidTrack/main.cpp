@@ -561,12 +561,13 @@ int setZero()
 
 	//set exposure such that num markers are visible
 	int numberObjects = 0;	// Number of objects (markers) found in the current picture with the given exposure	
-	int minExposure = 0;	// exposure when objects detected the first time is numberMarkers 
+	int minExposure = 1;	// exposure when objects detected the first time is numberMarkers 
 	int maxExposure = 480;	// exposure when objects detected is first time numberMarkers+1
 	intExposure = minExposure;	// set the exposure to the smallest value possible
 	int numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
 
 	// Determine minimum exposure, hence when are numberMarkers objects detected
+	camera->SetExposure(intExposure);
 	while (numberObjects != numberMarkers && numberTries < 48)
 	{
 		// get a new camera frame
@@ -588,10 +589,11 @@ int setZero()
 		}
 	}
 
-	commObj.clearLog();// Delete entries in the log because a lot of entries make it slow
 	// Now determine maximum exposure, hence when are numberMarkers+1 objects detected
 	numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
 	intExposure = maxExposure;
+	camera->SetExposure(intExposure);
+	numberObjects = 0;
 	while (numberObjects != numberMarkers && numberTries < 48)
 	{
 		Frame *frame = camera->GetFrame();
@@ -616,8 +618,11 @@ int setZero()
 	camera->SetExposure((minExposure + maxExposure) / 2.0);
 
 	// and now check if the correct amount of markers is detected with that new value
-	Frame *frame = camera->GetFrame();
-	if (frame)
+	
+	while(1)
+	{	
+		Frame *frame = camera->GetFrame();
+		if (frame)
 	{
 		numberObjects = frame->ObjectCount(); // how many objects are detected in the image
 		if (numberObjects != numberMarkers) // are all markers and not more or less detected in the image
@@ -632,8 +637,12 @@ int setZero()
 		{
 			frame->Release();
 			commObj.addLog("Found the correct number of markers");
+			intExposure = (minExposure + maxExposure) / 2.0;
+			break;
 		}
 	}
+	}
+
 
 	// sample some frames and calculate the position and attitude. then average those values and use that as zero position
 	int numberSamples = 0;
@@ -747,9 +756,7 @@ int setZero()
 					add(posRef, Tvec, posRef);
 					add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
 					numberSamples++;	//==-- one sample more :D
-					ss.str("");
-					ss << "Tvec = " << Tvec << "\n";
-					commObj.addLog(QString::fromStdString(ss.str()));
+					commObj.addLog(QString::number(numberSamples*100 / numberToSample));
 				}
 				positionOld = Tvec;
 
