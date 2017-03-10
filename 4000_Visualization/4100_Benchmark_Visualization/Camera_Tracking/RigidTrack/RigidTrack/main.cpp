@@ -140,6 +140,11 @@ int main(int argc, char *argv[])
 	QObject::connect(&commObj, SIGNAL(logCleared()), &w, SLOT(clearLog(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(P3Penabled(bool)), &w, SLOT(enableP3P(bool)), Qt::DirectConnection);
 
+	commObj.addLog("RigidTrack Version:");
+	commObj.addLog(QString::number(_MSC_FULL_VER));
+	commObj.addLog("Built on:");
+	commObj.addLog(QString(__DATE__));
+
 	// initial guesses for position and rotation, important for Iterative Method!
 	Tvec.at<double>(0) = 45;
 	Tvec.at<double>(1) = 45;
@@ -171,8 +176,6 @@ int main(int argc, char *argv[])
 	setHeadingOffset(0.0); // set the heading offset to 0 
 
 	ss.precision(4); // outputs in the log etc are limited to 3 decimal values
-	ss.fill('0');
-	ss.width(6);
 
 	loadCameraPosition(); // load the rotation matrix from camera CoSy to ground CoSy
 	load_calibration(0); // load the calibration file with the camera intrinsics
@@ -225,7 +228,7 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 int start_camera() {
 
 	GetLocalTime(&logDate);
-	logFileName = "positionLog_" + QString::number(logDate.wDay) + "_" +  QString::number(logDate.wMonth) + "_" + QString::number(logDate.wYear);
+	logFileName = "./logs/positionLog_" + QString::number(logDate.wDay) + "_" +  QString::number(logDate.wMonth) + "_" + QString::number(logDate.wYear);
 	logFileName += "_" + QString::number(logDate.wHour) + "_" + QString::number(logDate.wMinute) + "_" + QString::number(logDate.wSecond) + ".txt";
 	logName = logFileName.toStdString(); // save the filename as standard string
 	
