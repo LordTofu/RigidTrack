@@ -66,3 +66,5 @@ void loadMarkerConfig(int method);
 void drawPositionText(cv::Mat &Picture, cv::Vec3d &Position, cv::Vec3d &Euler);
 void loadCameraPosition();
 int determineExposure();
+void determineOrder();
+int calibrateGround();

@@ -72,7 +72,7 @@ int intThreshold = 200;	// threshold value for marker detection. If markers are 
 
 //== Rotation, translation etc. matrix for PnP results
 Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);		// rotation matrix from camera CoSy to marker CoSy
-Mat RmatRef = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// reference rotation matrix from camera CoSy to marker CoSy
+Mat RmatRef = (cv::Mat_<double>(3, 3) << 1., 0., 0., 0., 1., 0., 0., 0., 1.);	// reference rotation matrix from camera CoSy to marker CoSy
 Mat M_NC = cv::Mat_<double>(3, 3);							// rotation matrix from camera to ground, fixed for given camera position
 Mat M_HeadingOffset = cv::Mat_<double>(3, 3);				// rotation matrix that turns the ground system to the INS magnetic heading for alignment
 Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// rotation vector (axis-angle notation) from camera CoSy to marker CoSy
@@ -228,11 +228,13 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 // start the loop that fetches frames, computes the position etc and sends it to the object
 int start_camera() {
 
+	Rvec = RvecOriginal;
+	Tvec = TvecOriginal;
 	GetLocalTime(&logDate);
-	logFileName = "./logs/positionLog_" + QString::number(logDate.wDay) + "_" +  QString::number(logDate.wMonth) + "_" + QString::number(logDate.wYear);
+	logFileName = "./logs/positionLog_" + QString::number(logDate.wDay) + "_" + QString::number(logDate.wMonth) + "_" + QString::number(logDate.wYear);
 	logFileName += "_" + QString::number(logDate.wHour) + "_" + QString::number(logDate.wMinute) + "_" + QString::number(logDate.wSecond) + ".txt";
 	logName = logFileName.toStdString(); // save the filename as standard string
-	
+
 	determineExposure();
 
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
@@ -290,7 +292,7 @@ int start_camera() {
 	double minValue = 0;
 	int framesDropped = 0; // if a marker is not visible or accuracy is bad increase this counter.
 	double projectionError = 0; // equals the quality of the tracking
-
+	
 	setUpUDP();	// open sockets and ports for UDP communication
 
 	if (safetyEnable) // if the safety feature is enabled enable the circuit breaker
@@ -302,7 +304,7 @@ int start_camera() {
 		udpSocketSafety->write(data);
 
 	}
-	
+
 	// now enter the main loop that processes each frame
 	while (!exitRequested)
 	{
@@ -311,8 +313,7 @@ int start_camera() {
 
 		if (frame)
 		{
-			framesDropped++;
-			v++;  // helper variable to print data every x-frame
+			framesDropped++;	// increase the helper variable by 1
 			//== Ok, we've received a new frame, lets do something
 			//== with it.
 
@@ -320,12 +321,25 @@ int start_camera() {
 			if (frame->ObjectCount() == numberMarkers)
 			{
 				framesDropped = 0;	// set number of subsequent frames dropped to zero
+
 				// get the marker points in 2D in the camera image frame and store them in the list_points2dUnsorted vector
 				for (int i = 0; i < numberMarkers; i++)
 				{
 					cObject *obj = frame->Object(i);
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
+
+				if (gotOrder == false)
+				{
+					determineOrder();
+				}
+
+				// sort the 2d points with the correct indices as found in the preceeding order determination algorithm
+				for (int w = 0; w < numberMarkers; w++)
+				{
+					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]];
+				}
+				list_points2dOld = list_points2dUnsorted;
 
 				// Now its time to determine the order of the points (or better the 2D-3D correspondences)
 				// for that the distance from the new points to the old points is calculated
@@ -366,16 +380,19 @@ int start_camera() {
 				// project the marker 3d points with the solution into the camera image CoSy and calculate difference to true camera image
 				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 				projectionError = norm(list_points2dProjected, list_points2d);
-				
+
 				// get the min and max values from TVec for sanity check
 				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
 
-				// sanity check of values. negative z means the marker CoSy is behind the camera, that's not possible. And usually the marker CoSy is nearer than 10000mm
-				if ((maxValue > 10000 || minValue < 0))
+				// sanity check of values. negative z means the marker CoSy is behind the camera, that's not possible.
+				if (minValue < 0)
 				{
 					commObj.addLog("Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n");
 					frame->Release();
 					framesDropped++;
+					camera->Release();
+					closeUDP();
+					return 1;
 				}
 
 				subtract(posRef, Tvec, position);	// compute the relative object position from the reference position to the current one, given in the camera CoSy
@@ -399,6 +416,7 @@ int start_camera() {
 
 				//send position and euler angles else to object over WiFi with 100 Hz
 				sendDataUDP(position, eulerAngles);
+
 			}
 
 			// check if the position and euler angles are below the allowed value, if yes send enable to the circuit breaker, if not send shutdown signal
@@ -477,7 +495,7 @@ int start_camera() {
 
 			// draw the current position and attitude values as text in the frame
 			drawPositionText(cFrame, position, eulerAngles);
-			
+
 			// send the new camera picture with infos to the GUI and call the GUI processing routine
 			QPixmap QPFrame;
 			QPFrame = Mat2QPixmap(cFrame);
@@ -568,7 +586,7 @@ int setZero()
 	// sample some frames and calculate the position and attitude. then average those values and use that as zero position
 	int numberSamples = 0;
 	int numberToSample = 200;
-	
+
 	while (numberSamples < numberToSample)
 	{
 		//== Fetch a new frame from the camera ===---
@@ -587,66 +605,9 @@ int setZero()
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
 
-				// determine the 3D-2D correspondences that are crucial for the PnP algorithm
-				// Try every possible correspondence and solve PnP
-				// Then project the 3D marker points into the 2D camera image and check the difference 
-				// between projected points and points as seen by the camera
-				// the corresponce with the smallest difference is probably the correct one
 				if (gotOrder == false)
 				{
-					// the difference between true 2D points and projected points is super big
-					minPointDistance = 5000;
-					std::sort(pointOrderIndices, pointOrderIndices + 4);
-
-					// now try every possible permutation of correspondence
-					do {
-						// reset the starting values for solvePnP
-						Rvec = RvecOriginal;
-						Tvec = TvecOriginal;
-
-						// sort the 2d points with the current permutation
-						for (int m = 0; m < numberMarkers; m++)
-						{
-							list_points2d[m] = list_points2dUnsorted[pointOrderIndices[m]];
-						}
-
-						// Call solve PNP with P3P since its more robust and sufficient for start value determination
-						solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, SOLVEPNP_P3P);
-						
-						// set the current difference of all point correspondences to zero
-						currentPointDistance = 0;
-
-						// project the 3D points with the solvePnP solution onto 2D
-						projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
-
-						// now compute the absolute difference (error)
-						for (int n = 0; n < numberMarkers; n++)
-						{
-							currentPointDistance += norm(list_points2d[n] - list_points2dProjected[n]);
-						}
-
-						// if the difference with the current permutation is smaller than the smallest value till now
-						// it is probably the more correct permutation
-						if (currentPointDistance < minPointDistance)
-						{
-							minPointDistance = currentPointDistance;	// set the smallest value of difference to the current one
-							for (int b = 0; b < numberMarkers; b++)	// now safe the better permutation
-							{
-								pointOrderIndicesNew[b] = pointOrderIndices[b];
-							}
-						}
-
-
-					}
-					// try every permutation 
-					while (std::next_permutation(pointOrderIndices, pointOrderIndices + 4));
-
-					// now that the correct order is found assign it to the indices array
-					for (int w = 0; w < numberMarkers; w++)
-					{
-						pointOrderIndices[w] = pointOrderIndicesNew[w];
-					}
-					gotOrder = true;
+					determineOrder();
 				}
 
 				// sort the 2d points with the correct indices as found in the preceeding order determination algorithm
@@ -677,7 +638,7 @@ int setZero()
 					add(posRef, Tvec, posRef);
 					add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
 					numberSamples++;	//==-- one sample more :D
-					commObj.progressUpdate(numberSamples*100 / numberToSample);
+					commObj.progressUpdate(numberSamples * 100 / numberToSample);
 				}
 				positionOld = Tvec;
 
@@ -692,7 +653,7 @@ int setZero()
 				{
 					circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
 				}
-				
+
 				QPixmap QPFrame;
 				QPFrame = Mat2QPixmap(cFrame);
 				commObj.changeImage(QPFrame);
@@ -716,9 +677,9 @@ int setZero()
 	ss << "====================== RmatRef ========================\n";
 	ss << RmatRef << "\n";
 	ss << "================= Reference Position ==================\n";
-	ss << posRef << "\n";
+	ss << posRef << "[mm] \n";
 	ss << "=============== Reference Euler Angles ================\n";
-	ss << eulerRef << "\n";
+	ss << eulerRef << "[deg] \n";
 
 	// compute the difference between last obtained TVec and the average Value
 	// When it is large the iterative method has not converged properly so it is advised to start the setZero() function once again
@@ -861,8 +822,8 @@ int calibrate_camera()
 	camera->Release();
 
 	// Save the obtained calibration coefficients in a file for later use
-	QString fileName = QFileDialog::getSaveFileName(nullptr, "Save Calibration File", "","Calibration File (*.xml);;All Files (*)");
-	FileStorage fs(fileName.toUtf8().constData() , FileStorage::WRITE);//+ FileStorage::MEMORY);
+	QString fileName = QFileDialog::getSaveFileName(nullptr, "Save Calibration File", "", "Calibration File (*.xml);;All Files (*)");
+	FileStorage fs(fileName.toUtf8().constData(), FileStorage::WRITE);//+ FileStorage::MEMORY);
 	fs << "CameraMatrix" << cameraMatrix;
 	fs << "DistCoeff" << distCoeffs;
 	fs << "RMS" << rms;
@@ -882,8 +843,8 @@ void load_calibration(int method) {
 	}
 	else
 	{
-		fileName = QFileDialog::getOpenFileName(nullptr, "Choose a previous saved calibration file", "","Calibration Files (*.xml);;All Files (*)");
-		if(fileName.length() == 0)
+		fileName = QFileDialog::getOpenFileName(nullptr, "Choose a previous saved calibration file", "", "Calibration Files (*.xml);;All Files (*)");
+		if (fileName.length() == 0)
 		{
 			fileName = "calibration.xml";
 		}
@@ -1004,7 +965,7 @@ void test_Algorithm()
 
 		putText(cFrame, "Testing Algorithms Finished", cv::Point(5, 420), 1, 1, cv::Scalar(255, 255, 255));
 		drawPositionText(cFrame, position, eulerAngles);
-		
+
 		QPixmap QPFrame;
 		QPFrame = Mat2QPixmap(cFrame);
 		commObj.changeImage(QPFrame);
@@ -1058,8 +1019,8 @@ void setUpUDP()
 	udpSocketSafety2 = new QUdpSocket(0);
 
 	// if the safety feature is activated open the udp port
-	if(safetyEnable)
-	{ 
+	if (safetyEnable)
+	{
 		udpSocketSafety->connectToHost(IPAdressSafety, portSafety);
 		commObj.addLog("Opened Safety UDP Port");
 	}
@@ -1107,12 +1068,12 @@ void setHeadingOffset(double d)
 void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler)
 {
 	datagram.clear();
-	out << (float)Position[0] << (float)Position[1] << (-1*(float)Position[2]);
+	out << (float)Position[0] << (float)Position[1] << (-1 * (float)Position[2]);
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
 	udpSocketObject->writeDatagram(datagram, IPAdressObject, portObject);
 
 	// if second receiver is activated send it also the tracking data
-	if(safety2Enable)
+	if (safety2Enable)
 	{
 		udpSocketSafety2->writeDatagram(datagram, IPAdressSafety2, portSafety2);
 	}
@@ -1144,7 +1105,7 @@ void show_Help()
 void closeUDP()
 {
 	// check if the socket is open and if yes close it
-	if(udpSocketObject->isOpen())
+	if (udpSocketObject->isOpen())
 	{
 		udpSocketObject->close();
 	}
@@ -1157,7 +1118,7 @@ void closeUDP()
 	if (udpSocketSafety2->isOpen())
 	{
 		udpSocketSafety2->close();
-	}	
+	}
 }
 
 // load a marker configuration from file. This has to be created by hand, use the standard marker configuration file as template
@@ -1173,7 +1134,7 @@ void loadMarkerConfig(int method)
 
 		// copy the values to the respective variables
 		fs["numberMarkers"] >> numberMarkers;
-		
+
 		// inizialise vectors with correct length depending on the number of markers
 		list_points3d = std::vector<Point3d>(numberMarkers);
 		list_points2d = std::vector<Point2d>(numberMarkers);
@@ -1187,15 +1148,15 @@ void loadMarkerConfig(int method)
 		fs.release();
 		commObj.addLog("Loaded marker configuration from file:");
 		commObj.addLog(fileName);
-		
-		
-		
+
+
+
 	}
 	else
 	{
 		// if the load marker configuration button was clicked show a open file dialog 
 		fileName = QFileDialog::getOpenFileName(nullptr, "Choose a previous saved marker configuration file", "", "marker configuratio files (*.xml);;All Files (*)");
-		
+
 		// was cancel or abort clicked 
 		if (fileName.length() == 0)
 		{
@@ -1225,17 +1186,17 @@ void loadMarkerConfig(int method)
 		commObj.addLog(fileName);
 
 	}
-	
+
 	// Print out the number of markers and their position to the GUI
 	ss.str("");
 	ss << "Number of Markers: " << numberMarkers << "\n";
 	ss << "Marker 3D Points X,Y and Z [mm]: \n";
 	for (int i = 0; i < numberMarkers; i++)
 	{
-		ss << "Marker " << i+1 << ":\t" << list_points3d[i].x << "\t" << list_points3d[i].y << "\t" << list_points3d[i].z << "\n";
+		ss << "Marker " << i + 1 << ":\t" << list_points3d[i].x << "\t" << list_points3d[i].y << "\t" << list_points3d[i].z << "\n";
 	}
 	commObj.addLog(QString::fromStdString(ss.str()));
-	
+
 	// check if P3P algorithm can be enabled, it needs exactly 4 marker points to work
 	if (numberMarkers == 4)
 	{
@@ -1250,7 +1211,7 @@ void loadMarkerConfig(int method)
 		commObj.enableP3P(false);
 		commObj.addLog("P3P Algorithm disabled, only works with 4 markers");
 	}
-	
+
 }
 
 // draw the position and attitude in the picture 
@@ -1258,7 +1219,7 @@ void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler)
 {
 	ss.str("");
 	ss << "X: " << Position[0] << " m";
-	putText(Picture, ss.str() , cv::Point(200, 440), 1, 1, cv::Scalar(255, 255, 255));
+	putText(Picture, ss.str(), cv::Point(200, 440), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
 	ss << "Y: " << Position[1] << " m";
@@ -1269,7 +1230,7 @@ void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler)
 	putText(Picture, ss.str(), cv::Point(200, 470), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
-	ss  << "Heading: " << Euler[2] << " deg";
+	ss << "Heading: " << Euler[2] << " deg";
 	putText(Picture, ss.str(), cv::Point(350, 440), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
@@ -1289,6 +1250,9 @@ void loadCameraPosition()
 	FileStorage fs;
 	fs.open("referenceData.xml", FileStorage::READ);
 	fs["M_NC"] >> M_NC;
+	fs["M_NC"] >> RmatRef;
+	fs["posRef"] >> posRef;
+	fs["eulerRef"] >> eulerRef;
 	commObj.addLog("Loaded Reference Data!");
 }
 
@@ -1423,5 +1387,234 @@ int determineExposure()
 	}
 
 	camera->Release();
+	return 0;
 
+}
+
+void determineOrder()
+{
+	// determine the 3D-2D correspondences that are crucial for the PnP algorithm
+	// Try every possible correspondence and solve PnP
+	// Then project the 3D marker points into the 2D camera image and check the difference 
+	// between projected points and points as seen by the camera
+	// the corresponce with the smallest difference is probably the correct one
+	
+		// the difference between true 2D points and projected points is super big
+		minPointDistance = 5000;
+		std::sort(pointOrderIndices, pointOrderIndices + 4);
+
+		// now try every possible permutation of correspondence
+		do {
+			// reset the starting values for solvePnP
+			Rvec = RvecOriginal;
+			Tvec = TvecOriginal;
+
+			// sort the 2d points with the current permutation
+			for (int m = 0; m < numberMarkers; m++)
+			{
+				list_points2d[m] = list_points2dUnsorted[pointOrderIndices[m]];
+			}
+
+			// Call solve PNP with P3P since its more robust and sufficient for start value determination
+			solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, SOLVEPNP_P3P);
+
+			// set the current difference of all point correspondences to zero
+			currentPointDistance = 0;
+
+			// project the 3D points with the solvePnP solution onto 2D
+			projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+
+			// now compute the absolute difference (error)
+			for (int n = 0; n < numberMarkers; n++)
+			{
+				currentPointDistance += norm(list_points2d[n] - list_points2dProjected[n]);
+			}
+
+			// if the difference with the current permutation is smaller than the smallest value till now
+			// it is probably the more correct permutation
+			if (currentPointDistance < minPointDistance)
+			{
+				minPointDistance = currentPointDistance;	// set the smallest value of difference to the current one
+				for (int b = 0; b < numberMarkers; b++)	// now safe the better permutation
+				{
+					pointOrderIndicesNew[b] = pointOrderIndices[b];
+				}
+			}
+
+
+		}
+		// try every permutation 
+		while (std::next_permutation(pointOrderIndices, pointOrderIndices + 4));
+
+		// now that the correct order is found assign it to the indices array
+		for (int w = 0; w < numberMarkers; w++)
+		{
+			pointOrderIndices[w] = pointOrderIndicesNew[w];
+		}
+		gotOrder = true;
+}
+
+int calibrateGround()
+{
+	// initialize the variables with starting values
+	posRef = 0;
+	eulerRef = 0;
+	RmatRef = 0;
+	Rvec = RvecOriginal;
+	Tvec = TvecOriginal;
+
+	determineExposure();
+
+	ss.str("");
+	commObj.addLog("Started Ground Calibration");
+
+	CameraLibrary_EnableDevelopment();
+	//== Initialize Camera SDK ==--
+	CameraLibrary::CameraManager::X();
+
+	//== At this point the Camera SDK is actively looking for all connected cameras and will initialize
+	//== them on it's own.
+
+	//== Get a connected camera ================----
+	CameraManager::X().WaitForInitialization();
+	Camera *camera = CameraManager::X().GetCamera();
+
+	//== If no device connected, pop a message box and exit ==--
+	if (camera == 0)
+	{
+		commObj.addLog("No Camera found!");
+		return 1;
+	}
+
+	//== Determine camera resolution to size application window ==----
+	int cameraWidth = camera->Width();
+	int cameraHeight = camera->Height();
+	camera->GetDistortionModel(distModel);
+	cv::Mat matFrame(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
+
+	// Set camera mode to precision mode, it directly provides marker coordinates
+	camera->SetVideoType(Core::PrecisionMode);
+
+	//== Start camera output ==--
+	camera->Start();
+
+	//== Turn on some overlay text so it's clear things are     ===---
+	//== working even if there is nothing in the camera's view. ===---
+	// Set some other parameters as well of the camera
+	camera->SetTextOverlay(true);
+	camera->SetFrameRate(intFrameRate);
+	camera->SetIntensity(intIntensity);
+	camera->SetIRFilter(true);
+	camera->SetContinuousIR(false);
+	camera->SetHighPowerMode(false);
+
+	// sample some frames and calculate the position and attitude. then average those values and use that as zero position
+	int numberSamples = 0;
+	int numberToSample = 200;
+
+	while (numberSamples < numberToSample)
+	{
+		//== Fetch a new frame from the camera ===---
+		Frame *frame = camera->GetFrame();
+
+		if (frame)
+		{
+			//== Ok, we've received a new frame, lets do something
+			//== with it.
+			if (frame->ObjectCount() == numberMarkers)
+			{
+				//==for(int i=0; i<frame->ObjectCount(); i++)
+				for (int i = 0; i < numberMarkers; i++)
+				{
+					cObject *obj = frame->Object(i);
+					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
+				}
+
+				if (gotOrder == false)
+				{
+					determineOrder();
+				}
+
+				// sort the 2d points with the correct indices as found in the preceeding order determination algorithm
+				for (int w = 0; w < numberMarkers; w++)
+				{
+					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]];
+				}
+				list_points2dOld = list_points2dUnsorted;
+
+				//Compute the pose from the 3D-2D corresponses
+				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+
+				double maxValue = 0;
+				double minValue = 0;
+				minMaxLoc(Tvec.at<double>(2), &minValue, &maxValue);
+
+				if (maxValue > 10000 || minValue < 0)
+				{
+					ss.str("");
+					ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
+					commObj.addLog(QString::fromStdString(ss.str()));
+					frame->Release();
+					return 1;
+				}
+
+				if (norm(positionOld) - norm(Tvec) < 0.05)	//Iterative Method needs time to converge to solution
+				{
+					add(posRef, Tvec, posRef);
+					add(eulerRef, Rvec, eulerRef); // That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
+					numberSamples++;	//==-- one sample more :D
+					commObj.progressUpdate(numberSamples * 100 / numberToSample);
+				}
+				positionOld = Tvec;
+
+				Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
+				for (int i = 0; i < numberMarkers; i++)
+				{
+					circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 6, Scalar(0, 225, 0), 3);
+				}
+				projectCoordinateFrame(cFrame);
+				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2d);
+				for (int i = 0; i < numberMarkers; i++)
+				{
+					circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
+				}
+
+				QPixmap QPFrame;
+				QPFrame = Mat2QPixmap(cFrame);
+				commObj.changeImage(QPFrame);
+				QCoreApplication::processEvents();
+
+			}
+			frame->Release();
+		}
+	}
+	//== Release camera ==--
+	camera->Release();
+
+	//Divide by the number of samples to get the mean of the reference position
+	divide(posRef, numberToSample, posRef);
+	divide(eulerRef, numberToSample, eulerRef); // eulerRef is here in Axis Angle notation
+
+	Rodrigues(eulerRef, RmatRef);				// axis angle to rotation matrix
+												//==-- Euler Angles, finally 
+	getEulerAngles(RmatRef, eulerRef);	//  rotation matrix to euler
+	ss.str("");
+	ss << "====================== RmatRef ========================\n";
+	ss << RmatRef << "\n";
+	ss << "================= Reference Position ==================\n";
+	ss << posRef << "[mm] \n";
+	ss << "=============== Reference Euler Angles ================\n";
+	ss << eulerRef << "[deg] \n";
+
+	// Save the obtained calibration coefficients in a file for later use
+	QString fileName = QFileDialog::getSaveFileName(nullptr, "Save Ground Calibration File", "referenceData.xml", "Calibration File (*.xml);;All Files (*)");
+	FileStorage fs(fileName.toUtf8().constData(), FileStorage::WRITE);//+ FileStorage::MEMORY);
+	fs << "posRef" << posRef;
+	fs << "M_NC" << RmatRef;
+	fs << "eulerRef" << eulerRef;
+	strBuf = fs.releaseAndGetString();
+	commObj.changeStatus(QString::fromStdString(strBuf));
+	commObj.addLog("Saved Ground Calibration!");
+	commObj.progressUpdate(0);
+	return 0;
 }
