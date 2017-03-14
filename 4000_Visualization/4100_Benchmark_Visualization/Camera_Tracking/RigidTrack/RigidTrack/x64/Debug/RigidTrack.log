@@ -1,10 +1,7 @@
-﻿  Moc'ing RigidTrack.h...
-  Moc'ing communication.h...
-  moc_RigidTrack.cpp
-  moc_communication.cpp
+﻿  moc_RigidTrack.cpp
   RigidTrack.cpp
-  communication.cpp
   main.cpp
   Code wird generiert...
+c:\users\florian wachter\documents\camera_tracking\4000_visualization\4100_benchmark_visualization\camera_tracking\rigidtrack\rigidtrack\main.cpp(1427): warning C4715: "determineExposure": Nicht alle Steuerelementpfade geben einen Wert zurück.
   RigidTrack.vcxproj -> C:\Users\Florian Wachter\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Debug\RigidTrack.exe
   RigidTrack.vcxproj -> C:\Users\Florian Wachter\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Debug\RigidTrack.pdb (Full PDB)

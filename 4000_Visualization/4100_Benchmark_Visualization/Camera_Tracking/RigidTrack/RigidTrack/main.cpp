@@ -233,6 +233,8 @@ int start_camera() {
 	logFileName += "_" + QString::number(logDate.wHour) + "_" + QString::number(logDate.wMinute) + "_" + QString::number(logDate.wSecond) + ".txt";
 	logName = logFileName.toStdString(); // save the filename as standard string
 	
+	determineExposure();
+
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//== want to stop execution for an extended time while debugging without disconnecting
 	//== the Ethernet devices.  Lets do that now:
@@ -517,6 +519,9 @@ int setZero()
 	RmatRef = 0;
 	Rvec = RvecOriginal;
 	Tvec = TvecOriginal;
+
+	determineExposure();
+
 	ss.str("");
 	commObj.addLog("Started Reference Coordinate Determination");
 
@@ -559,91 +564,6 @@ int setZero()
 	camera->SetIRFilter(true);
 	camera->SetContinuousIR(false);
 	camera->SetHighPowerMode(false);
-
-	//set exposure such that num markers are visible
-	int numberObjects = 0;	// Number of objects (markers) found in the current picture with the given exposure	
-	int minExposure = 1;	// exposure when objects detected the first time is numberMarkers 
-	int maxExposure = 480;	// exposure when objects detected is first time numberMarkers+1
-	intExposure = minExposure;	// set the exposure to the smallest value possible
-	int numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
-
-	// Determine minimum exposure, hence when are numberMarkers objects detected
-	camera->SetExposure(intExposure);
-	while (numberObjects != numberMarkers && numberTries < 48)
-	{
-		// get a new camera frame
-		Frame *frame = camera->GetFrame();
-		if (frame) // frame received
-		{
-			numberObjects = frame->ObjectCount();	// how many objects are detected in the image
-			if (numberObjects == numberMarkers) { minExposure = intExposure; frame->Release(); break; } // if the right amount if markers is found, exit while loop
-			
-			// not the right amount of markers was found so increase the exposure and try again
-			numberTries++;
-			intExposure += 10;
-			camera->SetExposure(intExposure);
-			ss.str("");
-			ss << "Exposure: " << intExposure << "\t";
-			ss << "Objects found: " << numberObjects;
-			commObj.addLog(QString::fromStdString(ss.str()));
-			frame->Release();
-		}
-	}
-
-	// Now determine maximum exposure, hence when are numberMarkers+1 objects detected
-	numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
-	intExposure = maxExposure;
-	camera->SetExposure(intExposure);
-	numberObjects = 0;
-	while (numberObjects != numberMarkers && numberTries < 48)
-	{
-		Frame *frame = camera->GetFrame();
-		if (frame)
-		{
-			numberObjects = frame->ObjectCount(); // how many objects are detected in the image
-			if (numberObjects == numberMarkers) { maxExposure = intExposure; frame->Release(); break; } // if the right amount if markers is found, exit while loop
-			
-			// not the right amount of markers was found so decrease the exposure and try again
-			intExposure -= 10;
-			numberTries++;
-			camera->SetExposure(intExposure);
-			ss.str("");
-			ss << "Exposure: " << intExposure << "\t";
-			ss << "Objects found: " << numberObjects;
-			commObj.addLog(QString::fromStdString(ss.str()));
-			frame->Release();
-		}
-	}
-
-	// set the exposure to the mean of min and max exposure determined
-	camera->SetExposure((minExposure + maxExposure) / 2.0);
-
-	// and now check if the correct amount of markers is detected with that new value
-	
-	while(1)
-	{	
-		Frame *frame = camera->GetFrame();
-		if (frame)
-	{
-		numberObjects = frame->ObjectCount(); // how many objects are detected in the image
-		if (numberObjects != numberMarkers) // are all markers and not more or less detected in the image
-		{ 
-			frame->Release(); 
-			commObj.addLog("Was not able to detect the right amount of markers");
-			//== Release camera ==--
-			camera->Release();
-			return 1; 
-		}
-		else  // all markers and not more or less are found
-		{
-			frame->Release();
-			commObj.addLog("Found the correct number of markers");
-			intExposure = (minExposure + maxExposure) / 2.0;
-			break;
-		}
-	}
-	}
-
 
 	// sample some frames and calculate the position and attitude. then average those values and use that as zero position
 	int numberSamples = 0;
@@ -793,15 +713,12 @@ int setZero()
 	//==-- Euler Angles, finally 
 	getEulerAngles(RmatRef, eulerRef);	//  rotation matrix to euler
 	ss.str("");
-	ss << "================= RmatRef ==================\n";
+	ss << "====================== RmatRef ========================\n";
 	ss << RmatRef << "\n";
-	ss.str("");
 	ss << "================= Reference Position ==================\n";
 	ss << posRef << "\n";
 	ss << "=============== Reference Euler Angles ================\n";
 	ss << eulerRef << "\n";
-	ss << "=============== Point Order ================\n";
-	ss << pointOrderIndices[0] << pointOrderIndices[1] << pointOrderIndices[2] << pointOrderIndices[3] << "\n";
 
 	// compute the difference between last obtained TVec and the average Value
 	// When it is large the iterative method has not converged properly so it is advised to start the setZero() function once again
@@ -1373,4 +1290,138 @@ void loadCameraPosition()
 	fs.open("referenceData.xml", FileStorage::READ);
 	fs["M_NC"] >> M_NC;
 	commObj.addLog("Loaded Reference Data!");
+}
+
+// get the optimal exposure for the camera
+int determineExposure()
+{
+	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
+	//== want to stop execution for an extended time while debugging without disconnecting
+	//== the Ethernet devices.  Lets do that now:
+
+	CameraLibrary_EnableDevelopment();
+
+	//== Initialize Camera SDK ==--
+	CameraLibrary::CameraManager::X();
+
+	//== At this point the Camera SDK is actively looking for all connected cameras and will initialize
+	//== them on it's own.
+
+	//== Get a connected camera ================----
+	CameraManager::X().WaitForInitialization();
+	Camera *camera = CameraManager::X().GetCamera();
+
+	//== If no device connected, pop a message box and exit ==--
+	if (camera == 0)
+	{
+		commObj.addLog("No Camera found!");
+		return 1;
+	}
+
+	//== Determine camera resolution to size application window ==----
+	int cameraWidth = camera->Width();
+	int cameraHeight = camera->Height();
+
+	camera->SetVideoType(Core::PrecisionMode);	// set the camera mode to precision mode, it used greyscale imformation for marker property calculations
+
+												//== Start camera output ==--
+	camera->Start();
+
+	//== Turn on some overlay text so it's clear things are     ===---
+	//== working even if there is nothing in the camera's view. ===---
+	camera->SetTextOverlay(true);
+	camera->SetExposure(intExposure);	// set the camera exposure
+	camera->SetIntensity(intIntensity);	// set the camera infrared LED intensity
+	camera->SetFrameRate(intFrameRate);	// set the camera framerate to 100 Hz
+	camera->SetIRFilter(true);	// enable the filter that blocks visible light and only passes infrared light
+	camera->SetHighPowerMode(true);	// enable high power mode of the leds
+	camera->SetContinuousIR(false);	// enable continuous LED light
+	camera->SetThreshold(intThreshold);	// set threshold for marker detection
+
+	//set exposure such that num markers are visible
+	int numberObjects = 0;	// Number of objects (markers) found in the current picture with the given exposure	
+	int minExposure = 1;	// exposure when objects detected the first time is numberMarkers 
+	int maxExposure = 480;	// exposure when objects detected is first time numberMarkers+1
+	intExposure = minExposure;	// set the exposure to the smallest value possible
+	int numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
+
+							// Determine minimum exposure, hence when are numberMarkers objects detected
+	camera->SetExposure(intExposure);
+	while (numberObjects != numberMarkers && numberTries < 48)
+	{
+		// get a new camera frame
+		Frame *frame = camera->GetFrame();
+		if (frame) // frame received
+		{
+			numberObjects = frame->ObjectCount();	// how many objects are detected in the image
+			if (numberObjects == numberMarkers) { minExposure = intExposure; frame->Release(); break; } // if the right amount if markers is found, exit while loop
+			// not the right amount of markers was found so increase the exposure and try again
+			numberTries++;
+			intExposure += 10;
+			camera->SetExposure(intExposure);
+			ss.str("");
+			ss << "Exposure: " << intExposure << "\t";
+			ss << "Objects found: " << numberObjects;
+			commObj.addLog(QString::fromStdString(ss.str()));
+			frame->Release();
+		}
+	}
+
+	// Now determine maximum exposure, hence when are numberMarkers+1 objects detected
+	numberTries = 0;	// if the markers arent found after numberTries then there might be no markers at all in the real world
+	intExposure = maxExposure;
+	camera->SetExposure(intExposure);
+	numberObjects = 0;
+	while (numberObjects != numberMarkers && numberTries < 48)
+	{
+		Frame *frame = camera->GetFrame();
+		if (frame)
+		{
+			numberObjects = frame->ObjectCount(); // how many objects are detected in the image
+			if (numberObjects == numberMarkers) { maxExposure = intExposure; frame->Release(); break; } // if the right amount if markers is found, exit while loop
+
+			// not the right amount of markers was found so decrease the exposure and try again
+			intExposure -= 10;
+			numberTries++;
+			camera->SetExposure(intExposure);
+			ss.str("");
+			ss << "Exposure: " << intExposure << "\t";
+			ss << "Objects found: " << numberObjects;
+			commObj.addLog(QString::fromStdString(ss.str()));
+			frame->Release();
+		}
+	}
+
+	// set the exposure to the mean of min and max exposure determined
+	camera->SetExposure((minExposure + maxExposure) / 2.0);
+
+	// and now check if the correct amount of markers is detected with that new value
+	while (1)
+	{
+		Frame *frame = camera->GetFrame();
+		if (frame)
+		{
+			numberObjects = frame->ObjectCount(); // how many objects are detected in the image
+			if (numberObjects != numberMarkers) // are all markers and not more or less detected in the image
+			{
+				frame->Release();
+				commObj.addLog("Was not able to detect the right amount of markers");
+				//== Release camera ==--
+				camera->Release();
+				return 1;
+			}
+			else  // all markers and not more or less are found
+			{
+				frame->Release();
+				intExposure = (minExposure + maxExposure) / 2.0;
+				commObj.addLog("Found the correct number of markers");
+				commObj.addLog("Exposure set to:");
+				commObj.addLog(QString::number(intExposure));
+				break;
+			}
+		}
+	}
+
+	camera->Release();
+
 }
