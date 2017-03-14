@@ -207,6 +207,11 @@ void RigidTrack::enableP3P(bool value)
 	RigidTrack::ui.rbP3P->setEnabled(value);
 }
 
+void RigidTrack::on_btnCalibrateGround_clicked()
+{
+	calibrateGround();
+}
+
 void RigidTrack::on_btnStartCamera_clicked()
 {
 	if(RigidTrack::ui.btnStartCamera->text() == "Start Tracking")

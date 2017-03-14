@@ -23,7 +23,7 @@
      <rect>
       <x>20</x>
       <y>60</y>
-      <width>131</width>
+      <width>111</width>
       <height>41</height>
      </rect>
     </property>
@@ -52,7 +52,7 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>131</width>
+      <width>111</width>
       <height>41</height>
      </rect>
     </property>
@@ -105,7 +105,7 @@ Calibration</string>
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>30</y>
+      <y>80</y>
       <width>71</width>
       <height>20</height>
      </rect>
@@ -124,8 +124,8 @@ Calibration</string>
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>10</y>
-      <width>136</width>
+      <y>60</y>
+      <width>81</width>
       <height>21</height>
      </rect>
     </property>
@@ -398,7 +398,7 @@ Configuration</string>
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>60</y>
+      <y>110</y>
       <width>70</width>
       <height>17</height>
      </rect>
@@ -424,6 +424,20 @@ Configuration</string>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnCalibrateGround">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>10</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Calibrate
+Ground</string>
     </property>
    </widget>
   </widget>

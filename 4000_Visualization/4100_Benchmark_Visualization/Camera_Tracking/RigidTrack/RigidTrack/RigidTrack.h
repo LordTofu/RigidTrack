@@ -37,6 +37,7 @@ public slots:
 	void on_pbLoadMarker_clicked();
 	void on_cbInvert_stateChanged(int state);
 	void enableP3P(bool value);
+	void on_btnCalibrateGround_clicked();
 
 private:
 	Ui::RigidTrackClass ui;
