@@ -73,7 +73,7 @@ int intThreshold = 200;	// threshold value for marker detection. If markers are 
 //== Rotation, translation etc. matrix for PnP results
 Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);		// rotation matrix from camera CoSy to marker CoSy
 Mat RmatRef = (cv::Mat_<double>(3, 3) << 1., 0., 0., 0., 1., 0., 0., 0., 1.);	// reference rotation matrix from camera CoSy to marker CoSy
-Mat M_NC = cv::Mat_<double>(3, 3);							// rotation matrix from camera to ground, fixed for given camera position
+Mat M_CN = cv::Mat_<double>(3, 3);							// rotation matrix from camera to ground, fixed for given camera position
 Mat M_HeadingOffset = cv::Mat_<double>(3, 3);				// rotation matrix that turns the ground system to the INS magnetic heading for alignment
 Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// rotation vector (axis-angle notation) from camera CoSy to marker CoSy
 Mat Tvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	// translation vector from camera CoSy to marker CoSy in camera CoSy
@@ -395,8 +395,8 @@ int start_camera() {
 					return 1;
 				}
 
-				subtract(posRef, Tvec, position);	// compute the relative object position from the reference position to the current one, given in the camera CoSy
-				Mat V = -0.001 * M_HeadingOffset * M_NC.t() * (Mat)position;	// transform the position from the camera CoSy to the ground CoSy with INS alligned heading and into [m]
+				subtract(Tvec, posRef, position);	// compute the relative object position from the reference position to the current one, given in the camera CoSy
+				Mat V = 0.001 * M_HeadingOffset * M_CN.t() * (Mat)position;	// transform the position from the camera CoSy to the ground CoSy with INS alligned heading and into [m]
 				position = V;	// position is the result of the preceeding calculation 
 				position[2] *= invertZ;	// invert Z if check box in GUI is activated
 
@@ -1249,7 +1249,7 @@ void loadCameraPosition()
 	// Open the referenceData.xml that contains the rotation from camera CoSy to ground CoSy
 	FileStorage fs;
 	fs.open("referenceData.xml", FileStorage::READ);
-	fs["M_NC"] >> M_NC;
+	fs["M_NC"] >> M_CN;
 	fs["M_NC"] >> RmatRef;
 	fs["posRef"] >> posRef;
 	fs["eulerRef"] >> eulerRef;
