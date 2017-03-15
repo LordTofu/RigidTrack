@@ -56,6 +56,7 @@ int invertZ = 1; // dummy variable to invert Z direction on request
 
 double frameTime = 0.01; // 100 Hz CoSy rate, is later on replaced with the hardware timestamp delivered by the camera 
 double timeOld = 0.0;		// old time for finite differences velocity calculation. Is later on replaced with the hardware timestamp delivered by the camera
+double timeFirstFrame = 0; // Time stamp of the first frame. This value is then subtracted for every other frame so the time in the log start at zero.
 
 Vec3d position = Vec3d();	// position vector x,y,z for object position in O-CoSy, unit is meter
 Vec3d eulerAngles = Vec3d(); // Roll Pitch Heading in this order, units in degrees
@@ -228,6 +229,7 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 // start the loop that fetches frames, computes the position etc and sends it to the object
 int start_camera() {
 
+	gotOrder = false;
 	Rvec = RvecOriginal;
 	Tvec = TvecOriginal;
 	GetLocalTime(&logDate);
@@ -292,6 +294,7 @@ int start_camera() {
 	double minValue = 0;
 	int framesDropped = 0; // if a marker is not visible or accuracy is bad increase this counter.
 	double projectionError = 0; // equals the quality of the tracking
+
 	
 	setUpUDP();	// open sockets and ports for UDP communication
 
@@ -304,6 +307,20 @@ int start_camera() {
 		udpSocketSafety->write(data);
 
 	}
+
+	//== Fetch a new frame from the camera ===---
+	bool gotTime = false;
+	while (!gotTime)
+	{
+		Frame *frame = camera->GetFrame();
+		if (frame)
+		{
+			timeFirstFrame = frame->TimeStamp(); // get the time stamp for the first frame. It is subtracted for the following frames
+			frame->Release();
+			gotTime = true;
+		}
+	}
+	
 
 	// now enter the main loop that processes each frame
 	while (!exitRequested)
@@ -455,7 +472,7 @@ int start_camera() {
 			}
 
 			// Increase the framesDropped variable if accuracy of tracking is too bad.
-			if (projectionError > 50)
+			if (projectionError > 5)
 			{
 				framesDropped++;
 			}
@@ -471,7 +488,7 @@ int start_camera() {
 
 			// save the values in a log file 
 			logfile.open(logName, std::ios::app);
-			logfile << frame->TimeStamp() << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
+			logfile << frame->TimeStamp() - timeFirstFrame << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
 			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
 			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
 			logfile.close();
@@ -494,7 +511,7 @@ int start_camera() {
 			}
 
 			// draw the current position and attitude values as text in the frame
-			drawPositionText(cFrame, position, eulerAngles);
+			drawPositionText(cFrame, position, eulerAngles, projectionError);
 
 			// send the new camera picture with infos to the GUI and call the GUI processing routine
 			QPixmap QPFrame;
@@ -532,6 +549,7 @@ void start_stopCamera()
 int setZero()
 {
 	// initialize the variables with starting values
+	gotOrder = false;
 	posRef = 0;
 	eulerRef = 0;
 	RmatRef = 0;
@@ -586,6 +604,7 @@ int setZero()
 	// sample some frames and calculate the position and attitude. then average those values and use that as zero position
 	int numberSamples = 0;
 	int numberToSample = 200;
+	double projectionError = 0; // difference between the marker points as seen by the camera and the projected marker points with Rvec and Tvec
 
 	while (numberSamples < numberToSample)
 	{
@@ -619,6 +638,10 @@ int setZero()
 
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+				
+				// project the marker 3d points with the solution into the camera image CoSy and calculate difference to true camera image
+				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+				projectionError = norm(list_points2dProjected, list_points2d);
 
 				double maxValue = 0;
 				double minValue = 0;
@@ -629,6 +652,13 @@ int setZero()
 					ss.str("");
 					ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
 					commObj.addLog(QString::fromStdString(ss.str()));
+					frame->Release();
+					return 1;
+				}
+
+				if (projectionError > 3)
+				{
+					commObj.addLog("Reprojection Error is bigger than 3 pixel. Correct Marker Configuration Loaded?\nMarker Position measured precisely?");
 					frame->Release();
 					return 1;
 				}
@@ -653,6 +683,7 @@ int setZero()
 				{
 					circle(cFrame, Point(list_points2d[i].x, list_points2d[i].y), 3, Scalar(225, 0, 0), 3);
 				}
+				drawPositionText(cFrame, position, eulerAngles, projectionError);
 
 				QPixmap QPFrame;
 				QPFrame = Mat2QPixmap(cFrame);
@@ -872,8 +903,6 @@ void test_Algorithm()
 	RvecOriginal = Rvec;
 	TvecOriginal = Tvec;
 
-	multiply(list_points3d, 1., list_points3d);
-
 	projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 
 	ss.str("");
@@ -962,9 +991,9 @@ void test_Algorithm()
 		{
 			circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 3, Scalar(255, 0, 0), 3);
 		}
-
+		double projectionError = norm(list_points2dProjected, list_points2d);
 		putText(cFrame, "Testing Algorithms Finished", cv::Point(5, 420), 1, 1, cv::Scalar(255, 255, 255));
-		drawPositionText(cFrame, position, eulerAngles);
+		drawPositionText(cFrame, position, eulerAngles, projectionError);
 
 		QPixmap QPFrame;
 		QPFrame = Mat2QPixmap(cFrame);
@@ -1212,10 +1241,33 @@ void loadMarkerConfig(int method)
 		commObj.addLog("P3P Algorithm disabled, only works with 4 markers");
 	}
 
+	// now display the marker configuration in the camera view 
+	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
+
+	// Set the camera pose parallel to the marker coordinate system
+	Tvec.at<double>(0) = 0;
+	Tvec.at<double>(1) = 0;
+	Tvec.at<double>(2) = 4500;
+	Rvec.at<double>(0) = 0 * 3.141592653589 / 180.0;
+	Rvec.at<double>(1) = 0 * 3.141592653589 / 180.0;
+	Rvec.at<double>(2) = -90. * 3.141592653589 / 180.0;
+
+	projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+	for (int i = 0; i < numberMarkers; i++)
+	{
+		circle(cFrame, Point(list_points2dProjected[i].x, list_points2dProjected[i].y), 3, Scalar(255, 0, 0), 3);
+	}
+
+	projectCoordinateFrame(cFrame);
+	QPixmap QPFrame;
+	QPFrame = Mat2QPixmap(cFrame);
+	commObj.changeImage(QPFrame);
+	QCoreApplication::processEvents();
+
 }
 
 // draw the position and attitude in the picture 
-void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler)
+void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler, double error)
 {
 	ss.str("");
 	ss << "X: " << Position[0] << " m";
@@ -1240,6 +1292,10 @@ void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler)
 	ss.str("");
 	ss << "Roll: " << Euler[0] << " deg";
 	putText(Picture, ss.str(), cv::Point(350, 470), 1, 1, cv::Scalar(255, 255, 255));
+
+	ss.str("");
+	ss << "Error: " << error << " px";
+	putText(Picture, ss.str(), cv::Point(10, 470), 1, 1, cv::Scalar(255, 255, 255));
 }
 
 // load the rotation matrix from camera CoSy to ground CoSy
@@ -1457,6 +1513,7 @@ void determineOrder()
 int calibrateGround()
 {
 	// initialize the variables with starting values
+	gotOrder = false;
 	posRef = 0;
 	eulerRef = 0;
 	RmatRef = 0;
@@ -1511,6 +1568,7 @@ int calibrateGround()
 	// sample some frames and calculate the position and attitude. then average those values and use that as zero position
 	int numberSamples = 0;
 	int numberToSample = 200;
+	double projectionError = 0; 
 
 	while (numberSamples < numberToSample)
 	{
@@ -1544,6 +1602,17 @@ int calibrateGround()
 
 				//Compute the pose from the 3D-2D corresponses
 				solvePnP(list_points3d, list_points2d, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, methodPNP);
+				
+				// project the marker 3d points with the solution into the camera image CoSy and calculate difference to true camera image
+				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
+				projectionError = norm(list_points2dProjected, list_points2d);
+				
+				if (projectionError > 3)
+				{
+					commObj.addLog("Reprojection Error is bigger than 3 pixel. Correct Marker Configuration Loaded?\nMarker Position measured precisely?");
+					frame->Release();
+					return 1;
+				}
 
 				double maxValue = 0;
 				double minValue = 0;
@@ -1551,9 +1620,9 @@ int calibrateGround()
 
 				if (maxValue > 10000 || minValue < 0)
 				{
-					ss.str("");
-					ss << "Negative z distance, thats not possible. Start the set zero routine again or restart Programm.\n";
-					commObj.addLog(QString::fromStdString(ss.str()));
+					
+				
+					commObj.addLog("Negative z distance, thats not possible. Start the set zero routine again and check marker configurations.");
 					frame->Release();
 					return 1;
 				}
