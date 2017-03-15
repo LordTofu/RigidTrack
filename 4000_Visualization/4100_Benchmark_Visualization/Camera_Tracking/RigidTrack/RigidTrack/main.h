@@ -63,7 +63,7 @@ void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler);
 void show_Help();
 void closeUDP();
 void loadMarkerConfig(int method);
-void drawPositionText(cv::Mat &Picture, cv::Vec3d &Position, cv::Vec3d &Euler);
+void drawPositionText(cv::Mat &Picture, cv::Vec3d &Position, cv::Vec3d &Euler, double error);
 void loadCameraPosition();
 int determineExposure();
 void determineOrder();
