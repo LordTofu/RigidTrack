@@ -239,7 +239,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="_modelest.h" />
     <ClInclude Include="precomp.hpp" />
-    <ClInclude Include="supportcode.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="RigidTrack.qrc">

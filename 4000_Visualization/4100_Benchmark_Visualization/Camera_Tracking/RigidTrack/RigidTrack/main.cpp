@@ -9,7 +9,7 @@
 #include "modulevector.h"
 #include "modulevectorprocessing.h"
 #include "coremath.h"
-#include "supportcode.h"
+
 
 //==-- OpenCV stuff import
 #include <opencv\cv.h>
@@ -128,7 +128,7 @@ SYSTEMTIME logDate; // Systemtime struct that saves the current date and time th
 std::ofstream logfile;	// file handler for writing the log file
 
 
-// main inizialised the GUI and values for the marker position
+// main inizialised the GUI and values for the marker position etc
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
@@ -864,7 +864,7 @@ int calibrate_camera()
 	return 0;
 }
 
-// Load a previously saved calibration from a file
+// Load a previously saved camera calibration from a file
 void load_calibration(int method) {
 
 	QString fileName;
@@ -1031,7 +1031,7 @@ void projectCoordinateFrame(Mat pictureFrame)
 	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[2], Scalar(0, 255, 0), 2); //y-axis
 }
 
-// open the UDP ports 
+// open the UDP ports for communication
 void setUpUDP()
 {
 	// Initialise the QDataStream that stores the data to be send
@@ -1150,7 +1150,7 @@ void closeUDP()
 	}
 }
 
-// load a marker configuration from file. This has to be created by hand, use the standard marker configuration file as template
+// load a marker configuration from file. This file has to be created by hand, use the standard marker configuration file as template
 void loadMarkerConfig(int method)
 {
 	QString fileName;
@@ -1266,7 +1266,7 @@ void loadMarkerConfig(int method)
 
 }
 
-// draw the position and attitude in the picture 
+// draw the position, attitude and reprojection error in the picture 
 void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler, double error)
 {
 	ss.str("");
@@ -1312,7 +1312,7 @@ void loadCameraPosition()
 	commObj.addLog("Loaded Reference Data!");
 }
 
-// get the optimal exposure for the camera
+// get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected
 int determineExposure()
 {
 	//== For OptiTrack Ethernet cameras, it's important to enable development mode if you
@@ -1447,6 +1447,8 @@ int determineExposure()
 
 }
 
+// compute the order of the marker points in 2D so they are the same as in the 3D array. Hence marker 1 must be in first place
+// for both, list_points2d and list_points3d
 void determineOrder()
 {
 	// determine the 3D-2D correspondences that are crucial for the PnP algorithm
@@ -1510,6 +1512,8 @@ void determineOrder()
 		gotOrder = true;
 }
 
+// Get the pose of the camera w.r.t the ground calibration frame. This frame sets the navigation frame for later results.
+// The pose is averaged over 200 samples and then saved in the file referenceData.xml. This routine is basically the same as setZero.
 int calibrateGround()
 {
 	// initialize the variables with starting values
