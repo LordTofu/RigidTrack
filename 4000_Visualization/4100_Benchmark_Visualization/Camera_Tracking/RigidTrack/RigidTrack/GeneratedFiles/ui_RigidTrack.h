@@ -37,6 +37,8 @@ class Ui_RigidTrackClass
 {
 public:
     QAction *actionShow_Help;
+    QAction *actionOpen_Log_Folder;
+    QAction *actionOpen_Installation_Folder;
     QWidget *centralWidget;
     QPushButton *btnStartCamera;
     QLabel *lbStatus;
@@ -68,6 +70,7 @@ public:
     QPushButton *btnCalibrateGround;
     QMenuBar *menuBar;
     QMenu *menuHelp;
+    QMenu *menuOpen_Logs;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -82,6 +85,10 @@ public:
         RigidTrackClass->setWindowIcon(icon);
         actionShow_Help = new QAction(RigidTrackClass);
         actionShow_Help->setObjectName(QStringLiteral("actionShow_Help"));
+        actionOpen_Log_Folder = new QAction(RigidTrackClass);
+        actionOpen_Log_Folder->setObjectName(QStringLiteral("actionOpen_Log_Folder"));
+        actionOpen_Installation_Folder = new QAction(RigidTrackClass);
+        actionOpen_Installation_Folder->setObjectName(QStringLiteral("actionOpen_Installation_Folder"));
         centralWidget = new QWidget(RigidTrackClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         btnStartCamera = new QPushButton(centralWidget);
@@ -191,6 +198,8 @@ public:
         menuBar->setGeometry(QRect(0, 0, 876, 21));
         menuHelp = new QMenu(menuBar);
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
+        menuOpen_Logs = new QMenu(menuBar);
+        menuOpen_Logs->setObjectName(QStringLiteral("menuOpen_Logs"));
         RigidTrackClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(RigidTrackClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -200,7 +209,10 @@ public:
         RigidTrackClass->setStatusBar(statusBar);
 
         menuBar->addAction(menuHelp->menuAction());
+        menuBar->addAction(menuOpen_Logs->menuAction());
         menuHelp->addAction(actionShow_Help);
+        menuOpen_Logs->addAction(actionOpen_Log_Folder);
+        menuOpen_Logs->addAction(actionOpen_Installation_Folder);
 
         retranslateUi(RigidTrackClass);
 
@@ -210,6 +222,8 @@ public:
     void retranslateUi(QMainWindow *RigidTrackClass)
     {
         actionShow_Help->setText(QApplication::translate("RigidTrackClass", "Show Help", 0));
+        actionOpen_Log_Folder->setText(QApplication::translate("RigidTrackClass", "Open Log Folder", 0));
+        actionOpen_Installation_Folder->setText(QApplication::translate("RigidTrackClass", "Open Installation Folder", 0));
         btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", 0));
         lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", 0));
         btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", 0));
@@ -256,6 +270,7 @@ public:
         btnCalibrateGround->setText(QApplication::translate("RigidTrackClass", "Calibrate\n"
 "Ground", 0));
         menuHelp->setTitle(QApplication::translate("RigidTrackClass", "Help", 0));
+        menuOpen_Logs->setTitle(QApplication::translate("RigidTrackClass", "Open Folders", 0));
         Q_UNUSED(RigidTrackClass);
     } // retranslateUi
 

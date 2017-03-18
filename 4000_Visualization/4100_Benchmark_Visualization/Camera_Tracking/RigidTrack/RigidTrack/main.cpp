@@ -1109,27 +1109,6 @@ void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler)
 
 }
 
-// open the documentation of this software in the system interner browser
-void show_Help()
-{
-	// Get the current directory as the help html file is stored in the same directory
-	wchar_t buffer[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::wstring strBuffer(buffer);
-
-	// Delete the last entry of the path since it is the file name of the executable
-	int pos = strBuffer.find_last_of(L"\\ / ");
-	std::wstring strPath = strBuffer.substr(0, pos);
-	QString qtString = QString::fromWCharArray(strPath.c_str());
-
-	// append help.html to the path since this is the documentation in html format
-	QString qtStrFile = "\\help.pdf";
-	QString file = qtString + qtStrFile;
-
-	// open the documentation help file in the standard browser
-	QDesktopServices::openUrl(QUrl::fromLocalFile(file));
-}
-
 // close the UDP ports again to release network interfaces etc. 
 void closeUDP()
 {

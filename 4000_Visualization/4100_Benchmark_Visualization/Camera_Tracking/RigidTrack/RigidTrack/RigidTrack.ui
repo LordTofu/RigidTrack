@@ -456,7 +456,15 @@ Ground</string>
     </property>
     <addaction name="actionShow_Help"/>
    </widget>
+   <widget class="QMenu" name="menuOpen_Logs">
+    <property name="title">
+     <string>Open Folders</string>
+    </property>
+    <addaction name="actionOpen_Log_Folder"/>
+    <addaction name="actionOpen_Installation_Folder"/>
+   </widget>
    <addaction name="menuHelp"/>
+   <addaction name="menuOpen_Logs"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -470,6 +478,16 @@ Ground</string>
   <action name="actionShow_Help">
    <property name="text">
     <string>Show Help</string>
+   </property>
+  </action>
+  <action name="actionOpen_Log_Folder">
+   <property name="text">
+    <string>Open Log Folder</string>
+   </property>
+  </action>
+  <action name="actionOpen_Installation_Folder">
+   <property name="text">
+    <string>Open Installation Folder</string>
    </property>
   </action>
  </widget>

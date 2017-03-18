@@ -1,4 +1,8 @@
 #include "RigidTrack.h"
+#include <QProcess>
+#include <QdesktopServices>
+#include <QDir>
+#include <QUrl>
 #include "main.h"
 #include "communication.h"
 #include <exception>	
@@ -140,7 +144,12 @@ void RigidTrack::on_rbIterative_clicked()
 
 void RigidTrack::on_actionShow_Help_triggered()
 {
-	show_Help();
+	
+	// append help.pdf to the path since this is the documentation in html format
+	QString qtStrFile = QDir::currentPath().replace("/", "\\") + "\\help.pdf";
+
+	// open the documentation help file in the standard browser
+	QDesktopServices::openUrl(QUrl::fromLocalFile(qtStrFile));
 }
 
 void RigidTrack::on_cbSafety_stateChanged(int state)
@@ -210,6 +219,19 @@ void RigidTrack::enableP3P(bool value)
 void RigidTrack::on_btnCalibrateGround_clicked()
 {
 	calibrateGround();
+}
+
+void RigidTrack::on_actionOpen_Log_Folder_triggered()
+{
+	QString command = "explorer.exe " + QDir::currentPath().replace("/", "\\") + "\\logs";
+	QProcess::startDetached(command);
+}
+
+void RigidTrack::on_actionOpen_Installation_Folder_triggered()
+{
+	QString command = "explorer.exe " + QDir::currentPath().replace("/", "\\");
+	QProcess::startDetached(command);
+	
 }
 
 void RigidTrack::on_btnStartCamera_clicked()

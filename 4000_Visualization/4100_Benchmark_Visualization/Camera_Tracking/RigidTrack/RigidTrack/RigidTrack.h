@@ -38,6 +38,8 @@ public slots:
 	void on_cbInvert_stateChanged(int state);
 	void enableP3P(bool value);
 	void on_btnCalibrateGround_clicked();
+	void on_actionOpen_Log_Folder_triggered();
+	void on_actionOpen_Installation_Folder_triggered();
 
 private:
 	Ui::RigidTrackClass ui;
