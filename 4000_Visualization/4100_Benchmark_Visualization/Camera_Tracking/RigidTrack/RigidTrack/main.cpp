@@ -1123,7 +1123,7 @@ void show_Help()
 	QString qtString = QString::fromWCharArray(strPath.c_str());
 
 	// append help.html to the path since this is the documentation in html format
-	QString qtStrFile = "\\help.html";
+	QString qtStrFile = "\\help.pdf";
 	QString file = qtString + qtStrFile;
 
 	// open the documentation help file in the standard browser
@@ -1159,7 +1159,7 @@ void loadMarkerConfig(int method)
 	{
 		// open the standard marker configuration file
 		FileStorage fs;
-		fs.open("marker_standard.xml", FileStorage::READ);
+		fs.open("markerStandard.xml", FileStorage::READ);
 
 		// copy the values to the respective variables
 		fs["numberMarkers"] >> numberMarkers;
@@ -1190,7 +1190,7 @@ void loadMarkerConfig(int method)
 		if (fileName.length() == 0)
 		{
 			// if yes load the standard marker configuration
-			fileName = "marker_standard.xml";
+			fileName = "markerStandard.xml";
 		}
 
 		// open the selected marker configuration file
