@@ -1,6 +1,7 @@
 #include "RigidTrack.h"
 #include <QtWidgets/QApplication>
 #include <QDesktopServices>
+#include <QInputDialog>
 #include <QUrl>
 #include <QThread>
 #include <QUdpSocket>
@@ -781,12 +782,12 @@ int calibrate_camera()
 	//== Ok, start main loop.  This loop fetches and displays   ===---
 	//== camera frames.                                         ===---
 	// But first set some camera parameters
-	camera->SetAGC(true);
-	camera->SetAEC(true);
-	camera->SetExposure(30);
+	camera->SetAGC(false);
+	camera->SetAEC(false);
+	camera->SetExposure(200);
 	camera->SetIntensity(4);
 	camera->SetFrameRate(30);
-	camera->SetIRFilter(false);
+	camera->SetIRFilter(true);
 	camera->SetContinuousIR(false);
 	camera->SetHighPowerMode(false);
 
@@ -800,7 +801,16 @@ int calibrate_camera()
 	Size imageSize(cameraWidth, cameraHeight);
 	Mat Rvec(3, 1, DataType<double>::type);
 	Mat Tvec(3, 1, DataType<double>::type);
+
+	// the user has to provide the size of one square in mm
+	bool ok;
+	int qsquareSize = QInputDialog::getInt(nullptr, "Chessboard Size in mm", "Chessboard Size in mm", 23, 1, 60, 1, &ok);
 	float squareSize = 23;
+
+	if (ok)
+	{
+		squareSize = qsquareSize;
+	}	
 
 	QPixmap QPFrame;
 
