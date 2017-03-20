@@ -2055,7 +2055,7 @@
 		<row><td>d3dcompiler_47.dll</td><td>D3Dcompiler_47.dll</td><td>D3DCOM~1.DLL|D3Dcompiler_47.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Testrechner\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Release\D3Dcompiler_47.dll</td><td>1</td><td/></row>
 		<row><td>libegl.dll</td><td>libEGL.dll</td><td>libEGL.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Testrechner\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Release\libEGL.dll</td><td>1</td><td/></row>
 		<row><td>libglesv2.dll</td><td>libGLESV2.dll</td><td>LIBGLE~1.DLL|libGLESV2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Testrechner\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Release\libGLESV2.dll</td><td>1</td><td/></row>
-		<row><td>marker_standard.xml</td><td>ISX_DEFAULTCOMPONENT</td><td>MARKER~1.XML|marker_standard.xml</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Testrechner\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Release\marker_standard.xml</td><td>1</td><td/></row>
+		<row><td>markerstandard.xml</td><td>ISX_DEFAULTCOMPONENT</td><td>MARKER~1.XML|markerStandard.xml</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Testrechner\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Release\markerStandard.xml</td><td>1</td><td/></row>
 		<row><td>opengl32sw.dll</td><td>opengl32sw.dll</td><td>OPENGL~1.DLL|opengl32sw.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Testrechner\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Release\opengl32sw.dll</td><td>1</td><td/></row>
 		<row><td>qdds.dll</td><td>qdds.dll</td><td>qdds.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Testrechner\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Release\imageformats\qdds.dll</td><td>1</td><td/></row>
 		<row><td>qddsd.dll</td><td>qddsd.dll</td><td>qddsd.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\Testrechner\Documents\camera_Tracking\4000_Visualization\4100_Benchmark_Visualization\Camera_Tracking\RigidTrack\x64\Release\imageformats\qddsd.dll</td><td>1</td><td/></row>
@@ -2884,7 +2884,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>TU Munich FSD</td><td>0</td><td/><td>-1985620561</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>TU Munich FSD</td><td>0</td><td/><td>-1582968470</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-1985622609</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
@@ -3986,8 +3986,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>https://www.fsd.mw.tum.de/</td><td>0</td><td/><td>-1985657393</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>TU Munich FSD</td><td>0</td><td/><td>-1985620561</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.TUMunichFSD.com</td><td>0</td><td/><td>-1582968470</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>TU Munich FSD</td><td>0</td><td/><td>-1582968470</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Launch Rigid Track</td><td>0</td><td/><td>-1985614321</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-1985622609</td></row>
 	</table>
