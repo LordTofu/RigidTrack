@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<numberMarkers>4</numberMarkers>
+<list_points3d>
+  0. 0. -41.5
+  0. 1000. -41.5
+  -200. 400. -41.5
+  -770. 0. -41.5
+</list_points3d>
+</opencv_storage>
