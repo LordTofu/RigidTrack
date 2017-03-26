@@ -449,6 +449,14 @@ int start_camera() {
 
 				// Send position and Euler angles over WiFi with 100 Hz
 				sendDataUDP(position, eulerAngles);
+
+				// Save the values in a log file, values are:
+				// Time sinc tracking started	Position	Euler Angles	Velocity
+				logfile.open(logName, std::ios::app); // Open the log file, the folder is RigidTrackInstallationFolder/logs
+				logfile << frame->TimeStamp() - timeFirstFrame << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
+				logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
+				logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
+				logfile.close(); // Close the file to save values
 			}
 
 			// Check if the position and euler angles are below the allowed value, if yes send OKAY signal (1), if not send shutdown signal (0)
@@ -497,14 +505,6 @@ int start_camera() {
 				commObj.addLog("Lost marker points or precision was bad!"); // Inform the user
 				framesDropped = 0;
 			}
-
-			// Save the values in a log file, values are:
-			// Time sinc tracking started	Position	Euler Angles	Velocity
-			logfile.open(logName, std::ios::app); // Open the log file, the folder is RigidTrackInstallationFolder/logs
-			logfile << frame->TimeStamp() - timeFirstFrame << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
-			logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
-			logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
-			logfile.close(); // Close the file to save values
 
 			// Rasterize the frame so it can be shown in the GUI
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
@@ -1119,7 +1119,7 @@ void setHeadingOffset(double d)
 void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler)
 {
 	datagram.clear();
-	out << (float)Position[0] << (float)Position[1] << (-1 * (float)Position[2]);
+	out << (float)Position[0] << (float)Position[1] << (float)Position[2];
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
 	udpSocketObject->writeDatagram(datagram, IPAdressObject, portObject);
 
