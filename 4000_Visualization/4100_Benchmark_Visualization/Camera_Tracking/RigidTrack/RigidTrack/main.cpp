@@ -352,14 +352,14 @@ int start_camera() {
 				}
 				list_points2dOld = list_points2dUnsorted;
 
-				// Now its time to determine the order of the points (or better the 2D-3D correspondences).
-				// Dor that the distance from the new points to the old points is calculated
-				// for each point. The new index corresponds to the old point with the smallest distance.
-				// Loop over every point and calculate the min distance to every other point. 
-				// Then pick the smallest one and assign its index to the new order pointOrderIndices.
-				// (number of markers)^2 possible orders, check every each of them.
-				// The difference to determineOrder is the following: determineOrder computes the correspondence for the first time.
-				// But as the object moves the points in list_points2dUnsorted change order. This routine thus computes the new order if it changed
+				// The first time the 2D-3D corresspondence was determined with gotOrder was okay. 
+				// But this order can change as the object moves and the marker objects appear in a
+				// different order in the frame->Object() array.
+				// The solution is that: When a marker point (in the camera image, hence in 2D) was at
+				// a position then it wont move that much from one frame to the other.
+				// So for the new frame we take a marker object and check which marker was closest this point  
+				// in the old image frame? This is probably the same (true) marker. And we do that for every other marker as well.
+				// When tracking is good and no frames are dropped because of missing markers this should work every frame.
 				for (int j = 0; j < numberMarkers; j++)
 				{
 					minPointDistance = 5000; // The sum of point distances is set to something unrealistic large
