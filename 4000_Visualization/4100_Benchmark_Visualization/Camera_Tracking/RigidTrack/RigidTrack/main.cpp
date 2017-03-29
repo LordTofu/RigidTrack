@@ -110,7 +110,7 @@ Core::DistortionModel distModel;	// distortion model of the camera
 QUdpSocket *udpSocketObject;	// socket for the communication with the object
 QUdpSocket *udpSocketSafety;	// socket for the communication with the circuit breaker
 QUdpSocket *udpSocketSafety2;	// socket for the communication with the rope winch
-QHostAddress IPAdressObject = QHostAddress("127.0.0.190");	// IPv4 adress of the object wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
+QHostAddress IPAdressObject = QHostAddress("127.0.0.1");	// IPv4 adress of the object wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
 QHostAddress IPAdressSafety = QHostAddress("192.168.4.1"); // IPv4 adress of the circuit breaker, stays the same
 QHostAddress IPAdressSafety2 = QHostAddress("192.168.4.4");	// IPv4 adress of the rope winch,
 int portObject = 9155; // Port of the object
@@ -118,7 +118,6 @@ int portSafety = 9155; // Port of the safety switch
 int portSafety2 = 9155; // Port of the second receiver
 QByteArray datagram;	// data package that is sent to the object 
 QByteArray data;	// data package that's sent to the circuit breaker
-QDataStream out;	// stream that sends the datagram package via UDP
 
 const int BACKBUFFER_BITSPERPIXEL = 8;	// 8 bit per pixel and greyscale image from camera
 std::string strBuf;	// buffer that holds the strings that are sent to the Qt GUI
@@ -185,9 +184,6 @@ int main(int argc, char *argv[])
 	loadMarkerConfig(0); // load the standard marker configuration
 	test_Algorithm();	// test the algorithms and their accuracy
 
-	setUpUDP();
-	sendDataUDP(position, eulerAngles);
-	closeUDP();
 	return a.exec();
 }
 
@@ -1122,6 +1118,8 @@ void setHeadingOffset(double d)
 void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler)
 {
 	datagram.clear();
+	QDataStream out(&datagram, QIODevice::WriteOnly);
+	out.setVersion(QDataStream::Qt_4_3);
 	out << (float)Position[0] << (float)Position[1] << (float)Position[2];
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; // Roll Pitch Heading
 	udpSocketObject->writeDatagram(datagram, IPAdressObject, portObject);
