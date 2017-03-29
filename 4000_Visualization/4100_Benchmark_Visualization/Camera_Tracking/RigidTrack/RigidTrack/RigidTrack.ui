@@ -168,7 +168,7 @@ Calibration</string>
       <x>770</x>
       <y>30</y>
       <width>101</width>
-      <height>71</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="title">
@@ -201,6 +201,22 @@ Calibration</string>
      </property>
      <property name="text">
       <string>P3P</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbEPnP">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>82</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>EPnP</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>

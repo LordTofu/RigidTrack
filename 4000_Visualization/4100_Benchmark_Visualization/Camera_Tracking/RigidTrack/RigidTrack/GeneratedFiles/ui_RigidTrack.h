@@ -53,6 +53,7 @@ public:
     QGroupBox *groupBox;
     QRadioButton *rbIterative;
     QRadioButton *rbP3P;
+    QRadioButton *rbEPnP;
     QGroupBox *groupBox_2;
     QCheckBox *cbSafety;
     QDoubleSpinBox *dsbDimension;
@@ -129,7 +130,7 @@ public:
         label_2->setWordWrap(true);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(770, 30, 101, 71));
+        groupBox->setGeometry(QRect(770, 30, 101, 101));
         rbIterative = new QRadioButton(groupBox);
         rbIterative->setObjectName(QStringLiteral("rbIterative"));
         rbIterative->setGeometry(QRect(10, 40, 82, 17));
@@ -137,6 +138,10 @@ public:
         rbP3P = new QRadioButton(groupBox);
         rbP3P->setObjectName(QStringLiteral("rbP3P"));
         rbP3P->setGeometry(QRect(10, 20, 82, 17));
+        rbEPnP = new QRadioButton(groupBox);
+        rbEPnP->setObjectName(QStringLiteral("rbEPnP"));
+        rbEPnP->setGeometry(QRect(10, 60, 82, 17));
+        rbEPnP->setChecked(false);
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         groupBox_2->setGeometry(QRect(580, 10, 171, 161));
@@ -237,6 +242,7 @@ public:
         groupBox->setTitle(QApplication::translate("RigidTrackClass", "PnP Algorithm", 0));
         rbIterative->setText(QApplication::translate("RigidTrackClass", "Iterative", 0));
         rbP3P->setText(QApplication::translate("RigidTrackClass", "P3P", 0));
+        rbEPnP->setText(QApplication::translate("RigidTrackClass", "EPnP", 0));
         groupBox_2->setTitle(QApplication::translate("RigidTrackClass", "Safety Protection", 0));
 #ifndef QT_NO_TOOLTIP
         cbSafety->setToolTip(QApplication::translate("RigidTrackClass", "If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.", 0));

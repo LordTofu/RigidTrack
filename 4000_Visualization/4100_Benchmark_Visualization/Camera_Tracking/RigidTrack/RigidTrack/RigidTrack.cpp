@@ -142,6 +142,12 @@ void RigidTrack::on_rbIterative_clicked()
 	commObj.addLog("Changed PnP algorithm to Iterative");
 }
 
+void RigidTrack::on_rbEPnP_clicked()
+{
+	methodPNP = 1;
+	commObj.addLog("Changed PnP algorithm to EPnP");
+}
+
 void RigidTrack::on_actionShow_Help_triggered()
 {
 	

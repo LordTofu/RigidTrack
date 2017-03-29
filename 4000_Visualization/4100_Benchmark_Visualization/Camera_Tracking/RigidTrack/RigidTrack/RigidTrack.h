@@ -29,6 +29,7 @@ public slots:
 	void on_leIPSafety2_returnPressed();
 	void on_rbP3P_clicked();
 	void on_rbIterative_clicked();
+	void on_rbEPnP_clicked();
 	void on_actionShow_Help_triggered();
 	void on_cbSafety_stateChanged(int state);
 	void on_cbSafety2_stateChanged(int state);
