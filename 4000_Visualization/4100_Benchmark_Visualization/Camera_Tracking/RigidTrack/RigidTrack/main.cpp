@@ -110,7 +110,7 @@ Core::DistortionModel distModel;	// distortion model of the camera
 QUdpSocket *udpSocketObject;	// socket for the communication with the object
 QUdpSocket *udpSocketSafety;	// socket for the communication with the circuit breaker
 QUdpSocket *udpSocketSafety2;	// socket for the communication with the rope winch
-QHostAddress IPAdressObject = QHostAddress("192.168.137.254");	// IPv4 adress of the object wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
+QHostAddress IPAdressObject = QHostAddress("127.0.0.190");	// IPv4 adress of the object wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
 QHostAddress IPAdressSafety = QHostAddress("192.168.4.1"); // IPv4 adress of the circuit breaker, stays the same
 QHostAddress IPAdressSafety2 = QHostAddress("192.168.4.4");	// IPv4 adress of the rope winch,
 int portObject = 9155; // Port of the object
@@ -185,6 +185,9 @@ int main(int argc, char *argv[])
 	loadMarkerConfig(0); // load the standard marker configuration
 	test_Algorithm();	// test the algorithms and their accuracy
 
+	setUpUDP();
+	sendDataUDP(position, eulerAngles);
+	closeUDP();
 	return a.exec();
 }
 
