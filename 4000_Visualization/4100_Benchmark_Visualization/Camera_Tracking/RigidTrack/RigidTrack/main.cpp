@@ -53,63 +53,63 @@ using namespace cv;
 
 commObject commObj;
 
-bool safetyEnable = false; //! is the safety feature enabled
-bool safety2Enable = false;	//! is the second receiver enabled
-double safetyBoxLength = 1.5; //! length of the safety area cube in meters
-int safetyAngle = 30; //! bank and pitch angle protection in degrees
-bool exitRequested = true; //! variable if tracking loop should be exited
-int invertZ = 1; //! dummy variable to invert Z direction on request
+bool safetyEnable = false; //!< is the safety feature enabled
+bool safety2Enable = false;	//!< is the second receiver enabled
+double safetyBoxLength = 1.5; //!< length of the safety area cube in meters
+int safetyAngle = 30; //!< bank and pitch angle protection in degrees
+bool exitRequested = true; //!< variable if tracking loop should be exited
+int invertZ = 1; //!< dummy variable to invert Z direction on request
 
-double frameTime = 0.01; //! 100 Hz CoSy rate, is later on replaced with the hardware timestamp delivered by the camera 
-double timeOld = 0.0;		//! old time for finite differences velocity calculation. Is later on replaced with the hardware timestamp delivered by the camera
-double timeFirstFrame = 0; //! Time stamp of the first frame. This value is then subtracted for every other frame so the time in the log start at zero.
+double frameTime = 0.01; //!< 100 Hz CoSy rate, is later on replaced with the hardware timestamp delivered by the camera 
+double timeOld = 0.0;		//!< old time for finite differences velocity calculation. Is later on replaced with the hardware timestamp delivered by the camera
+double timeFirstFrame = 0; //!< Time stamp of the first frame. This value is then subtracted for every other frame so the time in the log start at zero.
 
-Vec3d position = Vec3d();	//! position vector x,y,z for object position in O-CoSy, unit is meter
-Vec3d eulerAngles = Vec3d(); //! Roll Pitch Heading in this order, units in degrees
-Vec3d positionOld = Vec3d();	//! old position in O-CoSy for finite differences velocity calculation 
-Vec3d velocity = Vec3d();	//! velocity vector of object in o-CoSy in respect to o-CoSy
-Vec3d posRef = Vec3d();		//! initial position of object in camera CoSy
-Vec3d eulerRef = Vec3d();	//! initial euler angle of object respectivley to camera CoSy
-double headingOffset = 0;	//! heading offset variable for aligning INS heading with tracking heading
+Vec3d position = Vec3d();	//!< position vector x,y,z for object position in O-CoSy, unit is meter
+Vec3d eulerAngles = Vec3d(); //!< Roll Pitch Heading in this order, units in degrees
+Vec3d positionOld = Vec3d();	//!< old position in O-CoSy for finite differences velocity calculation 
+Vec3d velocity = Vec3d();	//!< velocity vector of object in o-CoSy in respect to o-CoSy
+Vec3d posRef = Vec3d();		//!< initial position of object in camera CoSy
+Vec3d eulerRef = Vec3d();	//!< initial euler angle of object respectivley to camera CoSy
+double headingOffset = 0;	//!< heading offset variable for aligning INS heading with tracking heading
 
-int intIntensity = 15; //! max infrared spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
-int intExposure = 1; //! max is 480 increase if markers are badly visible but should be determined automatically during setZero()
-int intFrameRate = 100;	//! CoSy rate of camera, maximum is 100 fps
-int intThreshold = 200;	//! threshold value for marker detection. If markers are badly visible lower this value but should not be necessary
+int intIntensity = 15; //!< max infrared spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
+int intExposure = 1; //!< max is 480 increase if markers are badly visible but should be determined automatically during setZero()
+int intFrameRate = 100;	//!< CoSy rate of camera, maximum is 100 fps
+int intThreshold = 200;	//!< threshold value for marker detection. If markers are badly visible lower this value but should not be necessary
 
-//!== Rotation, translation etc. matrix for PnP results
-Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);		//! rotation matrix from camera CoSy to marker CoSy
-Mat RmatRef = (cv::Mat_<double>(3, 3) << 1., 0., 0., 0., 1., 0., 0., 0., 1.);	//! reference rotation matrix from camera CoSy to marker CoSy
-Mat M_CN = cv::Mat_<double>(3, 3);							//! rotation matrix from camera to ground, fixed for given camera position
-Mat M_HeadingOffset = cv::Mat_<double>(3, 3);				//! rotation matrix that turns the ground system to the INS magnetic heading for alignment
-Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//! rotation vector (axis-angle notation) from camera CoSy to marker CoSy
-Mat Tvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//! translation vector from camera CoSy to marker CoSy in camera CoSy
-Mat RvecOriginal;	//! initial values as start values for algorithms and algorithm tests
-Mat TvecOriginal;	//! initial values as start values for algorithms and algorithm tests
+//! Rotation, translation etc. matrix for PnP results
+Mat Rmat = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);		//!< rotation matrix from camera CoSy to marker CoSy
+Mat RmatRef = (cv::Mat_<double>(3, 3) << 1., 0., 0., 0., 1., 0., 0., 0., 1.);	//!< reference rotation matrix from camera CoSy to marker CoSy
+Mat M_CN = cv::Mat_<double>(3, 3);							//!< rotation matrix from camera to ground, fixed for given camera position
+Mat M_HeadingOffset = cv::Mat_<double>(3, 3);				//!< rotation matrix that turns the ground system to the INS magnetic heading for alignment
+Mat Rvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//!< rotation vector (axis-angle notation) from camera CoSy to marker CoSy
+Mat Tvec = (cv::Mat_<double>(3, 1) << 0.0, 0.0, 0.0);	//!< translation vector from camera CoSy to marker CoSy in camera CoSy
+Mat RvecOriginal;	//!< initial values as start values for algorithms and algorithm tests
+Mat TvecOriginal;	//!< initial values as start values for algorithms and algorithm tests
 
-bool useGuess = true; //! set to true and the algorithm uses the last result as starting value
-int methodPNP = 0; //! solvePNP algorithm 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //! 4 and 1 are the same and not implemented correctly by OpenCV
-int numberMarkers = 4; //! number of markers. Is loaded during start up from the marker configuration file
-std::vector<Point3d> list_points3d;	//! marker positions in marker CoSy 
-std::vector<Point2d> list_points2d;	//! marker positions projected in 2D in camera image CoSy
-std::vector<Point2d> list_points2dOld;	//! marker positions in previous picture in 2D in camera image CoSy
-std::vector<double> list_points2dDifference;	//! difference of the old and new 2D marker position to determine the order of the points
-std::vector<Point2d> list_points2dProjected;	//! 3D marker points projected to 2D in camera image CoSy with the algorithm projectPoints
-std::vector<Point2d> list_points2dUnsorted;	//! marker points in 2D camera image CoSy, sorted with increasing x (camera image CoSy) but not sorted to correspond with list_points3d
-std::vector<Point3d> coordinateFrame;	//! coordinate visualisazion of marker CoSy
-std::vector<Point2d> coordinateFrameProjected;	//! marker CoSy projected from 3D to 2D camera image CoSy
-int pointOrderIndices[] = { 0, 1, 2, 3 };	//! old correspondence from list_points3d and list_points_2d
-int pointOrderIndicesNew[] = { 0, 1, 2, 3 };	//! new correspondence from list_points3d and list_points_2d
-double currentPointDistance = 5000;	//! distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image CoSy 
-double minPointDistance = 5000;	//! minimum distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image CoSy 
-int currentMinIndex = 0;	//! helper variable set to the point order that holds the current minimum point distance 
-bool gotOrder = false;	//! order of the list_points3d and list_points3d already tetermined or not, has to be done once
+bool useGuess = true; //!< set to true and the algorithm uses the last result as starting value
+int methodPNP = 0; //!< solvePNP algorithm 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //!< 4 and 1 are the same and not implemented correctly by OpenCV
+int numberMarkers = 4; //!< number of markers. Is loaded during start up from the marker configuration file
+std::vector<Point3d> list_points3d;	//!< marker positions in marker CoSy 
+std::vector<Point2d> list_points2d;	//!< marker positions projected in 2D in camera image CoSy
+std::vector<Point2d> list_points2dOld;	//!< marker positions in previous picture in 2D in camera image CoSy
+std::vector<double> list_points2dDifference;	//!< difference of the old and new 2D marker position to determine the order of the points
+std::vector<Point2d> list_points2dProjected;	//!< 3D marker points projected to 2D in camera image CoSy with the algorithm projectPoints
+std::vector<Point2d> list_points2dUnsorted;	//!< marker points in 2D camera image CoSy, sorted with increasing x (camera image CoSy) but not sorted to correspond with list_points3d
+std::vector<Point3d> coordinateFrame;	//!< coordinate visualisazion of marker CoSy
+std::vector<Point2d> coordinateFrameProjected;	//!< marker CoSy projected from 3D to 2D camera image CoSy
+int pointOrderIndices[] = { 0, 1, 2, 3 };	//!< old correspondence from list_points3d and list_points_2d
+int pointOrderIndicesNew[] = { 0, 1, 2, 3 };	//!< new correspondence from list_points3d and list_points_2d
+double currentPointDistance = 5000;	//!< distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image CoSy 
+double minPointDistance = 5000;	//!< minimum distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image CoSy 
+int currentMinIndex = 0;	//!< helper variable set to the point order that holds the current minimum point distance 
+bool gotOrder = false;	//!< order of the list_points3d and list_points3d already tetermined or not, has to be done once
 
-bool camera_started = false; //! variable thats needed to exit the main while loop
+bool camera_started = false; //!< variable thats needed to exit the main while loop
 
-Mat cameraMatrix;	//! camera matrix of the camera
-Mat distCoeffs;	//! distortion coefficients of the camera
-Core::DistortionModel distModel;	//! distortion model of the camera
+Mat cameraMatrix;	//!< camera matrix of the camera
+Mat distCoeffs;	//!< distortion coefficients of the camera
+Core::DistortionModel distModel;	//!< distortion model of the camera
 
 //! IP adress of the circuit breaker that disables the object if a specified region is exited.
 QUdpSocket *udpSocketObject;	//! socket for the communication with the object
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	RigidTrack w;
-	w.show();	//! show the GUI
+	w.show();	//!< show the GUI
 	//! connect the Qt slots and signals for event handling
 	QObject::connect(&commObj, SIGNAL(statusChanged(QString)), &w, SLOT(setStatus(QString)), Qt::DirectConnection);
 	QObject::connect(&commObj, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), Qt::DirectConnection);
@@ -168,26 +168,26 @@ int main(int argc, char *argv[])
 	coordinateFrame[2] = cv::Point3d(0, 300, 0);
 	coordinateFrame[3] = cv::Point3d(0, 0, 300);
 
-	position[0] = 1.1234;	  //! set position initial values
-	position[1] = 1.2345;	  //! set position initial values
-	position[2] = 1.3456;	  //! set position initial values
+	position[0] = 1.1234;	  //!< set position initial values
+	position[1] = 1.2345;	  //!< set position initial values
+	position[2] = 1.3456;	  //!< set position initial values
 
-	velocity[0] = 0.123;	//! set velocity initial values
-	velocity[1] = 0.234;	//! set velocity initial values
-	velocity[2] = 0.345;	//! set velocity initial values
+	velocity[0] = 0.123;	//!< set velocity initial values
+	velocity[1] = 0.234;	//!< set velocity initial values
+	velocity[2] = 0.345;	//!< set velocity initial values
 
-	eulerAngles[0] = 1.002;	//! set initial euler angles to arbitrary values for testing
-	eulerAngles[1] = 1.003;	//! set initial euler angles to arbitrary values for testing
-	eulerAngles[2] = 1.004;	//! set initial euler angles to arbitrary values for testing
+	eulerAngles[0] = 1.002;	//!< set initial euler angles to arbitrary values for testing
+	eulerAngles[1] = 1.003;	//!< set initial euler angles to arbitrary values for testing
+	eulerAngles[2] = 1.004;	//!< set initial euler angles to arbitrary values for testing
 
-	setHeadingOffset(0.0); //! set the heading offset to 0 
+	setHeadingOffset(0.0); //!< set the heading offset to 0 
 
-	ss.precision(4); //! outputs in the log etc are limited to 3 decimal values
+	ss.precision(4); //!< outputs in the log etc are limited to 3 decimal values
 
-	loadCameraPosition(); //! load the rotation matrix from camera CoSy to ground CoSy
-	load_calibration(0); //! load the calibration file with the camera intrinsics
-	loadMarkerConfig(0); //! load the standard marker configuration
-	test_Algorithm();	//! test the algorithms and their accuracy
+	loadCameraPosition(); //!< load the rotation matrix from camera CoSy to ground CoSy
+	load_calibration(0); //!< load the calibration file with the camera intrinsics
+	loadMarkerConfig(0); //!< load the standard marker configuration
+	test_Algorithm();	//!< test the algorithms and their accuracy
 
 	return a.exec();
 }
@@ -235,23 +235,23 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 int start_camera() {
 
 	
-	gotOrder = false; //! The order of points, hence which entry in list_points3d corresponds to which in list_points2d is not calculated yet
-	Rvec = RvecOriginal; //! Use the value of Rvec that was set in main() as starting value for the solvePnP algorithm
-	Tvec = TvecOriginal; //! Use the value of Tvec that was set in main() as starting value for the solvePnP algorithm
-	GetLocalTime(&logDate);	//! Get the current date and time to name the log file
+	gotOrder = false; //!< The order of points, hence which entry in list_points3d corresponds to which in list_points2d is not calculated yet
+	Rvec = RvecOriginal; //!< Use the value of Rvec that was set in main() as starting value for the solvePnP algorithm
+	Tvec = TvecOriginal; //!< Use the value of Tvec that was set in main() as starting value for the solvePnP algorithm
+	GetLocalTime(&logDate);	//!< Get the current date and time to name the log file
 	//! Concat the log file name as followed. The file is saved in the folder /logs in the Rigid Track installation folder
 	logFileName = "./logs/positionLog_" + QString::number(logDate.wDay) + "_" + QString::number(logDate.wMonth) + "_" + QString::number(logDate.wYear);
 	logFileName += "_" + QString::number(logDate.wHour) + "_" + QString::number(logDate.wMinute) + "_" + QString::number(logDate.wSecond) + ".txt";
 	logName = logFileName.toStdString(); //! Convert the QString to a standard string
 
-	determineExposure(); //! Get the exposure where the right amount of markers is detected
+	determineExposure(); //!< Get the exposure where the right amount of markers is detected
 
 	//! For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//! want to stop execution for an extended time while debugging without disconnecting
 	//! the Ethernet devices.  Lets do that now:
 
 	CameraLibrary_EnableDevelopment();
-	CameraLibrary::CameraManager::X(); //! Initialize Camera SDK
+	CameraLibrary::CameraManager::X(); //!< Initialize Camera SDK
 
 	//! At this point the Camera SDK is actively looking for all connected cameras and will initialize
 	//! them on it's own
@@ -271,37 +271,37 @@ int start_camera() {
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
 
-	camera->SetVideoType(Core::PrecisionMode);	//! Set the camera mode to precision mode, it used greyscale imformation for marker property calculations
+	camera->SetVideoType(Core::PrecisionMode);	//!< Set the camera mode to precision mode, it used greyscale imformation for marker property calculations
 	
-	camera->Start(); //! Start camera output
+	camera->Start(); //!< Start camera output
 
 	//! Turn on some overlay text so it's clear things are
 	//! working even if there is nothing in the camera's view
 	camera->SetTextOverlay(true);
-	camera->SetExposure(intExposure);	//! Set the camera exposure
-	camera->SetIntensity(intIntensity);	//! Set the camera infrared LED intensity
-	camera->SetFrameRate(intFrameRate);	//! Set the camera framerate to 100 Hz
-	camera->SetIRFilter(true);	//! Enable the filter that blocks visible light and only passes infrared light
-	camera->SetHighPowerMode(true);	//! Enable high power mode of the LEDs
-	camera->SetContinuousIR(false);	//! Disable continuous LED light
-	camera->SetThreshold(intThreshold);	//! Set threshold for marker detection
+	camera->SetExposure(intExposure);	//!< Set the camera exposure
+	camera->SetIntensity(intIntensity);	//!< Set the camera infrared LED intensity
+	camera->SetFrameRate(intFrameRate);	//!< Set the camera framerate to 100 Hz
+	camera->SetIRFilter(true);	//!< Enable the filter that blocks visible light and only passes infrared light
+	camera->SetHighPowerMode(true);	//!< Enable high power mode of the LEDs
+	camera->SetContinuousIR(false);	//!< Disable continuous LED light
+	camera->SetThreshold(intThreshold);	//!< Set threshold for marker detection
 
 	//! Create a new matrix that stores the grayscale picture from the camera
 	Mat matFrame = Mat::zeros(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
-	QPixmap QPFrame; //! QPixmap is the corresponding Qt class that saves images
+	QPixmap QPFrame; //!< QPixmap is the corresponding Qt class that saves images
 	//! Matrix that stores the colored picture, hence marker points, coordinate frame and reprojected points
 	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
 
-	int v = 0;	//! Helper variable used to kick safety switch
+	int v = 0;	//!< Helper variable used to kick safety switch
 	//! Variables for the min and max values that are needed for sanity checks
 	double maxValue = 0;
 	double minValue = 0;
-	int framesDropped = 0; //! Ff a marker is not visible or accuracy is bad increase this counter
-	double projectionError = 0; //! Equals the quality of the tracking
+	int framesDropped = 0; //!< Ff a marker is not visible or accuracy is bad increase this counter
+	double projectionError = 0; //!< Equals the quality of the tracking
 
-	setUpUDP();	//! Open sockets and ports for UDP communication
+	setUpUDP();	//!< Open sockets and ports for UDP communication
 
-	if (safetyEnable) //! If the safety feature is enabled send the starting message
+	if (safetyEnable) //!< If the safety feature is enabled send the starting message
 	{
 		//! Send enable message, hence send a 9 and then a 1 
 		data.setNum((int)(9));
@@ -311,15 +311,15 @@ int start_camera() {
 	}
 
 	//! Fetch a new frame from the camera
-	bool gotTime = false; //! Get the timestamp of the first frame. This time is subtracted from every subseeding frame so the time starts at 0 in the logs
-	while (!gotTime) //! While no new frame is received loop 
+	bool gotTime = false; //!< Get the timestamp of the first frame. This time is subtracted from every subseeding frame so the time starts at 0 in the logs
+	while (!gotTime) //!< While no new frame is received loop 
 	{
-		Frame *frame = camera->GetFrame(); //! Get a new camera frame
-		if (frame)	//! There is actually a new frame
+		Frame *frame = camera->GetFrame(); //!< Get a new camera frame
+		if (frame)	//!< There is actually a new frame
 		{
-			timeFirstFrame = frame->TimeStamp(); //! Get the time stamp for the first frame. It is subtracted for the following frames
-			frame->Release();	//! Release the frame so the camera can continue
-			gotTime = true;	//! Exit the while loop
+			timeFirstFrame = frame->TimeStamp(); //!< Get the time stamp for the first frame. It is subtracted for the following frames
+			frame->Release();	//!< Release the frame so the camera can continue
+			gotTime = true;	//!< Exit the while loop
 		}
 	}
 
@@ -327,11 +327,11 @@ int start_camera() {
 	while (!exitRequested) //! Check if the user has not pressed "Stop Tracking" yet
 	{
 		
-		Frame *frame = camera->GetFrame(); //! Fetch a new frame from the camera
+		Frame *frame = camera->GetFrame(); //!< Fetch a new frame from the camera
 
-		if (frame) //! Did we got a new frame or does the camera still need more time
+		if (frame) //!< Did we got a new frame or does the camera still need more time
 		{
-			framesDropped++; //! Increase by one, if everything is okay it is decreased at the end of the loop again
+			framesDropped++; //!< Increase by one, if everything is okay it is decreased at the end of the loop again
 			
 			//! Only use this frame it the right number of markers is found in the picture
 			if (frame->ObjectCount() == numberMarkers)
@@ -344,15 +344,15 @@ int start_camera() {
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
 
-				if (gotOrder == false) //! Was the order already determined? This is false for the first frame and from then on true
+				if (gotOrder == false) //!< Was the order already determined? This is false for the first frame and from then on true
 				{
-					determineOrder(); //! Now compute the order
+					determineOrder(); //!< Now compute the order
 				}
 
 				//! Sort the 2d points with the correct indices as found in the preceeding order determination algorithm
 				for (int w = 0; w < numberMarkers; w++)
 				{
-					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]]; //! pointOrderIndices was calculated in determineOrder()
+					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]]; //!< pointOrderIndices was calculated in determineOrder()
 				}
 				list_points2dOld = list_points2dUnsorted;
 
@@ -366,7 +366,7 @@ int start_camera() {
 				//! When tracking is good and no frames are dropped because of missing markers this should work every frame.
 				for (int j = 0; j < numberMarkers; j++)
 				{
-					minPointDistance = 5000; //! The sum of point distances is set to something unrealistic large
+					minPointDistance = 5000; //!< The sum of point distances is set to something unrealistic large
 					for (int k = 0; k < numberMarkers; k++)
 					{
 						//! Calculate N_2 norm of unsorted points minus old points
@@ -405,7 +405,7 @@ int start_camera() {
 				}
 				else
 				{
-					framesDropped = 0;	//! Set number of subsequent frames dropped to zero because error is small enough and no marker was missing
+					framesDropped = 0;	//!< Set number of subsequent frames dropped to zero because error is small enough and no marker was missing
 				}
 
 				//! Get the min and max values from TVec for sanity check
@@ -415,10 +415,10 @@ int start_camera() {
 				if (minValue < 0)
 				{
 					commObj.addLog("Negative z distance, that is not possible. Start the set zero routine again or restart Programm.");
-					frame->Release(); //! Release the frame so the camera can move on
-					camera->Release(); //! Release the camera
-					closeUDP(); //! Close all UDP connections so the programm can be closed later on and no resources are locked
-					return 1; //! Exit the function
+					frame->Release(); //!< Release the frame so the camera can move on
+					camera->Release(); //!< Release the camera
+					closeUDP(); //!< Close all UDP connections so the programm can be closed later on and no resources are locked
+					return 1; //!< Exit the function
 				}
 
 				//! Next step is the transformation from camera CoSy to navigation CoSy
@@ -429,11 +429,11 @@ int start_camera() {
 				//! Transform the position from the camera CoSy to the navigation CoSy with INS alligned heading and convert from [mm] to [m]
 				//! T_N^{NM} = M_{NC} \times T_C^{NM} 
 				Mat V = 0.001 * M_HeadingOffset * M_CN.t() * (Mat)position;
-				position = V;	//! Position is the result of the preceeding calculation 
-				position[2] *= invertZ;	//! Invert Z if check box in GUI is activated, hence height above ground is considered
+				position = V;	//!< Position is the result of the preceeding calculation 
+				position[2] *= invertZ;	//!< Invert Z if check box in GUI is activated, hence height above ground is considered
 
 				//! Realtive angle between reference orientation and current orientation
-				Rodrigues(Rvec, Rmat);	//! Convert axis angle respresentation to ordinary rotation matrix
+				Rodrigues(Rvec, Rmat);	//!< Convert axis angle respresentation to ordinary rotation matrix
 				
 				//! The difference of the reference rotation and the current rotation
 				//! R_{ NM } = M_{ NC } \times R_{ CM }
@@ -444,12 +444,12 @@ int start_camera() {
 				eulerAngles[2] += headingOffset; //! Add the heading offset to the heading angle
 
 				//! Compute the velocity with finite differences. Only use is the log file. It is done here because the more precise time stamp can be used
-				frameTime = frame->TimeStamp() - timeOld;	//! Time between the old frame and the current frame
-				timeOld = frame->TimeStamp();	//! Set the old frame time to the current  one
-				velocity[0] = (position[0] - positionOld[0]) / frameTime;	//! Calculate the x velocity with finite differences
-				velocity[1] = (position[1] - positionOld[1]) / frameTime;	//! Calculate the y velocity with finite differences
-				velocity[2] = (position[2] - positionOld[2]) / frameTime;	//! Calculate the z velocity with finite differences
-				positionOld = position;	//! Set the old position to the current one for next frame velocity calcuation
+				frameTime = frame->TimeStamp() - timeOld;	//!< Time between the old frame and the current frame
+				timeOld = frame->TimeStamp();	//!< Set the old frame time to the current  one
+				velocity[0] = (position[0] - positionOld[0]) / frameTime;	//!< Calculate the x velocity with finite differences
+				velocity[1] = (position[1] - positionOld[1]) / frameTime;	//!< Calculate the y velocity with finite differences
+				velocity[2] = (position[2] - positionOld[2]) / frameTime;	//!< Calculate the z velocity with finite differences
+				positionOld = position;	//!< Set the old position to the current one for next frame velocity calcuation
 
 				//! Send position and Euler angles over WiFi with 100 Hz
 				sendDataUDP(position, eulerAngles);
@@ -460,7 +460,7 @@ int start_camera() {
 				logfile << frame->TimeStamp() - timeFirstFrame << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
 				logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
 				logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
-				logfile.close(); //! Close the file to save values
+				logfile.close(); //!< Close the file to save values
 			}
 
 			//! Check if the position and euler angles are below the allowed value, if yes send OKAY signal (1), if not send shutdown signal (0)
@@ -501,12 +501,12 @@ int start_camera() {
 			//! Inform the user if tracking system is disturbed (marker lost or so) or error was too big 
 			if (framesDropped > 10)
 			{
-				if (safetyEnable) //! Also send the shutdown signal
+				if (safetyEnable) //!< Also send the shutdown signal
 				{
-					data.setNum((int)(0));	//! Send the shutdown signal, a 0 
+					data.setNum((int)(0));	//!< Send the shutdown signal, a 0 
 					udpSocketSafety->write(data);
 				}
-				commObj.addLog("Lost marker points or precision was bad!"); //! Inform the user
+				commObj.addLog("Lost marker points or precision was bad!"); //!< Inform the user
 				framesDropped = 0;
 			}
 
@@ -534,8 +534,8 @@ int start_camera() {
 			//! Send the new camera picture to the GUI and call the GUI processing routine
 			QPixmap QPFrame;
 			QPFrame = Mat2QPixmap(cFrame);
-			commObj.changeImage(QPFrame); //! Update the picture in the GUI
-			QCoreApplication::processEvents(); //! Give Qt time to handle everything
+			commObj.changeImage(QPFrame); //!< Update the picture in the GUI
+			QCoreApplication::processEvents(); //!< Give Qt time to handle everything
 
 			//! Release the camera frame to fetch the new one
 			frame->Release();
@@ -543,8 +543,8 @@ int start_camera() {
 	}
 
 	//! User choose to stop the tracking, clean things up
-	closeUDP();	//! Close the UDP connections so resources are deallocated
-	camera->Release();	//! Release camera
+	closeUDP();	//!< Close the UDP connections so resources are deallocated
+	camera->Release();	//!< Release camera
 	return 0;
 }
 
@@ -557,7 +557,7 @@ void start_stopCamera()
 		exitRequested = false;
 		start_camera();
 	}
-	else  //! tracking is currently running, set exitRequest to true so the while loop in start_camera() exits
+	else  //!< tracking is currently running, set exitRequest to true so the while loop in start_camera() exits
 	{
 		exitRequested = true;
 	}
@@ -580,24 +580,24 @@ int setZero()
 	commObj.addLog("Started reference coordinate determination.");
 
 	CameraLibrary_EnableDevelopment();
-	//!== Initialize Camera SDK ==--
+	//! Initialize Camera SDK ==--
 	CameraLibrary::CameraManager::X();
 
-	//!== At this point the Camera SDK is actively looking for all connected cameras and will initialize
-	//!== them on it's own.
+	//! At this point the Camera SDK is actively looking for all connected cameras and will initialize
+	//! them on it's own.
 
-	//!== Get a connected camera ================----
+	//! Get a connected camera ================----
 	CameraManager::X().WaitForInitialization();
 	Camera *camera = CameraManager::X().GetCamera();
 
-	//!== If no device connected, pop a message box and exit ==--
+	//! If no device connected, pop a message box and exit ==--
 	if (camera == 0)
 	{
 		commObj.addLog("No camera found!");
 		return 1;
 	}
 
-	//!== Determine camera resolution to size application window ==----
+	//! Determine camera resolution to size application window ==----
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
 	camera->GetDistortionModel(distModel);
@@ -606,11 +606,11 @@ int setZero()
 	//! Set camera mode to precision mode, it directly provides marker coordinates
 	camera->SetVideoType(Core::PrecisionMode);
 
-	//!== Start camera output ==--
+	//! Start camera output ==--
 	camera->Start();
 
-	//!== Turn on some overlay text so it's clear things are     ===---
-	//!== working even if there is nothing in the camera's view. ===---
+	//! Turn on some overlay text so it's clear things are     ===---
+	//! working even if there is nothing in the camera's view. ===---
 	//! Set some other parameters as well of the camera
 	camera->SetTextOverlay(true);
 	camera->SetFrameRate(intFrameRate);
@@ -622,20 +622,20 @@ int setZero()
 	//! sample some frames and calculate the position and attitude. then average those values and use that as zero position
 	int numberSamples = 0;
 	int numberToSample = 200;
-	double projectionError = 0; //! difference between the marker points as seen by the camera and the projected marker points with Rvec and Tvec
+	double projectionError = 0; //!< difference between the marker points as seen by the camera and the projected marker points with Rvec and Tvec
 
 	while (numberSamples < numberToSample)
 	{
-		//!== Fetch a new frame from the camera ===---
+		//! Fetch a new frame from the camera ===---
 		Frame *frame = camera->GetFrame();
 
 		if (frame)
 		{
-			//!== Ok, we've received a new frame, lets do something
-			//!== with it.
+			//! Ok, we've received a new frame, lets do something
+			//! with it.
 			if (frame->ObjectCount() == numberMarkers)
 			{
-				//!==for(int i=0; i<frame->ObjectCount(); i++)
+				//!for(int i=0; i<frame->ObjectCount(); i++)
 				for (int i = 0; i < numberMarkers; i++)
 				{
 					cObject *obj = frame->Object(i);
@@ -681,11 +681,11 @@ int setZero()
 					return 1;
 				}
 
-				if (norm(positionOld) - norm(Tvec) < 0.05)	//!Iterative Method needs time to converge to solution
+				if (norm(positionOld) - norm(Tvec) < 0.05)	//!<Iterative Method needs time to converge to solution
 				{
 					add(posRef, Tvec, posRef);
-					add(eulerRef, Rvec, eulerRef); //! That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
-					numberSamples++;	//!==-- one sample more :D
+					add(eulerRef, Rvec, eulerRef); //!< That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
+					numberSamples++;	//!<  one sample more :D
 					commObj.progressUpdate(numberSamples * 100 / numberToSample);
 				}
 				positionOld = Tvec;
@@ -712,16 +712,16 @@ int setZero()
 			frame->Release();
 		}
 	}
-	//!== Release camera ==--
+	//! Release camera ==--
 	camera->Release();
 
 	//!Divide by the number of samples to get the mean of the reference position
 	divide(posRef, numberToSample, posRef);
-	divide(eulerRef, numberToSample, eulerRef); //! eulerRef is here in Axis Angle notation
+	divide(eulerRef, numberToSample, eulerRef); //!< eulerRef is here in Axis Angle notation
 
-	Rodrigues(eulerRef, RmatRef);				//! axis angle to rotation matrix
-	//!==-- Euler Angles, finally 
-	getEulerAngles(RmatRef, eulerRef);	//!  rotation matrix to euler
+	Rodrigues(eulerRef, RmatRef);				//!< axis angle to rotation matrix
+	//!-- Euler Angles, finally 
+	getEulerAngles(RmatRef, eulerRef);	//!<  rotation matrix to euler
 	ss.str("");
 	ss << "RmatRef is:\n";
 	ss << RmatRef << "\n";
@@ -748,13 +748,13 @@ int calibrate_camera()
 	commObj.addLog("Started camera calibration. 80 pictures are going to be captured.");
 	CameraLibrary_EnableDevelopment();
 
-	//!== Initialize Camera SDK ==--
+	//! Initialize Camera SDK ==--
 	CameraLibrary::CameraManager::X();
 
-	//!== At this point the Camera SDK is actively looking for all connected cameras and will initialize
-	//!== them on it's own.
+	//! At this point the Camera SDK is actively looking for all connected cameras and will initialize
+	//! them on it's own.
 
-	//!== Get a connected camera ================----
+	//! Get a connected camera ================----
 	CameraManager::X().WaitForInitialization();
 
 	Camera *camera = CameraManager::X().GetCamera();
@@ -764,39 +764,39 @@ int calibrate_camera()
 		return 1;
 	}
 
-	//!== Determine camera resolution
+	//! Determine camera resolution
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
 
-	//!== Set Video Mode ==--
+	//! Set Video Mode ==--
 
-	//!== We set the camera to Segment Mode here.  This mode is support by all of our products.
-	//!== Depending on what device you have connected you might want to consider a different
-	//!== video mode to achieve the best possible tracking quality.  All devices that support a
-	//!== mode that will achieve a better quality output with a mode other than Segment Mode are
-	//!== listed here along with what mode you should use if you're looking for the best head
-	//!== tracking:
-	//!==
-	//!==     V100:R1/R2    Precision Mode
-	//!==     TrackIR 5     Bit-Packed Precision Mode
-	//!==     V120          Precision Mode
-	//!==     TBar          Precision Mode
-	//!==     S250e         Precision Mode
-	//!==
-	//!== If you have questions about a new device that might be conspicuously missing here or
-	//!== have any questions about head tracking, email support or participate in our forums.
+	//! We set the camera to Segment Mode here.  This mode is support by all of our products.
+	//! Depending on what device you have connected you might want to consider a different
+	//! video mode to achieve the best possible tracking quality.  All devices that support a
+	//! mode that will achieve a better quality output with a mode other than Segment Mode are
+	//! listed here along with what mode you should use if you're looking for the best head
+	//! tracking:
+	//!
+	//!     V100:R1/R2    Precision Mode
+	//!     TrackIR 5     Bit-Packed Precision Mode
+	//!     V120          Precision Mode
+	//!     TBar          Precision Mode
+	//!     S250e         Precision Mode
+	//!
+	//! If you have questions about a new device that might be conspicuously missing here or
+	//! have any questions about head tracking, email support or participate in our forums.
 
 	camera->SetVideoType(Core::GrayscaleMode);
 
-	//!== Start camera output ==--
+	//! Start camera output ==--
 	camera->Start();
 
-	//!== Camera Matrix creation	==--
+	//! Camera Matrix creation	==--
 	cameraMatrix = Mat::eye(3, 3, CV_64F);
 	distCoeffs = Mat::zeros(8, 1, CV_64F);
 
-	//!== Ok, start main loop.  This loop fetches and displays   ===---
-	//!== camera frames.                                         ===---
+	//! Ok, start main loop.  This loop fetches and displays   ===---
+	//! camera frames.                                         ===---
 	//! But first set some camera parameters
 	camera->SetAGC(false);
 	camera->SetAEC(false);
@@ -832,7 +832,7 @@ int calibrate_camera()
 
 	while (number_samples < imagesToSample)
 	{
-		//!== Fetch a new frame from the camera ===---
+		//! Fetch a new frame from the camera ===---
 		cv::Mat matFrame(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
 
 		//! which is why we also set this constant to 8 
@@ -843,16 +843,15 @@ int calibrate_camera()
 
 		if (frame)
 		{
-			//!== Lets have the Camera Library raster the camera's
-			//!== image into our texture.
+			//! Lets have the Camera Library raster the camera's
+			//! image into our texture.
 
 			frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER_BITSPERPIXEL, matFrame.data);
-			//!imwrite("test.jpg" + , matFrame);
 			QPFrame = Mat2QPixmap(matFrame);
 			commObj.changeImage(QPFrame);
 			found = findChessboardCorners(matFrame, boardSize, pointBuf, CV_CALIB_CB_ADAPTIVE_THRESH | CV_CALIB_CB_FAST_CHECK | CV_CALIB_CB_NORMALIZE_IMAGE);
 
-			if (found)                //! If done with success,
+			if (found)                //!< If done with success,
 			{
 				//! improve the found corners' coordinate accuracy for chessboard
 				cornerSubPix(matFrame, pointBuf, Size(11, 11), Size(-1, -1), TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, 0.1));
@@ -875,12 +874,12 @@ int calibrate_camera()
 
 	double rms = calibrateCamera(objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs, Rvec, Tvec);
 
-	//!== Release camera ==--
+	//! Release camera ==--
 	camera->Release();
 
 	//! Save the obtained calibration coefficients in a file for later use
 	QString fileName = QFileDialog::getSaveFileName(nullptr, "Save calibration file", "", "Calibration File (*.xml);;All Files (*)");
-	FileStorage fs(fileName.toUtf8().constData(), FileStorage::WRITE);//!+ FileStorage::MEMORY);
+	FileStorage fs(fileName.toUtf8().constData(), FileStorage::WRITE);
 	fs << "CameraMatrix" << cameraMatrix;
 	fs << "DistCoeff" << distCoeffs;
 	fs << "RMS" << rms;
@@ -957,10 +956,10 @@ void test_Algorithm()
 	commObj.addLog(QString::fromStdString(ss.str()));
 
 
-	float tolerance = 0.01; //! in mm
+	float tolerance = 0.01; //!< in mm
 
 	bool useGuess = true;
-	_methodPNP = 0; //! 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //! not used
+	_methodPNP = 0; //!< 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //!< not used
 
 	solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
 
@@ -974,7 +973,7 @@ void test_Algorithm()
 
 	commObj.addLog(QString::fromStdString(ss.str()));
 
-	_methodPNP = 1; //! 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //! not used
+	_methodPNP = 1; //!< 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP UPnP not used
 	Rvec = cv::Mat::zeros(3, 1, CV_64F);
 	Tvec = cv::Mat::zeros(3, 1, CV_64F);
 	solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
@@ -999,7 +998,7 @@ void test_Algorithm()
 	commObj.addLog(QString::fromStdString(ss.str()));
 	if (numberMarkers == 4)
 	{
-		_methodPNP = 2; //! 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //! not used
+		_methodPNP = 2; //!< 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //!< not used
 		Rvec = cv::Mat::zeros(3, 1, CV_64F);
 		Tvec = cv::Mat::zeros(3, 1, CV_64F);
 		solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
@@ -1028,7 +1027,7 @@ void test_Algorithm()
 		commObj.addLog(QString::fromStdString(ss.str()));
 	}
 
-	_methodPNP = 4; //! 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //! not used
+	_methodPNP = 4; //!< 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //!< not used
 	Rvec = cv::Mat::zeros(3, 1, CV_64F);
 	Tvec = cv::Mat::zeros(3, 1, CV_64F);
 	solvePnP(list_points3d, list_points2dProjected, cameraMatrix, distCoeffs, Rvec, Tvec, useGuess, _methodPNP);
@@ -1052,9 +1051,9 @@ void test_Algorithm()
 void projectCoordinateFrame(Mat pictureFrame)
 {
 	projectPoints(coordinateFrame, Rvec, Tvec, cameraMatrix, distCoeffs, coordinateFrameProjected);
-	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[3], Scalar(0, 0, 255), 2); //!z-axis
-	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[1], Scalar(255, 0, 0), 2); //!x-axis
-	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[2], Scalar(0, 255, 0), 2); //!y-axis
+	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[3], Scalar(0, 0, 255), 2); //!<z-axis
+	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[1], Scalar(255, 0, 0), 2); //!<x-axis
+	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[2], Scalar(0, 255, 0), 2); //!<y-axis
 }
 
 //! open the UDP ports for communication
@@ -1323,40 +1322,40 @@ void loadCameraPosition()
 //! get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected
 int determineExposure()
 {
-	//!== For OptiTrack Ethernet cameras, it's important to enable development mode if you
-	//!== want to stop execution for an extended time while debugging without disconnecting
-	//!== the Ethernet devices.  Lets do that now:
+	//! For OptiTrack Ethernet cameras, it's important to enable development mode if you
+	//! want to stop execution for an extended time while debugging without disconnecting
+	//! the Ethernet devices.  Lets do that now:
 
 	CameraLibrary_EnableDevelopment();
 
-	//!== Initialize Camera SDK ==--
+	//! Initialize Camera SDK ==--
 	CameraLibrary::CameraManager::X();
 
-	//!== At this point the Camera SDK is actively looking for all connected cameras and will initialize
-	//!== them on it's own.
+	//! At this point the Camera SDK is actively looking for all connected cameras and will initialize
+	//! them on it's own.
 
-	//!== Get a connected camera ================----
+	//! Get a connected camera ================----
 	CameraManager::X().WaitForInitialization();
 	Camera *camera = CameraManager::X().GetCamera();
 
-	//!== If no device connected, pop a message box and exit ==--
+	//! If no device connected, pop a message box and exit ==--
 	if (camera == 0)
 	{
 		commObj.addLog("No camera found!");
 		return 1;
 	}
 
-	//!== Determine camera resolution to size application window ==----
+	//! Determine camera resolution to size application window ==----
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
 
 	camera->SetVideoType(Core::PrecisionMode);	//! set the camera mode to precision mode, it used greyscale imformation for marker property calculations
 
-												//!== Start camera output ==--
+												//! Start camera output ==--
 	camera->Start();
 
-	//!== Turn on some overlay text so it's clear things are     ===---
-	//!== working even if there is nothing in the camera's view. ===---
+	//! Turn on some overlay text so it's clear things are     ===---
+	//! working even if there is nothing in the camera's view. ===---
 	camera->SetTextOverlay(true);
 	camera->SetExposure(intExposure);	//! set the camera exposure
 	camera->SetIntensity(intIntensity);	//! set the camera infrared LED intensity
@@ -1434,7 +1433,7 @@ int determineExposure()
 			{
 				frame->Release();
 				commObj.addLog("Was not able to detect the right amount of markers.");
-				//!== Release camera ==--
+				//! Release camera ==--
 				camera->Release();
 				return 1;
 			}
@@ -1500,8 +1499,8 @@ void determineOrder()
 		//! it is probably the more correct permutation
 		if (currentPointDistance < minPointDistance)
 		{
-			minPointDistance = currentPointDistance;	//! set the smallest value of difference to the current one
-			for (int b = 0; b < numberMarkers; b++)	//! now safe the better permutation
+			minPointDistance = currentPointDistance;	//!< set the smallest value of difference to the current one
+			for (int b = 0; b < numberMarkers; b++)	//!< now safe the better permutation
 			{
 				pointOrderIndicesNew[b] = pointOrderIndices[b];
 			}
@@ -1538,24 +1537,24 @@ int calibrateGround()
 	commObj.addLog("Started ground calibration");
 
 	CameraLibrary_EnableDevelopment();
-	//!== Initialize Camera SDK ==--
+	//! Initialize Camera SDK ==--
 	CameraLibrary::CameraManager::X();
 
-	//!== At this point the Camera SDK is actively looking for all connected cameras and will initialize
-	//!== them on it's own.
+	//! At this point the Camera SDK is actively looking for all connected cameras and will initialize
+	//! them on it's own.
 
-	//!== Get a connected camera ================----
+	//! Get a connected camera ================----
 	CameraManager::X().WaitForInitialization();
 	Camera *camera = CameraManager::X().GetCamera();
 
-	//!== If no device connected, pop a message box and exit ==--
+	//! If no device connected, pop a message box and exit ==--
 	if (camera == 0)
 	{
 		commObj.addLog("No camera found!");
 		return 1;
 	}
 
-	//!== Determine camera resolution to size application window ==----
+	//! Determine camera resolution to size application window ==----
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
 	camera->GetDistortionModel(distModel);
@@ -1564,11 +1563,11 @@ int calibrateGround()
 	//! Set camera mode to precision mode, it directly provides marker coordinates
 	camera->SetVideoType(Core::PrecisionMode);
 
-	//!== Start camera output ==--
+	//! Start camera output ==--
 	camera->Start();
 
-	//!== Turn on some overlay text so it's clear things are     ===---
-	//!== working even if there is nothing in the camera's view. ===---
+	//! Turn on some overlay text so it's clear things are     ===---
+	//! working even if there is nothing in the camera's view. ===---
 	//! Set some other parameters as well of the camera
 	camera->SetTextOverlay(true);
 	camera->SetFrameRate(intFrameRate);
@@ -1584,16 +1583,16 @@ int calibrateGround()
 
 	while (numberSamples < numberToSample)
 	{
-		//!== Fetch a new frame from the camera ===---
+		//! Fetch a new frame from the camera ===---
 		Frame *frame = camera->GetFrame();
 
 		if (frame)
 		{
-			//!== Ok, we've received a new frame, lets do something
-			//!== with it.
+			//! Ok, we've received a new frame, lets do something
+			//! with it.
 			if (frame->ObjectCount() == numberMarkers)
 			{
-				//!==for(int i=0; i<frame->ObjectCount(); i++)
+				//!for(int i=0; i<frame->ObjectCount(); i++)
 				for (int i = 0; i < numberMarkers; i++)
 				{
 					cObject *obj = frame->Object(i);
@@ -1639,11 +1638,11 @@ int calibrateGround()
 					return 1;
 				}
 
-				if (norm(positionOld) - norm(Tvec) < 0.05)	//!Iterative Method needs time to converge to solution
+				if (norm(positionOld) - norm(Tvec) < 0.05)	//!<Iterative Method needs time to converge to solution
 				{
 					add(posRef, Tvec, posRef);
-					add(eulerRef, Rvec, eulerRef); //! That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
-					numberSamples++;	//!==-- one sample more :D
+					add(eulerRef, Rvec, eulerRef); //!< That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first. 
+					numberSamples++;	//!<-- one sample more :D
 					commObj.progressUpdate(numberSamples * 100 / numberToSample);
 				}
 				positionOld = Tvec;
@@ -1669,16 +1668,16 @@ int calibrateGround()
 			frame->Release();
 		}
 	}
-	//!== Release camera ==--
+	//! Release camera ==--
 	camera->Release();
 
 	//!Divide by the number of samples to get the mean of the reference position
 	divide(posRef, numberToSample, posRef);
-	divide(eulerRef, numberToSample, eulerRef); //! eulerRef is here in Axis Angle notation
+	divide(eulerRef, numberToSample, eulerRef); //!< eulerRef is here in Axis Angle notation
 
-	Rodrigues(eulerRef, RmatRef);				//! axis angle to rotation matrix
-												//!==-- Euler Angles, finally 
-	getEulerAngles(RmatRef, eulerRef);	//!  rotation matrix to euler
+	Rodrigues(eulerRef, RmatRef);				//!< axis angle to rotation matrix
+												
+	getEulerAngles(RmatRef, eulerRef);	//!<  rotation matrix to euler
 	ss.str("");
 	ss << "RmatRef is:\n";
 	ss << RmatRef << "\n";
@@ -1689,8 +1688,7 @@ int calibrateGround()
 
 	//! Save the obtained calibration coefficients in a file for later use
 	QString fileName = QFileDialog::getSaveFileName(nullptr, "Save ground calibration file", "referenceData.xml", "Calibration File (*.xml);;All Files (*)");
-	FileStorage fs(fileName.toUtf8().constData(), FileStorage::WRITE);//!+ FileStorage::MEMORY);
-	fs << "posRef" << posRef;
+	FileStorage fs(fileName.toUtf8().constData(), FileStorage::WRITE);
 	fs << "M_NC" << RmatRef;
 	fs << "eulerRef" << eulerRef;
 	strBuf = fs.releaseAndGetString();

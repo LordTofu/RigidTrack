@@ -9,7 +9,7 @@
 <area shape="rect" id="node4" href="$class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="572,5,775,47"/>
 <area shape="rect" id="node6" href="$class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="349,64,504,105"/>
 <area shape="rect" id="node8" href="$class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="336,129,517,171"/>
-<area shape="rect" id="node10" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="/&lt;======= Entry Point ======– " alt="" coords="401,195,452,222"/>
+<area shape="rect" id="node10" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="401,195,452,222"/>
 <area shape="rect" id="node11" href="$class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="612,170,735,197"/>
 <area shape="rect" id="node15" href="$supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="637,221,710,247"/>
 <area shape="rect" id="node12" href="$class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="823,170,977,197"/>

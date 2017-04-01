@@ -1,5 +1,5 @@
 <map id="commObject::addLog" name="commObject::addLog">
-<area shape="rect" id="node2" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="/&lt;======= Entry Point ======– " alt="" coords="499,88,549,115"/>
+<area shape="rect" id="node2" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="499,88,549,115"/>
 <area shape="rect" id="node8" href="$main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="475,324,573,351"/>
 <area shape="rect" id="node11" href="$main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="491,413,557,440"/>
 <area shape="rect" id="node13" href="$main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="229,552,350,579"/>

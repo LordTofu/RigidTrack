@@ -1,5 +1,5 @@
 <map id="loadMarkerConfig" name="loadMarkerConfig">
-<area shape="rect" id="node2" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="/&lt;======= Entry Point ======– " alt="" coords="248,31,299,57"/>
+<area shape="rect" id="node2" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="248,31,299,57"/>
 <area shape="rect" id="node8" href="$class_rigid_track.html#ad3e07592fbc1491cdc36dd5e817e1775" title="RigidTrack::on_pbLoadMarker\l_clicked" alt="" coords="176,82,371,123"/>
 <area shape="rect" id="node3" href="$class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="419,5,541,32"/>
 <area shape="rect" id="node7" href="$supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="443,56,517,83"/>

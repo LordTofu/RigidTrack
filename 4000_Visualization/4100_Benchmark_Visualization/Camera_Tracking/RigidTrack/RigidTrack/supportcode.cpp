@@ -521,7 +521,7 @@ void Surface::PutPixel(int X, int Y, PIXEL Color)
     }
 }
 
-//!/<======= Entry Point ======--
+
 
 extern int main(int argc, char* argv[]);
 

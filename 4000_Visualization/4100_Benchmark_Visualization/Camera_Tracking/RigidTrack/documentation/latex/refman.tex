@@ -90,6 +90,20 @@
 \setcounter{secnumdepth}{5}
 \makeindex
 
+% Hyperlinks (required, but should be loaded last)
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage[pdftex,pagebackref=true]{hyperref}
+\else
+  \usepackage[ps2pdf,pagebackref=true]{hyperref}
+\fi
+\hypersetup{%
+  colorlinks=true,%
+  linkcolor=blue,%
+  citecolor=blue,%
+  unicode%
+}
+
 % Custom commands
 \newcommand{\clearemptydoublepage}{%
   \newpage{\pagestyle{empty}\cleardoublepage}%
@@ -103,6 +117,10 @@
 \begin{document}
 
 % Titlepage & ToC
+\hypersetup{pageanchor=false,
+             bookmarksnumbered=true,
+             pdfencoding=unicode
+            }
 \pagenumbering{alph}
 \begin{titlepage}
 \vspace*{7cm}
@@ -117,8 +135,28 @@
 \tableofcontents
 \clearemptydoublepage
 \pagenumbering{arabic}
+\hypersetup{pageanchor=true}
 
 %--- Begin generated contents ---
+\chapter{Namespace Index}
+\input{namespaces}
+\chapter{Hierarchical Index}
+\input{hierarchy}
+\chapter{Class Index}
+\input{annotated}
+\chapter{File Index}
+\input{files}
+\chapter{Namespace Documentation}
+\input{namespace_ui}
+\chapter{Class Documentation}
+\input{classcomm_object}
+\input{class_cv_model_estimator2}
+\input{structqt__meta__stringdata__comm_object__t}
+\input{structqt__meta__stringdata___rigid_track__t}
+\input{class_rigid_track}
+\input{class_ui_1_1_rigid_track_class}
+\input{class_surface}
+\input{class_ui___rigid_track_class}
 \chapter{File Documentation}
 \input{__modelest_8h}
 \input{communication_8cpp}
@@ -129,12 +167,16 @@
 \input{_release_2moc___rigid_track_8cpp}
 \input{qrc___rigid_track_8cpp}
 \input{ui___rigid_track_8h}
+\input{_import_log_8m}
 \input{main_8cpp}
 \input{main_8h}
 \input{precomp_8hpp}
 \input{resource_8h}
 \input{_rigid_track_8cpp}
 \input{_rigid_track_8h}
+\input{simpleplot_8m}
+\input{supportcode_8cpp}
+\input{supportcode_8h}
 %--- End generated contents ---
 
 % Index

@@ -7,7 +7,7 @@
 <area shape="rect" id="node3" href="$main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="419,13,544,39"/>
 <area shape="rect" id="node4" href="$class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="627,5,829,47"/>
 <area shape="rect" id="node6" href="$class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="404,64,559,105"/>
-<area shape="rect" id="node8" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="/&lt;======= Entry Point ======– " alt="" coords="456,130,507,157"/>
+<area shape="rect" id="node8" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="456,130,507,157"/>
 <area shape="rect" id="node9" href="$class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="667,105,789,131"/>
 <area shape="rect" id="node13" href="$supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="691,155,765,182"/>
 <area shape="rect" id="node10" href="$class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="877,105,1032,131"/>
