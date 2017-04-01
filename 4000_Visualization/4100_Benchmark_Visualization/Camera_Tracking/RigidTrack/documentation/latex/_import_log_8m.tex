@@ -1,0 +1,174 @@
+\section{Rigid\+Track/\+Import\+Log.m File Reference}
+\label{_import_log_8m}\index{Rigid\+Track/\+Import\+Log.\+m@{Rigid\+Track/\+Import\+Log.\+m}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Close the \textbf{ text} \textbf{ file} \textbf{ fclose} (\textbf{ file\+ID})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Import \textbf{ data} from \textbf{ text} file Script for importing \textbf{ data} from the following \textbf{ text} \textbf{ file}
+\item 
+Format for each line of \textbf{ text}
+\item 
+Format for each line of see the T\+E\+X\+T\+S\+C\+AN documentation \textbf{ format\+Spec} = \textquotesingle{}\%f\%f\%f\%f\%f\%f\%f\%f\%f\%f\%f\%[$^\wedge$\textbackslash{}n\textbackslash{}r]\textquotesingle{}
+\item 
+Open the \textbf{ text} \textbf{ file} \textbf{ file\+ID} = fopen(filename,\textquotesingle{}r\textquotesingle{})
+\item 
+Read columns of \textbf{ data} according to the format This call is based \textbf{ on} the structure of the \textbf{ file} used to generate this code If an \textbf{ error} occurs for a different try regenerating the code from the Import Tool \textbf{ data\+Array} = textscan(\textbf{ file\+ID}, \textbf{ format\+Spec}, \textquotesingle{}Delimiter\textquotesingle{}, delimiter, \textquotesingle{}Empty\+Value\textquotesingle{} ,NaN, \textquotesingle{}Return\+On\+Error\textquotesingle{}, false)
+\item 
+Post processing for unimportable \textbf{ data} No unimportable \textbf{ data} rules were applied during the \textbf{ import}
+\item 
+Post processing for unimportable data No unimportable data rules were applied during the so no post processing code is included To generate code which works for unimportable \textbf{ data}
+\item 
+Post processing for unimportable \textbf{ data} No unimportable \textbf{ data} rules were applied during the so no post processing code is included To generate code which works for unimportable select unimportable cells in a \textbf{ file} and regenerate the script Allocate imported array to column variable names \textbf{ t} = \textbf{ data\+Array}\{\+:, 1\}
+\item 
+\textbf{ x} = \textbf{ data\+Array}\{\+:, 2\}
+\item 
+\textbf{ y} = \textbf{ data\+Array}\{\+:, 3\}
+\item 
+\textbf{ z} = \textbf{ data\+Array}\{\+:, 4\}
+\item 
+\textbf{ euler1} = \textbf{ data\+Array}\{\+:, 5\}
+\item 
+\textbf{ euler2} = \textbf{ data\+Array}\{\+:, 6\}
+\item 
+\textbf{ euler3} = \textbf{ data\+Array}\{\+:, 7\}
+\item 
+\textbf{ velx} = \textbf{ data\+Array}\{\+:, 8\}
+\item 
+\textbf{ vely} = \textbf{ data\+Array}\{\+:, 9\}
+\item 
+\textbf{ velz} = \textbf{ data\+Array}\{\+:, 10\}
+\item 
+\textbf{ error} = \textbf{ data\+Array}\{\+:, 11\}
+\item 
+Clear temporary variables clearvars filename delimiter \textbf{ format\+Spec} \textbf{ file\+ID} \textbf{ data\+Array} \textbf{ ans}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\label{_import_log_8m_a9a3043eed208fc59883c3d1fcdee2df9}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!fclose@{fclose}}
+\index{fclose@{fclose}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{fclose()}
+{\footnotesize\ttfamily Close the \textbf{ text} \textbf{ file} fclose (\begin{DoxyParamCaption}\item[{\textbf{ file\+ID}}]{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\label{_import_log_8m_a7f7889b4a2037f5c32b7a430f039ff3c}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!ans@{ans}}
+\index{ans@{ans}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{ans}
+{\footnotesize\ttfamily Clear temporary variables clearvars filename delimiter \textbf{ format\+Spec} \textbf{ file\+ID} \textbf{ data\+Array} ans}
+
+\mbox{\label{_import_log_8m_a32d7eebae6f15ceb9cc7f573d7dbd27d}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!data@{data}}
+\index{data@{data}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{data}
+{\footnotesize\ttfamily Post processing for unimportable data No unimportable data rules were applied during the so no post processing code is included To generate code which works for unimportable data}
+
+\mbox{\label{_import_log_8m_a7ae75349ad73aa5ca5625226265cbe36}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!data\+Array@{data\+Array}}
+\index{data\+Array@{data\+Array}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{data\+Array}
+{\footnotesize\ttfamily Read columns of \textbf{ data} according to the format This call is based \textbf{ on} the structure of the \textbf{ file} used to generate this code If an \textbf{ error} occurs for a different try regenerating the code from the Import Tool data\+Array = textscan(\textbf{ file\+ID}, \textbf{ format\+Spec}, \textquotesingle{}Delimiter\textquotesingle{}, delimiter, \textquotesingle{}Empty\+Value\textquotesingle{} ,NaN, \textquotesingle{}Return\+On\+Error\textquotesingle{}, false)}
+
+\mbox{\label{_import_log_8m_af10dacfa214e2575bb2e0ee407c242e0}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!error@{error}}
+\index{error@{error}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{error}
+{\footnotesize\ttfamily error = \textbf{ data\+Array}\{\+:, 11\}}
+
+\mbox{\label{_import_log_8m_a9c379f8fe46ea91c796737efba5d2ec6}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!euler1@{euler1}}
+\index{euler1@{euler1}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{euler1}
+{\footnotesize\ttfamily euler1 = \textbf{ data\+Array}\{\+:, 5\}}
+
+\mbox{\label{_import_log_8m_a3ffff58fff46af66637f36991d84d5d0}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!euler2@{euler2}}
+\index{euler2@{euler2}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{euler2}
+{\footnotesize\ttfamily euler2 = \textbf{ data\+Array}\{\+:, 6\}}
+
+\mbox{\label{_import_log_8m_a395788df378abd76468028014ddba1ea}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!euler3@{euler3}}
+\index{euler3@{euler3}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{euler3}
+{\footnotesize\ttfamily euler3 = \textbf{ data\+Array}\{\+:, 7\}}
+
+\mbox{\label{_import_log_8m_a2524525e499f4ee63bb0c6dd166f745d}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!file@{file}}
+\index{file@{file}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{file}
+{\footnotesize\ttfamily Read columns of \textbf{ data} according to the format This call is based \textbf{ on} the structure of the file used to generate this code If an \textbf{ error} occurs for a different file}
+
+\mbox{\label{_import_log_8m_a0535e16c4a03a88fd449c86dc20c47c4}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!file\+ID@{file\+ID}}
+\index{file\+ID@{file\+ID}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{file\+ID}
+{\footnotesize\ttfamily Open the \textbf{ text} \textbf{ file} file\+ID = fopen(filename,\textquotesingle{}r\textquotesingle{})}
+
+\mbox{\label{_import_log_8m_a25139a5820f7024a49a2f0aeb2077ea0}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!format\+Spec@{format\+Spec}}
+\index{format\+Spec@{format\+Spec}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{format\+Spec}
+{\footnotesize\ttfamily Format for each line of see the T\+E\+X\+T\+S\+C\+AN documentation format\+Spec = \textquotesingle{}\%f\%f\%f\%f\%f\%f\%f\%f\%f\%f\%f\%[$^\wedge$\textbackslash{}n\textbackslash{}r]\textquotesingle{}}
+
+\mbox{\label{_import_log_8m_a97736099a9ac43f989770145ce6b9935}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!import@{import}}
+\index{import@{import}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{import}
+{\footnotesize\ttfamily Post processing for unimportable \textbf{ data} No unimportable \textbf{ data} rules were applied during the import}
+
+\mbox{\label{_import_log_8m_a69071fd826a28729eeba030de35a2197}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!t@{t}}
+\index{t@{t}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{t}
+{\footnotesize\ttfamily Post processing for unimportable \textbf{ data} No unimportable \textbf{ data} rules were applied during the so no post processing code is included To generate code which works for unimportable select unimportable cells in a \textbf{ file} and regenerate the script Allocate imported array to column variable names t = \textbf{ data\+Array}\{\+:, 1\}}
+
+\mbox{\label{_import_log_8m_aa28ffc06f7e18deaf5dfae38932383c4}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!text@{text}}
+\index{text@{text}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{text}
+{\footnotesize\ttfamily Format for each line of text}
+
+\mbox{\label{_import_log_8m_ac2ec2a4c54892db0cc62ff85bdd02098}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!velx@{velx}}
+\index{velx@{velx}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{velx}
+{\footnotesize\ttfamily velx = \textbf{ data\+Array}\{\+:, 8\}}
+
+\mbox{\label{_import_log_8m_a88392913e56ddcefdc658bcf903e97f3}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!vely@{vely}}
+\index{vely@{vely}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{vely}
+{\footnotesize\ttfamily vely = \textbf{ data\+Array}\{\+:, 9\}}
+
+\mbox{\label{_import_log_8m_ad21037293c95293c4b19e5b7010d25b4}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!velz@{velz}}
+\index{velz@{velz}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{velz}
+{\footnotesize\ttfamily velz = \textbf{ data\+Array}\{\+:, 10\}}
+
+\mbox{\label{_import_log_8m_a9336ebf25087d91c818ee6e9ec29f8c1}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!x@{x}}
+\index{x@{x}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{x}
+{\footnotesize\ttfamily x = \textbf{ data\+Array}\{\+:, 2\}}
+
+\mbox{\label{_import_log_8m_a2fb1c5cf58867b5bbc9a1b145a86f3a0}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!y@{y}}
+\index{y@{y}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{y}
+{\footnotesize\ttfamily y = \textbf{ data\+Array}\{\+:, 3\}}
+
+\mbox{\label{_import_log_8m_a25ed1bcb423b0b7200f485fc5ff71c8e}} 
+\index{Import\+Log.\+m@{Import\+Log.\+m}!z@{z}}
+\index{z@{z}!Import\+Log.\+m@{Import\+Log.\+m}}
+\subsubsection{z}
+{\footnotesize\ttfamily z = \textbf{ data\+Array}\{\+:, 4\}}
+

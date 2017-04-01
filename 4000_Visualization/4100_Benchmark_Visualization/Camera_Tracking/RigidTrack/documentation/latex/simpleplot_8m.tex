@@ -1,0 +1,278 @@
+\section{Rigid\+Track/simpleplot.m File Reference}
+\label{simpleplot_8m}\index{Rigid\+Track/simpleplot.\+m@{Rigid\+Track/simpleplot.\+m}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ ylim} ([-\/2, 2]) grid \textbf{ minor}
+\item 
+\textbf{ subplot} (3, 1, 2) \textbf{ plot}(\textbf{ t}
+\item 
+\textbf{ xlabel} (\textquotesingle{}Time[s]\textquotesingle{}) legend(\textquotesingle{}V\+\_\+x\textquotesingle{}
+\item 
+\textbf{ subplot} (3, 1, 3) \textbf{ plot}(\textbf{ t}
+\item 
+\textbf{ ylabel} (\textquotesingle{}Euler Angle [deg]\textquotesingle{}) \textbf{ xlabel}(\textquotesingle{}Time[s]\textquotesingle{}) legend(\textquotesingle{}Roll\textquotesingle{}
+\item 
+\textbf{ posz\+\_\+down\+Samp} (\textbf{ i})
+\item 
+\textbf{ plot} (\textbf{ t}, \textbf{ velz}, \textbf{ t\+\_\+down\+Samp}, \textbf{ velz\+\_\+down\+Samp})
+\item 
+\textbf{ std} (\textbf{ x})) sprintf(\textquotesingle{}Standard Deviation of Position Y is \%f mm\textquotesingle{}
+\item 
+\textbf{ std} (\textbf{ y})) sprintf(\textquotesingle{}Standard Deviation of Position Z is \%f mm\textquotesingle{}
+\item 
+\textbf{ std} (\textbf{ z})) sprintf(\textquotesingle{}Standard Deviation of Velocity X is \%f m/s\textquotesingle{}
+\item 
+\textbf{ std} (\textbf{ velx})) sprintf(\textquotesingle{}Standard Deviation of Velocity Y is \%f m/s\textquotesingle{}
+\item 
+\textbf{ std} (\textbf{ vely})) sprintf(\textquotesingle{}Standard Deviation of Velocity Z is \%f m/s\textquotesingle{}
+\item 
+\textbf{ std} (\textbf{ velz})) sprintf(\textquotesingle{}Standard Deviation of Velocity Z DS is \%f mm/s\textquotesingle{}
+\item 
+\textbf{ std} (\textbf{ velz\+\_\+down\+Samp})) sprintf(\textquotesingle{}Standard Deviation of Euler 1 is \%f °\textquotesingle{}
+\item 
+\textbf{ std} (\textbf{ euler1})) sprintf(\textquotesingle{}Standard Deviation of Euler 2 is \%f °\textquotesingle{}
+\item 
+\textbf{ std} (\textbf{ euler2})) sprintf(\textquotesingle{}Standard Deviation of Euler 3 is \%f °\textquotesingle{}
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+clear all Import\+Log \textbf{ samples\+\_\+end} = 1200$\ast$100
+\item 
+\textbf{ samples\+\_\+start} =1180$\ast$100
+\item 
+\textbf{ x}
+\item 
+\textbf{ V\+\_\+y}
+\item 
+V\+\_\+z grid \textbf{ on}
+\item 
+\textbf{ Pitch}
+\item 
+grid \textbf{ minor}
+\item 
+\textbf{ t} =t-\/t(1)
+\item 
+\textbf{ posz\+\_\+sim} =timeseries(\textbf{ z},\textbf{ t})
+\item 
+compute \textbf{ velocity} only with every timestep \textbf{ t\+\_\+down\+Samp} = zeros(idivide(numel(\textbf{ t}), int32(10)),1)
+\item 
+\textbf{ posz\+\_\+down\+Samp} = zeros(numel(\textbf{ t\+\_\+down\+Samp}),1)
+\item 
+\textbf{ velz\+\_\+down\+Samp} = zeros(numel(\textbf{ t\+\_\+down\+Samp}),1)
+\item 
+for \textbf{ i}
+\item 
+end \textbf{ velz\+\_\+filtered} = do\+Filter(\textbf{ velz})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\label{simpleplot_8m_a7d62fe86fbc7f23b468884f65342f353}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!plot@{plot}}
+\index{plot@{plot}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{plot()}
+{\footnotesize\ttfamily plot (\begin{DoxyParamCaption}\item[{\textbf{ t}}]{,  }\item[{\textbf{ velz}}]{,  }\item[{\textbf{ t\+\_\+down\+Samp}}]{,  }\item[{\textbf{ velz\+\_\+down\+Samp}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_a18c1ae87dcb170fe327a0fe98dae88e2}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!posz\+\_\+down\+Samp@{posz\+\_\+down\+Samp}}
+\index{posz\+\_\+down\+Samp@{posz\+\_\+down\+Samp}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{posz\+\_\+down\+Samp()}
+{\footnotesize\ttfamily posz\+\_\+down\+Samp (\begin{DoxyParamCaption}\item[{\textbf{ i}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_ad342c70a5c16c852e66d7b11db25b298}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!std@{std}}
+\index{std@{std}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{std()\hspace{0.1cm}{\footnotesize\ttfamily [1/9]}}
+{\footnotesize\ttfamily std (\begin{DoxyParamCaption}\item[{\textbf{ x}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_ad82d4a2b9db50d608e0ad27ff08741ad}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!std@{std}}
+\index{std@{std}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{std()\hspace{0.1cm}{\footnotesize\ttfamily [2/9]}}
+{\footnotesize\ttfamily std (\begin{DoxyParamCaption}\item[{\textbf{ y}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_afd1eeaf8aaafa9aeb66810b0d4d3ea2c}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!std@{std}}
+\index{std@{std}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{std()\hspace{0.1cm}{\footnotesize\ttfamily [3/9]}}
+{\footnotesize\ttfamily std (\begin{DoxyParamCaption}\item[{\textbf{ z}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_a809de70f4cabe55f2955eb7a4c4a79ee}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!std@{std}}
+\index{std@{std}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{std()\hspace{0.1cm}{\footnotesize\ttfamily [4/9]}}
+{\footnotesize\ttfamily std (\begin{DoxyParamCaption}\item[{\textbf{ velx}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_a942589595cd1952ecab4b8e02f7f9f64}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!std@{std}}
+\index{std@{std}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{std()\hspace{0.1cm}{\footnotesize\ttfamily [5/9]}}
+{\footnotesize\ttfamily std (\begin{DoxyParamCaption}\item[{\textbf{ vely}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_adb31fdb5f0cb909d0b5d19165ea6c770}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!std@{std}}
+\index{std@{std}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{std()\hspace{0.1cm}{\footnotesize\ttfamily [6/9]}}
+{\footnotesize\ttfamily std (\begin{DoxyParamCaption}\item[{\textbf{ velz}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_ad2bab3b312c9380cfeaae4af39e8e935}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!std@{std}}
+\index{std@{std}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{std()\hspace{0.1cm}{\footnotesize\ttfamily [7/9]}}
+{\footnotesize\ttfamily std (\begin{DoxyParamCaption}\item[{\textbf{ velz\+\_\+down\+Samp}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_ad8cbd623ada97cc661718cb4fdfafff3}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!std@{std}}
+\index{std@{std}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{std()\hspace{0.1cm}{\footnotesize\ttfamily [8/9]}}
+{\footnotesize\ttfamily std (\begin{DoxyParamCaption}\item[{\textbf{ euler1}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_a9668dfd792f0014bd3d1ff27df351187}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!std@{std}}
+\index{std@{std}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{std()\hspace{0.1cm}{\footnotesize\ttfamily [9/9]}}
+{\footnotesize\ttfamily std (\begin{DoxyParamCaption}\item[{\textbf{ euler2}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_a3a4f4905208b94af4b7817f8b3f21ec2}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!subplot@{subplot}}
+\index{subplot@{subplot}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{subplot()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily subplot (\begin{DoxyParamCaption}\item[{3}]{,  }\item[{1}]{,  }\item[{2}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_abe13ffe074f9092e7dad269ae280bcc6}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!subplot@{subplot}}
+\index{subplot@{subplot}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{subplot()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily subplot (\begin{DoxyParamCaption}\item[{3}]{,  }\item[{1}]{,  }\item[{3}]{ }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_a6eb385e9d5bd65cedde308a4b4b56220}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!xlabel@{xlabel}}
+\index{xlabel@{xlabel}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{xlabel()}
+{\footnotesize\ttfamily xlabel (\begin{DoxyParamCaption}\item[{\textquotesingle{}Time\textquotesingle{}}]{[s] }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_a324f063c76b00f9e5b94f26aa2826d48}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!ylabel@{ylabel}}
+\index{ylabel@{ylabel}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{ylabel()}
+{\footnotesize\ttfamily ylabel (\begin{DoxyParamCaption}\item[{\textquotesingle{}Euler Angle \textquotesingle{}}]{[deg] }\end{DoxyParamCaption})}
+
+\mbox{\label{simpleplot_8m_aa18ea4af8164f449e02d6dae6890452b}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!ylim@{ylim}}
+\index{ylim@{ylim}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{ylim()}
+{\footnotesize\ttfamily ylim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\label{simpleplot_8m_a81b94ba50b782836960e54bcfa99fc88}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!i@{i}}
+\index{i@{i}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{i}
+{\footnotesize\ttfamily end for i}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=1:numel(t_downSamp)
+   t_downSamp(i) = t(i*10)
+\end{DoxyCode}
+\mbox{\label{simpleplot_8m_a7887bba2abb933d1b72c821cfbf48de0}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!minor@{minor}}
+\index{minor@{minor}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{minor}
+{\footnotesize\ttfamily grid minor}
+
+\mbox{\label{simpleplot_8m_a3f180cdf06bccc9f78c986b1cf00f76b}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!on@{on}}
+\index{on@{on}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{on}
+{\footnotesize\ttfamily V\+\_\+z grid on}
+
+\mbox{\label{simpleplot_8m_a6753778520a0d8493f6c18f6e6818542}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!Pitch@{Pitch}}
+\index{Pitch@{Pitch}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{Pitch}
+{\footnotesize\ttfamily Pitch}
+
+\mbox{\label{simpleplot_8m_a8ed2b777c546d17eac623256e1b5aff0}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!posz\+\_\+down\+Samp@{posz\+\_\+down\+Samp}}
+\index{posz\+\_\+down\+Samp@{posz\+\_\+down\+Samp}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{posz\+\_\+down\+Samp}
+{\footnotesize\ttfamily posz\+\_\+down\+Samp = zeros(numel(\textbf{ t\+\_\+down\+Samp}),1)}
+
+\mbox{\label{simpleplot_8m_a1a2de047c9882537bc7f97e83172055c}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!posz\+\_\+sim@{posz\+\_\+sim}}
+\index{posz\+\_\+sim@{posz\+\_\+sim}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{posz\+\_\+sim}
+{\footnotesize\ttfamily posz\+\_\+sim =timeseries(\textbf{ z},\textbf{ t})}
+
+\mbox{\label{simpleplot_8m_ad3f11b5775e10d837cfee974d9b1ddb3}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!samples\+\_\+end@{samples\+\_\+end}}
+\index{samples\+\_\+end@{samples\+\_\+end}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{samples\+\_\+end}
+{\footnotesize\ttfamily clear all Import\+Log samples\+\_\+end = 1200$\ast$100}
+
+\mbox{\label{simpleplot_8m_a6917c6c85993a262db35a2edd3b6998b}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!samples\+\_\+start@{samples\+\_\+start}}
+\index{samples\+\_\+start@{samples\+\_\+start}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{samples\+\_\+start}
+{\footnotesize\ttfamily samples\+\_\+start =1180$\ast$100}
+
+\mbox{\label{simpleplot_8m_aaccc9105df5383111407fd5b41255e23}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!t@{t}}
+\index{t@{t}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{t}
+{\footnotesize\ttfamily t =t-\/t(1)}
+
+\mbox{\label{simpleplot_8m_aaa1c8591cce33372fcfdf4ca76b2a923}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!t\+\_\+down\+Samp@{t\+\_\+down\+Samp}}
+\index{t\+\_\+down\+Samp@{t\+\_\+down\+Samp}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{t\+\_\+down\+Samp}
+{\footnotesize\ttfamily compute \textbf{ velocity} only with every timestep t\+\_\+down\+Samp = zeros(idivide(numel(\textbf{ t}), int32(10)),1)}
+
+\mbox{\label{simpleplot_8m_a6df78a18c9f24ecf08d6cc2094c39164}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!V\+\_\+y@{V\+\_\+y}}
+\index{V\+\_\+y@{V\+\_\+y}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{V\+\_\+y}
+{\footnotesize\ttfamily V\+\_\+y}
+
+\mbox{\label{simpleplot_8m_af86923840a07d20364688904ee196d5d}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!velz\+\_\+down\+Samp@{velz\+\_\+down\+Samp}}
+\index{velz\+\_\+down\+Samp@{velz\+\_\+down\+Samp}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{velz\+\_\+down\+Samp}
+{\footnotesize\ttfamily velz\+\_\+down\+Samp = zeros(numel(\textbf{ t\+\_\+down\+Samp}),1)}
+
+\mbox{\label{simpleplot_8m_a54c9d4ee5914dc8cd38a7b17b50b4997}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!velz\+\_\+filtered@{velz\+\_\+filtered}}
+\index{velz\+\_\+filtered@{velz\+\_\+filtered}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{velz\+\_\+filtered}
+{\footnotesize\ttfamily end velz\+\_\+filtered = do\+Filter(\textbf{ velz})}
+
+\mbox{\label{simpleplot_8m_a9336ebf25087d91c818ee6e9ec29f8c1}} 
+\index{simpleplot.\+m@{simpleplot.\+m}!x@{x}}
+\index{x@{x}!simpleplot.\+m@{simpleplot.\+m}}
+\subsubsection{x}
+{\footnotesize\ttfamily x}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= x(samples_start:samples_end)
+y = y(samples_start:samples_end)
+z = z(samples_start:samples_end)
+velx = velx(samples_start:samples_end)
+vely = vely(samples_start:samples_end)
+velz = velz(samples_start:samples_end)
+euler1 = euler1(samples_start:samples_end)
+euler2 = euler2(samples_start:samples_end)
+euler3 = euler3(samples_start:samples_end)
+t = t(samples_start:samples_end)
+figure(1)
+subplot(3,1,1)
+plot(t, [x, y, z])
+xlabel('Time[s]')
+legend('x', 'y', 'z')
+grid on
+\end{DoxyCode}

@@ -1,0 +1,7 @@
+<map id="calibrate_camera" name="calibrate_camera">
+<area shape="rect" id="node2" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="193,5,340,32"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="214,56,319,83"/>
+<area shape="rect" id="node4" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="176,107,357,133"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#a0a7f48017dbb3d64bfc1a171631ad7d7" title="calculate the chess board corner positions, used for the camera calibration " alt="" coords="181,157,353,184"/>
+<area shape="rect" id="node6" href="$classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="175,208,359,235"/>
+</map>

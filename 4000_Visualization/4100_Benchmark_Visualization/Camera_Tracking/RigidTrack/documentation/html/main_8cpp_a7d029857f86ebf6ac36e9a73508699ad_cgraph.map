@@ -1,0 +1,13 @@
+<map id="start_camera" name="start_camera">
+<area shape="rect" id="node2" href="$main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="175,5,310,32"/>
+<area shape="rect" id="node3" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="381,81,528,108"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#ae624b0189bc5e32cbbb1f178b9f1a360" title="open the UDP ports for communication " alt="" coords="201,107,284,133"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="187,157,298,184"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#af2a8b7de0b15dc17198c147ba39e85f3" title="close the UDP ports again to release network interfaces etc. " alt="" coords="203,208,283,235"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="get the euler angles from a rotation matrix " alt="" coords="187,259,298,285"/>
+<area shape="rect" id="node8" href="$main_8cpp.html#a54b6b6db348b48d21e1265e22829c61f" title="send the position and attitude over UDP to every receiver, the safety receiver is handled on its own ..." alt="" coords="191,309,295,336"/>
+<area shape="rect" id="node9" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="163,360,323,387"/>
+<area shape="rect" id="node10" href="$main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="182,411,303,437"/>
+<area shape="rect" id="node11" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="190,461,295,488"/>
+<area shape="rect" id="node12" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="152,512,333,539"/>
+</map>

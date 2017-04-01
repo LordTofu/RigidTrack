@@ -29,40 +29,40 @@ struct qt_meta_stringdata_RigidTrack_t {
     )
 static const qt_meta_stringdata_RigidTrack_t qt_meta_stringdata_RigidTrack = {
     {
-QT_MOC_LITERAL(0, 0, 10), // "RigidTrack"
-QT_MOC_LITERAL(1, 11, 25), // "on_btnStartCamera_clicked"
-QT_MOC_LITERAL(2, 37, 0), // ""
-QT_MOC_LITERAL(3, 38, 18), // "on_btnZero_clicked"
-QT_MOC_LITERAL(4, 57, 23), // "on_btnCalibrate_clicked"
-QT_MOC_LITERAL(5, 81, 8), // "setImage"
-QT_MOC_LITERAL(6, 90, 5), // "image"
-QT_MOC_LITERAL(7, 96, 8), // "clearLog"
-QT_MOC_LITERAL(8, 105, 14), // "progressUpdate"
-QT_MOC_LITERAL(9, 120, 5), // "value"
-QT_MOC_LITERAL(10, 126, 23), // "on_btnLoadCalib_clicked"
-QT_MOC_LITERAL(11, 150, 6), // "setLog"
-QT_MOC_LITERAL(12, 157, 7), // "logText"
-QT_MOC_LITERAL(13, 165, 31), // "on_sbHeadingOffset_valueChanged"
-QT_MOC_LITERAL(14, 197, 1), // "d"
-QT_MOC_LITERAL(15, 199, 27), // "on_leIPObject_returnPressed"
-QT_MOC_LITERAL(16, 227, 27), // "on_leIPSafety_returnPressed"
-QT_MOC_LITERAL(17, 255, 28), // "on_leIPSafety2_returnPressed"
-QT_MOC_LITERAL(18, 284, 16), // "on_rbP3P_clicked"
-QT_MOC_LITERAL(19, 301, 22), // "on_rbIterative_clicked"
-QT_MOC_LITERAL(20, 324, 17), // "on_rbEPnP_clicked"
-QT_MOC_LITERAL(21, 342, 28), // "on_actionShow_Help_triggered"
-QT_MOC_LITERAL(22, 371, 24), // "on_cbSafety_stateChanged"
-QT_MOC_LITERAL(23, 396, 5), // "state"
-QT_MOC_LITERAL(24, 402, 25), // "on_cbSafety2_stateChanged"
-QT_MOC_LITERAL(25, 428, 28), // "on_dsbDimension_valueChanged"
-QT_MOC_LITERAL(26, 457, 23), // "on_sbAngle_valueChanged"
-QT_MOC_LITERAL(27, 481, 1), // "i"
-QT_MOC_LITERAL(28, 483, 23), // "on_pbLoadMarker_clicked"
-QT_MOC_LITERAL(29, 507, 24), // "on_cbInvert_stateChanged"
-QT_MOC_LITERAL(30, 532, 9), // "enableP3P"
-QT_MOC_LITERAL(31, 542, 29), // "on_btnCalibrateGround_clicked"
-QT_MOC_LITERAL(32, 572, 34), // "on_actionOpen_Log_Folder_trig..."
-QT_MOC_LITERAL(33, 607, 43) // "on_actionOpen_Installation_Fo..."
+QT_MOC_LITERAL(0, 0, 10), //!/< "RigidTrack"
+QT_MOC_LITERAL(1, 11, 25), //!/< "on_btnStartCamera_clicked"
+QT_MOC_LITERAL(2, 37, 0), //!/< ""
+QT_MOC_LITERAL(3, 38, 18), //!/< "on_btnZero_clicked"
+QT_MOC_LITERAL(4, 57, 23), //!/< "on_btnCalibrate_clicked"
+QT_MOC_LITERAL(5, 81, 8), //!/< "setImage"
+QT_MOC_LITERAL(6, 90, 5), //!/< "image"
+QT_MOC_LITERAL(7, 96, 8), //!/< "clearLog"
+QT_MOC_LITERAL(8, 105, 14), //!/< "progressUpdate"
+QT_MOC_LITERAL(9, 120, 5), //!/< "value"
+QT_MOC_LITERAL(10, 126, 23), //!/< "on_btnLoadCalib_clicked"
+QT_MOC_LITERAL(11, 150, 6), //!/< "setLog"
+QT_MOC_LITERAL(12, 157, 7), //!/< "logText"
+QT_MOC_LITERAL(13, 165, 31), //!/< "on_sbHeadingOffset_valueChanged"
+QT_MOC_LITERAL(14, 197, 1), //!/< "d"
+QT_MOC_LITERAL(15, 199, 27), //!/< "on_leIPObject_returnPressed"
+QT_MOC_LITERAL(16, 227, 27), //!/< "on_leIPSafety_returnPressed"
+QT_MOC_LITERAL(17, 255, 28), //!/< "on_leIPSafety2_returnPressed"
+QT_MOC_LITERAL(18, 284, 16), //!/< "on_rbP3P_clicked"
+QT_MOC_LITERAL(19, 301, 22), //!/< "on_rbIterative_clicked"
+QT_MOC_LITERAL(20, 324, 17), //!/< "on_rbEPnP_clicked"
+QT_MOC_LITERAL(21, 342, 28), //!/< "on_actionShow_Help_triggered"
+QT_MOC_LITERAL(22, 371, 24), //!/< "on_cbSafety_stateChanged"
+QT_MOC_LITERAL(23, 396, 5), //!/< "state"
+QT_MOC_LITERAL(24, 402, 25), //!/< "on_cbSafety2_stateChanged"
+QT_MOC_LITERAL(25, 428, 28), //!/< "on_dsbDimension_valueChanged"
+QT_MOC_LITERAL(26, 457, 23), //!/< "on_sbAngle_valueChanged"
+QT_MOC_LITERAL(27, 481, 1), //!/< "i"
+QT_MOC_LITERAL(28, 483, 23), //!/< "on_pbLoadMarker_clicked"
+QT_MOC_LITERAL(29, 507, 24), //!/< "on_cbInvert_stateChanged"
+QT_MOC_LITERAL(30, 532, 9), //!/< "enableP3P"
+QT_MOC_LITERAL(31, 542, 29), //!/< "on_btnCalibrateGround_clicked"
+QT_MOC_LITERAL(32, 572, 34), //!/< "on_actionOpen_Log_Folder_trig..."
+QT_MOC_LITERAL(33, 607, 43) //!/< "on_actionOpen_Installation_Fo..."
 
     },
     "RigidTrack\0on_btnStartCamera_clicked\0"
@@ -89,18 +89,18 @@ QT_MOC_LITERAL(33, 607, 43) // "on_actionOpen_Installation_Fo..."
 
 static const uint qt_meta_data_RigidTrack[] = {
 
- // content:
-       7,       // revision
-       0,       // classname
-       0,    0, // classinfo
-      26,   14, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
+ //!/< content:
+       7,       //!/< revision
+       0,       //!/< classname
+       0,    0, //!/< classinfo
+      26,   14, //!/< methods
+       0,    0, //!/< properties
+       0,    0, //!/< enums/sets
+       0,    0, //!/< constructors
+       0,       //!/< flags
+       0,       //!/< signalCount
 
- // slots: name, argc, parameters, tag, flags
+ //!/< slots: name, argc, parameters, tag, flags
        1,    0,  144,    2, 0x0a /* Public */,
        3,    0,  145,    2, 0x0a /* Public */,
        4,    0,  146,    2, 0x0a /* Public */,
@@ -128,7 +128,7 @@ static const uint qt_meta_data_RigidTrack[] = {
       32,    0,  188,    2, 0x0a /* Public */,
       33,    0,  189,    2, 0x0a /* Public */,
 
- // slots: parameters
+ //!/< slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -156,7 +156,7 @@ static const uint qt_meta_data_RigidTrack[] = {
     QMetaType::Void,
     QMetaType::Void,
 
-       0        // eod
+       0        //!/< eod
 };
 
 void RigidTrack::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)

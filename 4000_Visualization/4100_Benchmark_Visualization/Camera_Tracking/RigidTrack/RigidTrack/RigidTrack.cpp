@@ -151,10 +151,10 @@ void RigidTrack::on_rbEPnP_clicked()
 void RigidTrack::on_actionShow_Help_triggered()
 {
 	
-	// append help.pdf to the path since this is the documentation in html format
+	//!/< append help.pdf to the path since this is the documentation in html format
 	QString qtStrFile = QDir::currentPath().replace("/", "\\") + "\\help.pdf";
 
-	// open the documentation help file in the standard browser
+	//!/< open the documentation help file in the standard browser
 	QDesktopServices::openUrl(QUrl::fromLocalFile(qtStrFile));
 }
 

@@ -1,0 +1,1152 @@
+\section{Rigid\+Track/main.h File Reference}
+\label{main_8h}\index{Rigid\+Track/main.\+h@{Rigid\+Track/main.\+h}}
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$windows.\+h$>$}\newline
+{\ttfamily \#include $<$conio.\+h$>$}\newline
+{\ttfamily \#include $<$tchar.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$gl/glu.\+h$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$thread$>$}\newline
+{\ttfamily \#include $<$future$>$}\newline
+{\ttfamily \#include $<$atomic$>$}\newline
+{\ttfamily \#include \char`\"{}communication.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Rigid\+Track.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Qt\+Widgets/\+Q\+Application$>$}\newline
+{\ttfamily \#include $<$Q\+Udp\+Socket$>$}\newline
+{\ttfamily \#include \char`\"{}cameralibrary.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}modulevector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}modulevectorprocessing.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}coremath.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$opencv\textbackslash{}cv.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}opencv2\textbackslash{}core.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}opencv2\textbackslash{}calib3d.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$opencv2/imgproc/imgproc.\+hpp$>$}\newline
+{\ttfamily \#include $<$opencv2/calib3d/calib3d.\+hpp$>$}\newline
+{\ttfamily \#include $<$opencv2/highgui/highgui.\+hpp$>$}\newline
+{\ttfamily \#include $<$opencv2\textbackslash{}video\textbackslash{}tracking.\+hpp$>$}\newline
+Include dependency graph for main.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ start\+\_\+camera} ()
+\begin{DoxyCompactList}\small\item\em start the loop that fetches frames, computes the position etc and sends it to other computers \end{DoxyCompactList}\item 
+void \textbf{ start\+\_\+stop\+Camera} ()
+\begin{DoxyCompactList}\small\item\em Start or stop the camera depending on if the camera is currently running or not. \end{DoxyCompactList}\item 
+int \textbf{ set\+Zero} ()
+\begin{DoxyCompactList}\small\item\em determine the initial position of the object that serves as reference point or as ground frame origin \end{DoxyCompactList}\item 
+int \textbf{ calibrate\+\_\+camera} ()
+\begin{DoxyCompactList}\small\item\em start the camera calibration routine that computes the camera matrix and distortion coefficients \end{DoxyCompactList}\item 
+void \textbf{ load\+\_\+calibration} (int method)
+\begin{DoxyCompactList}\small\item\em Load a previously saved camera calibration from a file. \end{DoxyCompactList}\item 
+void \textbf{ test\+\_\+\+Algorithm} ()
+\begin{DoxyCompactList}\small\item\em project some points from 3D to 2D and then check the accuracy of the algorithms \end{DoxyCompactList}\item 
+void \textbf{ project\+Coordinate\+Frame} (Mat picture\+Frame)
+\begin{DoxyCompactList}\small\item\em project a coordinate Co\+Sy with the rotation and translation of the object for visualization \end{DoxyCompactList}\item 
+void \textbf{ set\+Up\+U\+DP} ()
+\begin{DoxyCompactList}\small\item\em open the U\+DP ports for communication \end{DoxyCompactList}\item 
+void \textbf{ set\+Heading\+Offset} (double d)
+\begin{DoxyCompactList}\small\item\em Add a heading offset to the attitude for the case it is necessary. \end{DoxyCompactList}\item 
+void \textbf{ send\+Data\+U\+DP} (cv\+::\+Vec3d \&Position, cv\+::\+Vec3d \&Euler)
+\begin{DoxyCompactList}\small\item\em send the position and attitude over U\+DP to every receiver, the safety receiver is handled on its own in the start\+\_\+camera function \end{DoxyCompactList}\item 
+void \textbf{ close\+U\+DP} ()
+\begin{DoxyCompactList}\small\item\em close the U\+DP ports again to release network interfaces etc. \end{DoxyCompactList}\item 
+void \textbf{ load\+Marker\+Config} (int method)
+\begin{DoxyCompactList}\small\item\em load a marker configuration from file. This file has to be created by hand, use the standard marker configuration file as template \end{DoxyCompactList}\item 
+void \textbf{ draw\+Position\+Text} (cv\+::\+Mat \&Picture, cv\+::\+Vec3d \&Position, cv\+::\+Vec3d \&Euler, double \textbf{ error})
+\begin{DoxyCompactList}\small\item\em draw the position, attitude and reprojection error in the picture \end{DoxyCompactList}\item 
+void \textbf{ load\+Camera\+Position} ()
+\item 
+int \textbf{ determine\+Exposure} ()
+\begin{DoxyCompactList}\small\item\em get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected \end{DoxyCompactList}\item 
+void \textbf{ determine\+Order} ()
+\item 
+int \textbf{ calibrate\+Ground} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ method\+P\+NP}
+\begin{DoxyCompactList}\small\item\em set to true and the algorithm uses the last result as starting value \end{DoxyCompactList}\item 
+bool \textbf{ safety\+Enable}
+\item 
+bool \textbf{ safety2\+Enable}
+\begin{DoxyCompactList}\small\item\em is the safety feature enabled \end{DoxyCompactList}\item 
+double \textbf{ safety\+Box\+Length}
+\begin{DoxyCompactList}\small\item\em is the second receiver enabled \end{DoxyCompactList}\item 
+int \textbf{ safety\+Angle}
+\begin{DoxyCompactList}\small\item\em length of the safety area cube in meters \end{DoxyCompactList}\item 
+Q\+Host\+Address \textbf{ I\+P\+Adress\+Object}
+\begin{DoxyCompactList}\small\item\em socket for the communication with the rope winch \end{DoxyCompactList}\item 
+Q\+Host\+Address \textbf{ I\+P\+Adress\+Safety}
+\begin{DoxyCompactList}\small\item\em I\+Pv4 adress of the object wifi telemetry chip, can change to 192.\+168.\+4.\+x. This is where the position etc is sent to. \end{DoxyCompactList}\item 
+Q\+Host\+Address \textbf{ I\+P\+Adress\+Safety2}
+\begin{DoxyCompactList}\small\item\em I\+Pv4 adress of the circuit breaker, stays the same. \end{DoxyCompactList}\item 
+int \textbf{ port\+Object}
+\begin{DoxyCompactList}\small\item\em I\+Pv4 adress of the rope winch,. \end{DoxyCompactList}\item 
+int \textbf{ port\+Safety}
+\begin{DoxyCompactList}\small\item\em Port of the object. \end{DoxyCompactList}\item 
+int \textbf{ port\+Safety2}
+\begin{DoxyCompactList}\small\item\em Port of the safety switch. \end{DoxyCompactList}\item 
+int \textbf{ invertZ}
+\begin{DoxyCompactList}\small\item\em variable if tracking loop should be exited \end{DoxyCompactList}\item 
+\textbf{ comm\+Object} \textbf{ comm\+Obj}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\label{main_8h_a852329cf0943686665469e34f44a39bf}} 
+\index{main.\+h@{main.\+h}!calibrate\+\_\+camera@{calibrate\+\_\+camera}}
+\index{calibrate\+\_\+camera@{calibrate\+\_\+camera}!main.\+h@{main.\+h}}
+\subsubsection{calibrate\+\_\+camera()}
+{\footnotesize\ttfamily int calibrate\+\_\+camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+start the camera calibration routine that computes the camera matrix and distortion coefficients 
+
+== Initialize Camera S\+DK ==--
+
+== At this point the Camera S\+DK is actively looking for all connected cameras and will initialize == them on it\textquotesingle{}s own.
+
+== Get a connected camera ================-\/---
+
+== Determine camera resolution
+
+== Set Video Mode ==--
+
+== We set the camera to Segment Mode here. This mode is support by all of our products. == Depending on what device you have connected you might want to consider a different == video mode to achieve the best possible tracking quality. All devices that support a == mode that will achieve a better quality output with a mode other than Segment Mode are == listed here along with what mode you should use if you\textquotesingle{}re looking for the best head \subsection*{== tracking\+: }
+
+== V100\+:R1/\+R2 Precision Mode == Track\+IR 5 Bit-\/\+Packed Precision Mode == V120 Precision Mode == T\+Bar Precision Mode \subsection*{== S250e Precision Mode }
+
+== If you have questions about a new device that might be conspicuously missing here or == have any questions about head tracking, email support or participate in our forums.
+
+== Start camera output ==--
+
+== Camera Matrix creation ==--
+
+== Ok, start main loop. This loop fetches and displays ===--- == camera frames. ===--- But first set some camera parameters
+
+the user has to provide the size of one square in mm
+
+== Fetch a new frame from the camera ===---
+
+which is why we also set this constant to 8
+
+later on, when we get the frame as usual\+:
+
+== Lets have the Camera Library raster the camera\textquotesingle{}s == image into our texture.
+
+imwrite(\char`\"{}test.\+jpg\char`\"{} + , mat\+Frame);
+
+If done with success,
+
+improve the found corners\textquotesingle{} coordinate accuracy for chessboard
+
+== Release camera ==--
+
+Save the obtained calibration coefficients in a file for later use
+
+
+\begin{DoxyItemize}
+\item File\+Storage\+::\+M\+E\+M\+O\+RY); 
+\end{DoxyItemize}Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{main_8h_a852329cf0943686665469e34f44a39bf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{main_8h_a852329cf0943686665469e34f44a39bf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a7ad2e3cfb5056dbab2098e0dd3bd353f}} 
+\index{main.\+h@{main.\+h}!calibrate\+Ground@{calibrate\+Ground}}
+\index{calibrate\+Ground@{calibrate\+Ground}!main.\+h@{main.\+h}}
+\subsubsection{calibrate\+Ground()}
+{\footnotesize\ttfamily int calibrate\+Ground (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get the pose of the camera w.\+r.\+t the ground calibration frame. This frame sets the navigation frame for later results. The pose is averaged over 200 samples and then saved in the file reference\+Data.\+xml. This routine is basically the same as set\+Zero. initialize the variables with starting values
+
+== Initialize Camera S\+DK ==--
+
+== At this point the Camera S\+DK is actively looking for all connected cameras and will initialize == them on it\textquotesingle{}s own.
+
+== Get a connected camera ================-\/---
+
+== If no device connected, pop a message box and exit ==--
+
+== Determine camera resolution to size application window ==-\/---
+
+Set camera mode to precision mode, it directly provides marker coordinates
+
+== Start camera output ==--
+
+== Turn on some overlay text so it\textquotesingle{}s clear things are ===--- == working even if there is nothing in the camera\textquotesingle{}s view. ===--- Set some other parameters as well of the camera
+
+sample some frames and calculate the position and attitude. then average those values and use that as zero position
+
+== Fetch a new frame from the camera ===---
+
+== Ok, we\textquotesingle{}ve received a new frame, lets do something == with it.
+
+==for(int i=0; i$<$frame-\/$>$Object\+Count(); i++)
+
+sort the 2d points with the correct indices as found in the preceeding order determination algorithm
+
+Compute the pose from the 3\+D-\/2D corresponses
+
+project the marker 3d points with the solution into the camera image Co\+Sy and calculate difference to true camera image
+
+Iterative Method needs time to converge to solution
+
+That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first.
+
+==-- one sample more \+:D
+
+== Release camera ==--
+
+Divide by the number of samples to get the mean of the reference position
+
+euler\+Ref is here in Axis Angle notation
+
+axis angle to rotation matrix ==-- Euler Angles, finally
+
+rotation matrix to euler
+
+Save the obtained calibration coefficients in a file for later use
+
+
+\begin{DoxyItemize}
+\item File\+Storage\+::\+M\+E\+M\+O\+RY); 
+\end{DoxyItemize}Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a7ad2e3cfb5056dbab2098e0dd3bd353f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{main_8h_a7ad2e3cfb5056dbab2098e0dd3bd353f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_af2a8b7de0b15dc17198c147ba39e85f3}} 
+\index{main.\+h@{main.\+h}!close\+U\+DP@{close\+U\+DP}}
+\index{close\+U\+DP@{close\+U\+DP}!main.\+h@{main.\+h}}
+\subsubsection{close\+U\+D\+P()}
+{\footnotesize\ttfamily void close\+U\+DP (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+close the U\+DP ports again to release network interfaces etc. 
+
+check if the socket is open and if yes close it Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{main_8h_af2a8b7de0b15dc17198c147ba39e85f3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_af2a8b7de0b15dc17198c147ba39e85f3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a0416912fce6274568e80019b10ba294f}} 
+\index{main.\+h@{main.\+h}!determine\+Exposure@{determine\+Exposure}}
+\index{determine\+Exposure@{determine\+Exposure}!main.\+h@{main.\+h}}
+\subsubsection{determine\+Exposure()}
+{\footnotesize\ttfamily int determine\+Exposure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected 
+
+== For Opti\+Track Ethernet cameras, it\textquotesingle{}s important to enable development mode if you == want to stop execution for an extended time while debugging without disconnecting == the Ethernet devices. Lets do that now\+:
+
+== Initialize Camera S\+DK ==--
+
+== At this point the Camera S\+DK is actively looking for all connected cameras and will initialize == them on it\textquotesingle{}s own.
+
+== Get a connected camera ================-\/---
+
+== If no device connected, pop a message box and exit ==--
+
+== Determine camera resolution to size application window ==-\/---
+
+set the camera mode to precision mode, it used greyscale imformation for marker property calculations
+
+== Start camera output ==--
+
+== Turn on some overlay text so it\textquotesingle{}s clear things are ===--- == working even if there is nothing in the camera\textquotesingle{}s view. ===---
+
+set the camera exposure
+
+set the camera infrared L\+ED intensity
+
+set the camera framerate to 100 Hz
+
+enable the filter that blocks visible light and only passes infrared light
+
+enable high power mode of the leds
+
+enable continuous L\+ED light
+
+set threshold for marker detection
+
+set exposure such that num markers are visible
+
+Number of objects (markers) found in the current picture with the given exposure
+
+exposure when objects detected the first time is number\+Markers
+
+exposure when objects detected is first time number\+Markers+1
+
+set the exposure to the smallest value possible
+
+if the markers arent found after number\+Tries then there might be no markers at all in the real world
+
+Determine minimum exposure, hence when are number\+Markers objects detected
+
+get a new camera frame
+
+frame received
+
+how many objects are detected in the image
+
+if the right amount if markers is found, exit while loop
+
+not the right amount of markers was found so increase the exposure and try again
+
+Now determine maximum exposure, hence when are number\+Markers+1 objects detected
+
+if the markers arent found after number\+Tries then there might be no markers at all in the real world
+
+how many objects are detected in the image
+
+if the right amount if markers is found, exit while loop
+
+not the right amount of markers was found so decrease the exposure and try again
+
+set the exposure to the mean of min and max exposure determined
+
+and now check if the correct amount of markers is detected with that new value
+
+how many objects are detected in the image
+
+are all markers and not more or less detected in the image
+
+== Release camera ==--
+
+all markers and not more or less are found Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{main_8h_a0416912fce6274568e80019b10ba294f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a0416912fce6274568e80019b10ba294f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a11ff459289305229597defd39f510959}} 
+\index{main.\+h@{main.\+h}!determine\+Order@{determine\+Order}}
+\index{determine\+Order@{determine\+Order}!main.\+h@{main.\+h}}
+\subsubsection{determine\+Order()}
+{\footnotesize\ttfamily void determine\+Order (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+compute the order of the marker points in 2D so they are the same as in the 3D array. Hence marker 1 must be in first place for both, list\+\_\+points2d and list\+\_\+points3d determine the 3\+D-\/2D correspondences that are crucial for the PnP algorithm Try every possible correspondence and solve PnP Then project the 3D marker points into the 2D camera image and check the difference between projected points and points as seen by the camera the corresponce with the smallest difference is probably the correct one
+
+the difference between true 2D points and projected points is super big
+
+now try every possible permutation of correspondence
+
+reset the starting values for solve\+PnP
+
+sort the 2d points with the current permutation
+
+Call solve P\+NP with P3P since its more robust and sufficient for start value determination
+
+set the current difference of all point correspondences to zero
+
+project the 3D points with the solve\+PnP solution onto 2D
+
+now compute the absolute difference (error)
+
+if the difference with the current permutation is smaller than the smallest value till now it is probably the more correct permutation
+
+set the smallest value of difference to the current one
+
+now safe the better permutation
+
+try every permutation
+
+now that the correct order is found assign it to the indices array Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a11ff459289305229597defd39f510959_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_af6430ad2592a955a3618549547dfc5be}} 
+\index{main.\+h@{main.\+h}!draw\+Position\+Text@{draw\+Position\+Text}}
+\index{draw\+Position\+Text@{draw\+Position\+Text}!main.\+h@{main.\+h}}
+\subsubsection{draw\+Position\+Text()}
+{\footnotesize\ttfamily void draw\+Position\+Text (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{Picture,  }\item[{cv\+::\+Vec3d \&}]{Position,  }\item[{cv\+::\+Vec3d \&}]{Euler,  }\item[{double}]{error }\end{DoxyParamCaption})}
+
+
+
+draw the position, attitude and reprojection error in the picture 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_af6430ad2592a955a3618549547dfc5be_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a44774828fee2764f3f3734bbd3f446e3}} 
+\index{main.\+h@{main.\+h}!load\+\_\+calibration@{load\+\_\+calibration}}
+\index{load\+\_\+calibration@{load\+\_\+calibration}!main.\+h@{main.\+h}}
+\subsubsection{load\+\_\+calibration()}
+{\footnotesize\ttfamily void load\+\_\+calibration (\begin{DoxyParamCaption}\item[{int}]{method }\end{DoxyParamCaption})}
+
+
+
+Load a previously saved camera calibration from a file. 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{main_8h_a44774828fee2764f3f3734bbd3f446e3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a44774828fee2764f3f3734bbd3f446e3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_af39fa6c3a36ad6bc24a327db7a9d73c2}} 
+\index{main.\+h@{main.\+h}!load\+Camera\+Position@{load\+Camera\+Position}}
+\index{load\+Camera\+Position@{load\+Camera\+Position}!main.\+h@{main.\+h}}
+\subsubsection{load\+Camera\+Position()}
+{\footnotesize\ttfamily void load\+Camera\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+load the rotation matrix from camera Co\+Sy to ground Co\+Sy It is determined during ground calibration and once the camera is mounted and fixed stays the same Open the reference\+Data.\+xml that contains the rotation from camera Co\+Sy to ground Co\+Sy Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{main_8h_af39fa6c3a36ad6bc24a327db7a9d73c2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_af39fa6c3a36ad6bc24a327db7a9d73c2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a56c7f641859cb2b6b99b0947d03be800}} 
+\index{main.\+h@{main.\+h}!load\+Marker\+Config@{load\+Marker\+Config}}
+\index{load\+Marker\+Config@{load\+Marker\+Config}!main.\+h@{main.\+h}}
+\subsubsection{load\+Marker\+Config()}
+{\footnotesize\ttfamily void load\+Marker\+Config (\begin{DoxyParamCaption}\item[{int}]{method }\end{DoxyParamCaption})}
+
+
+
+load a marker configuration from file. This file has to be created by hand, use the standard marker configuration file as template 
+
+during start up of the programm load the standard marker configuration
+
+open the standard marker configuration file
+
+copy the values to the respective variables
+
+inizialise vectors with correct length depending on the number of markers
+
+save the marker locations in the points3d vector
+
+if the load marker configuration button was clicked show a open file dialog
+
+was cancel or abort clicked
+
+if yes load the standard marker configuration
+
+open the selected marker configuration file
+
+copy the values to the respective variables
+
+inizialise vectors with correct length depending on the number of markers
+
+save the marker locations in the points3d vector
+
+Print out the number of markers and their position to the G\+UI
+
+check if P3P algorithm can be enabled, it needs exactly 4 marker points to work
+
+if P3P is possible, let the user choose which algorithm he wants but keep iterative active
+
+More (or less) marker than 4 loaded, P3P is not possible, hence user cant select P3P in G\+UI
+
+now display the marker configuration in the camera view
+
+Set the camera pose parallel to the marker coordinate system Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{main_8h_a56c7f641859cb2b6b99b0947d03be800_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a56c7f641859cb2b6b99b0947d03be800_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a2104a5d9d6b9f1e29bc4cd858c59882e}} 
+\index{main.\+h@{main.\+h}!project\+Coordinate\+Frame@{project\+Coordinate\+Frame}}
+\index{project\+Coordinate\+Frame@{project\+Coordinate\+Frame}!main.\+h@{main.\+h}}
+\subsubsection{project\+Coordinate\+Frame()}
+{\footnotesize\ttfamily void project\+Coordinate\+Frame (\begin{DoxyParamCaption}\item[{Mat}]{picture\+Frame }\end{DoxyParamCaption})}
+
+
+
+project a coordinate Co\+Sy with the rotation and translation of the object for visualization 
+
+z-\/axis
+
+x-\/axis
+
+y-\/axis Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a2104a5d9d6b9f1e29bc4cd858c59882e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a54b6b6db348b48d21e1265e22829c61f}} 
+\index{main.\+h@{main.\+h}!send\+Data\+U\+DP@{send\+Data\+U\+DP}}
+\index{send\+Data\+U\+DP@{send\+Data\+U\+DP}!main.\+h@{main.\+h}}
+\subsubsection{send\+Data\+U\+D\+P()}
+{\footnotesize\ttfamily void send\+Data\+U\+DP (\begin{DoxyParamCaption}\item[{cv\+::\+Vec3d \&}]{Position,  }\item[{cv\+::\+Vec3d \&}]{Euler }\end{DoxyParamCaption})}
+
+
+
+send the position and attitude over U\+DP to every receiver, the safety receiver is handled on its own in the start\+\_\+camera function 
+
+Roll Pitch Heading
+
+if second receiver is activated send it also the tracking data Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a54b6b6db348b48d21e1265e22829c61f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_ad19da4e648bbdc80d3123eb94711588e}} 
+\index{main.\+h@{main.\+h}!set\+Heading\+Offset@{set\+Heading\+Offset}}
+\index{set\+Heading\+Offset@{set\+Heading\+Offset}!main.\+h@{main.\+h}}
+\subsubsection{set\+Heading\+Offset()}
+{\footnotesize\ttfamily void set\+Heading\+Offset (\begin{DoxyParamCaption}\item[{double}]{d }\end{DoxyParamCaption})}
+
+
+
+Add a heading offset to the attitude for the case it is necessary. 
+
+Convert heading offset from degrees to rad
+
+Calculate rotation about x axis
+
+Calculate rotation about y axis
+
+Calculate rotation about z axis
+
+Combined rotation matrix Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_ad19da4e648bbdc80d3123eb94711588e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_ae624b0189bc5e32cbbb1f178b9f1a360}} 
+\index{main.\+h@{main.\+h}!set\+Up\+U\+DP@{set\+Up\+U\+DP}}
+\index{set\+Up\+U\+DP@{set\+Up\+U\+DP}!main.\+h@{main.\+h}}
+\subsubsection{set\+Up\+U\+D\+P()}
+{\footnotesize\ttfamily void set\+Up\+U\+DP (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+open the U\+DP ports for communication 
+
+Initialise the Q\+Data\+Stream that stores the data to be send
+
+Create U\+DP slots
+
+if the safety feature is activated open the udp port
+
+if the second receiver feature is activated open the udp port Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{main_8h_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_ae624b0189bc5e32cbbb1f178b9f1a360_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a7f3915653dcf5181fdc6e552ae8e6363}} 
+\index{main.\+h@{main.\+h}!set\+Zero@{set\+Zero}}
+\index{set\+Zero@{set\+Zero}!main.\+h@{main.\+h}}
+\subsubsection{set\+Zero()}
+{\footnotesize\ttfamily int set\+Zero (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+determine the initial position of the object that serves as reference point or as ground frame origin 
+
+initialize the variables with starting values
+
+== Initialize Camera S\+DK ==--
+
+== At this point the Camera S\+DK is actively looking for all connected cameras and will initialize == them on it\textquotesingle{}s own.
+
+== Get a connected camera ================-\/---
+
+== If no device connected, pop a message box and exit ==--
+
+== Determine camera resolution to size application window ==-\/---
+
+Set camera mode to precision mode, it directly provides marker coordinates
+
+== Start camera output ==--
+
+== Turn on some overlay text so it\textquotesingle{}s clear things are ===--- == working even if there is nothing in the camera\textquotesingle{}s view. ===--- Set some other parameters as well of the camera
+
+sample some frames and calculate the position and attitude. then average those values and use that as zero position
+
+difference between the marker points as seen by the camera and the projected marker points with Rvec and Tvec
+
+== Fetch a new frame from the camera ===---
+
+== Ok, we\textquotesingle{}ve received a new frame, lets do something == with it.
+
+==for(int i=0; i$<$frame-\/$>$Object\+Count(); i++)
+
+sort the 2d points with the correct indices as found in the preceeding order determination algorithm
+
+Compute the pose from the 3\+D-\/2D corresponses
+
+project the marker 3d points with the solution into the camera image Co\+Sy and calculate difference to true camera image
+
+Iterative Method needs time to converge to solution
+
+That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first.
+
+==-- one sample more \+:D
+
+== Release camera ==--
+
+Divide by the number of samples to get the mean of the reference position
+
+euler\+Ref is here in Axis Angle notation
+
+axis angle to rotation matrix
+
+==-- Euler Angles, finally
+
+rotation matrix to euler
+
+compute the difference between last obtained T\+Vec and the average Value When it is large the iterative method has not converged properly so it is advised to start the \doxyref{set\+Zero()}{p.}{main_8cpp_a7f3915653dcf5181fdc6e552ae8e6363} function once again Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a7f3915653dcf5181fdc6e552ae8e6363_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{main_8h_a7f3915653dcf5181fdc6e552ae8e6363_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a7d029857f86ebf6ac36e9a73508699ad}} 
+\index{main.\+h@{main.\+h}!start\+\_\+camera@{start\+\_\+camera}}
+\index{start\+\_\+camera@{start\+\_\+camera}!main.\+h@{main.\+h}}
+\subsubsection{start\+\_\+camera()}
+{\footnotesize\ttfamily int start\+\_\+camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+start the loop that fetches frames, computes the position etc and sends it to other computers 
+
+The order of points, hence which entry in list\+\_\+points3d corresponds to which in list\+\_\+points2d is not calculated yet
+
+Use the value of Rvec that was set in \doxyref{main()}{p.}{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97} as starting value for the solve\+PnP algorithm
+
+Use the value of Tvec that was set in \doxyref{main()}{p.}{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97} as starting value for the solve\+PnP algorithm
+
+Get the current date and time to name the log file
+
+Concat the log file name as followed. The file is saved in the folder /logs in the Rigid Track installation folder
+
+Convert the Q\+String to a standard string
+
+Get the exposure where the right amount of markers is detected
+
+For Opti\+Track Ethernet cameras, it\textquotesingle{}s important to enable development mode if you want to stop execution for an extended time while debugging without disconnecting the Ethernet devices. Lets do that now\+:
+
+Initialize Camera S\+DK
+
+At this point the Camera S\+DK is actively looking for all connected cameras and will initialize them on it\textquotesingle{}s own
+
+Get a connected camera
+
+If no camera can be found, inform user in message log and exit function
+
+Determine camera resolution to size application window
+
+Set the camera mode to precision mode, it used greyscale imformation for marker property calculations
+
+Start camera output
+
+Turn on some overlay text so it\textquotesingle{}s clear things are working even if there is nothing in the camera\textquotesingle{}s view
+
+Set the camera exposure
+
+Set the camera infrared L\+ED intensity
+
+Set the camera framerate to 100 Hz
+
+Enable the filter that blocks visible light and only passes infrared light
+
+Enable high power mode of the L\+E\+Ds
+
+Disable continuous L\+ED light
+
+Set threshold for marker detection
+
+Create a new matrix that stores the grayscale picture from the camera
+
+Q\+Pixmap is the corresponding Qt class that saves images
+
+Matrix that stores the colored picture, hence marker points, coordinate frame and reprojected points
+
+Helper variable used to kick safety switch
+
+Variables for the min and max values that are needed for sanity checks
+
+Ff a marker is not visible or accuracy is bad increase this counter
+
+Equals the quality of the tracking
+
+Open sockets and ports for U\+DP communication
+
+If the safety feature is enabled send the starting message
+
+Send enable message, hence send a 9 and then a 1
+
+Fetch a new frame from the camera
+
+Get the timestamp of the first frame. This time is subtracted from every subseeding frame so the time starts at 0 in the logs
+
+While no new frame is received loop
+
+Get a new camera frame
+
+There is actually a new frame
+
+Get the time stamp for the first frame. It is subtracted for the following frames
+
+Release the frame so the camera can continue
+
+Exit the while loop
+
+Now enter the main loop that processes each frame and computes the pose, sends it and logs stuff
+
+Check if the user has not pressed \char`\"{}\+Stop Tracking\char`\"{} yet
+
+Fetch a new frame from the camera
+
+Did we got a new frame or does the camera still need more time
+
+Increase by one, if everything is okay it is decreased at the end of the loop again
+
+Only use this frame it the right number of markers is found in the picture
+
+Get the marker points in 2D in the camera image frame and store them in the list\+\_\+points2d\+Unsorted vector The order of points that come from the camera corresponds to the Y coordinate
+
+Was the order already determined? This is false for the first frame and from then on true
+
+Now compute the order
+
+Sort the 2d points with the correct indices as found in the preceeding order determination algorithm
+
+point\+Order\+Indices was calculated in \doxyref{determine\+Order()}{p.}{main_8cpp_a11ff459289305229597defd39f510959}
+
+The first time the 2\+D-\/3D corresspondence was determined with got\+Order was okay. But this order can change as the object moves and the marker objects appear in a different order in the frame-\/$>$Object() array. The solution is that\+: When a marker point (in the camera image, hence in 2D) was at a position then it wont move that much from one frame to the other. So for the new frame we take a marker object and check which marker was closest this point in the old image frame? This is probably the same (true) marker. And we do that for every other marker as well. When tracking is good and no frames are dropped because of missing markers this should work every frame.
+
+The sum of point distances is set to something unrealistic large
+
+Calculate N\+\_\+2 norm of unsorted points minus old points
+
+If the norm is smaller than min\+Point\+Distance the correspondence is more likely to be correct
+
+Update the array that saves the new point order
+
+Now the new order is found, set the point order to the new value
+
+Save the unsorted position of the marker points for the next loop
+
+Compute the object pose from the 3\+D-\/2D corresponses
+
+Project the marker 3d points with the solution into the camera image Co\+Sy and calculate difference to true camera image
+
+Difference of true pose and found pose
+
+Increase the frames\+Dropped variable if accuracy of tracking is too bad
+
+Set number of subsequent frames dropped to zero because error is small enough and no marker was missing
+
+Get the min and max values from T\+Vec for sanity check
+
+Sanity check of values. negative z means the marker Co\+Sy is behind the camera, that\textquotesingle{}s not possible.
+
+Release the frame so the camera can move on
+
+Release the camera
+
+Close all U\+DP connections so the programm can be closed later on and no resources are locked
+
+Exit the function
+
+Next step is the transformation from camera Co\+Sy to navigation Co\+Sy Compute the relative object position from the reference position to the current one given in the camera Co\+Sy\+: T\+\_\+\+C$^\wedge$\{NM\} = Tvec -\/ Tvec\+\_\+\{Ref\}
+
+Transform the position from the camera Co\+Sy to the navigation Co\+Sy with I\+NS alligned heading and convert from [mm] to [m] T\+\_\+\+N$^\wedge$\{NM\} = M\+\_\+\{NC\}  T\+\_\+\+C$^\wedge$\{NM\}
+
+Position is the result of the preceeding calculation
+
+Invert Z if check box in G\+UI is activated, hence height above ground is considered
+
+Realtive angle between reference orientation and current orientation
+
+Convert axis angle respresentation to ordinary rotation matrix
+
+The difference of the reference rotation and the current rotation R\+\_\+\{ NM \} = M\+\_\+\{ NC \}  R\+\_\+\{ CM \}
+
+Euler Angles, finally
+
+Get the euler angles from the rotation matrix
+
+Add the heading offset to the heading angle
+
+Compute the velocity with finite differences. Only use is the log file. It is done here because the more precise time stamp can be used
+
+Time between the old frame and the current frame
+
+Set the old frame time to the current one
+
+Calculate the x velocity with finite differences
+
+Calculate the y velocity with finite differences
+
+Calculate the z velocity with finite differences
+
+Set the old position to the current one for next frame velocity calcuation
+
+Send position and Euler angles over Wi\+Fi with 100 Hz
+
+Save the values in a log file, values are\+: Time sinc tracking started Position Euler Angles Velocity
+
+Open the log file, the folder is Rigid\+Track\+Installation\+Folder/logs
+
+Close the file to save values
+
+Check if the position and euler angles are below the allowed value, if yes send O\+K\+AY signal (1), if not send shutdown signal (0) Absolute x, y and z position in navigation Co\+Sy must be smaller than the allowed distance
+
+Absolute Euler angles must be smaller than allowed value. Heading is not considered
+
+Send the O\+K\+AY signal to the desired computer every 5th time
+
+Send the 1
+
+reset the counter that is needed for decimation to every 5th time step
+
+The euler angles of the object exceeded the allowed euler angles, send the shutdown signal (0)
+
+Send the shutdown signal, a 0
+
+Inform the user
+
+The position of the object exceeded the allowed position, shut the object down
+
+Send the shutdown signal, a 0
+
+Inform the user
+
+Inform the user if tracking system is disturbed (marker lost or so) or error was too big
+
+Also send the shutdown signal
+
+Send the shutdown signal, a 0
+
+Inform the user
+
+Rasterize the frame so it can be shown in the G\+UI
+
+Convert the frame from greyscale as it comes from the camera to rgb color
+
+Project (draw) the marker Co\+Sy origin into 2D and save it in the c\+Frame image
+
+Project the marker points from 3D to the camera image frame (2d) with the computed pose
+
+Draw a circle around the projected points so the result can be better compared to the real marker position In the resulting picture those are the red dots
+
+Write the current position, attitude and error values as text in the frame
+
+Send the new camera picture to the G\+UI and call the G\+UI processing routine
+
+Update the picture in the G\+UI
+
+Give Qt time to handle everything
+
+Release the camera frame to fetch the new one
+
+User choose to stop the tracking, clean things up
+
+Close the U\+DP connections so resources are deallocated
+
+Release camera Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a7d029857f86ebf6ac36e9a73508699ad_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a7d029857f86ebf6ac36e9a73508699ad_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a2daa058d8e8204f4e0c51cd8f7d0f962}} 
+\index{main.\+h@{main.\+h}!start\+\_\+stop\+Camera@{start\+\_\+stop\+Camera}}
+\index{start\+\_\+stop\+Camera@{start\+\_\+stop\+Camera}!main.\+h@{main.\+h}}
+\subsubsection{start\+\_\+stop\+Camera()}
+{\footnotesize\ttfamily void start\+\_\+stop\+Camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Start or stop the camera depending on if the camera is currently running or not. 
+
+tracking is not running so start it
+
+tracking is currently running, set exit\+Request to true so the while loop in \doxyref{start\+\_\+camera()}{p.}{main_8cpp_a7d029857f86ebf6ac36e9a73508699ad} exits Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a2daa058d8e8204f4e0c51cd8f7d0f962_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a2daa058d8e8204f4e0c51cd8f7d0f962_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{main_8h_a49aae6cc1a72ace00943d9226b5070b3}} 
+\index{main.\+h@{main.\+h}!test\+\_\+\+Algorithm@{test\+\_\+\+Algorithm}}
+\index{test\+\_\+\+Algorithm@{test\+\_\+\+Algorithm}!main.\+h@{main.\+h}}
+\subsubsection{test\+\_\+\+Algorithm()}
+{\footnotesize\ttfamily void test\+\_\+\+Algorithm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+project some points from 3D to 2D and then check the accuracy of the algorithms 
+
+in mm
+
+0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP //! not used
+
+0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP //! not used
+
+0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP //! not used
+
+0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP //! not used Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{main_8h_a49aae6cc1a72ace00943d9226b5070b3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8h_a49aae6cc1a72ace00943d9226b5070b3_icgraph}
+\end{center}
+\end{figure}
+
+
+\subsection{Variable Documentation}
+\mbox{\label{main_8h_af29e7fc07ae0979d5fb61b473241d33d}} 
+\index{main.\+h@{main.\+h}!comm\+Obj@{comm\+Obj}}
+\index{comm\+Obj@{comm\+Obj}!main.\+h@{main.\+h}}
+\subsubsection{comm\+Obj}
+{\footnotesize\ttfamily \textbf{ comm\+Object} comm\+Obj}
+
+\mbox{\label{main_8h_a5cc3bd09f5801804b7ae65846e0b9824}} 
+\index{main.\+h@{main.\+h}!invertZ@{invertZ}}
+\index{invertZ@{invertZ}!main.\+h@{main.\+h}}
+\subsubsection{invertZ}
+{\footnotesize\ttfamily int invertZ}
+
+
+
+variable if tracking loop should be exited 
+
+\mbox{\label{main_8h_ab97ac0d82b1753d0eef37089be17e5e1}} 
+\index{main.\+h@{main.\+h}!I\+P\+Adress\+Object@{I\+P\+Adress\+Object}}
+\index{I\+P\+Adress\+Object@{I\+P\+Adress\+Object}!main.\+h@{main.\+h}}
+\subsubsection{I\+P\+Adress\+Object}
+{\footnotesize\ttfamily Q\+Host\+Address I\+P\+Adress\+Object}
+
+
+
+socket for the communication with the rope winch 
+
+\mbox{\label{main_8h_afefb1102a8a4a71b55d6f24f46404cc5}} 
+\index{main.\+h@{main.\+h}!I\+P\+Adress\+Safety@{I\+P\+Adress\+Safety}}
+\index{I\+P\+Adress\+Safety@{I\+P\+Adress\+Safety}!main.\+h@{main.\+h}}
+\subsubsection{I\+P\+Adress\+Safety}
+{\footnotesize\ttfamily Q\+Host\+Address I\+P\+Adress\+Safety}
+
+
+
+I\+Pv4 adress of the object wifi telemetry chip, can change to 192.\+168.\+4.\+x. This is where the position etc is sent to. 
+
+\mbox{\label{main_8h_a354806cf8cbface3575f2541d8fbcbda}} 
+\index{main.\+h@{main.\+h}!I\+P\+Adress\+Safety2@{I\+P\+Adress\+Safety2}}
+\index{I\+P\+Adress\+Safety2@{I\+P\+Adress\+Safety2}!main.\+h@{main.\+h}}
+\subsubsection{I\+P\+Adress\+Safety2}
+{\footnotesize\ttfamily Q\+Host\+Address I\+P\+Adress\+Safety2}
+
+
+
+I\+Pv4 adress of the circuit breaker, stays the same. 
+
+\mbox{\label{main_8h_ab5e634b66221f494504aea1557af5df9}} 
+\index{main.\+h@{main.\+h}!method\+P\+NP@{method\+P\+NP}}
+\index{method\+P\+NP@{method\+P\+NP}!main.\+h@{main.\+h}}
+\subsubsection{method\+P\+NP}
+{\footnotesize\ttfamily int method\+P\+NP}
+
+
+
+set to true and the algorithm uses the last result as starting value 
+
+\mbox{\label{main_8h_a9a00043c93a3362969c1c1fcd3a70fea}} 
+\index{main.\+h@{main.\+h}!port\+Object@{port\+Object}}
+\index{port\+Object@{port\+Object}!main.\+h@{main.\+h}}
+\subsubsection{port\+Object}
+{\footnotesize\ttfamily int port\+Object}
+
+
+
+I\+Pv4 adress of the rope winch,. 
+
+\mbox{\label{main_8h_a137bc8cc9d53ad9b176c988a99bc7142}} 
+\index{main.\+h@{main.\+h}!port\+Safety@{port\+Safety}}
+\index{port\+Safety@{port\+Safety}!main.\+h@{main.\+h}}
+\subsubsection{port\+Safety}
+{\footnotesize\ttfamily int port\+Safety}
+
+
+
+Port of the object. 
+
+\mbox{\label{main_8h_a2601be9c226be24c71ec8282f632e723}} 
+\index{main.\+h@{main.\+h}!port\+Safety2@{port\+Safety2}}
+\index{port\+Safety2@{port\+Safety2}!main.\+h@{main.\+h}}
+\subsubsection{port\+Safety2}
+{\footnotesize\ttfamily int port\+Safety2}
+
+
+
+Port of the safety switch. 
+
+\mbox{\label{main_8h_a436fb814ccc3f02617dade4dc6511143}} 
+\index{main.\+h@{main.\+h}!safety2\+Enable@{safety2\+Enable}}
+\index{safety2\+Enable@{safety2\+Enable}!main.\+h@{main.\+h}}
+\subsubsection{safety2\+Enable}
+{\footnotesize\ttfamily bool safety2\+Enable}
+
+
+
+is the safety feature enabled 
+
+\mbox{\label{main_8h_ae65386c3310ab826e84fba757296de9a}} 
+\index{main.\+h@{main.\+h}!safety\+Angle@{safety\+Angle}}
+\index{safety\+Angle@{safety\+Angle}!main.\+h@{main.\+h}}
+\subsubsection{safety\+Angle}
+{\footnotesize\ttfamily int safety\+Angle}
+
+
+
+length of the safety area cube in meters 
+
+\mbox{\label{main_8h_a2c1b807fcb2de5a6759bd60ccae6dd7e}} 
+\index{main.\+h@{main.\+h}!safety\+Box\+Length@{safety\+Box\+Length}}
+\index{safety\+Box\+Length@{safety\+Box\+Length}!main.\+h@{main.\+h}}
+\subsubsection{safety\+Box\+Length}
+{\footnotesize\ttfamily double safety\+Box\+Length}
+
+
+
+is the second receiver enabled 
+
+\mbox{\label{main_8h_aa6266eedab8b3c011be53baffbfc42ab}} 
+\index{main.\+h@{main.\+h}!safety\+Enable@{safety\+Enable}}
+\index{safety\+Enable@{safety\+Enable}!main.\+h@{main.\+h}}
+\subsubsection{safety\+Enable}
+{\footnotesize\ttfamily bool safety\+Enable}
+

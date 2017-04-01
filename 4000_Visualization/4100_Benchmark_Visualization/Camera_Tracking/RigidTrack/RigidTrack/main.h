@@ -19,12 +19,12 @@
 #include "RigidTrack.h"
 #include <QtWidgets/QApplication>
 #include <QUdpSocket>
-#include "cameralibrary.h"     //== Camera Library header file ======================---
+#include "cameralibrary.h"     //!/<== Camera Library header file ======================---
 #include "modulevector.h"
 #include "modulevectorprocessing.h"
 #include "coremath.h"
 
-//==-- OpenCV stuff import
+//!/<==-- OpenCV stuff import
 #include <opencv\cv.h>
 #include "opencv2\core.hpp"
 #include "opencv2\calib3d.hpp"

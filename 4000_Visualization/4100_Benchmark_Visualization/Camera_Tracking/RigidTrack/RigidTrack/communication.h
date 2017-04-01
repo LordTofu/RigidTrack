@@ -25,4 +25,4 @@ public:
 	   void progressUpdated(int value);
 
 };
-#endif // EMITTING_H
+#endif //!/< EMITTING_H

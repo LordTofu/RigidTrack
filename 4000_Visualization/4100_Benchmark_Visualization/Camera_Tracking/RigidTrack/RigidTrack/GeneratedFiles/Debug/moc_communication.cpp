@@ -29,18 +29,18 @@ struct qt_meta_stringdata_commObject_t {
     )
 static const qt_meta_stringdata_commObject_t qt_meta_stringdata_commObject = {
     {
-QT_MOC_LITERAL(0, 0, 10), // "commObject"
-QT_MOC_LITERAL(1, 11, 13), // "statusChanged"
-QT_MOC_LITERAL(2, 25, 0), // ""
-QT_MOC_LITERAL(3, 26, 7), // "newText"
-QT_MOC_LITERAL(4, 34, 12), // "imageChanged"
-QT_MOC_LITERAL(5, 47, 5), // "image"
-QT_MOC_LITERAL(6, 53, 8), // "logAdded"
-QT_MOC_LITERAL(7, 62, 7), // "LogText"
-QT_MOC_LITERAL(8, 70, 10), // "logCleared"
-QT_MOC_LITERAL(9, 81, 10), // "P3Penabled"
-QT_MOC_LITERAL(10, 92, 5), // "value"
-QT_MOC_LITERAL(11, 98, 15) // "progressUpdated"
+QT_MOC_LITERAL(0, 0, 10), //!/< "commObject"
+QT_MOC_LITERAL(1, 11, 13), //!/< "statusChanged"
+QT_MOC_LITERAL(2, 25, 0), //!/< ""
+QT_MOC_LITERAL(3, 26, 7), //!/< "newText"
+QT_MOC_LITERAL(4, 34, 12), //!/< "imageChanged"
+QT_MOC_LITERAL(5, 47, 5), //!/< "image"
+QT_MOC_LITERAL(6, 53, 8), //!/< "logAdded"
+QT_MOC_LITERAL(7, 62, 7), //!/< "LogText"
+QT_MOC_LITERAL(8, 70, 10), //!/< "logCleared"
+QT_MOC_LITERAL(9, 81, 10), //!/< "P3Penabled"
+QT_MOC_LITERAL(10, 92, 5), //!/< "value"
+QT_MOC_LITERAL(11, 98, 15) //!/< "progressUpdated"
 
     },
     "commObject\0statusChanged\0\0newText\0"
@@ -51,18 +51,18 @@ QT_MOC_LITERAL(11, 98, 15) // "progressUpdated"
 
 static const uint qt_meta_data_commObject[] = {
 
- // content:
-       7,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       6,   14, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       6,       // signalCount
+ //!/< content:
+       7,       //!/< revision
+       0,       //!/< classname
+       0,    0, //!/< classinfo
+       6,   14, //!/< methods
+       0,    0, //!/< properties
+       0,    0, //!/< enums/sets
+       0,    0, //!/< constructors
+       0,       //!/< flags
+       6,       //!/< signalCount
 
- // signals: name, argc, parameters, tag, flags
+ //!/< signals: name, argc, parameters, tag, flags
        1,    1,   44,    2, 0x06 /* Public */,
        4,    1,   47,    2, 0x06 /* Public */,
        6,    1,   50,    2, 0x06 /* Public */,
@@ -70,7 +70,7 @@ static const uint qt_meta_data_commObject[] = {
        9,    1,   54,    2, 0x06 /* Public */,
       11,    1,   57,    2, 0x06 /* Public */,
 
- // signals: parameters
+ //!/< signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void, QMetaType::QPixmap,    5,
     QMetaType::Void, QMetaType::QString,    7,
@@ -78,7 +78,7 @@ static const uint qt_meta_data_commObject[] = {
     QMetaType::Void, QMetaType::Bool,   10,
     QMetaType::Void, QMetaType::Int,   10,
 
-       0        // eod
+       0        //!/< eod
 };
 
 void commObject::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -179,41 +179,41 @@ int commObject::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     return _id;
 }
 
-// SIGNAL 0
+//!/< SIGNAL 0
 void commObject::statusChanged(QString _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
-// SIGNAL 1
+//!/< SIGNAL 1
 void commObject::imageChanged(QPixmap _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 
-// SIGNAL 2
+//!/< SIGNAL 2
 void commObject::logAdded(QString _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 
-// SIGNAL 3
+//!/< SIGNAL 3
 void commObject::logCleared()
 {
     QMetaObject::activate(this, &staticMetaObject, 3, Q_NULLPTR);
 }
 
-// SIGNAL 4
+//!/< SIGNAL 4
 void commObject::P3Penabled(bool _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 
-// SIGNAL 5
+//!/< SIGNAL 5
 void commObject::progressUpdated(int _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };

@@ -1,0 +1,8 @@
+<map id="RigidTrack::on_btnCalibrate_clicked" name="RigidTrack::on_btnCalibrate_clicked">
+<area shape="rect" id="node2" href="$main_8cpp.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="235,107,356,133"/>
+<area shape="rect" id="node3" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="423,5,569,32"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="443,56,549,83"/>
+<area shape="rect" id="node5" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="405,107,587,133"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#a0a7f48017dbb3d64bfc1a171631ad7d7" title="calculate the chess board corner positions, used for the camera calibration " alt="" coords="410,157,582,184"/>
+<area shape="rect" id="node7" href="$classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="404,208,588,235"/>
+</map>

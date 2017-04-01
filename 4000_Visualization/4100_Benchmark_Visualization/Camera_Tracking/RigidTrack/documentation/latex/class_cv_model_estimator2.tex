@@ -1,0 +1,157 @@
+\section{Cv\+Model\+Estimator2 Class Reference}
+\label{class_cv_model_estimator2}\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+
+
+{\ttfamily \#include $<$\+\_\+modelest.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Cv\+Model\+Estimator2} (int \+\_\+model\+Points, Cv\+Size \+\_\+model\+Size, int \+\_\+max\+Basic\+Solutions)
+\item 
+virtual \textbf{ $\sim$\+Cv\+Model\+Estimator2} ()
+\item 
+virtual int \textbf{ run\+Kernel} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, Cv\+Mat $\ast$model)=0
+\item 
+virtual bool \textbf{ run\+L\+Me\+DS} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, Cv\+Mat $\ast$model, Cv\+Mat $\ast$mask, double confidence=0.\+99, int max\+Iters=2000)
+\item 
+virtual bool \textbf{ run\+R\+A\+N\+S\+AC} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, Cv\+Mat $\ast$model, Cv\+Mat $\ast$mask, double threshold, double confidence=0.\+99, int max\+Iters=2000)
+\item 
+virtual bool \textbf{ refine} (const Cv\+Mat $\ast$, const Cv\+Mat $\ast$, Cv\+Mat $\ast$, int)
+\item 
+virtual void \textbf{ set\+Seed} (int64 seed)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \textbf{ compute\+Reproj\+Error} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, const Cv\+Mat $\ast$model, Cv\+Mat $\ast$\textbf{ error})=0
+\item 
+virtual int \textbf{ find\+Inliers} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, const Cv\+Mat $\ast$model, Cv\+Mat $\ast$\textbf{ error}, Cv\+Mat $\ast$mask, double threshold)
+\item 
+virtual bool \textbf{ get\+Subset} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, Cv\+Mat $\ast$ms1, Cv\+Mat $\ast$ms2, int max\+Attempts=1000)
+\item 
+virtual bool \textbf{ check\+Subset} (const Cv\+Mat $\ast$ms1, int count)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Cv\+R\+NG \textbf{ rng}
+\item 
+int \textbf{ model\+Points}
+\item 
+Cv\+Size \textbf{ model\+Size}
+\item 
+int \textbf{ max\+Basic\+Solutions}
+\item 
+bool \textbf{ check\+Partial\+Subsets}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\label{class_cv_model_estimator2_a91cf072d79537808e705a9fa31867da3}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{Cv\+Model\+Estimator2()}
+{\footnotesize\ttfamily Cv\+Model\+Estimator2\+::\+Cv\+Model\+Estimator2 (\begin{DoxyParamCaption}\item[{int}]{\+\_\+model\+Points,  }\item[{Cv\+Size}]{\+\_\+model\+Size,  }\item[{int}]{\+\_\+max\+Basic\+Solutions }\end{DoxyParamCaption})}
+
+\mbox{\label{class_cv_model_estimator2_a656e12f072058449ca45d785c0eaa02a}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!````~Cv\+Model\+Estimator2@{$\sim$\+Cv\+Model\+Estimator2}}
+\index{````~Cv\+Model\+Estimator2@{$\sim$\+Cv\+Model\+Estimator2}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{$\sim$\+Cv\+Model\+Estimator2()}
+{\footnotesize\ttfamily virtual Cv\+Model\+Estimator2\+::$\sim$\+Cv\+Model\+Estimator2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\label{class_cv_model_estimator2_ae149bd480d9b445c66b1c34a351cbb5a}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!check\+Subset@{check\+Subset}}
+\index{check\+Subset@{check\+Subset}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{check\+Subset()}
+{\footnotesize\ttfamily virtual bool Cv\+Model\+Estimator2\+::check\+Subset (\begin{DoxyParamCaption}\item[{const Cv\+Mat $\ast$}]{ms1,  }\item[{int}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+\mbox{\label{class_cv_model_estimator2_ae2aa4bbc11e6fc303d81b95daf2795ad}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!compute\+Reproj\+Error@{compute\+Reproj\+Error}}
+\index{compute\+Reproj\+Error@{compute\+Reproj\+Error}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{compute\+Reproj\+Error()}
+{\footnotesize\ttfamily virtual void Cv\+Model\+Estimator2\+::compute\+Reproj\+Error (\begin{DoxyParamCaption}\item[{const Cv\+Mat $\ast$}]{m1,  }\item[{const Cv\+Mat $\ast$}]{m2,  }\item[{const Cv\+Mat $\ast$}]{model,  }\item[{Cv\+Mat $\ast$}]{error }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+\mbox{\label{class_cv_model_estimator2_a7683a8352f66ba994982493690f418b1}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!find\+Inliers@{find\+Inliers}}
+\index{find\+Inliers@{find\+Inliers}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{find\+Inliers()}
+{\footnotesize\ttfamily virtual int Cv\+Model\+Estimator2\+::find\+Inliers (\begin{DoxyParamCaption}\item[{const Cv\+Mat $\ast$}]{m1,  }\item[{const Cv\+Mat $\ast$}]{m2,  }\item[{const Cv\+Mat $\ast$}]{model,  }\item[{Cv\+Mat $\ast$}]{error,  }\item[{Cv\+Mat $\ast$}]{mask,  }\item[{double}]{threshold }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+\mbox{\label{class_cv_model_estimator2_a8a1749e60a02a5cb697425bd2daa35af}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!get\+Subset@{get\+Subset}}
+\index{get\+Subset@{get\+Subset}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{get\+Subset()}
+{\footnotesize\ttfamily virtual bool Cv\+Model\+Estimator2\+::get\+Subset (\begin{DoxyParamCaption}\item[{const Cv\+Mat $\ast$}]{m1,  }\item[{const Cv\+Mat $\ast$}]{m2,  }\item[{Cv\+Mat $\ast$}]{ms1,  }\item[{Cv\+Mat $\ast$}]{ms2,  }\item[{int}]{max\+Attempts = {\ttfamily 1000} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+\mbox{\label{class_cv_model_estimator2_a760edefe34027333ccc6c19e74cb46d1}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!refine@{refine}}
+\index{refine@{refine}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{refine()}
+{\footnotesize\ttfamily virtual bool Cv\+Model\+Estimator2\+::refine (\begin{DoxyParamCaption}\item[{const Cv\+Mat $\ast$}]{,  }\item[{const Cv\+Mat $\ast$}]{,  }\item[{Cv\+Mat $\ast$}]{,  }\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\mbox{\label{class_cv_model_estimator2_ac8c9c1586d3334f468d4152c67554adc}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!run\+Kernel@{run\+Kernel}}
+\index{run\+Kernel@{run\+Kernel}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{run\+Kernel()}
+{\footnotesize\ttfamily virtual int Cv\+Model\+Estimator2\+::run\+Kernel (\begin{DoxyParamCaption}\item[{const Cv\+Mat $\ast$}]{m1,  }\item[{const Cv\+Mat $\ast$}]{m2,  }\item[{Cv\+Mat $\ast$}]{model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+\mbox{\label{class_cv_model_estimator2_a15486b3aea44ad7247924dd1532ce5a8}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!run\+L\+Me\+DS@{run\+L\+Me\+DS}}
+\index{run\+L\+Me\+DS@{run\+L\+Me\+DS}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{run\+L\+Me\+D\+S()}
+{\footnotesize\ttfamily virtual bool Cv\+Model\+Estimator2\+::run\+L\+Me\+DS (\begin{DoxyParamCaption}\item[{const Cv\+Mat $\ast$}]{m1,  }\item[{const Cv\+Mat $\ast$}]{m2,  }\item[{Cv\+Mat $\ast$}]{model,  }\item[{Cv\+Mat $\ast$}]{mask,  }\item[{double}]{confidence = {\ttfamily 0.99},  }\item[{int}]{max\+Iters = {\ttfamily 2000} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\mbox{\label{class_cv_model_estimator2_af44a8168c5416e210819c7eea380ac66}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!run\+R\+A\+N\+S\+AC@{run\+R\+A\+N\+S\+AC}}
+\index{run\+R\+A\+N\+S\+AC@{run\+R\+A\+N\+S\+AC}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{run\+R\+A\+N\+S\+A\+C()}
+{\footnotesize\ttfamily virtual bool Cv\+Model\+Estimator2\+::run\+R\+A\+N\+S\+AC (\begin{DoxyParamCaption}\item[{const Cv\+Mat $\ast$}]{m1,  }\item[{const Cv\+Mat $\ast$}]{m2,  }\item[{Cv\+Mat $\ast$}]{model,  }\item[{Cv\+Mat $\ast$}]{mask,  }\item[{double}]{threshold,  }\item[{double}]{confidence = {\ttfamily 0.99},  }\item[{int}]{max\+Iters = {\ttfamily 2000} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\mbox{\label{class_cv_model_estimator2_a4946fc6c99f37e5dae1f68e78e85110d}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!set\+Seed@{set\+Seed}}
+\index{set\+Seed@{set\+Seed}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{set\+Seed()}
+{\footnotesize\ttfamily virtual void Cv\+Model\+Estimator2\+::set\+Seed (\begin{DoxyParamCaption}\item[{int64}]{seed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\label{class_cv_model_estimator2_a579cf07784af6c3710ab23aa841cb7d5}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!check\+Partial\+Subsets@{check\+Partial\+Subsets}}
+\index{check\+Partial\+Subsets@{check\+Partial\+Subsets}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{check\+Partial\+Subsets}
+{\footnotesize\ttfamily bool Cv\+Model\+Estimator2\+::check\+Partial\+Subsets\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_cv_model_estimator2_ac954ec76553da0908f863c48aa82d1ef}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!max\+Basic\+Solutions@{max\+Basic\+Solutions}}
+\index{max\+Basic\+Solutions@{max\+Basic\+Solutions}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{max\+Basic\+Solutions}
+{\footnotesize\ttfamily int Cv\+Model\+Estimator2\+::max\+Basic\+Solutions\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_cv_model_estimator2_a7c4067aa8938e61ca4b2674a58ccfe35}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!model\+Points@{model\+Points}}
+\index{model\+Points@{model\+Points}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{model\+Points}
+{\footnotesize\ttfamily int Cv\+Model\+Estimator2\+::model\+Points\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_cv_model_estimator2_a93286a6b978450e6363b2403b5da1ff5}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!model\+Size@{model\+Size}}
+\index{model\+Size@{model\+Size}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{model\+Size}
+{\footnotesize\ttfamily Cv\+Size Cv\+Model\+Estimator2\+::model\+Size\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\label{class_cv_model_estimator2_a5199037f573a5af1bd9f419e5a64e3e4}} 
+\index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!rng@{rng}}
+\index{rng@{rng}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
+\subsubsection{rng}
+{\footnotesize\ttfamily Cv\+R\+NG Cv\+Model\+Estimator2\+::rng\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Rigid\+Track/\textbf{ \+\_\+modelest.\+h}\end{DoxyCompactItemize}

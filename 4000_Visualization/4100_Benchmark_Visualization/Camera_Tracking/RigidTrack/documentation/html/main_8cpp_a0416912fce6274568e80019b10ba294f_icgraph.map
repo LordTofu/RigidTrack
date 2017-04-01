@@ -1,0 +1,9 @@
+<map id="determineExposure" name="determineExposure">
+<area shape="rect" id="node2" href="$main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="195,17,294,43"/>
+<area shape="rect" id="node5" href="$main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="212,71,277,98"/>
+<area shape="rect" id="node7" href="$main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="188,129,301,155"/>
+<area shape="rect" id="node3" href="$main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="377,13,503,39"/>
+<area shape="rect" id="node4" href="$class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="579,5,781,47"/>
+<area shape="rect" id="node6" href="$class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="363,64,517,105"/>
+<area shape="rect" id="node8" href="$class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="349,129,531,171"/>
+</map>

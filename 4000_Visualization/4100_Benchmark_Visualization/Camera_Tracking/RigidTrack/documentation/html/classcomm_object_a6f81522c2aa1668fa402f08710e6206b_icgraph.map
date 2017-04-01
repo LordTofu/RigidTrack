@@ -1,0 +1,20 @@
+<map id="commObject::changeImage" name="commObject::changeImage">
+<area shape="rect" id="node2" href="$main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="247,21,345,47"/>
+<area shape="rect" id="node5" href="$main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="263,79,329,106"/>
+<area shape="rect" id="node7" href="$main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="235,137,357,163"/>
+<area shape="rect" id="node9" href="$main_8h.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="243,187,349,214"/>
+<area shape="rect" id="node16" href="$main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="235,238,357,265"/>
+<area shape="rect" id="node18" href="$main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="239,303,353,330"/>
+<area shape="rect" id="node3" href="$main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="440,13,565,39"/>
+<area shape="rect" id="node4" href="$class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="648,5,851,47"/>
+<area shape="rect" id="node6" href="$class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="425,64,580,105"/>
+<area shape="rect" id="node8" href="$class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="412,129,593,171"/>
+<area shape="rect" id="node10" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="/&lt;======= Entry Point ======– " alt="" coords="477,195,528,222"/>
+<area shape="rect" id="node11" href="$class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="688,170,811,197"/>
+<area shape="rect" id="node15" href="$supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="713,221,786,247"/>
+<area shape="rect" id="node12" href="$class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="899,170,1053,197"/>
+<area shape="rect" id="node13" href="$supportcode_8h.html#ac43c2dc16b0859b03a4f7d04a7e97d3c" title="DrawGLScene" alt="" coords="1101,170,1207,197"/>
+<area shape="rect" id="node14" href="$class_surface.html#abe0d542404575c60911d6ad4219560f9" title="Surface::PixelSpan" alt="" coords="1255,170,1388,197"/>
+<area shape="rect" id="node17" href="$class_rigid_track.html#ad3e07592fbc1491cdc36dd5e817e1775" title="RigidTrack::on_pbLoadMarker\l_clicked" alt="" coords="405,247,600,288"/>
+<area shape="rect" id="node19" href="$class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="412,312,593,353"/>
+</map>
