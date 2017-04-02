@@ -2,7 +2,7 @@ var searchData=
 [
   ['calcboardcornerpositions',['calcBoardCornerPositions',['../main_8cpp.html#a0a7f48017dbb3d64bfc1a171631ad7d7',1,'main.cpp']]],
   ['calculatesize',['CalculateSize',['../class_surface.html#aeb8a8540f415a4d29c440667e8532e91',1,'Surface']]],
-  ['calibrate_5fcamera',['calibrate_camera',['../main_8cpp.html#a852329cf0943686665469e34f44a39bf',1,'calibrate_camera():&#160;main.cpp'],['../main_8h.html#a852329cf0943686665469e34f44a39bf',1,'calibrate_camera():&#160;main.cpp']]],
+  ['calibratecamera',['calibrateCamera',['../main_8cpp.html#a5f7c5996cd5a271d0277e0741f73a5b4',1,'calibrateCamera():&#160;main.cpp'],['../main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4',1,'calibrateCamera():&#160;main.cpp']]],
   ['calibrateground',['calibrateGround',['../main_8cpp.html#a7ad2e3cfb5056dbab2098e0dd3bd353f',1,'calibrateGround():&#160;main.cpp'],['../main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f',1,'calibrateGround():&#160;main.cpp']]],
   ['cbthookproc',['CBTHookProc',['../supportcode_8cpp.html#a17f99e323714d00ed14865018691574c',1,'supportcode.cpp']]],
   ['changeimage',['changeImage',['../classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b',1,'commObject']]],

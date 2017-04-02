@@ -50,12 +50,12 @@ extern int portSafety2;
 extern int invertZ;
 extern commObject commObj;
 
-int start_camera();
-void start_stopCamera();
-int setZero();
-int calibrate_camera();
-void load_calibration(int method);
-void test_Algorithm();
+int startTracking();
+void startStopCamera();
+int setReference();
+int calibrateCamera();
+void loadCalibration(int method);
+void testAlgorithms();
 void projectCoordinateFrame(Mat pictureFrame);
 void setUpUDP();
 void setHeadingOffset(double d);

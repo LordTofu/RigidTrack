@@ -1,6 +1,6 @@
 <map id="commObject::progressUpdated" name="commObject::progressUpdated">
 <area shape="rect" id="node2" href="$classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="256,45,451,71"/>
-<area shape="rect" id="node3" href="$main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="523,17,588,43"/>
+<area shape="rect" id="node3" href="$main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="506,17,605,43"/>
 <area shape="rect" id="node5" href="$main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="499,71,612,98"/>
 <area shape="rect" id="node4" href="$class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="673,5,828,47"/>
 <area shape="rect" id="node6" href="$class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="660,71,841,112"/>

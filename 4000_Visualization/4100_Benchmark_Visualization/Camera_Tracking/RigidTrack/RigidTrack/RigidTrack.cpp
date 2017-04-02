@@ -17,12 +17,12 @@ RigidTrack::RigidTrack(QWidget *parent)
 
 void RigidTrack::on_btnZero_clicked()
 {
-	setZero();
+	setReference();
 }
 
 void RigidTrack::on_btnCalibrate_clicked()
 {
-	calibrate_camera();
+	calibrateCamera();
 }
 
 void RigidTrack::setImage(QPixmap image)
@@ -42,7 +42,7 @@ void RigidTrack::progressUpdate(int value)
 
 void RigidTrack::on_btnLoadCalib_clicked()
 {
-	load_calibration(1);
+	loadCalibration(1);
 }
 
 void RigidTrack::setLog(QString logText)
@@ -250,6 +250,6 @@ void RigidTrack::on_btnStartCamera_clicked()
 	{
 		RigidTrack::ui.btnStartCamera->setText("Start Tracking");
 	}
-	start_stopCamera();
+	startStopCamera();
 }
 

@@ -1,12 +1,12 @@
 <map id="RigidTrack::on_btnZero_clicked" name="RigidTrack::on_btnZero_clicked">
-<area shape="rect" id="node2" href="$main_8cpp.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="208,208,273,235"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="351,5,486,32"/>
-<area shape="rect" id="node4" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="564,31,711,57"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="363,107,474,133"/>
-<area shape="rect" id="node6" href="$classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="321,157,516,184"/>
-<area shape="rect" id="node7" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="339,208,499,235"/>
-<area shape="rect" id="node8" href="$main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="358,259,479,285"/>
-<area shape="rect" id="node9" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="366,309,471,336"/>
-<area shape="rect" id="node10" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="328,360,509,387"/>
-<area shape="rect" id="node11" href="$main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="get the euler angles from a rotation matrix " alt="" coords="363,411,474,437"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="208,208,307,235"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="determineExposure" alt="" coords="385,5,519,32"/>
+<area shape="rect" id="node4" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="597,31,744,57"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="397,107,507,133"/>
+<area shape="rect" id="node6" href="$classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="355,157,549,184"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="372,208,532,235"/>
+<area shape="rect" id="node8" href="$main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="391,259,513,285"/>
+<area shape="rect" id="node9" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="399,309,505,336"/>
+<area shape="rect" id="node10" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="361,360,543,387"/>
+<area shape="rect" id="node11" href="$main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="getEulerAngles" alt="" coords="397,411,507,437"/>
 </map>

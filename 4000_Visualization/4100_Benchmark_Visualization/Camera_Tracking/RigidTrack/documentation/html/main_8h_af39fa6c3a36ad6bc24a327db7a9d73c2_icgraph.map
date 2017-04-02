@@ -1,5 +1,5 @@
 <map id="loadCameraPosition" name="loadCameraPosition">
-<area shape="rect" id="node2" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="192,31,243,57"/>
+<area shape="rect" id="node2" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="192,31,243,57"/>
 <area shape="rect" id="node3" href="$class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="291,5,413,32"/>
 <area shape="rect" id="node7" href="$supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="315,56,389,83"/>
 <area shape="rect" id="node4" href="$class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="461,5,616,32"/>

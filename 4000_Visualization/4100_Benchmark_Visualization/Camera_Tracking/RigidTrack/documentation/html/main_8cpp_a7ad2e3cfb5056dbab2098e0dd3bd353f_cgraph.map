@@ -1,11 +1,11 @@
 <map id="calibrateGround" name="calibrateGround">
-<area shape="rect" id="node2" href="$main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="197,5,331,32"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="determineExposure" alt="" coords="197,5,331,32"/>
 <area shape="rect" id="node3" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="409,31,556,57"/>
 <area shape="rect" id="node4" href="$main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="209,107,319,133"/>
 <area shape="rect" id="node5" href="$classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="167,157,361,184"/>
-<area shape="rect" id="node6" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="184,208,344,235"/>
-<area shape="rect" id="node7" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="211,259,317,285"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="184,208,344,235"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="211,259,317,285"/>
 <area shape="rect" id="node8" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="173,309,355,336"/>
-<area shape="rect" id="node9" href="$main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="get the euler angles from a rotation matrix " alt="" coords="209,360,319,387"/>
+<area shape="rect" id="node9" href="$main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="getEulerAngles" alt="" coords="209,360,319,387"/>
 <area shape="rect" id="node10" href="$classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="172,411,356,437"/>
 </map>

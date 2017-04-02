@@ -19,6 +19,12 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -125,7 +131,7 @@ Functions</h2></td></tr>
 <tr class="memitem:acd4be192aca2369a87f51d952150a77b"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="supportcode_8cpp.html#acd4be192aca2369a87f51d952150a77b">CreateAppWindow</a> (const char *title, int width, int height, int bits, bool fullscreenflag)</td></tr>
 <tr class="separator:acd4be192aca2369a87f51d952150a77b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
-<tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">file handler for writing the log file  <a href="#a0ddf1224851353fc92bfbff6f499fa97">More...</a><br /></td></tr>
+<tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">main initialises the GUI and values for the marker position etc  <a href="#a0ddf1224851353fc92bfbff6f499fa97">More...</a><br /></td></tr>
 <tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a661c2abc03926acfaeb93b4ae7db4943"><td class="memItemLeft" align="right" valign="top">int WINAPI&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943">WinMain</a> (HINSTANCE <a class="el" href="supportcode_8cpp.html#a74029128723095e7bf00a71d46af8b24">hInstance</a>, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)</td></tr>
 <tr class="memdesc:a661c2abc03926acfaeb93b4ae7db4943"><td class="mdescLeft">&#160;</td><td class="mdescRight">/&lt; Window Show State  <a href="#a661c2abc03926acfaeb93b4ae7db4943">More...</a><br /></td></tr>
@@ -479,18 +485,18 @@ Here is the call graph for this function:</div>
 <area shape="rect" id="node3" href="class_surface.html#a4cbf23ea0c8ff533271109fc2a1a863d" title="Surface::SurfaceWidth" alt="" coords="160,63,312,90"/>
 <area shape="rect" id="node4" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="159,114,313,141"/>
 <area shape="rect" id="node5" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="361,114,484,141"/>
-<area shape="rect" id="node6" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="532,114,583,141"/>
+<area shape="rect" id="node6" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="532,114,583,141"/>
 <area shape="rect" id="node7" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="835,38,981,65"/>
-<area shape="rect" id="node8" href="main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="Add a heading offset to the attitude for the case it is necessary. " alt="" coords="639,241,761,267"/>
+<area shape="rect" id="node8" href="main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="setHeadingOffset" alt="" coords="639,241,761,267"/>
 <area shape="rect" id="node9" href="main_8cpp.html#af39fa6c3a36ad6bc24a327db7a9d73c2" title="loadCameraPosition" alt="" coords="631,38,769,65"/>
-<area shape="rect" id="node10" href="main_8cpp.html#a44774828fee2764f3f3734bbd3f446e3" title="Load a previously saved camera calibration from a file. " alt="" coords="644,89,756,115"/>
-<area shape="rect" id="node11" href="main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="639,139,761,166"/>
-<area shape="rect" id="node16" href="main_8cpp.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="647,190,753,217"/>
+<area shape="rect" id="node10" href="main_8cpp.html#ad39626702ff983d5fdab4b703bfaf964" title="loadCalibration" alt="" coords="647,89,753,115"/>
+<area shape="rect" id="node11" href="main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="639,139,761,166"/>
+<area shape="rect" id="node16" href="main_8cpp.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="647,190,753,217"/>
 <area shape="rect" id="node12" href="classcomm_object.html#a7552116eb5e18c49c6dcf943de29af7a" title="commObject::enableP3P" alt="" coords="825,89,991,115"/>
-<area shape="rect" id="node13" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="828,139,988,166"/>
-<area shape="rect" id="node14" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="855,190,961,217"/>
+<area shape="rect" id="node13" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="828,139,988,166"/>
+<area shape="rect" id="node14" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="855,190,961,217"/>
 <area shape="rect" id="node15" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="817,241,999,267"/>
-<area shape="rect" id="node17" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="847,291,969,318"/>
+<area shape="rect" id="node17" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="847,291,969,318"/>
 </map>
 </div>
 <div class="dynheader">
@@ -620,8 +626,14 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>file handler for writing the log file </p>
-<p>main inizialised the GUI and values for the marker position etc </p>
+<p>main initialises the GUI and values for the marker position etc </p>
+<p>First the GUI is set up with Signals and Slots, see Qt docu for how that works. Then some variables are initialized with arbitrary values. At last calibration and marker configuration etc. are loaded from xml files. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>is not used. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">argv</td><td>is also not used. </td></tr>
+  </table>
+  </dd>
+</dl>
 <p>&lt; show the GUI</p>
 <p>connect the Qt slots and signals for event handling</p>
 <p>initial guesses for position and rotation, important for Iterative Method!</p>
@@ -647,16 +659,16 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="supportcode_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph.png" border="0" usemap="#supportcode_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph" alt=""/></div>
 <map name="supportcode_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph" id="supportcode_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph">
 <area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="308,38,455,65"/>
-<area shape="rect" id="node3" href="main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="Add a heading offset to the attitude for the case it is necessary. " alt="" coords="113,241,234,267"/>
+<area shape="rect" id="node3" href="main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="setHeadingOffset" alt="" coords="113,241,234,267"/>
 <area shape="rect" id="node4" href="main_8cpp.html#af39fa6c3a36ad6bc24a327db7a9d73c2" title="loadCameraPosition" alt="" coords="104,38,243,65"/>
-<area shape="rect" id="node5" href="main_8cpp.html#a44774828fee2764f3f3734bbd3f446e3" title="Load a previously saved camera calibration from a file. " alt="" coords="117,89,229,115"/>
-<area shape="rect" id="node6" href="main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="112,139,235,166"/>
-<area shape="rect" id="node11" href="main_8cpp.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="120,190,227,217"/>
+<area shape="rect" id="node5" href="main_8cpp.html#ad39626702ff983d5fdab4b703bfaf964" title="loadCalibration" alt="" coords="120,89,227,115"/>
+<area shape="rect" id="node6" href="main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="112,139,235,166"/>
+<area shape="rect" id="node11" href="main_8cpp.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="120,190,227,217"/>
 <area shape="rect" id="node7" href="classcomm_object.html#a7552116eb5e18c49c6dcf943de29af7a" title="commObject::enableP3P" alt="" coords="298,89,465,115"/>
-<area shape="rect" id="node8" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="301,139,461,166"/>
-<area shape="rect" id="node9" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="329,190,434,217"/>
+<area shape="rect" id="node8" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="301,139,461,166"/>
+<area shape="rect" id="node9" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="329,190,434,217"/>
 <area shape="rect" id="node10" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="291,241,472,267"/>
-<area shape="rect" id="node12" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="321,291,442,318"/>
+<area shape="rect" id="node12" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="321,291,442,318"/>
 </map>
 </div>
 <div class="dynheader">
@@ -871,18 +883,18 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="supportcode_8cpp_a661c2abc03926acfaeb93b4ae7db4943_cgraph.png" border="0" usemap="#supportcode_8cpp_a661c2abc03926acfaeb93b4ae7db4943_cgraph" alt=""/></div>
 <map name="supportcode_8cpp_a661c2abc03926acfaeb93b4ae7db4943_cgraph" id="supportcode_8cpp_a661c2abc03926acfaeb93b4ae7db4943_cgraph">
-<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="127,114,177,141"/>
+<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="127,114,177,141"/>
 <area shape="rect" id="node3" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="429,38,576,65"/>
-<area shape="rect" id="node4" href="main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="Add a heading offset to the attitude for the case it is necessary. " alt="" coords="234,241,355,267"/>
+<area shape="rect" id="node4" href="main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="setHeadingOffset" alt="" coords="234,241,355,267"/>
 <area shape="rect" id="node5" href="main_8cpp.html#af39fa6c3a36ad6bc24a327db7a9d73c2" title="loadCameraPosition" alt="" coords="225,38,364,65"/>
-<area shape="rect" id="node6" href="main_8cpp.html#a44774828fee2764f3f3734bbd3f446e3" title="Load a previously saved camera calibration from a file. " alt="" coords="239,89,351,115"/>
-<area shape="rect" id="node7" href="main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="233,139,356,166"/>
-<area shape="rect" id="node12" href="main_8cpp.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="241,190,348,217"/>
+<area shape="rect" id="node6" href="main_8cpp.html#ad39626702ff983d5fdab4b703bfaf964" title="loadCalibration" alt="" coords="241,89,348,115"/>
+<area shape="rect" id="node7" href="main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="233,139,356,166"/>
+<area shape="rect" id="node12" href="main_8cpp.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="241,190,348,217"/>
 <area shape="rect" id="node8" href="classcomm_object.html#a7552116eb5e18c49c6dcf943de29af7a" title="commObject::enableP3P" alt="" coords="419,89,586,115"/>
-<area shape="rect" id="node9" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="423,139,583,166"/>
-<area shape="rect" id="node10" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="450,190,555,217"/>
+<area shape="rect" id="node9" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="423,139,583,166"/>
+<area shape="rect" id="node10" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="450,190,555,217"/>
 <area shape="rect" id="node11" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="412,241,593,267"/>
-<area shape="rect" id="node13" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="442,291,563,318"/>
+<area shape="rect" id="node13" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="442,291,563,318"/>
 </map>
 </div>
 

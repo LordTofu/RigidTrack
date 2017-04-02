@@ -1,4 +1,4 @@
 <map id="RigidTrack::on_btnLoadCalib_clicked" name="RigidTrack::on_btnLoadCalib_clicked">
-<area shape="rect" id="node2" href="$main_8cpp.html#a44774828fee2764f3f3734bbd3f446e3" title="Load a previously saved camera calibration from a file. " alt="" coords="240,13,352,39"/>
-<area shape="rect" id="node3" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="400,13,547,39"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#ad39626702ff983d5fdab4b703bfaf964" title="loadCalibration" alt="" coords="240,13,347,39"/>
+<area shape="rect" id="node3" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="395,13,541,39"/>
 </map>

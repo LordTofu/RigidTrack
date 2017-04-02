@@ -19,6 +19,12 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -93,11 +99,15 @@ $(document).ready(function(){initNavTree('classcomm_object.html','');});
 Inheritance diagram for commObject:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object__inherit__graph.png" border="0" usemap="#comm_object_inherit__map" alt="Inheritance graph"/></div>
+<map name="comm_object_inherit__map" id="comm_object_inherit__map">
+</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for commObject:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object__coll__graph.png" border="0" usemap="#comm_object_coll__map" alt="Collaboration graph"/></div>
+<map name="comm_object_coll__map" id="comm_object_coll__map">
+</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
@@ -157,38 +167,38 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_aec354c7099b3039083cc4224e071e022_icgraph.png" border="0" usemap="#classcomm_object_aec354c7099b3039083cc4224e071e022_icgraph" alt=""/></div>
 <map name="classcomm_object_aec354c7099b3039083cc4224e071e022_icgraph" id="classcomm_object_aec354c7099b3039083cc4224e071e022_icgraph">
-<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="499,88,549,115"/>
-<area shape="rect" id="node8" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="475,324,573,351"/>
-<area shape="rect" id="node11" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="491,413,557,440"/>
-<area shape="rect" id="node13" href="main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="229,552,350,579"/>
-<area shape="rect" id="node15" href="main_8h.html#a44774828fee2764f3f3734bbd3f446e3" title="Load a previously saved camera calibration from a file. " alt="" coords="233,147,345,173"/>
-<area shape="rect" id="node17" href="main_8h.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="236,45,343,72"/>
-<area shape="rect" id="node18" href="main_8h.html#ae624b0189bc5e32cbbb1f178b9f1a360" title="open the UDP ports for communication " alt="" coords="248,299,331,325"/>
-<area shape="rect" id="node19" href="main_8h.html#af2a8b7de0b15dc17198c147ba39e85f3" title="close the UDP ports again to release network interfaces etc. " alt="" coords="249,349,329,376"/>
-<area shape="rect" id="node20" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="228,197,351,224"/>
+<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="499,88,549,115"/>
+<area shape="rect" id="node8" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="475,320,573,347"/>
+<area shape="rect" id="node11" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="475,417,573,444"/>
+<area shape="rect" id="node13" href="main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="231,576,347,603"/>
+<area shape="rect" id="node15" href="main_8h.html#ad39626702ff983d5fdab4b703bfaf964" title="loadCalibration" alt="" coords="236,147,343,173"/>
+<area shape="rect" id="node17" href="main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="236,45,343,72"/>
+<area shape="rect" id="node18" href="main_8h.html#ae624b0189bc5e32cbbb1f178b9f1a360" title="Open the UDP ports for communication. " alt="" coords="248,299,331,325"/>
+<area shape="rect" id="node19" href="main_8h.html#af2a8b7de0b15dc17198c147ba39e85f3" title="closeUDP" alt="" coords="249,349,329,376"/>
+<area shape="rect" id="node20" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="228,197,351,224"/>
 <area shape="rect" id="node22" href="main_8h.html#af39fa6c3a36ad6bc24a327db7a9d73c2" title="loadCameraPosition" alt="" coords="220,96,359,123"/>
-<area shape="rect" id="node23" href="main_8h.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="222,400,357,427"/>
-<area shape="rect" id="node24" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="467,485,581,512"/>
-<area shape="rect" id="node26" href="class_rigid_track.html#a9f037a061b2577815fc80e5e9f8d46d9" title="RigidTrack::on_leIPObject\l_returnPressed" alt="" coords="203,603,375,645"/>
-<area shape="rect" id="node27" href="class_rigid_track.html#aa527ab3a2ddc7b31bf1063260efc9755" title="RigidTrack::on_leIPSafety\l_returnPressed" alt="" coords="204,721,375,762"/>
-<area shape="rect" id="node28" href="class_rigid_track.html#a8f999fa968f4cc9fa548bdc8438b32c4" title="RigidTrack::on_cbSafety\l_stateChanged" alt="" coords="443,691,605,733"/>
-<area shape="rect" id="node29" href="class_rigid_track.html#a555c536593d659b940de43cd2db8d6c1" title="RigidTrack::on_leIPSafety2\l_returnPressed" alt="" coords="200,838,379,879"/>
-<area shape="rect" id="node30" href="class_rigid_track.html#ad6ba1cfe25f18ff0d9f5993aafa36d16" title="RigidTrack::on_cbSafety2\l_stateChanged" alt="" coords="439,809,609,850"/>
-<area shape="rect" id="node31" href="class_rigid_track.html#ac1f10ea5ec3f718c152e245a04776454" title="RigidTrack::on_rbP3P\l_clicked" alt="" coords="215,903,363,945"/>
-<area shape="rect" id="node32" href="class_rigid_track.html#ae5bcdd3fb7203b4a7d1fa97c1460af31" title="RigidTrack::on_rbIterative\l_clicked" alt="" coords="206,969,373,1010"/>
-<area shape="rect" id="node33" href="class_rigid_track.html#a19bc46333f946e589184eeed998160da" title="RigidTrack::on_rbEPnP\l_clicked" alt="" coords="211,1034,368,1075"/>
+<area shape="rect" id="node23" href="main_8h.html#a0416912fce6274568e80019b10ba294f" title="determineExposure" alt="" coords="222,400,357,427"/>
+<area shape="rect" id="node24" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="467,492,581,519"/>
+<area shape="rect" id="node26" href="class_rigid_track.html#a9f037a061b2577815fc80e5e9f8d46d9" title="RigidTrack::on_leIPObject\l_returnPressed" alt="" coords="203,627,375,669"/>
+<area shape="rect" id="node27" href="class_rigid_track.html#aa527ab3a2ddc7b31bf1063260efc9755" title="RigidTrack::on_leIPSafety\l_returnPressed" alt="" coords="204,745,375,786"/>
+<area shape="rect" id="node28" href="class_rigid_track.html#a8f999fa968f4cc9fa548bdc8438b32c4" title="RigidTrack::on_cbSafety\l_stateChanged" alt="" coords="443,715,605,757"/>
+<area shape="rect" id="node29" href="class_rigid_track.html#a555c536593d659b940de43cd2db8d6c1" title="RigidTrack::on_leIPSafety2\l_returnPressed" alt="" coords="200,862,379,903"/>
+<area shape="rect" id="node30" href="class_rigid_track.html#ad6ba1cfe25f18ff0d9f5993aafa36d16" title="RigidTrack::on_cbSafety2\l_stateChanged" alt="" coords="439,833,609,874"/>
+<area shape="rect" id="node31" href="class_rigid_track.html#ac1f10ea5ec3f718c152e245a04776454" title="RigidTrack::on_rbP3P\l_clicked" alt="" coords="215,927,363,969"/>
+<area shape="rect" id="node32" href="class_rigid_track.html#ae5bcdd3fb7203b4a7d1fa97c1460af31" title="RigidTrack::on_rbIterative\l_clicked" alt="" coords="206,993,373,1034"/>
+<area shape="rect" id="node33" href="class_rigid_track.html#a19bc46333f946e589184eeed998160da" title="RigidTrack::on_rbEPnP\l_clicked" alt="" coords="211,1058,368,1099"/>
 <area shape="rect" id="node3" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="699,113,821,140"/>
 <area shape="rect" id="node7" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="723,63,797,89"/>
 <area shape="rect" id="node4" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="923,113,1077,140"/>
 <area shape="rect" id="node5" href="supportcode_8h.html#ac43c2dc16b0859b03a4f7d04a7e97d3c" title="DrawGLScene" alt="" coords="1149,113,1255,140"/>
 <area shape="rect" id="node6" href="class_surface.html#abe0d542404575c60911d6ad4219560f9" title="Surface::PixelSpan" alt="" coords="1303,113,1436,140"/>
-<area shape="rect" id="node9" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="697,324,823,351"/>
-<area shape="rect" id="node10" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="899,317,1101,358"/>
-<area shape="rect" id="node12" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="683,406,837,447"/>
-<area shape="rect" id="node14" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="433,545,615,586"/>
+<area shape="rect" id="node9" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="700,320,820,347"/>
+<area shape="rect" id="node10" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="899,313,1101,354"/>
+<area shape="rect" id="node12" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="683,410,837,451"/>
+<area shape="rect" id="node14" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="433,569,615,610"/>
 <area shape="rect" id="node16" href="class_rigid_track.html#a2224d3f6d923a1c7bad356f49d7a4124" title="RigidTrack::on_btnLoadCalib\l_clicked" alt="" coords="431,139,617,181"/>
 <area shape="rect" id="node21" href="class_rigid_track.html#ad3e07592fbc1491cdc36dd5e817e1775" title="RigidTrack::on_pbLoadMarker\l_clicked" alt="" coords="427,205,621,246"/>
-<area shape="rect" id="node25" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="669,478,851,519"/>
+<area shape="rect" id="node25" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="669,485,851,526"/>
 </map>
 </div>
 
@@ -214,17 +224,17 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a6f81522c2aa1668fa402f08710e6206b_icgraph.png" border="0" usemap="#classcomm_object_a6f81522c2aa1668fa402f08710e6206b_icgraph" alt=""/></div>
 <map name="classcomm_object_a6f81522c2aa1668fa402f08710e6206b_icgraph" id="classcomm_object_a6f81522c2aa1668fa402f08710e6206b_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="247,21,345,47"/>
-<area shape="rect" id="node5" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="263,79,329,106"/>
-<area shape="rect" id="node7" href="main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="235,137,357,163"/>
-<area shape="rect" id="node9" href="main_8h.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="243,187,349,214"/>
-<area shape="rect" id="node16" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="235,238,357,265"/>
-<area shape="rect" id="node18" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="239,303,353,330"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="440,13,565,39"/>
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="247,17,345,43"/>
+<area shape="rect" id="node5" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="247,70,345,97"/>
+<area shape="rect" id="node7" href="main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="238,145,354,171"/>
+<area shape="rect" id="node9" href="main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="243,195,349,222"/>
+<area shape="rect" id="node16" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="235,246,357,273"/>
+<area shape="rect" id="node18" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="239,307,353,334"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="443,13,563,39"/>
 <area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="648,5,851,47"/>
 <area shape="rect" id="node6" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="425,64,580,105"/>
 <area shape="rect" id="node8" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="412,129,593,171"/>
-<area shape="rect" id="node10" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="477,195,528,222"/>
+<area shape="rect" id="node10" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="477,195,528,222"/>
 <area shape="rect" id="node11" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="688,170,811,197"/>
 <area shape="rect" id="node15" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="713,221,786,247"/>
 <area shape="rect" id="node12" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="899,170,1053,197"/>
@@ -257,10 +267,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a1f4b8dd22ecc46bab619f6b1fe1a5144_icgraph.png" border="0" usemap="#classcomm_object_a1f4b8dd22ecc46bab619f6b1fe1a5144_icgraph" alt=""/></div>
 <map name="classcomm_object_a1f4b8dd22ecc46bab619f6b1fe1a5144_icgraph" id="classcomm_object_a1f4b8dd22ecc46bab619f6b1fe1a5144_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="237,17,359,43"/>
-<area shape="rect" id="node4" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="241,71,355,98"/>
-<area shape="rect" id="node3" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="407,5,588,47"/>
-<area shape="rect" id="node5" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="407,71,588,112"/>
+<area shape="rect" id="node2" href="main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="237,29,353,56"/>
+<area shape="rect" id="node4" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="239,84,352,111"/>
+<area shape="rect" id="node3" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="401,18,583,59"/>
+<area shape="rect" id="node5" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="401,83,583,125"/>
 </map>
 </div>
 
@@ -303,8 +313,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a7552116eb5e18c49c6dcf943de29af7a_icgraph.png" border="0" usemap="#classcomm_object_a7552116eb5e18c49c6dcf943de29af7a_icgraph" alt=""/></div>
 <map name="classcomm_object_a7552116eb5e18c49c6dcf943de29af7a_icgraph" id="classcomm_object_a7552116eb5e18c49c6dcf943de29af7a_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="220,60,343,87"/>
-<area shape="rect" id="node3" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="463,31,513,57"/>
+<area shape="rect" id="node2" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="220,60,343,87"/>
+<area shape="rect" id="node3" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="463,31,513,57"/>
 <area shape="rect" id="node9" href="class_rigid_track.html#ad3e07592fbc1491cdc36dd5e817e1775" title="RigidTrack::on_pbLoadMarker\l_clicked" alt="" coords="391,82,585,123"/>
 <area shape="rect" id="node4" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="633,5,756,32"/>
 <area shape="rect" id="node8" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="658,56,731,83"/>
@@ -346,18 +356,18 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a3828eab6be234f6216a6f80a6a82e41e_icgraph.png" border="0" usemap="#classcomm_object_a3828eab6be234f6216a6f80a6a82e41e_icgraph" alt=""/></div>
 <map name="classcomm_object_a3828eab6be234f6216a6f80a6a82e41e_icgraph" id="classcomm_object_a3828eab6be234f6216a6f80a6a82e41e_icgraph">
-<area shape="rect" id="node2" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="244,162,425,189"/>
-<area shape="rect" id="node3" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="485,21,584,47"/>
-<area shape="rect" id="node6" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="502,79,567,106"/>
-<area shape="rect" id="node8" href="main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="474,137,595,163"/>
-<area shape="rect" id="node10" href="main_8h.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="481,187,588,214"/>
-<area shape="rect" id="node17" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="473,238,596,265"/>
-<area shape="rect" id="node19" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="478,303,591,330"/>
-<area shape="rect" id="node4" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="679,13,804,39"/>
+<area shape="rect" id="node2" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="244,170,425,197"/>
+<area shape="rect" id="node3" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="486,17,583,43"/>
+<area shape="rect" id="node6" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="485,70,584,97"/>
+<area shape="rect" id="node8" href="main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="477,145,593,171"/>
+<area shape="rect" id="node10" href="main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="481,195,588,222"/>
+<area shape="rect" id="node17" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="473,246,596,273"/>
+<area shape="rect" id="node19" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="478,307,591,334"/>
+<area shape="rect" id="node4" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="681,13,801,39"/>
 <area shape="rect" id="node5" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="887,5,1089,47"/>
 <area shape="rect" id="node7" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="664,64,819,105"/>
 <area shape="rect" id="node9" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="651,129,832,171"/>
-<area shape="rect" id="node11" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="716,195,767,222"/>
+<area shape="rect" id="node11" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="716,195,767,222"/>
 <area shape="rect" id="node12" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="927,170,1049,197"/>
 <area shape="rect" id="node16" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="951,221,1025,247"/>
 <area shape="rect" id="node13" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="1137,170,1292,197"/>
@@ -401,38 +411,38 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classcomm_object_a72620fe1bac16309baf6d148644edaf9_icgraph.png" border="0" usemap="#classcomm_object_a72620fe1bac16309baf6d148644edaf9_icgraph" alt=""/></div>
 <map name="classcomm_object_a72620fe1bac16309baf6d148644edaf9_icgraph" id="classcomm_object_a72620fe1bac16309baf6d148644edaf9_icgraph">
 <area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="212,476,359,503"/>
-<area shape="rect" id="node3" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="705,88,756,115"/>
-<area shape="rect" id="node9" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="681,324,780,351"/>
-<area shape="rect" id="node12" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="698,413,763,440"/>
-<area shape="rect" id="node14" href="main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="435,552,557,579"/>
-<area shape="rect" id="node16" href="main_8h.html#a44774828fee2764f3f3734bbd3f446e3" title="Load a previously saved camera calibration from a file. " alt="" coords="440,147,552,173"/>
-<area shape="rect" id="node18" href="main_8h.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="443,45,549,72"/>
-<area shape="rect" id="node19" href="main_8h.html#ae624b0189bc5e32cbbb1f178b9f1a360" title="open the UDP ports for communication " alt="" coords="455,299,537,325"/>
-<area shape="rect" id="node20" href="main_8h.html#af2a8b7de0b15dc17198c147ba39e85f3" title="close the UDP ports again to release network interfaces etc. " alt="" coords="456,349,536,376"/>
-<area shape="rect" id="node21" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="435,197,557,224"/>
+<area shape="rect" id="node3" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="705,88,756,115"/>
+<area shape="rect" id="node9" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="682,320,779,347"/>
+<area shape="rect" id="node12" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="681,417,780,444"/>
+<area shape="rect" id="node14" href="main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="438,576,554,603"/>
+<area shape="rect" id="node16" href="main_8h.html#ad39626702ff983d5fdab4b703bfaf964" title="loadCalibration" alt="" coords="443,147,549,173"/>
+<area shape="rect" id="node18" href="main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="443,45,549,72"/>
+<area shape="rect" id="node19" href="main_8h.html#ae624b0189bc5e32cbbb1f178b9f1a360" title="Open the UDP ports for communication. " alt="" coords="455,299,537,325"/>
+<area shape="rect" id="node20" href="main_8h.html#af2a8b7de0b15dc17198c147ba39e85f3" title="closeUDP" alt="" coords="456,349,536,376"/>
+<area shape="rect" id="node21" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="435,197,557,224"/>
 <area shape="rect" id="node23" href="main_8h.html#af39fa6c3a36ad6bc24a327db7a9d73c2" title="loadCameraPosition" alt="" coords="427,96,565,123"/>
-<area shape="rect" id="node24" href="main_8h.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="429,400,563,427"/>
-<area shape="rect" id="node25" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="674,485,787,512"/>
-<area shape="rect" id="node27" href="class_rigid_track.html#a9f037a061b2577815fc80e5e9f8d46d9" title="RigidTrack::on_leIPObject\l_returnPressed" alt="" coords="410,603,582,645"/>
-<area shape="rect" id="node28" href="class_rigid_track.html#aa527ab3a2ddc7b31bf1063260efc9755" title="RigidTrack::on_leIPSafety\l_returnPressed" alt="" coords="411,721,581,762"/>
-<area shape="rect" id="node29" href="class_rigid_track.html#a8f999fa968f4cc9fa548bdc8438b32c4" title="RigidTrack::on_cbSafety\l_stateChanged" alt="" coords="649,691,812,733"/>
-<area shape="rect" id="node30" href="class_rigid_track.html#a555c536593d659b940de43cd2db8d6c1" title="RigidTrack::on_leIPSafety2\l_returnPressed" alt="" coords="407,838,585,879"/>
-<area shape="rect" id="node31" href="class_rigid_track.html#ad6ba1cfe25f18ff0d9f5993aafa36d16" title="RigidTrack::on_cbSafety2\l_stateChanged" alt="" coords="645,809,816,850"/>
-<area shape="rect" id="node32" href="class_rigid_track.html#ac1f10ea5ec3f718c152e245a04776454" title="RigidTrack::on_rbP3P\l_clicked" alt="" coords="422,903,570,945"/>
-<area shape="rect" id="node33" href="class_rigid_track.html#ae5bcdd3fb7203b4a7d1fa97c1460af31" title="RigidTrack::on_rbIterative\l_clicked" alt="" coords="413,969,579,1010"/>
-<area shape="rect" id="node34" href="class_rigid_track.html#a19bc46333f946e589184eeed998160da" title="RigidTrack::on_rbEPnP\l_clicked" alt="" coords="417,1034,575,1075"/>
+<area shape="rect" id="node24" href="main_8h.html#a0416912fce6274568e80019b10ba294f" title="determineExposure" alt="" coords="429,400,563,427"/>
+<area shape="rect" id="node25" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="674,492,787,519"/>
+<area shape="rect" id="node27" href="class_rigid_track.html#a9f037a061b2577815fc80e5e9f8d46d9" title="RigidTrack::on_leIPObject\l_returnPressed" alt="" coords="410,627,582,669"/>
+<area shape="rect" id="node28" href="class_rigid_track.html#aa527ab3a2ddc7b31bf1063260efc9755" title="RigidTrack::on_leIPSafety\l_returnPressed" alt="" coords="411,745,581,786"/>
+<area shape="rect" id="node29" href="class_rigid_track.html#a8f999fa968f4cc9fa548bdc8438b32c4" title="RigidTrack::on_cbSafety\l_stateChanged" alt="" coords="649,715,812,757"/>
+<area shape="rect" id="node30" href="class_rigid_track.html#a555c536593d659b940de43cd2db8d6c1" title="RigidTrack::on_leIPSafety2\l_returnPressed" alt="" coords="407,862,585,903"/>
+<area shape="rect" id="node31" href="class_rigid_track.html#ad6ba1cfe25f18ff0d9f5993aafa36d16" title="RigidTrack::on_cbSafety2\l_stateChanged" alt="" coords="645,833,816,874"/>
+<area shape="rect" id="node32" href="class_rigid_track.html#ac1f10ea5ec3f718c152e245a04776454" title="RigidTrack::on_rbP3P\l_clicked" alt="" coords="422,927,570,969"/>
+<area shape="rect" id="node33" href="class_rigid_track.html#ae5bcdd3fb7203b4a7d1fa97c1460af31" title="RigidTrack::on_rbIterative\l_clicked" alt="" coords="413,993,579,1034"/>
+<area shape="rect" id="node34" href="class_rigid_track.html#a19bc46333f946e589184eeed998160da" title="RigidTrack::on_rbEPnP\l_clicked" alt="" coords="417,1058,575,1099"/>
 <area shape="rect" id="node4" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="905,113,1028,140"/>
 <area shape="rect" id="node8" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="930,63,1003,89"/>
 <area shape="rect" id="node5" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="1129,113,1284,140"/>
 <area shape="rect" id="node6" href="supportcode_8h.html#ac43c2dc16b0859b03a4f7d04a7e97d3c" title="DrawGLScene" alt="" coords="1356,113,1461,140"/>
 <area shape="rect" id="node7" href="class_surface.html#abe0d542404575c60911d6ad4219560f9" title="Surface::PixelSpan" alt="" coords="1509,113,1643,140"/>
-<area shape="rect" id="node10" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="904,324,1029,351"/>
-<area shape="rect" id="node11" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="1105,317,1308,358"/>
-<area shape="rect" id="node13" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="889,406,1044,447"/>
-<area shape="rect" id="node15" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="640,545,821,586"/>
+<area shape="rect" id="node10" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="907,320,1027,347"/>
+<area shape="rect" id="node11" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="1105,313,1308,354"/>
+<area shape="rect" id="node13" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="889,410,1044,451"/>
+<area shape="rect" id="node15" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="640,569,821,610"/>
 <area shape="rect" id="node17" href="class_rigid_track.html#a2224d3f6d923a1c7bad356f49d7a4124" title="RigidTrack::on_btnLoadCalib\l_clicked" alt="" coords="637,139,824,181"/>
 <area shape="rect" id="node22" href="class_rigid_track.html#ad3e07592fbc1491cdc36dd5e817e1775" title="RigidTrack::on_pbLoadMarker\l_clicked" alt="" coords="633,205,828,246"/>
-<area shape="rect" id="node26" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="876,478,1057,519"/>
+<area shape="rect" id="node26" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="876,485,1057,526"/>
 </map>
 </div>
 
@@ -504,8 +514,8 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classcomm_object_af369de87a7f2c9b7170223bedd6c08d9_icgraph.png" border="0" usemap="#classcomm_object_af369de87a7f2c9b7170223bedd6c08d9_icgraph" alt=""/></div>
 <map name="classcomm_object_af369de87a7f2c9b7170223bedd6c08d9_icgraph" id="classcomm_object_af369de87a7f2c9b7170223bedd6c08d9_icgraph">
 <area shape="rect" id="node2" href="classcomm_object.html#a7552116eb5e18c49c6dcf943de29af7a" title="commObject::enableP3P" alt="" coords="228,60,395,87"/>
-<area shape="rect" id="node3" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="443,60,565,87"/>
-<area shape="rect" id="node4" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="685,31,736,57"/>
+<area shape="rect" id="node3" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="443,60,565,87"/>
+<area shape="rect" id="node4" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="685,31,736,57"/>
 <area shape="rect" id="node10" href="class_rigid_track.html#ad3e07592fbc1491cdc36dd5e817e1775" title="RigidTrack::on_pbLoadMarker\l_clicked" alt="" coords="613,82,808,123"/>
 <area shape="rect" id="node5" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="856,5,979,32"/>
 <area shape="rect" id="node9" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="881,56,954,83"/>
@@ -537,7 +547,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e_icgraph.png" border="0" usemap="#classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e_icgraph" alt=""/></div>
 <map name="classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e_icgraph" id="classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="272,17,337,43"/>
+<area shape="rect" id="node2" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="255,17,354,43"/>
 <area shape="rect" id="node4" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="248,71,361,98"/>
 <area shape="rect" id="node3" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="423,5,577,47"/>
 <area shape="rect" id="node5" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="409,71,591,112"/>
@@ -577,7 +587,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classcomm_object_a6039d306f25a6b46c78942edf9cee662_icgraph.png" border="0" usemap="#classcomm_object_a6039d306f25a6b46c78942edf9cee662_icgraph" alt=""/></div>
 <map name="classcomm_object_a6039d306f25a6b46c78942edf9cee662_icgraph" id="classcomm_object_a6039d306f25a6b46c78942edf9cee662_icgraph">
 <area shape="rect" id="node2" href="classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="256,45,451,71"/>
-<area shape="rect" id="node3" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="523,17,588,43"/>
+<area shape="rect" id="node3" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="506,17,605,43"/>
 <area shape="rect" id="node5" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="499,71,612,98"/>
 <area shape="rect" id="node4" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="673,5,828,47"/>
 <area shape="rect" id="node6" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="660,71,841,112"/>
@@ -616,11 +626,11 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_adccf5b5946d35d5cf6d76f367f93e335_icgraph.png" border="0" usemap="#classcomm_object_adccf5b5946d35d5cf6d76f367f93e335_icgraph" alt=""/></div>
 <map name="classcomm_object_adccf5b5946d35d5cf6d76f367f93e335_icgraph" id="classcomm_object_adccf5b5946d35d5cf6d76f367f93e335_icgraph">
-<area shape="rect" id="node2" href="classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="244,45,428,71"/>
-<area shape="rect" id="node3" href="main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="476,17,597,43"/>
-<area shape="rect" id="node5" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="480,71,593,98"/>
-<area shape="rect" id="node4" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="645,5,827,47"/>
-<area shape="rect" id="node6" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="645,71,827,112"/>
+<area shape="rect" id="node2" href="classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="244,57,428,84"/>
+<area shape="rect" id="node3" href="main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="476,29,592,56"/>
+<area shape="rect" id="node5" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="477,84,591,111"/>
+<area shape="rect" id="node4" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="640,18,821,59"/>
+<area shape="rect" id="node6" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="640,83,821,125"/>
 </map>
 </div>
 

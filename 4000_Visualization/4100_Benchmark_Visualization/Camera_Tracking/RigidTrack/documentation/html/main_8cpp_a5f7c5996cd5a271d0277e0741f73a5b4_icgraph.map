@@ -1,0 +1,4 @@
+<map id="calibrateCamera" name="calibrateCamera">
+<area shape="rect" id="node2" href="$main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="169,29,285,56"/>
+<area shape="rect" id="node3" href="$class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="333,47,515,89"/>
+</map>

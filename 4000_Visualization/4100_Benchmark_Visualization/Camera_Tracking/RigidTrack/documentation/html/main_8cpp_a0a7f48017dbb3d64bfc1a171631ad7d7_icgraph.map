@@ -1,4 +1,4 @@
 <map id="calcBoardCornerPositions" name="calcBoardCornerPositions">
-<area shape="rect" id="node2" href="$main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="225,13,347,39"/>
-<area shape="rect" id="node3" href="$class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="395,5,576,47"/>
+<area shape="rect" id="node2" href="$main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="225,29,341,56"/>
+<area shape="rect" id="node3" href="$class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="389,22,571,63"/>
 </map>

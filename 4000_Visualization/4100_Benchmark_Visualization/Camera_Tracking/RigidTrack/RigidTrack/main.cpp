@@ -1,9 +1,20 @@
 //! 
-//! Main File that contains basically all functions not related to GUI
-//! Hence all position tracking algorithms.
+//! Main File that contains basically all functions not related to GUI.
+//! Functions for calibration, loading and saving files and the pose estimation 
+//! itself are contained here. 
 //!
 
 #include "RigidTrack.h"
+#include "main.h"
+#include "communication.h"
+
+//! Optitrack Camera SDK libraries
+#include "cameralibrary.h"    
+#include "modulevector.h"
+#include "modulevectorprocessing.h"
+#include "coremath.h"
+
+//! Qt libraries 
 #include <QtWidgets/QApplication>
 #include <QDesktopServices>
 #include <QInputDialog>
@@ -11,13 +22,9 @@
 #include <QThread>
 #include <QUdpSocket>
 #include <QFileDialog> 
-#include "cameralibrary.h"     //! Camera Library header file
-#include "modulevector.h"
-#include "modulevectorprocessing.h"
-#include "coremath.h"
 
 
-//! OpenCV stuff import
+//! OpenCV libraries
 #include <opencv\cv.h>
 #include "opencv2\core.hpp"
 #include "opencv2\calib3d.hpp"
@@ -26,6 +33,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2\video\tracking.hpp>
 
+//! Standard libraries 
 #include <fstream>
 #include <windows.h>
 #include <conio.h>
@@ -45,13 +53,14 @@
 #include <thread>
 #include <strsafe.h>
 
-#include "main.h"
-#include "communication.h"
-
 using namespace CameraLibrary;
 using namespace cv;
 
-commObject commObj;
+//! 
+//! Now declare variables that are used across the main.cpp file. Basically almost every variable used is declared here. 
+//!
+
+commObject commObj; //!< class that handles the communication from main.cpp to the GUI
 
 bool safetyEnable = false; //!< is the safety feature enabled
 bool safety2Enable = false;	//!< is the second receiver enabled
@@ -73,7 +82,7 @@ Vec3d eulerRef = Vec3d();	//!< initial euler angle of object respectivley to cam
 double headingOffset = 0;	//!< heading offset variable for aligning INS heading with tracking heading
 
 int intIntensity = 15; //!< max infrared spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
-int intExposure = 1; //!< max is 480 increase if markers are badly visible but should be determined automatically during setZero()
+int intExposure = 1; //!< max is 480 increase if markers are badly visible but should be determined automatically during setReference()
 int intFrameRate = 100;	//!< CoSy rate of camera, maximum is 100 fps
 int intThreshold = 200;	//!< threshold value for marker detection. If markers are badly visible lower this value but should not be necessary
 
@@ -111,30 +120,35 @@ Mat cameraMatrix;	//!< camera matrix of the camera
 Mat distCoeffs;	//!< distortion coefficients of the camera
 Core::DistortionModel distModel;	//!< distortion model of the camera
 
-//! IP adress of the circuit breaker that disables the object if a specified region is exited.
-QUdpSocket *udpSocketObject;	//! socket for the communication with the object
-QUdpSocket *udpSocketSafety;	//! socket for the communication with the circuit breaker
-QUdpSocket *udpSocketSafety2;	//! socket for the communication with the rope winch
-QHostAddress IPAdressObject = QHostAddress("127.0.0.1");	//! IPv4 adress of the object wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.
-QHostAddress IPAdressSafety = QHostAddress("192.168.4.1"); //! IPv4 adress of the circuit breaker, stays the same
-QHostAddress IPAdressSafety2 = QHostAddress("192.168.4.4");	//! IPv4 adress of the rope winch,
-int portObject = 9155; //! Port of the object
-int portSafety = 9155; //! Port of the safety switch
-int portSafety2 = 9155; //! Port of the second receiver
-QByteArray datagram;	//! data package that is sent to the object 
-QByteArray data;	//! data package that's sent to the circuit breaker
+QUdpSocket *udpSocketObject;	//!< socket for the communication with receiver 1
+QUdpSocket *udpSocketSafety;	//!< socket for the communication with safety receiver
+QUdpSocket *udpSocketSafety2;	//!< socket for the communication with receiver 3
+QHostAddress IPAdressObject = QHostAddress("127.0.0.1");	//!< IPv4 adress of receiver 1
+QHostAddress IPAdressSafety = QHostAddress("192.168.4.1"); //!< IPv4 adress of safety receiver
+QHostAddress IPAdressSafety2 = QHostAddress("192.168.4.4");	//!< IPv4 adress of receiver 2
+int portObject = 9155; //!< Port of receiver 1
+int portSafety = 9155; //!< Port of the safety receiver
+int portSafety2 = 9155; //!< Port of receiver 2
+QByteArray datagram;	//!< data package that is sent to receiver 1 and 2
+QByteArray data;	//!< data package that's sent to the safety receiver
 
-const int BACKBUFFER_BITSPERPIXEL = 8;	//! 8 bit per pixel and greyscale image from camera
-std::string strBuf;	//! buffer that holds the strings that are sent to the Qt GUI
-std::stringstream ss;	//! stream that sends the strBuf buffer to the Qt GUI
-QString logFileName; //! Filename for the logfiles
-std::string logName; //! Filename for the logfiles as standard string
-SYSTEMTIME logDate; //! Systemtime struct that saves the current date and time thats needed for the log file name creation
-std::ofstream logfile;	//! file handler for writing the log file
+const int BACKBUFFER_BITSPERPIXEL = 8;	//!< 8 bit per pixel and greyscale image from camera
+std::string strBuf;	//!< buffer that holds the strings that are sent to the Qt GUI
+std::stringstream ss;	//!< stream that sends the strBuf buffer to the Qt GUI
+QString logFileName; //!< Filename for the logfiles
+std::string logName; //!< Filename for the logfiles as standard string
+SYSTEMTIME logDate; //!< Systemtime struct that saves the current date and time thats needed for the log file name creation
+std::ofstream logfile;	//!< file handler for writing the log file
 
 
-//! main inizialised the GUI and values for the marker position etc
-int main(int argc, char *argv[])
+//! main initialises the GUI and values for the marker position etc
+
+//! First the GUI is set up with Signals and Slots, see Qt docu for how that works.
+//! Then some variables are initialized with arbitrary values.
+//! At last calibration and marker configuration etc. are loaded from xml files.
+//! @param[in] argc is not used.
+//! @param[in] argv is also not used.
+int main(int argc , char *argv[] )
 {
 	QApplication a(argc, argv);
 	RigidTrack w;
@@ -185,14 +199,15 @@ int main(int argc, char *argv[])
 	ss.precision(4); //!< outputs in the log etc are limited to 3 decimal values
 
 	loadCameraPosition(); //!< load the rotation matrix from camera CoSy to ground CoSy
-	load_calibration(0); //!< load the calibration file with the camera intrinsics
+	loadCalibration(0); //!< load the calibration file with the camera intrinsics
 	loadMarkerConfig(0); //!< load the standard marker configuration
-	test_Algorithm();	//!< test the algorithms and their accuracy
+	testAlgorithms();	//!< test the algorithms and their accuracy
 
 	return a.exec();
 }
 
-//! convert a opencv matrix that represents a picture to a Qt Pixmap object
+//! Convert an opencv matrix that represents a picture to a Qt Pixmap object for the GUI.
+//! @param[in] src is the camera image represented as OpenCV matrix. 
 QPixmap Mat2QPixmap(cv::Mat src)
 {
 	QImage dest((const uchar *)src.data, src.cols, src.rows, src.step, QImage::Format_RGB888);
@@ -202,7 +217,10 @@ QPixmap Mat2QPixmap(cv::Mat src)
 	return pixmapDest;
 }
 
-//! calculate the chess board corner positions, used for the camera calibration
+//! Calculate the chess board corner positions, used for the camera calibration.
+//! @param[in] boardSize denotes how many squares are in each direction.
+//! @param[in] squareSize is the square length in millimeters.
+//! @param[out] corners returns the square corners in millimeters. 
 void calcBoardCornerPositions(Size boardSize, float squareSize, std::vector<Point3f>& corners)
 {
 	corners.clear();
@@ -212,7 +230,9 @@ void calcBoardCornerPositions(Size boardSize, float squareSize, std::vector<Poin
 			corners.push_back(Point3f(float(j*squareSize), float(i*squareSize), 0));
 }
 
-//! get the euler angles from a rotation matrix
+//! Get the euler angles from a rotation matrix
+//! @param[in] rotCamerMatrix is a projection matrix, here normally only the extrinsic values.
+//! @param[out] eulerAngles contains the Euler angles that result in the same rotation matrix as rotCamerMatrix.
 void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 
 	Mat cameraMatrix, rotMatrix, transVect, rotMatrixX, rotMatrixY, rotMatrixZ;
@@ -231,27 +251,29 @@ void getEulerAngles(Mat &rotCamerMatrix, Vec3d &eulerAngles) {
 		eulerAngles);
 }
 
-//! start the loop that fetches frames, computes the position etc and sends it to other computers
-int start_camera() {
+//! Start the loop that fetches frames, computes the position etc and sends it to other computers.
+//! This function is the core of this program, hence the pose estimation is done here.
+int startTracking() {
 
-	
-	gotOrder = false; //!< The order of points, hence which entry in list_points3d corresponds to which in list_points2d is not calculated yet
-	Rvec = RvecOriginal; //!< Use the value of Rvec that was set in main() as starting value for the solvePnP algorithm
-	Tvec = TvecOriginal; //!< Use the value of Tvec that was set in main() as starting value for the solvePnP algorithm
-	GetLocalTime(&logDate);	//!< Get the current date and time to name the log file
+
+	gotOrder = false; //! The order of points, hence which entry in list_points3d corresponds to which in list_points2d is not calculated yet
+	Rvec = RvecOriginal; //! Use the value of Rvec that was set in main() as starting value for the solvePnP algorithm
+	Tvec = TvecOriginal; //! Use the value of Tvec that was set in main() as starting value for the solvePnP algorithm
+	GetLocalTime(&logDate);	//! Get the current date and time to name the log file
+
 	//! Concat the log file name as followed. The file is saved in the folder /logs in the Rigid Track installation folder
 	logFileName = "./logs/positionLog_" + QString::number(logDate.wDay) + "_" + QString::number(logDate.wMonth) + "_" + QString::number(logDate.wYear);
 	logFileName += "_" + QString::number(logDate.wHour) + "_" + QString::number(logDate.wMinute) + "_" + QString::number(logDate.wSecond) + ".txt";
 	logName = logFileName.toStdString(); //! Convert the QString to a standard string
 
-	determineExposure(); //!< Get the exposure where the right amount of markers is detected
+	determineExposure(); //! Get the exposure where the right amount of markers is detected
 
 	//! For OptiTrack Ethernet cameras, it's important to enable development mode if you
 	//! want to stop execution for an extended time while debugging without disconnecting
 	//! the Ethernet devices.  Lets do that now:
 
 	CameraLibrary_EnableDevelopment();
-	CameraLibrary::CameraManager::X(); //!< Initialize Camera SDK
+	CameraLibrary::CameraManager::X(); //! Initialize Camera SDK
 
 	//! At this point the Camera SDK is actively looking for all connected cameras and will initialize
 	//! them on it's own
@@ -271,37 +293,37 @@ int start_camera() {
 	int cameraWidth = camera->Width();
 	int cameraHeight = camera->Height();
 
-	camera->SetVideoType(Core::PrecisionMode);	//!< Set the camera mode to precision mode, it used greyscale imformation for marker property calculations
-	
-	camera->Start(); //!< Start camera output
+	camera->SetVideoType(Core::PrecisionMode);	//! Set the camera mode to precision mode, it used greyscale imformation for marker property calculations
+
+	camera->Start(); //! Start camera output
 
 	//! Turn on some overlay text so it's clear things are
 	//! working even if there is nothing in the camera's view
 	camera->SetTextOverlay(true);
-	camera->SetExposure(intExposure);	//!< Set the camera exposure
-	camera->SetIntensity(intIntensity);	//!< Set the camera infrared LED intensity
-	camera->SetFrameRate(intFrameRate);	//!< Set the camera framerate to 100 Hz
-	camera->SetIRFilter(true);	//!< Enable the filter that blocks visible light and only passes infrared light
-	camera->SetHighPowerMode(true);	//!< Enable high power mode of the LEDs
-	camera->SetContinuousIR(false);	//!< Disable continuous LED light
-	camera->SetThreshold(intThreshold);	//!< Set threshold for marker detection
+	camera->SetExposure(intExposure);	//! Set the camera exposure
+	camera->SetIntensity(intIntensity);	//! Set the camera infrared LED intensity
+	camera->SetFrameRate(intFrameRate);	//! Set the camera framerate to 100 Hz
+	camera->SetIRFilter(true);	//! Enable the filter that blocks visible light and only passes infrared light
+	camera->SetHighPowerMode(true);	//! Enable high power mode of the LEDs
+	camera->SetContinuousIR(false);	//! Disable continuous LED light
+	camera->SetThreshold(intThreshold);	//! Set threshold for marker detection
 
 	//! Create a new matrix that stores the grayscale picture from the camera
 	Mat matFrame = Mat::zeros(cv::Size(cameraWidth, cameraHeight), CV_8UC1);
-	QPixmap QPFrame; //!< QPixmap is the corresponding Qt class that saves images
+	QPixmap QPFrame; //! QPixmap is the corresponding Qt class that saves images
 	//! Matrix that stores the colored picture, hence marker points, coordinate frame and reprojected points
 	Mat cFrame(480, 640, CV_8UC3, Scalar(0, 0, 0));
 
-	int v = 0;	//!< Helper variable used to kick safety switch
+	int v = 0;	//! Helper variable used to kick safety switch
 	//! Variables for the min and max values that are needed for sanity checks
 	double maxValue = 0;
 	double minValue = 0;
-	int framesDropped = 0; //!< Ff a marker is not visible or accuracy is bad increase this counter
-	double projectionError = 0; //!< Equals the quality of the tracking
+	int framesDropped = 0; //! Ff a marker is not visible or accuracy is bad increase this counter
+	double projectionError = 0; //! Equals the quality of the tracking
 
-	setUpUDP();	//!< Open sockets and ports for UDP communication
+	setUpUDP();	//! Open sockets and ports for UDP communication
 
-	if (safetyEnable) //!< If the safety feature is enabled send the starting message
+	if (safetyEnable) //! If the safety feature is enabled send the starting message
 	{
 		//! Send enable message, hence send a 9 and then a 1 
 		data.setNum((int)(9));
@@ -311,28 +333,28 @@ int start_camera() {
 	}
 
 	//! Fetch a new frame from the camera
-	bool gotTime = false; //!< Get the timestamp of the first frame. This time is subtracted from every subseeding frame so the time starts at 0 in the logs
-	while (!gotTime) //!< While no new frame is received loop 
+	bool gotTime = false; //! Get the timestamp of the first frame. This time is subtracted from every subseeding frame so the time starts at 0 in the logs
+	while (!gotTime) //! While no new frame is received loop 
 	{
-		Frame *frame = camera->GetFrame(); //!< Get a new camera frame
-		if (frame)	//!< There is actually a new frame
+		Frame *frame = camera->GetFrame(); //! Get a new camera frame
+		if (frame)	//! There is actually a new frame
 		{
-			timeFirstFrame = frame->TimeStamp(); //!< Get the time stamp for the first frame. It is subtracted for the following frames
-			frame->Release();	//!< Release the frame so the camera can continue
-			gotTime = true;	//!< Exit the while loop
+			timeFirstFrame = frame->TimeStamp(); //! Get the time stamp for the first frame. It is subtracted for the following frames
+			frame->Release();	//! Release the frame so the camera can continue
+			gotTime = true;	//! Exit the while loop
 		}
 	}
 
 	//! Now enter the main loop that processes each frame and computes the pose, sends it and logs stuff
 	while (!exitRequested) //! Check if the user has not pressed "Stop Tracking" yet
 	{
-		
-		Frame *frame = camera->GetFrame(); //!< Fetch a new frame from the camera
 
-		if (frame) //!< Did we got a new frame or does the camera still need more time
+		Frame *frame = camera->GetFrame(); //! Fetch a new frame from the camera
+
+		if (frame) //! Did we got a new frame or does the camera still need more time
 		{
-			framesDropped++; //!< Increase by one, if everything is okay it is decreased at the end of the loop again
-			
+			framesDropped++; //! Increase by one, if everything is okay it is decreased at the end of the loop again
+
 			//! Only use this frame it the right number of markers is found in the picture
 			if (frame->ObjectCount() == numberMarkers)
 			{
@@ -344,15 +366,15 @@ int start_camera() {
 					list_points2dUnsorted[i] = cv::Point2d(obj->X(), obj->Y());
 				}
 
-				if (gotOrder == false) //!< Was the order already determined? This is false for the first frame and from then on true
+				if (gotOrder == false) //! Was the order already determined? This is false for the first frame and from then on true
 				{
-					determineOrder(); //!< Now compute the order
+					determineOrder(); //! Now compute the order
 				}
 
 				//! Sort the 2d points with the correct indices as found in the preceeding order determination algorithm
 				for (int w = 0; w < numberMarkers; w++)
 				{
-					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]]; //!< pointOrderIndices was calculated in determineOrder()
+					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]]; //! pointOrderIndices was calculated in determineOrder()
 				}
 				list_points2dOld = list_points2dUnsorted;
 
@@ -366,7 +388,7 @@ int start_camera() {
 				//! When tracking is good and no frames are dropped because of missing markers this should work every frame.
 				for (int j = 0; j < numberMarkers; j++)
 				{
-					minPointDistance = 5000; //!< The sum of point distances is set to something unrealistic large
+					minPointDistance = 5000; //! The sum of point distances is set to something unrealistic large
 					for (int k = 0; k < numberMarkers; k++)
 					{
 						//! Calculate N_2 norm of unsorted points minus old points
@@ -397,7 +419,7 @@ int start_camera() {
 				//! Project the marker 3d points with the solution into the camera image CoSy and calculate difference to true camera image
 				projectPoints(list_points3d, Rvec, Tvec, cameraMatrix, distCoeffs, list_points2dProjected);
 				projectionError = norm(list_points2dProjected, list_points2d); //! Difference of true pose and found pose
-											
+
 				//! Increase the framesDropped variable if accuracy of tracking is too bad
 				if (projectionError > 5)
 				{
@@ -405,7 +427,7 @@ int start_camera() {
 				}
 				else
 				{
-					framesDropped = 0;	//!< Set number of subsequent frames dropped to zero because error is small enough and no marker was missing
+					framesDropped = 0;	//! Set number of subsequent frames dropped to zero because error is small enough and no marker was missing
 				}
 
 				//! Get the min and max values from TVec for sanity check
@@ -415,41 +437,41 @@ int start_camera() {
 				if (minValue < 0)
 				{
 					commObj.addLog("Negative z distance, that is not possible. Start the set zero routine again or restart Programm.");
-					frame->Release(); //!< Release the frame so the camera can move on
-					camera->Release(); //!< Release the camera
-					closeUDP(); //!< Close all UDP connections so the programm can be closed later on and no resources are locked
-					return 1; //!< Exit the function
+					frame->Release(); //! Release the frame so the camera can move on
+					camera->Release(); //! Release the camera
+					closeUDP(); //! Close all UDP connections so the programm can be closed later on and no resources are locked
+					return 1; //! Exit the function
 				}
 
 				//! Next step is the transformation from camera CoSy to navigation CoSy
 				//! Compute the relative object position from the reference position to the current one
-				//! given in the camera CoSy: T_C^{NM} = Tvec - Tvec_{Ref}
-				subtract(Tvec, posRef, position);	
+				//! given in the camera CoSy: \f$ T_C^{NM} = Tvec - Tvec_{Ref} \f$
+				subtract(Tvec, posRef, position);
 
 				//! Transform the position from the camera CoSy to the navigation CoSy with INS alligned heading and convert from [mm] to [m]
-				//! T_N^{NM} = M_{NC} \times T_C^{NM} 
+				//! \f$ T_N^{NM} = M_{NC} \times T_C^{NM} \f$
 				Mat V = 0.001 * M_HeadingOffset * M_CN.t() * (Mat)position;
-				position = V;	//!< Position is the result of the preceeding calculation 
-				position[2] *= invertZ;	//!< Invert Z if check box in GUI is activated, hence height above ground is considered
+				position = V;	//! Position is the result of the preceeding calculation 
+				position[2] *= invertZ;	//! Invert Z if check box in GUI is activated, hence height above ground is considered
 
 				//! Realtive angle between reference orientation and current orientation
-				Rodrigues(Rvec, Rmat);	//!< Convert axis angle respresentation to ordinary rotation matrix
-				
+				Rodrigues(Rvec, Rmat);	//! Convert axis angle respresentation to ordinary rotation matrix
+
 				//! The difference of the reference rotation and the current rotation
-				//! R_{ NM } = M_{ NC } \times R_{ CM }
+				//! \f$ R_{ NM } = M_{ NC } \times R_{ CM } \f$
 				Rmat = RmatRef.t() *Rmat;
-				
+
 				//! Euler Angles, finally 
 				getEulerAngles(Rmat, eulerAngles);	//! Get the euler angles from the rotation matrix 
 				eulerAngles[2] += headingOffset; //! Add the heading offset to the heading angle
 
 				//! Compute the velocity with finite differences. Only use is the log file. It is done here because the more precise time stamp can be used
-				frameTime = frame->TimeStamp() - timeOld;	//!< Time between the old frame and the current frame
-				timeOld = frame->TimeStamp();	//!< Set the old frame time to the current  one
-				velocity[0] = (position[0] - positionOld[0]) / frameTime;	//!< Calculate the x velocity with finite differences
-				velocity[1] = (position[1] - positionOld[1]) / frameTime;	//!< Calculate the y velocity with finite differences
-				velocity[2] = (position[2] - positionOld[2]) / frameTime;	//!< Calculate the z velocity with finite differences
-				positionOld = position;	//!< Set the old position to the current one for next frame velocity calcuation
+				frameTime = frame->TimeStamp() - timeOld;	//! Time between the old frame and the current frame
+				timeOld = frame->TimeStamp();	//! Set the old frame time to the current  one
+				velocity[0] = (position[0] - positionOld[0]) / frameTime;	//! Calculate the x velocity with finite differences
+				velocity[1] = (position[1] - positionOld[1]) / frameTime;	//! Calculate the y velocity with finite differences
+				velocity[2] = (position[2] - positionOld[2]) / frameTime;	//! Calculate the z velocity with finite differences
+				positionOld = position;	//! Set the old position to the current one for next frame velocity calcuation
 
 				//! Send position and Euler angles over WiFi with 100 Hz
 				sendDataUDP(position, eulerAngles);
@@ -460,7 +482,7 @@ int start_camera() {
 				logfile << frame->TimeStamp() - timeFirstFrame << ";" << position[0] << ";" << position[1] << ";" << position[2] << ";";
 				logfile << eulerAngles[0] << ";" << eulerAngles[1] << ";" << eulerAngles[2] << ";";
 				logfile << velocity[0] << ";" << velocity[1] << ";" << velocity[2] << "\n";
-				logfile.close(); //!< Close the file to save values
+				logfile.close(); //! Close the file to save values
 			}
 
 			//! Check if the position and euler angles are below the allowed value, if yes send OKAY signal (1), if not send shutdown signal (0)
@@ -501,12 +523,12 @@ int start_camera() {
 			//! Inform the user if tracking system is disturbed (marker lost or so) or error was too big 
 			if (framesDropped > 10)
 			{
-				if (safetyEnable) //!< Also send the shutdown signal
+				if (safetyEnable) //! Also send the shutdown signal
 				{
-					data.setNum((int)(0));	//!< Send the shutdown signal, a 0 
+					data.setNum((int)(0));	//! Send the shutdown signal, a 0 
 					udpSocketSafety->write(data);
 				}
-				commObj.addLog("Lost marker points or precision was bad!"); //!< Inform the user
+				commObj.addLog("Lost marker points or precision was bad!"); //! Inform the user
 				framesDropped = 0;
 			}
 
@@ -534,8 +556,8 @@ int start_camera() {
 			//! Send the new camera picture to the GUI and call the GUI processing routine
 			QPixmap QPFrame;
 			QPFrame = Mat2QPixmap(cFrame);
-			commObj.changeImage(QPFrame); //!< Update the picture in the GUI
-			QCoreApplication::processEvents(); //!< Give Qt time to handle everything
+			commObj.changeImage(QPFrame); //! Update the picture in the GUI
+			QCoreApplication::processEvents(); //! Give Qt time to handle everything
 
 			//! Release the camera frame to fetch the new one
 			frame->Release();
@@ -543,28 +565,29 @@ int start_camera() {
 	}
 
 	//! User choose to stop the tracking, clean things up
-	closeUDP();	//!< Close the UDP connections so resources are deallocated
-	camera->Release();	//!< Release camera
+	closeUDP();	//! Close the UDP connections so resources are deallocated
+	camera->Release();	//! Release camera
 	return 0;
 }
 
-//! Start or stop the camera depending on if the camera is currently running or not
-void start_stopCamera()
+//! Start or stop the tracking depending on if the camera is currently running or not.
+void startStopCamera()
 {
 	//! tracking is not running so start it
 	if (exitRequested)
 	{
 		exitRequested = false;
-		start_camera();
+		startTracking();
 	}
-	else  //!< tracking is currently running, set exitRequest to true so the while loop in start_camera() exits
+	else  //!< tracking is currently running, set exitRequest to true so the while loop in startTracking() exits
 	{
 		exitRequested = true;
 	}
 }
 
-//! determine the initial position of the object that serves as reference point or as ground frame origin
-int setZero()
+//! Determine the initial position of the object that serves as reference point or as ground frame origin.
+//! Computes the pose 200 times and then averages it. The position and attitude are from now on used as navigation CoSy.
+int setReference()
 {
 	//! initialize the variables with starting values
 	gotOrder = false;
@@ -731,7 +754,7 @@ int setZero()
 	ss << eulerRef << "[deg] \n";
 
 	//! compute the difference between last obtained TVec and the average Value
-	//! When it is large the iterative method has not converged properly so it is advised to start the setZero() function once again
+	//! When it is large the iterative method has not converged properly so it is advised to start the setReference() function once again
 	double error = norm(posRef) - norm(Tvec);
 	if (error > 5.0)
 	{
@@ -742,8 +765,8 @@ int setZero()
 	return 0;
 }
 
-//! start the camera calibration routine that computes the camera matrix and distortion coefficients
-int calibrate_camera()
+//! Start the camera calibration routine that computes the camera matrix and distortion coefficients.
+int calibrateCamera()
 {
 	commObj.addLog("Started camera calibration. 80 pictures are going to be captured.");
 	CameraLibrary_EnableDevelopment();
@@ -889,8 +912,9 @@ int calibrate_camera()
 	return 0;
 }
 
-//! Load a previously saved camera calibration from a file
-void load_calibration(int method) {
+//! Load a previously saved camera calibration from a file.
+//! @param[in] method whether or not load the camera calibration from calibration.xml. If ==0 then yes, if != 0 then let the user select a different file.
+void loadCalibration(int method) {
 
 	QString fileName;
 	if (method == 0)
@@ -917,8 +941,9 @@ void load_calibration(int method) {
 	commObj.addLog(QString::fromStdString(ss.str()));
 }
 
-//! project some points from 3D to 2D and then check the accuracy of the algorithms
-void test_Algorithm()
+//! Project some points from 3D to 2D and then check the accuracy of the algorithms.
+//! Mainly to generate something that can be shown in the camera view so the user knows everything loaded correctly.
+void testAlgorithms()
 {
 
 	int _methodPNP;
@@ -1047,7 +1072,8 @@ void test_Algorithm()
 
 }
 
-//! project a coordinate CoSy with the rotation and translation of the object for visualization
+//! Project the coordinate CoSy origin and axis direction of the marker CoSy with the rotation and translation of the object for visualization.
+//! @param[in] pictureFrame the image in which the CoSy frame should be pasted.
 void projectCoordinateFrame(Mat pictureFrame)
 {
 	projectPoints(coordinateFrame, Rvec, Tvec, cameraMatrix, distCoeffs, coordinateFrameProjected);
@@ -1056,7 +1082,7 @@ void projectCoordinateFrame(Mat pictureFrame)
 	line(pictureFrame, coordinateFrameProjected[0], coordinateFrameProjected[2], Scalar(0, 255, 0), 2); //!<y-axis
 }
 
-//! open the UDP ports for communication
+//! Open the UDP ports for communication.
 void setUpUDP()
 {
 	//! Initialise the QDataStream that stores the data to be send
@@ -1087,7 +1113,8 @@ void setUpUDP()
 	}
 }
 
-//! Add a heading offset to the attitude for the case it is necessary
+//! Add a heading offset to the attitude for the case it is wanted by the user. 
+//! @param[in] d denotes heading offset in degrees.
 void setHeadingOffset(double d)
 {
 	headingOffset = d;
@@ -1118,7 +1145,8 @@ void setHeadingOffset(double d)
 	M_HeadingOffset = R_z * R_y * R_x;
 }
 
-//! send the position and attitude over UDP to every receiver, the safety receiver is handled on its own in the start_camera function
+//! Send the position and attitude over UDP to every receiver, the safety receiver is handled on its own in the startTracking function
+//! because its send rate is less than 100 Hz.
 void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler)
 {
 	datagram.clear();
@@ -1136,7 +1164,8 @@ void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler)
 
 }
 
-//! close the UDP ports again to release network interfaces etc. 
+//! Close the UDP ports again to release network interfaces etc. 
+//! If this is not done the network resources are still occupied and the program can't exit properly.
 void closeUDP()
 {
 	//! check if the socket is open and if yes close it
@@ -1157,7 +1186,8 @@ void closeUDP()
 	commObj.addLog("Closed all UDP ports.");
 }
 
-//! load a marker configuration from file. This file has to be created by hand, use the standard marker configuration file as template
+//! Load a marker configuration from file. This file has to be created by hand, use the standard marker configuration file as template.
+//! @param[in] method whether or not load the configuration from the markerStandard.xml. If ==0 load it, if != 0 let the user select a different file. 
 void loadMarkerConfig(int method)
 {
 	QString fileName;
@@ -1273,7 +1303,11 @@ void loadMarkerConfig(int method)
 
 }
 
-//! draw the position, attitude and reprojection error in the picture 
+//! Draw the position, attitude and reprojection error in the picture.
+//! @param[in] Picture is the camera image in OpenCV matrix format.
+//! @param[in] Position is the position of the tracked object in navigation CoSy.
+//! @param[in] Euler are the Euler angles with respect to the navigation frame.
+//! @param[in] error is the reprojection error of the pose estimation.
 void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler, double error)
 {
 	ss.str("");
@@ -1305,8 +1339,8 @@ void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler,
 	putText(Picture, ss.str(), cv::Point(10, 470), 1, 1, cv::Scalar(255, 255, 255));
 }
 
-//! load the rotation matrix from camera CoSy to ground CoSy
-//! It is determined during ground calibration and once the camera is mounted and fixed stays the same
+//! Load the rotation matrix from camera CoSy to ground CoSy
+//! It is determined during calibrateGround() and stays the same once the camera is mounted and fixed.
 void loadCameraPosition()
 {
 	//! Open the referenceData.xml that contains the rotation from camera CoSy to ground CoSy
@@ -1319,7 +1353,8 @@ void loadCameraPosition()
 	commObj.addLog("Loaded reference pose.");
 }
 
-//! get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected
+//! Get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected.
+//! Then the mean of those two values is used as exposure.
 int determineExposure()
 {
 	//! For OptiTrack Ethernet cameras, it's important to enable development mode if you
@@ -1454,8 +1489,8 @@ int determineExposure()
 
 }
 
-//! compute the order of the marker points in 2D so they are the same as in the 3D array. Hence marker 1 must be in first place
-//! for both, list_points2d and list_points3d
+//! Compute the order of the marker points in 2D so they are the same as in the 3D array. Hence marker 1 must be in first place
+//! for both, list_points2d and list_points3d.
 void determineOrder()
 {
 	//! determine the 3D-2D correspondences that are crucial for the PnP algorithm
@@ -1520,7 +1555,7 @@ void determineOrder()
 }
 
 //! Get the pose of the camera w.r.t the ground calibration frame. This frame sets the navigation frame for later results.
-//! The pose is averaged over 200 samples and then saved in the file referenceData.xml. This routine is basically the same as setZero.
+//! The pose is averaged over 200 samples and then saved in the file referenceData.xml. This routine is basically the same as setReference.
 int calibrateGround()
 {
 	//! initialize the variables with starting values
@@ -1676,7 +1711,7 @@ int calibrateGround()
 	divide(eulerRef, numberToSample, eulerRef); //!< eulerRef is here in Axis Angle notation
 
 	Rodrigues(eulerRef, RmatRef);				//!< axis angle to rotation matrix
-												
+
 	getEulerAngles(RmatRef, eulerRef);	//!<  rotation matrix to euler
 	ss.str("");
 	ss << "RmatRef is:\n";

@@ -2,7 +2,7 @@ var searchData=
 [
   ['t',['t',['../_import_log_8m.html#a69071fd826a28729eeba030de35a2197',1,'t():&#160;ImportLog.m'],['../simpleplot_8m.html#aaccc9105df5383111407fd5b41255e23',1,'t():&#160;simpleplot.m']]],
   ['t_5fdownsamp',['t_downSamp',['../simpleplot_8m.html#aaa1c8591cce33372fcfdf4ca76b2a923',1,'simpleplot.m']]],
-  ['test_5falgorithm',['test_Algorithm',['../main_8cpp.html#a49aae6cc1a72ace00943d9226b5070b3',1,'test_Algorithm():&#160;main.cpp'],['../main_8h.html#a49aae6cc1a72ace00943d9226b5070b3',1,'test_Algorithm():&#160;main.cpp']]],
+  ['testalgorithms',['testAlgorithms',['../main_8cpp.html#a847c0fbd3e513fb76ff145b31a9f5c37',1,'testAlgorithms():&#160;main.cpp'],['../main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37',1,'testAlgorithms():&#160;main.cpp']]],
   ['text',['text',['../_import_log_8m.html#aa28ffc06f7e18deaf5dfae38932383c4',1,'ImportLog.m']]],
   ['texture',['texture',['../supportcode_8cpp.html#a8dbc8c0cec45367c7d19c7dfa3768fae',1,'supportcode.cpp']]],
   ['timefirstframe',['timeFirstFrame',['../main_8cpp.html#ac7de3790df75e7d70bfe280b9af47a56',1,'main.cpp']]],

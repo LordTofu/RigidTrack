@@ -3,16 +3,16 @@
 <area shape="rect" id="node3" href="$class_surface.html#a4cbf23ea0c8ff533271109fc2a1a863d" title="Surface::SurfaceWidth" alt="" coords="160,63,312,90"/>
 <area shape="rect" id="node4" href="$class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="159,114,313,141"/>
 <area shape="rect" id="node5" href="$class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="361,114,484,141"/>
-<area shape="rect" id="node6" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="532,114,583,141"/>
+<area shape="rect" id="node6" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="532,114,583,141"/>
 <area shape="rect" id="node7" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="835,38,981,65"/>
-<area shape="rect" id="node8" href="$main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="Add a heading offset to the attitude for the case it is necessary. " alt="" coords="639,241,761,267"/>
+<area shape="rect" id="node8" href="$main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="setHeadingOffset" alt="" coords="639,241,761,267"/>
 <area shape="rect" id="node9" href="$main_8cpp.html#af39fa6c3a36ad6bc24a327db7a9d73c2" title="loadCameraPosition" alt="" coords="631,38,769,65"/>
-<area shape="rect" id="node10" href="$main_8cpp.html#a44774828fee2764f3f3734bbd3f446e3" title="Load a previously saved camera calibration from a file. " alt="" coords="644,89,756,115"/>
-<area shape="rect" id="node11" href="$main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="639,139,761,166"/>
-<area shape="rect" id="node16" href="$main_8cpp.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="647,190,753,217"/>
+<area shape="rect" id="node10" href="$main_8cpp.html#ad39626702ff983d5fdab4b703bfaf964" title="loadCalibration" alt="" coords="647,89,753,115"/>
+<area shape="rect" id="node11" href="$main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="639,139,761,166"/>
+<area shape="rect" id="node16" href="$main_8cpp.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="647,190,753,217"/>
 <area shape="rect" id="node12" href="$classcomm_object.html#a7552116eb5e18c49c6dcf943de29af7a" title="commObject::enableP3P" alt="" coords="825,89,991,115"/>
-<area shape="rect" id="node13" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="828,139,988,166"/>
-<area shape="rect" id="node14" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="855,190,961,217"/>
+<area shape="rect" id="node13" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="828,139,988,166"/>
+<area shape="rect" id="node14" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="855,190,961,217"/>
 <area shape="rect" id="node15" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="817,241,999,267"/>
-<area shape="rect" id="node17" href="$main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="847,291,969,318"/>
+<area shape="rect" id="node17" href="$main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="847,291,969,318"/>
 </map>

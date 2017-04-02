@@ -19,6 +19,12 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -87,6 +93,12 @@ $(document).ready(function(){initNavTree('main_8cpp.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_rigid_track_8h_source.html">RigidTrack.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="communication_8h_source.html">communication.h</a>&quot;</code><br />
+<code>#include &quot;cameralibrary.h&quot;</code><br />
+<code>#include &quot;modulevector.h&quot;</code><br />
+<code>#include &quot;modulevectorprocessing.h&quot;</code><br />
+<code>#include &quot;coremath.h&quot;</code><br />
 <code>#include &lt;QtWidgets/QApplication&gt;</code><br />
 <code>#include &lt;QDesktopServices&gt;</code><br />
 <code>#include &lt;QInputDialog&gt;</code><br />
@@ -94,10 +106,6 @@ $(document).ready(function(){initNavTree('main_8cpp.html','');});
 <code>#include &lt;QThread&gt;</code><br />
 <code>#include &lt;QUdpSocket&gt;</code><br />
 <code>#include &lt;QFileDialog&gt;</code><br />
-<code>#include &quot;cameralibrary.h&quot;</code><br />
-<code>#include &quot;modulevector.h&quot;</code><br />
-<code>#include &quot;modulevectorprocessing.h&quot;</code><br />
-<code>#include &quot;coremath.h&quot;</code><br />
 <code>#include &lt;opencv\cv.h&gt;</code><br />
 <code>#include &quot;opencv2\core.hpp&quot;</code><br />
 <code>#include &quot;opencv2\calib3d.hpp&quot;</code><br />
@@ -123,8 +131,6 @@ $(document).ready(function(){initNavTree('main_8cpp.html','');});
 <code>#include &lt;random&gt;</code><br />
 <code>#include &lt;thread&gt;</code><br />
 <code>#include &lt;strsafe.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="main_8h_source.html">main.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="communication_8h_source.html">communication.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
@@ -140,60 +146,46 @@ Include dependency graph for main.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
-<tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">file handler for writing the log file  <a href="#a0ddf1224851353fc92bfbff6f499fa97">More...</a><br /></td></tr>
+<tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">main initialises the GUI and values for the marker position etc  <a href="#a0ddf1224851353fc92bfbff6f499fa97">More...</a><br /></td></tr>
 <tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e3cc959a7ab6f93ea52863d86373ce5"><td class="memItemLeft" align="right" valign="top">QPixmap&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5">Mat2QPixmap</a> (cv::Mat src)</td></tr>
-<tr class="memdesc:a3e3cc959a7ab6f93ea52863d86373ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">convert a opencv matrix that represents a picture to a Qt Pixmap object  <a href="#a3e3cc959a7ab6f93ea52863d86373ce5">More...</a><br /></td></tr>
 <tr class="separator:a3e3cc959a7ab6f93ea52863d86373ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a7f48017dbb3d64bfc1a171631ad7d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a0a7f48017dbb3d64bfc1a171631ad7d7">calcBoardCornerPositions</a> (Size boardSize, float squareSize, std::vector&lt; Point3f &gt; &amp;corners)</td></tr>
-<tr class="memdesc:a0a7f48017dbb3d64bfc1a171631ad7d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate the chess board corner positions, used for the camera calibration  <a href="#a0a7f48017dbb3d64bfc1a171631ad7d7">More...</a><br /></td></tr>
 <tr class="separator:a0a7f48017dbb3d64bfc1a171631ad7d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2b71933055cf32cc8e5e2100fd7723f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f">getEulerAngles</a> (Mat &amp;rotCamerMatrix, Vec3d &amp;<a class="el" href="main_8cpp.html#a0a53d01e06c71d6360afcb0fabf2aa8e">eulerAngles</a>)</td></tr>
-<tr class="memdesc:ab2b71933055cf32cc8e5e2100fd7723f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the euler angles from a rotation matrix  <a href="#ab2b71933055cf32cc8e5e2100fd7723f">More...</a><br /></td></tr>
 <tr class="separator:ab2b71933055cf32cc8e5e2100fd7723f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d029857f86ebf6ac36e9a73508699ad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a7d029857f86ebf6ac36e9a73508699ad">start_camera</a> ()</td></tr>
-<tr class="memdesc:a7d029857f86ebf6ac36e9a73508699ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">start the loop that fetches frames, computes the position etc and sends it to other computers  <a href="#a7d029857f86ebf6ac36e9a73508699ad">More...</a><br /></td></tr>
-<tr class="separator:a7d029857f86ebf6ac36e9a73508699ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2daa058d8e8204f4e0c51cd8f7d0f962"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a2daa058d8e8204f4e0c51cd8f7d0f962">start_stopCamera</a> ()</td></tr>
-<tr class="memdesc:a2daa058d8e8204f4e0c51cd8f7d0f962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start or stop the camera depending on if the camera is currently running or not.  <a href="#a2daa058d8e8204f4e0c51cd8f7d0f962">More...</a><br /></td></tr>
-<tr class="separator:a2daa058d8e8204f4e0c51cd8f7d0f962"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f3915653dcf5181fdc6e552ae8e6363"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a7f3915653dcf5181fdc6e552ae8e6363">setZero</a> ()</td></tr>
-<tr class="memdesc:a7f3915653dcf5181fdc6e552ae8e6363"><td class="mdescLeft">&#160;</td><td class="mdescRight">determine the initial position of the object that serves as reference point or as ground frame origin  <a href="#a7f3915653dcf5181fdc6e552ae8e6363">More...</a><br /></td></tr>
-<tr class="separator:a7f3915653dcf5181fdc6e552ae8e6363"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a852329cf0943686665469e34f44a39bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a852329cf0943686665469e34f44a39bf">calibrate_camera</a> ()</td></tr>
-<tr class="memdesc:a852329cf0943686665469e34f44a39bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">start the camera calibration routine that computes the camera matrix and distortion coefficients  <a href="#a852329cf0943686665469e34f44a39bf">More...</a><br /></td></tr>
-<tr class="separator:a852329cf0943686665469e34f44a39bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44774828fee2764f3f3734bbd3f446e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a44774828fee2764f3f3734bbd3f446e3">load_calibration</a> (int method)</td></tr>
-<tr class="memdesc:a44774828fee2764f3f3734bbd3f446e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a previously saved camera calibration from a file.  <a href="#a44774828fee2764f3f3734bbd3f446e3">More...</a><br /></td></tr>
-<tr class="separator:a44774828fee2764f3f3734bbd3f446e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49aae6cc1a72ace00943d9226b5070b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a49aae6cc1a72ace00943d9226b5070b3">test_Algorithm</a> ()</td></tr>
-<tr class="memdesc:a49aae6cc1a72ace00943d9226b5070b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">project some points from 3D to 2D and then check the accuracy of the algorithms  <a href="#a49aae6cc1a72ace00943d9226b5070b3">More...</a><br /></td></tr>
-<tr class="separator:a49aae6cc1a72ace00943d9226b5070b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d3afd29ce54eb7fc5cc7e74ab666586"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a3d3afd29ce54eb7fc5cc7e74ab666586">startTracking</a> ()</td></tr>
+<tr class="separator:a3d3afd29ce54eb7fc5cc7e74ab666586"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25183e8d0b386ef12b557efc712a0261"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a25183e8d0b386ef12b557efc712a0261">startStopCamera</a> ()</td></tr>
+<tr class="memdesc:a25183e8d0b386ef12b557efc712a0261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start or stop the tracking depending on if the camera is currently running or not.  <a href="#a25183e8d0b386ef12b557efc712a0261">More...</a><br /></td></tr>
+<tr class="separator:a25183e8d0b386ef12b557efc712a0261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e6662e0f16887fe97c7bebe05065972"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a1e6662e0f16887fe97c7bebe05065972">setReference</a> ()</td></tr>
+<tr class="separator:a1e6662e0f16887fe97c7bebe05065972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f7c5996cd5a271d0277e0741f73a5b4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a5f7c5996cd5a271d0277e0741f73a5b4">calibrateCamera</a> ()</td></tr>
+<tr class="memdesc:a5f7c5996cd5a271d0277e0741f73a5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the camera calibration routine that computes the camera matrix and distortion coefficients.  <a href="#a5f7c5996cd5a271d0277e0741f73a5b4">More...</a><br /></td></tr>
+<tr class="separator:a5f7c5996cd5a271d0277e0741f73a5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad39626702ff983d5fdab4b703bfaf964"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ad39626702ff983d5fdab4b703bfaf964">loadCalibration</a> (int method)</td></tr>
+<tr class="separator:ad39626702ff983d5fdab4b703bfaf964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847c0fbd3e513fb76ff145b31a9f5c37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a847c0fbd3e513fb76ff145b31a9f5c37">testAlgorithms</a> ()</td></tr>
+<tr class="separator:a847c0fbd3e513fb76ff145b31a9f5c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2104a5d9d6b9f1e29bc4cd858c59882e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e">projectCoordinateFrame</a> (Mat pictureFrame)</td></tr>
-<tr class="memdesc:a2104a5d9d6b9f1e29bc4cd858c59882e"><td class="mdescLeft">&#160;</td><td class="mdescRight">project a coordinate CoSy with the rotation and translation of the object for visualization  <a href="#a2104a5d9d6b9f1e29bc4cd858c59882e">More...</a><br /></td></tr>
 <tr class="separator:a2104a5d9d6b9f1e29bc4cd858c59882e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae624b0189bc5e32cbbb1f178b9f1a360"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ae624b0189bc5e32cbbb1f178b9f1a360">setUpUDP</a> ()</td></tr>
-<tr class="memdesc:ae624b0189bc5e32cbbb1f178b9f1a360"><td class="mdescLeft">&#160;</td><td class="mdescRight">open the UDP ports for communication  <a href="#ae624b0189bc5e32cbbb1f178b9f1a360">More...</a><br /></td></tr>
+<tr class="memdesc:ae624b0189bc5e32cbbb1f178b9f1a360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open the UDP ports for communication.  <a href="#ae624b0189bc5e32cbbb1f178b9f1a360">More...</a><br /></td></tr>
 <tr class="separator:ae624b0189bc5e32cbbb1f178b9f1a360"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad19da4e648bbdc80d3123eb94711588e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e">setHeadingOffset</a> (double d)</td></tr>
-<tr class="memdesc:ad19da4e648bbdc80d3123eb94711588e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a heading offset to the attitude for the case it is necessary.  <a href="#ad19da4e648bbdc80d3123eb94711588e">More...</a><br /></td></tr>
 <tr class="separator:ad19da4e648bbdc80d3123eb94711588e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54b6b6db348b48d21e1265e22829c61f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a54b6b6db348b48d21e1265e22829c61f">sendDataUDP</a> (cv::Vec3d &amp;Position, cv::Vec3d &amp;Euler)</td></tr>
-<tr class="memdesc:a54b6b6db348b48d21e1265e22829c61f"><td class="mdescLeft">&#160;</td><td class="mdescRight">send the position and attitude over UDP to every receiver, the safety receiver is handled on its own in the start_camera function  <a href="#a54b6b6db348b48d21e1265e22829c61f">More...</a><br /></td></tr>
 <tr class="separator:a54b6b6db348b48d21e1265e22829c61f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2a8b7de0b15dc17198c147ba39e85f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#af2a8b7de0b15dc17198c147ba39e85f3">closeUDP</a> ()</td></tr>
-<tr class="memdesc:af2a8b7de0b15dc17198c147ba39e85f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">close the UDP ports again to release network interfaces etc.  <a href="#af2a8b7de0b15dc17198c147ba39e85f3">More...</a><br /></td></tr>
 <tr class="separator:af2a8b7de0b15dc17198c147ba39e85f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56c7f641859cb2b6b99b0947d03be800"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800">loadMarkerConfig</a> (int method)</td></tr>
-<tr class="memdesc:a56c7f641859cb2b6b99b0947d03be800"><td class="mdescLeft">&#160;</td><td class="mdescRight">load a marker configuration from file. This file has to be created by hand, use the standard marker configuration file as template  <a href="#a56c7f641859cb2b6b99b0947d03be800">More...</a><br /></td></tr>
 <tr class="separator:a56c7f641859cb2b6b99b0947d03be800"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6430ad2592a955a3618549547dfc5be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be">drawPositionText</a> (cv::Mat &amp;Picture, cv::Vec3d &amp;Position, cv::Vec3d &amp;Euler, double <a class="el" href="_import_log_8m.html#af10dacfa214e2575bb2e0ee407c242e0">error</a>)</td></tr>
-<tr class="memdesc:af6430ad2592a955a3618549547dfc5be"><td class="mdescLeft">&#160;</td><td class="mdescRight">draw the position, attitude and reprojection error in the picture  <a href="#af6430ad2592a955a3618549547dfc5be">More...</a><br /></td></tr>
 <tr class="separator:af6430ad2592a955a3618549547dfc5be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af39fa6c3a36ad6bc24a327db7a9d73c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#af39fa6c3a36ad6bc24a327db7a9d73c2">loadCameraPosition</a> ()</td></tr>
 <tr class="separator:af39fa6c3a36ad6bc24a327db7a9d73c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0416912fce6274568e80019b10ba294f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a0416912fce6274568e80019b10ba294f">determineExposure</a> ()</td></tr>
-<tr class="memdesc:a0416912fce6274568e80019b10ba294f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected  <a href="#a0416912fce6274568e80019b10ba294f">More...</a><br /></td></tr>
 <tr class="separator:a0416912fce6274568e80019b10ba294f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11ff459289305229597defd39f510959"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a11ff459289305229597defd39f510959">determineOrder</a> ()</td></tr>
 <tr class="separator:a11ff459289305229597defd39f510959"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,6 +195,7 @@ Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:af29e7fc07ae0979d5fb61b473241d33d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcomm_object.html">commObject</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#af29e7fc07ae0979d5fb61b473241d33d">commObj</a></td></tr>
+<tr class="memdesc:af29e7fc07ae0979d5fb61b473241d33d"><td class="mdescLeft">&#160;</td><td class="mdescRight">class that handles the communication from <a class="el" href="main_8cpp.html">main.cpp</a> to the GUI  <a href="#af29e7fc07ae0979d5fb61b473241d33d">More...</a><br /></td></tr>
 <tr class="separator:af29e7fc07ae0979d5fb61b473241d33d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6266eedab8b3c011be53baffbfc42ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#aa6266eedab8b3c011be53baffbfc42ab">safetyEnable</a> = false</td></tr>
 <tr class="memdesc:aa6266eedab8b3c011be53baffbfc42ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">is the safety feature enabled  <a href="#aa6266eedab8b3c011be53baffbfc42ab">More...</a><br /></td></tr>
@@ -256,7 +249,7 @@ Variables</h2></td></tr>
 <tr class="memdesc:a4e18b0b26ecc511ca7d2f2205313e537"><td class="mdescLeft">&#160;</td><td class="mdescRight">max infrared spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless  <a href="#a4e18b0b26ecc511ca7d2f2205313e537">More...</a><br /></td></tr>
 <tr class="separator:a4e18b0b26ecc511ca7d2f2205313e537"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcaebd6cfd12b2e558363a06db8396ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#afcaebd6cfd12b2e558363a06db8396ea">intExposure</a> = 1</td></tr>
-<tr class="memdesc:afcaebd6cfd12b2e558363a06db8396ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">max is 480 increase if markers are badly visible but should be determined automatically during <a class="el" href="main_8cpp.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin...">setZero()</a>  <a href="#afcaebd6cfd12b2e558363a06db8396ea">More...</a><br /></td></tr>
+<tr class="memdesc:afcaebd6cfd12b2e558363a06db8396ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">max is 480 increase if markers are badly visible but should be determined automatically during <a class="el" href="main_8cpp.html#a1e6662e0f16887fe97c7bebe05065972">setReference()</a>  <a href="#afcaebd6cfd12b2e558363a06db8396ea">More...</a><br /></td></tr>
 <tr class="separator:afcaebd6cfd12b2e558363a06db8396ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5b833b78b107a1a04eb4edba151c0ba"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#aa5b833b78b107a1a04eb4edba151c0ba">intFrameRate</a> = 100</td></tr>
 <tr class="memdesc:aa5b833b78b107a1a04eb4edba151c0ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">CoSy rate of camera, maximum is 100 fps.  <a href="#aa5b833b78b107a1a04eb4edba151c0ba">More...</a><br /></td></tr>
@@ -352,58 +345,58 @@ Variables</h2></td></tr>
 <tr class="memdesc:a9fba099569a2da23e458c2571f69652a"><td class="mdescLeft">&#160;</td><td class="mdescRight">distortion model of the camera  <a href="#a9fba099569a2da23e458c2571f69652a">More...</a><br /></td></tr>
 <tr class="separator:a9fba099569a2da23e458c2571f69652a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae628b9aba095776b7134cf188486e174"><td class="memItemLeft" align="right" valign="top">QUdpSocket *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ae628b9aba095776b7134cf188486e174">udpSocketObject</a></td></tr>
-<tr class="memdesc:ae628b9aba095776b7134cf188486e174"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP adress of the circuit breaker that disables the object if a specified region is exited.  <a href="#ae628b9aba095776b7134cf188486e174">More...</a><br /></td></tr>
+<tr class="memdesc:ae628b9aba095776b7134cf188486e174"><td class="mdescLeft">&#160;</td><td class="mdescRight">socket for the communication with receiver 1  <a href="#ae628b9aba095776b7134cf188486e174">More...</a><br /></td></tr>
 <tr class="separator:ae628b9aba095776b7134cf188486e174"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6aa0c3a69dc10d5c4432dcf62e2155d3"><td class="memItemLeft" align="right" valign="top">QUdpSocket *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a6aa0c3a69dc10d5c4432dcf62e2155d3">udpSocketSafety</a></td></tr>
-<tr class="memdesc:a6aa0c3a69dc10d5c4432dcf62e2155d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">socket for the communication with the object  <a href="#a6aa0c3a69dc10d5c4432dcf62e2155d3">More...</a><br /></td></tr>
+<tr class="memdesc:a6aa0c3a69dc10d5c4432dcf62e2155d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">socket for the communication with safety receiver  <a href="#a6aa0c3a69dc10d5c4432dcf62e2155d3">More...</a><br /></td></tr>
 <tr class="separator:a6aa0c3a69dc10d5c4432dcf62e2155d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4260e46da4e0e430642b2d8d8d3c7dd1"><td class="memItemLeft" align="right" valign="top">QUdpSocket *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a4260e46da4e0e430642b2d8d8d3c7dd1">udpSocketSafety2</a></td></tr>
-<tr class="memdesc:a4260e46da4e0e430642b2d8d8d3c7dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">socket for the communication with the circuit breaker  <a href="#a4260e46da4e0e430642b2d8d8d3c7dd1">More...</a><br /></td></tr>
+<tr class="memdesc:a4260e46da4e0e430642b2d8d8d3c7dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">socket for the communication with receiver 3  <a href="#a4260e46da4e0e430642b2d8d8d3c7dd1">More...</a><br /></td></tr>
 <tr class="separator:a4260e46da4e0e430642b2d8d8d3c7dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab97ac0d82b1753d0eef37089be17e5e1"><td class="memItemLeft" align="right" valign="top">QHostAddress&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ab97ac0d82b1753d0eef37089be17e5e1">IPAdressObject</a> = QHostAddress(&quot;127.0.0.1&quot;)</td></tr>
-<tr class="memdesc:ab97ac0d82b1753d0eef37089be17e5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">socket for the communication with the rope winch  <a href="#ab97ac0d82b1753d0eef37089be17e5e1">More...</a><br /></td></tr>
+<tr class="memdesc:ab97ac0d82b1753d0eef37089be17e5e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv4 adress of receiver 1.  <a href="#ab97ac0d82b1753d0eef37089be17e5e1">More...</a><br /></td></tr>
 <tr class="separator:ab97ac0d82b1753d0eef37089be17e5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afefb1102a8a4a71b55d6f24f46404cc5"><td class="memItemLeft" align="right" valign="top">QHostAddress&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#afefb1102a8a4a71b55d6f24f46404cc5">IPAdressSafety</a> = QHostAddress(&quot;192.168.4.1&quot;)</td></tr>
-<tr class="memdesc:afefb1102a8a4a71b55d6f24f46404cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv4 adress of the object wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to.  <a href="#afefb1102a8a4a71b55d6f24f46404cc5">More...</a><br /></td></tr>
+<tr class="memdesc:afefb1102a8a4a71b55d6f24f46404cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv4 adress of safety receiver.  <a href="#afefb1102a8a4a71b55d6f24f46404cc5">More...</a><br /></td></tr>
 <tr class="separator:afefb1102a8a4a71b55d6f24f46404cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a354806cf8cbface3575f2541d8fbcbda"><td class="memItemLeft" align="right" valign="top">QHostAddress&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a354806cf8cbface3575f2541d8fbcbda">IPAdressSafety2</a> = QHostAddress(&quot;192.168.4.4&quot;)</td></tr>
-<tr class="memdesc:a354806cf8cbface3575f2541d8fbcbda"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv4 adress of the circuit breaker, stays the same.  <a href="#a354806cf8cbface3575f2541d8fbcbda">More...</a><br /></td></tr>
+<tr class="memdesc:a354806cf8cbface3575f2541d8fbcbda"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv4 adress of receiver 2.  <a href="#a354806cf8cbface3575f2541d8fbcbda">More...</a><br /></td></tr>
 <tr class="separator:a354806cf8cbface3575f2541d8fbcbda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a00043c93a3362969c1c1fcd3a70fea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a9a00043c93a3362969c1c1fcd3a70fea">portObject</a> = 9155</td></tr>
-<tr class="memdesc:a9a00043c93a3362969c1c1fcd3a70fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv4 adress of the rope winch,.  <a href="#a9a00043c93a3362969c1c1fcd3a70fea">More...</a><br /></td></tr>
+<tr class="memdesc:a9a00043c93a3362969c1c1fcd3a70fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port of receiver 1.  <a href="#a9a00043c93a3362969c1c1fcd3a70fea">More...</a><br /></td></tr>
 <tr class="separator:a9a00043c93a3362969c1c1fcd3a70fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a137bc8cc9d53ad9b176c988a99bc7142"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a137bc8cc9d53ad9b176c988a99bc7142">portSafety</a> = 9155</td></tr>
-<tr class="memdesc:a137bc8cc9d53ad9b176c988a99bc7142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port of the object.  <a href="#a137bc8cc9d53ad9b176c988a99bc7142">More...</a><br /></td></tr>
+<tr class="memdesc:a137bc8cc9d53ad9b176c988a99bc7142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port of the safety receiver.  <a href="#a137bc8cc9d53ad9b176c988a99bc7142">More...</a><br /></td></tr>
 <tr class="separator:a137bc8cc9d53ad9b176c988a99bc7142"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2601be9c226be24c71ec8282f632e723"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a2601be9c226be24c71ec8282f632e723">portSafety2</a> = 9155</td></tr>
-<tr class="memdesc:a2601be9c226be24c71ec8282f632e723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port of the safety switch.  <a href="#a2601be9c226be24c71ec8282f632e723">More...</a><br /></td></tr>
+<tr class="memdesc:a2601be9c226be24c71ec8282f632e723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port of receiver 2.  <a href="#a2601be9c226be24c71ec8282f632e723">More...</a><br /></td></tr>
 <tr class="separator:a2601be9c226be24c71ec8282f632e723"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af38b495bf1b0e0651895215823059d30"><td class="memItemLeft" align="right" valign="top">QByteArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#af38b495bf1b0e0651895215823059d30">datagram</a></td></tr>
-<tr class="memdesc:af38b495bf1b0e0651895215823059d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port of the second receiver.  <a href="#af38b495bf1b0e0651895215823059d30">More...</a><br /></td></tr>
+<tr class="memdesc:af38b495bf1b0e0651895215823059d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">data package that is sent to receiver 1 and 2  <a href="#af38b495bf1b0e0651895215823059d30">More...</a><br /></td></tr>
 <tr class="separator:af38b495bf1b0e0651895215823059d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad44c6ce322034044d573e6d4678d630b"><td class="memItemLeft" align="right" valign="top">QByteArray&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ad44c6ce322034044d573e6d4678d630b">data</a></td></tr>
-<tr class="memdesc:ad44c6ce322034044d573e6d4678d630b"><td class="mdescLeft">&#160;</td><td class="mdescRight">data package that is sent to the object  <a href="#ad44c6ce322034044d573e6d4678d630b">More...</a><br /></td></tr>
+<tr class="memdesc:ad44c6ce322034044d573e6d4678d630b"><td class="mdescLeft">&#160;</td><td class="mdescRight">data package that's sent to the safety receiver  <a href="#ad44c6ce322034044d573e6d4678d630b">More...</a><br /></td></tr>
 <tr class="separator:ad44c6ce322034044d573e6d4678d630b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae144f2eb508ffc763c259d875c600ab2"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ae144f2eb508ffc763c259d875c600ab2">BACKBUFFER_BITSPERPIXEL</a> = 8</td></tr>
-<tr class="memdesc:ae144f2eb508ffc763c259d875c600ab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">data package that's sent to the circuit breaker  <a href="#ae144f2eb508ffc763c259d875c600ab2">More...</a><br /></td></tr>
+<tr class="memdesc:ae144f2eb508ffc763c259d875c600ab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 bit per pixel and greyscale image from camera  <a href="#ae144f2eb508ffc763c259d875c600ab2">More...</a><br /></td></tr>
 <tr class="separator:ae144f2eb508ffc763c259d875c600ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b795a27447192fa68ef7c2d8ee1adab"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a7b795a27447192fa68ef7c2d8ee1adab">strBuf</a></td></tr>
-<tr class="memdesc:a7b795a27447192fa68ef7c2d8ee1adab"><td class="mdescLeft">&#160;</td><td class="mdescRight">8 bit per pixel and greyscale image from camera  <a href="#a7b795a27447192fa68ef7c2d8ee1adab">More...</a><br /></td></tr>
+<tr class="memdesc:a7b795a27447192fa68ef7c2d8ee1adab"><td class="mdescLeft">&#160;</td><td class="mdescRight">buffer that holds the strings that are sent to the Qt GUI  <a href="#a7b795a27447192fa68ef7c2d8ee1adab">More...</a><br /></td></tr>
 <tr class="separator:a7b795a27447192fa68ef7c2d8ee1adab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fc3524f4e679a41dcc8d0f302d637ed"><td class="memItemLeft" align="right" valign="top">std::stringstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a8fc3524f4e679a41dcc8d0f302d637ed">ss</a></td></tr>
-<tr class="memdesc:a8fc3524f4e679a41dcc8d0f302d637ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">buffer that holds the strings that are sent to the Qt GUI  <a href="#a8fc3524f4e679a41dcc8d0f302d637ed">More...</a><br /></td></tr>
+<tr class="memdesc:a8fc3524f4e679a41dcc8d0f302d637ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">stream that sends the strBuf buffer to the Qt GUI  <a href="#a8fc3524f4e679a41dcc8d0f302d637ed">More...</a><br /></td></tr>
 <tr class="separator:a8fc3524f4e679a41dcc8d0f302d637ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10895c5c32e9441213c79f05d2b5ba45"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a10895c5c32e9441213c79f05d2b5ba45">logFileName</a></td></tr>
-<tr class="memdesc:a10895c5c32e9441213c79f05d2b5ba45"><td class="mdescLeft">&#160;</td><td class="mdescRight">stream that sends the strBuf buffer to the Qt GUI  <a href="#a10895c5c32e9441213c79f05d2b5ba45">More...</a><br /></td></tr>
+<tr class="memdesc:a10895c5c32e9441213c79f05d2b5ba45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filename for the logfiles.  <a href="#a10895c5c32e9441213c79f05d2b5ba45">More...</a><br /></td></tr>
 <tr class="separator:a10895c5c32e9441213c79f05d2b5ba45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a642b2c947e62ff5ec692ec95783bd0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a7a642b2c947e62ff5ec692ec95783bd0">logName</a></td></tr>
-<tr class="memdesc:a7a642b2c947e62ff5ec692ec95783bd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filename for the logfiles.  <a href="#a7a642b2c947e62ff5ec692ec95783bd0">More...</a><br /></td></tr>
+<tr class="memdesc:a7a642b2c947e62ff5ec692ec95783bd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filename for the logfiles as standard string.  <a href="#a7a642b2c947e62ff5ec692ec95783bd0">More...</a><br /></td></tr>
 <tr class="separator:a7a642b2c947e62ff5ec692ec95783bd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba7ea4b1074abf42199ab9ab295e9c33"><td class="memItemLeft" align="right" valign="top">SYSTEMTIME&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#aba7ea4b1074abf42199ab9ab295e9c33">logDate</a></td></tr>
-<tr class="memdesc:aba7ea4b1074abf42199ab9ab295e9c33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filename for the logfiles as standard string.  <a href="#aba7ea4b1074abf42199ab9ab295e9c33">More...</a><br /></td></tr>
+<tr class="memdesc:aba7ea4b1074abf42199ab9ab295e9c33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Systemtime struct that saves the current date and time thats needed for the log file name creation.  <a href="#aba7ea4b1074abf42199ab9ab295e9c33">More...</a><br /></td></tr>
 <tr class="separator:aba7ea4b1074abf42199ab9ab295e9c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a267046e6c367b4c2dec18b9b772ab67a"><td class="memItemLeft" align="right" valign="top">std::ofstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a267046e6c367b4c2dec18b9b772ab67a">logfile</a></td></tr>
-<tr class="memdesc:a267046e6c367b4c2dec18b9b772ab67a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Systemtime struct that saves the current date and time thats needed for the log file name creation.  <a href="#a267046e6c367b4c2dec18b9b772ab67a">More...</a><br /></td></tr>
+<tr class="memdesc:a267046e6c367b4c2dec18b9b772ab67a"><td class="mdescLeft">&#160;</td><td class="mdescRight">file handler for writing the log file  <a href="#a267046e6c367b4c2dec18b9b772ab67a">More...</a><br /></td></tr>
 <tr class="separator:a267046e6c367b4c2dec18b9b772ab67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -438,28 +431,34 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>calculate the chess board corner positions, used for the camera calibration </p>
+<p>Calculate the chess board corner positions, used for the camera calibration. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">boardSize</td><td>denotes how many squares are in each direction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">squareSize</td><td>is the square length in millimeters. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">corners</td><td>returns the square corners in millimeters. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a0a7f48017dbb3d64bfc1a171631ad7d7_icgraph.png" border="0" usemap="#main_8cpp_a0a7f48017dbb3d64bfc1a171631ad7d7_icgraph" alt=""/></div>
 <map name="main_8cpp_a0a7f48017dbb3d64bfc1a171631ad7d7_icgraph" id="main_8cpp_a0a7f48017dbb3d64bfc1a171631ad7d7_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="225,13,347,39"/>
-<area shape="rect" id="node3" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="395,5,576,47"/>
+<area shape="rect" id="node2" href="main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="225,29,341,56"/>
+<area shape="rect" id="node3" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="389,22,571,63"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a852329cf0943686665469e34f44a39bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a852329cf0943686665469e34f44a39bf">&#9670;&nbsp;</a></span>calibrate_camera()</h2>
+<a id="a5f7c5996cd5a271d0277e0741f73a5b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f7c5996cd5a271d0277e0741f73a5b4">&#9670;&nbsp;</a></span>calibrateCamera()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int calibrate_camera </td>
+          <td class="memname">int calibrateCamera </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -467,7 +466,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>start the camera calibration routine that computes the camera matrix and distortion coefficients </p>
+<p>Start the camera calibration routine that computes the camera matrix and distortion coefficients. </p>
 <p>Initialize Camera SDK ==&ndash;</p>
 <p>At this point the Camera SDK is actively looking for all connected cameras and will initialize them on it's own.</p>
 <p>Get a connected camera ================-&mdash;</p>
@@ -494,21 +493,22 @@ S250e         Precision Mode
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a852329cf0943686665469e34f44a39bf_cgraph.png" border="0" usemap="#main_8cpp_a852329cf0943686665469e34f44a39bf_cgraph" alt=""/></div>
-<map name="main_8cpp_a852329cf0943686665469e34f44a39bf_cgraph" id="main_8cpp_a852329cf0943686665469e34f44a39bf_cgraph">
-<area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="193,5,340,32"/>
-<area shape="rect" id="node3" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="214,56,319,83"/>
-<area shape="rect" id="node4" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="176,107,357,133"/>
-<area shape="rect" id="node5" href="main_8cpp.html#a0a7f48017dbb3d64bfc1a171631ad7d7" title="calculate the chess board corner positions, used for the camera calibration " alt="" coords="181,157,353,184"/>
-<area shape="rect" id="node6" href="classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="175,208,359,235"/>
+<div class="center"><img src="main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4_cgraph.png" border="0" usemap="#main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4_cgraph" alt=""/></div>
+<map name="main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4_cgraph" id="main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4_cgraph">
+<area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="188,5,335,32"/>
+<area shape="rect" id="node3" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="209,56,314,83"/>
+<area shape="rect" id="node4" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="171,107,352,133"/>
+<area shape="rect" id="node5" href="main_8cpp.html#a0a7f48017dbb3d64bfc1a171631ad7d7" title="calcBoardCornerPositions" alt="" coords="175,157,347,184"/>
+<area shape="rect" id="node6" href="classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="169,208,353,235"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a852329cf0943686665469e34f44a39bf_icgraph.png" border="0" usemap="#main_8cpp_a852329cf0943686665469e34f44a39bf_icgraph" alt=""/></div>
-<map name="main_8cpp_a852329cf0943686665469e34f44a39bf_icgraph" id="main_8cpp_a852329cf0943686665469e34f44a39bf_icgraph">
-<area shape="rect" id="node2" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="175,5,356,47"/>
+<div class="center"><img src="main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4_icgraph.png" border="0" usemap="#main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4_icgraph" alt=""/></div>
+<map name="main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4_icgraph" id="main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4_icgraph">
+<area shape="rect" id="node2" href="main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="169,29,285,56"/>
+<area shape="rect" id="node3" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="333,47,515,89"/>
 </map>
 </div>
 
@@ -528,7 +528,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get the pose of the camera w.r.t the ground calibration frame. This frame sets the navigation frame for later results. The pose is averaged over 200 samples and then saved in the file referenceData.xml. This routine is basically the same as setZero. </p>
+<p>Get the pose of the camera w.r.t the ground calibration frame. This frame sets the navigation frame for later results. The pose is averaged over 200 samples and then saved in the file referenceData.xml. This routine is basically the same as setReference. </p>
 <p>initialize the variables with starting values</p>
 <p>Initialize Camera SDK ==&ndash;</p>
 <p>At this point the Camera SDK is actively looking for all connected cameras and will initialize them on it's own.</p>
@@ -559,14 +559,14 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a7ad2e3cfb5056dbab2098e0dd3bd353f_cgraph.png" border="0" usemap="#main_8cpp_a7ad2e3cfb5056dbab2098e0dd3bd353f_cgraph" alt=""/></div>
 <map name="main_8cpp_a7ad2e3cfb5056dbab2098e0dd3bd353f_cgraph" id="main_8cpp_a7ad2e3cfb5056dbab2098e0dd3bd353f_cgraph">
-<area shape="rect" id="node2" href="main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="197,5,331,32"/>
+<area shape="rect" id="node2" href="main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="determineExposure" alt="" coords="197,5,331,32"/>
 <area shape="rect" id="node3" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="409,31,556,57"/>
 <area shape="rect" id="node4" href="main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="209,107,319,133"/>
 <area shape="rect" id="node5" href="classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="167,157,361,184"/>
-<area shape="rect" id="node6" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="184,208,344,235"/>
-<area shape="rect" id="node7" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="211,259,317,285"/>
+<area shape="rect" id="node6" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="184,208,344,235"/>
+<area shape="rect" id="node7" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="211,259,317,285"/>
 <area shape="rect" id="node8" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="173,309,355,336"/>
-<area shape="rect" id="node9" href="main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="get the euler angles from a rotation matrix " alt="" coords="209,360,319,387"/>
+<area shape="rect" id="node9" href="main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="getEulerAngles" alt="" coords="209,360,319,387"/>
 <area shape="rect" id="node10" href="classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="172,411,356,437"/>
 </map>
 </div>
@@ -595,8 +595,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>close the UDP ports again to release network interfaces etc. </p>
+<p>Close the UDP ports again to release network interfaces etc. If this is not done the network resources are still occupied and the program can't exit properly. </p>
 <p>check if the socket is open and if yes close it </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
@@ -611,9 +610,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_af2a8b7de0b15dc17198c147ba39e85f3_icgraph.png" border="0" usemap="#main_8cpp_af2a8b7de0b15dc17198c147ba39e85f3_icgraph" alt=""/></div>
 <map name="main_8cpp_af2a8b7de0b15dc17198c147ba39e85f3_icgraph" id="main_8cpp_af2a8b7de0b15dc17198c147ba39e85f3_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="133,13,232,39"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="280,13,405,39"/>
-<area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="453,5,656,47"/>
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="133,13,231,39"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="279,13,399,39"/>
+<area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="447,5,649,47"/>
 </map>
 </div>
 
@@ -633,8 +632,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected </p>
+<p>Get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected. Then the mean of those two values is used as exposure. </p>
 <p>For OptiTrack Ethernet cameras, it's important to enable development mode if you want to stop execution for an extended time while debugging without disconnecting the Ethernet devices. Lets do that now:</p>
 <p>Initialize Camera SDK ==&ndash;</p>
 <p>At this point the Camera SDK is actively looking for all connected cameras and will initialize them on it's own.</p>
@@ -687,10 +685,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a0416912fce6274568e80019b10ba294f_icgraph.png" border="0" usemap="#main_8cpp_a0416912fce6274568e80019b10ba294f_icgraph" alt=""/></div>
 <map name="main_8cpp_a0416912fce6274568e80019b10ba294f_icgraph" id="main_8cpp_a0416912fce6274568e80019b10ba294f_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="195,17,294,43"/>
-<area shape="rect" id="node5" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="212,71,277,98"/>
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="196,17,293,43"/>
+<area shape="rect" id="node5" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="195,71,294,98"/>
 <area shape="rect" id="node7" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="188,129,301,155"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="377,13,503,39"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="380,13,500,39"/>
 <area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="579,5,781,47"/>
 <area shape="rect" id="node6" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="363,64,517,105"/>
 <area shape="rect" id="node8" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="349,129,531,171"/>
@@ -713,7 +711,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>compute the order of the marker points in 2D so they are the same as in the 3D array. Hence marker 1 must be in first place for both, list_points2d and list_points3d </p>
+<p>Compute the order of the marker points in 2D so they are the same as in the 3D array. Hence marker 1 must be in first place for both, list_points2d and list_points3d. </p>
 <p>determine the 3D-2D correspondences that are crucial for the PnP algorithm Try every possible correspondence and solve PnP Then project the 3D marker points into the 2D camera image and check the difference between projected points and points as seen by the camera the corresponce with the smallest difference is probably the correct one</p>
 <p>the difference between true 2D points and projected points is super big</p>
 <p>now try every possible permutation of correspondence</p>
@@ -733,10 +731,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a11ff459289305229597defd39f510959_icgraph.png" border="0" usemap="#main_8cpp_a11ff459289305229597defd39f510959_icgraph" alt=""/></div>
 <map name="main_8cpp_a11ff459289305229597defd39f510959_icgraph" id="main_8cpp_a11ff459289305229597defd39f510959_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="171,17,270,43"/>
-<area shape="rect" id="node5" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="188,71,253,98"/>
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="172,17,269,43"/>
+<area shape="rect" id="node5" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="171,71,270,98"/>
 <area shape="rect" id="node7" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="164,129,277,155"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="353,13,479,39"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="356,13,476,39"/>
 <area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="555,5,757,47"/>
 <area shape="rect" id="node6" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="339,64,493,105"/>
 <area shape="rect" id="node8" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="325,129,507,171"/>
@@ -782,20 +780,27 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>draw the position, attitude and reprojection error in the picture </p>
+<p>Draw the position, attitude and reprojection error in the picture. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Picture</td><td>is the camera image in OpenCV matrix format. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Position</td><td>is the position of the tracked object in navigation CoSy. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Euler</td><td>are the Euler angles with respect to the navigation frame. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">error</td><td>is the reprojection error of the pose estimation. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_af6430ad2592a955a3618549547dfc5be_icgraph.png" border="0" usemap="#main_8cpp_af6430ad2592a955a3618549547dfc5be_icgraph" alt=""/></div>
 <map name="main_8cpp_af6430ad2592a955a3618549547dfc5be_icgraph" id="main_8cpp_af6430ad2592a955a3618549547dfc5be_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="179,17,277,43"/>
-<area shape="rect" id="node5" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="195,71,261,98"/>
-<area shape="rect" id="node7" href="main_8h.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="175,126,281,153"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="344,13,469,39"/>
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="179,17,277,43"/>
+<area shape="rect" id="node5" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="179,71,277,98"/>
+<area shape="rect" id="node7" href="main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="175,126,281,153"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="347,13,467,39"/>
 <area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="532,5,735,47"/>
 <area shape="rect" id="node6" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="329,64,484,105"/>
-<area shape="rect" id="node8" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="381,130,432,157"/>
+<area shape="rect" id="node8" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="381,130,432,157"/>
 <area shape="rect" id="node9" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="572,105,695,131"/>
 <area shape="rect" id="node13" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="597,155,670,182"/>
 <area shape="rect" id="node10" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="783,105,937,131"/>
@@ -831,17 +836,22 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>get the euler angles from a rotation matrix </p>
+<p>Get the euler angles from a rotation matrix </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rotCamerMatrix</td><td>is a projection matrix, here normally only the extrinsic values. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">eulerAngles</td><td>contains the Euler angles that result in the same rotation matrix as rotCamerMatrix. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_ab2b71933055cf32cc8e5e2100fd7723f_icgraph.png" border="0" usemap="#main_8cpp_ab2b71933055cf32cc8e5e2100fd7723f_icgraph" alt=""/></div>
 <map name="main_8cpp_ab2b71933055cf32cc8e5e2100fd7723f_icgraph" id="main_8cpp_ab2b71933055cf32cc8e5e2100fd7723f_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="171,17,270,43"/>
-<area shape="rect" id="node5" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="188,71,253,98"/>
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="172,17,269,43"/>
+<area shape="rect" id="node5" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="171,71,270,98"/>
 <area shape="rect" id="node7" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="164,129,277,155"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="353,13,479,39"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="356,13,476,39"/>
 <area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="555,5,757,47"/>
 <area shape="rect" id="node6" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="339,64,493,105"/>
 <area shape="rect" id="node8" href="class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="325,129,507,171"/>
@@ -850,14 +860,14 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a44774828fee2764f3f3734bbd3f446e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44774828fee2764f3f3734bbd3f446e3">&#9670;&nbsp;</a></span>load_calibration()</h2>
+<a id="ad39626702ff983d5fdab4b703bfaf964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad39626702ff983d5fdab4b703bfaf964">&#9670;&nbsp;</a></span>loadCalibration()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void load_calibration </td>
+          <td class="memname">void loadCalibration </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>method</em></td><td>)</td>
@@ -865,28 +875,32 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Load a previously saved camera calibration from a file. </p>
+<p>Load a previously saved camera calibration from a file. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">method</td><td>whether or not load the camera calibration from calibration.xml. If ==0 then yes, if != 0 then let the user select a different file. </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a44774828fee2764f3f3734bbd3f446e3_cgraph.png" border="0" usemap="#main_8cpp_a44774828fee2764f3f3734bbd3f446e3_cgraph" alt=""/></div>
-<map name="main_8cpp_a44774828fee2764f3f3734bbd3f446e3_cgraph" id="main_8cpp_a44774828fee2764f3f3734bbd3f446e3_cgraph">
-<area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="165,5,312,32"/>
+<div class="center"><img src="main_8cpp_ad39626702ff983d5fdab4b703bfaf964_cgraph.png" border="0" usemap="#main_8cpp_ad39626702ff983d5fdab4b703bfaf964_cgraph" alt=""/></div>
+<map name="main_8cpp_ad39626702ff983d5fdab4b703bfaf964_cgraph" id="main_8cpp_ad39626702ff983d5fdab4b703bfaf964_cgraph">
+<area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="160,5,307,32"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a44774828fee2764f3f3734bbd3f446e3_icgraph.png" border="0" usemap="#main_8cpp_a44774828fee2764f3f3734bbd3f446e3_icgraph" alt=""/></div>
-<map name="main_8cpp_a44774828fee2764f3f3734bbd3f446e3_icgraph" id="main_8cpp_a44774828fee2764f3f3734bbd3f446e3_icgraph">
-<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="233,31,284,57"/>
-<area shape="rect" id="node8" href="class_rigid_track.html#a2224d3f6d923a1c7bad356f49d7a4124" title="RigidTrack::on_btnLoadCalib\l_clicked" alt="" coords="165,82,352,123"/>
-<area shape="rect" id="node3" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="400,5,523,32"/>
-<area shape="rect" id="node7" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="425,56,498,83"/>
-<area shape="rect" id="node4" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="571,5,725,32"/>
-<area shape="rect" id="node5" href="supportcode_8h.html#ac43c2dc16b0859b03a4f7d04a7e97d3c" title="DrawGLScene" alt="" coords="773,5,879,32"/>
-<area shape="rect" id="node6" href="class_surface.html#abe0d542404575c60911d6ad4219560f9" title="Surface::PixelSpan" alt="" coords="927,5,1060,32"/>
+<div class="center"><img src="main_8cpp_ad39626702ff983d5fdab4b703bfaf964_icgraph.png" border="0" usemap="#main_8cpp_ad39626702ff983d5fdab4b703bfaf964_icgraph" alt=""/></div>
+<map name="main_8cpp_ad39626702ff983d5fdab4b703bfaf964_icgraph" id="main_8cpp_ad39626702ff983d5fdab4b703bfaf964_icgraph">
+<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="228,31,279,57"/>
+<area shape="rect" id="node8" href="class_rigid_track.html#a2224d3f6d923a1c7bad356f49d7a4124" title="RigidTrack::on_btnLoadCalib\l_clicked" alt="" coords="160,82,347,123"/>
+<area shape="rect" id="node3" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="395,5,517,32"/>
+<area shape="rect" id="node7" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="419,56,493,83"/>
+<area shape="rect" id="node4" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="565,5,720,32"/>
+<area shape="rect" id="node5" href="supportcode_8h.html#ac43c2dc16b0859b03a4f7d04a7e97d3c" title="DrawGLScene" alt="" coords="768,5,873,32"/>
+<area shape="rect" id="node6" href="class_surface.html#abe0d542404575c60911d6ad4219560f9" title="Surface::PixelSpan" alt="" coords="921,5,1055,32"/>
 </map>
 </div>
 
@@ -906,7 +920,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>load the rotation matrix from camera CoSy to ground CoSy It is determined during ground calibration and once the camera is mounted and fixed stays the same </p>
+<p>Load the rotation matrix from camera CoSy to ground CoSy It is determined during <a class="el" href="main_8cpp.html#a7ad2e3cfb5056dbab2098e0dd3bd353f">calibrateGround()</a> and stays the same once the camera is mounted and fixed. </p>
 <p>Open the referenceData.xml that contains the rotation from camera CoSy to ground CoSy </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
@@ -921,7 +935,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_af39fa6c3a36ad6bc24a327db7a9d73c2_icgraph.png" border="0" usemap="#main_8cpp_af39fa6c3a36ad6bc24a327db7a9d73c2_icgraph" alt=""/></div>
 <map name="main_8cpp_af39fa6c3a36ad6bc24a327db7a9d73c2_icgraph" id="main_8cpp_af39fa6c3a36ad6bc24a327db7a9d73c2_icgraph">
-<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="192,31,243,57"/>
+<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="192,31,243,57"/>
 <area shape="rect" id="node3" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="291,5,413,32"/>
 <area shape="rect" id="node7" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="315,56,389,83"/>
 <area shape="rect" id="node4" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="461,5,616,32"/>
@@ -947,8 +961,12 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>load a marker configuration from file. This file has to be created by hand, use the standard marker configuration file as template </p>
+<p>Load a marker configuration from file. This file has to be created by hand, use the standard marker configuration file as template. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">method</td><td>whether or not load the configuration from the markerStandard.xml. If ==0 load it, if != 0 let the user select a different file. </td></tr>
+  </table>
+  </dd>
+</dl>
 <p>during start up of the programm load the standard marker configuration</p>
 <p>open the standard marker configuration file</p>
 <p>copy the values to the respective variables</p>
@@ -974,8 +992,8 @@ Here is the call graph for this function:</div>
 <map name="main_8cpp_a56c7f641859cb2b6b99b0947d03be800_cgraph" id="main_8cpp_a56c7f641859cb2b6b99b0947d03be800_cgraph">
 <area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="193,5,340,32"/>
 <area shape="rect" id="node3" href="classcomm_object.html#a7552116eb5e18c49c6dcf943de29af7a" title="commObject::enableP3P" alt="" coords="183,56,350,83"/>
-<area shape="rect" id="node4" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="187,107,347,133"/>
-<area shape="rect" id="node5" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="214,157,319,184"/>
+<area shape="rect" id="node4" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="187,107,347,133"/>
+<area shape="rect" id="node5" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="214,157,319,184"/>
 <area shape="rect" id="node6" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="176,208,357,235"/>
 </map>
 </div>
@@ -984,7 +1002,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a56c7f641859cb2b6b99b0947d03be800_icgraph.png" border="0" usemap="#main_8cpp_a56c7f641859cb2b6b99b0947d03be800_icgraph" alt=""/></div>
 <map name="main_8cpp_a56c7f641859cb2b6b99b0947d03be800_icgraph" id="main_8cpp_a56c7f641859cb2b6b99b0947d03be800_icgraph">
-<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="248,31,299,57"/>
+<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="248,31,299,57"/>
 <area shape="rect" id="node8" href="class_rigid_track.html#ad3e07592fbc1491cdc36dd5e817e1775" title="RigidTrack::on_pbLoadMarker\l_clicked" alt="" coords="176,82,371,123"/>
 <area shape="rect" id="node3" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="419,5,541,32"/>
 <area shape="rect" id="node7" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="443,56,517,83"/>
@@ -1022,8 +1040,14 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>file handler for writing the log file </p>
-<p>main inizialised the GUI and values for the marker position etc </p>
+<p>main initialises the GUI and values for the marker position etc </p>
+<p>First the GUI is set up with Signals and Slots, see Qt docu for how that works. Then some variables are initialized with arbitrary values. At last calibration and marker configuration etc. are loaded from xml files. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>is not used. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">argv</td><td>is also not used. </td></tr>
+  </table>
+  </dd>
+</dl>
 <p>&lt; show the GUI</p>
 <p>connect the Qt slots and signals for event handling</p>
 <p>initial guesses for position and rotation, important for Iterative Method!</p>
@@ -1049,16 +1073,16 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph.png" border="0" usemap="#main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph" alt=""/></div>
 <map name="main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph" id="main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph">
 <area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="308,38,455,65"/>
-<area shape="rect" id="node3" href="main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="Add a heading offset to the attitude for the case it is necessary. " alt="" coords="113,241,234,267"/>
+<area shape="rect" id="node3" href="main_8cpp.html#ad19da4e648bbdc80d3123eb94711588e" title="setHeadingOffset" alt="" coords="113,241,234,267"/>
 <area shape="rect" id="node4" href="main_8cpp.html#af39fa6c3a36ad6bc24a327db7a9d73c2" title="loadCameraPosition" alt="" coords="104,38,243,65"/>
-<area shape="rect" id="node5" href="main_8cpp.html#a44774828fee2764f3f3734bbd3f446e3" title="Load a previously saved camera calibration from a file. " alt="" coords="117,89,229,115"/>
-<area shape="rect" id="node6" href="main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="112,139,235,166"/>
-<area shape="rect" id="node11" href="main_8cpp.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="120,190,227,217"/>
+<area shape="rect" id="node5" href="main_8cpp.html#ad39626702ff983d5fdab4b703bfaf964" title="loadCalibration" alt="" coords="120,89,227,115"/>
+<area shape="rect" id="node6" href="main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="112,139,235,166"/>
+<area shape="rect" id="node11" href="main_8cpp.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="120,190,227,217"/>
 <area shape="rect" id="node7" href="classcomm_object.html#a7552116eb5e18c49c6dcf943de29af7a" title="commObject::enableP3P" alt="" coords="298,89,465,115"/>
-<area shape="rect" id="node8" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="301,139,461,166"/>
-<area shape="rect" id="node9" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="329,190,434,217"/>
+<area shape="rect" id="node8" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="301,139,461,166"/>
+<area shape="rect" id="node9" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="329,190,434,217"/>
 <area shape="rect" id="node10" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="291,241,472,267"/>
-<area shape="rect" id="node12" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="321,291,442,318"/>
+<area shape="rect" id="node12" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="321,291,442,318"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1091,25 +1115,29 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>convert a opencv matrix that represents a picture to a Qt Pixmap object </p>
+<p>Convert an opencv matrix that represents a picture to a Qt Pixmap object for the GUI. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>is the camera image represented as OpenCV matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
 <p>enforce deep copy, see documentation of QImage::QImage ( const uchar * data, int width, int height, Format format ) </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5_icgraph.png" border="0" usemap="#main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5_icgraph" alt=""/></div>
 <map name="main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5_icgraph" id="main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="171,21,269,47"/>
-<area shape="rect" id="node5" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="187,79,253,106"/>
-<area shape="rect" id="node7" href="main_8h.html#a852329cf0943686665469e34f44a39bf" title="start the camera calibration routine that computes the camera matrix and distortion coefficients ..." alt="" coords="159,137,281,163"/>
-<area shape="rect" id="node9" href="main_8h.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="167,187,273,214"/>
-<area shape="rect" id="node16" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="159,238,281,265"/>
-<area shape="rect" id="node18" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="163,303,277,330"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="364,13,489,39"/>
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="171,17,269,43"/>
+<area shape="rect" id="node5" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="171,70,269,97"/>
+<area shape="rect" id="node7" href="main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="162,145,278,171"/>
+<area shape="rect" id="node9" href="main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="167,195,273,222"/>
+<area shape="rect" id="node16" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="159,246,281,273"/>
+<area shape="rect" id="node18" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="163,307,277,334"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="367,13,487,39"/>
 <area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="572,5,775,47"/>
 <area shape="rect" id="node6" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="349,64,504,105"/>
 <area shape="rect" id="node8" href="class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="336,129,517,171"/>
-<area shape="rect" id="node10" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="401,195,452,222"/>
+<area shape="rect" id="node10" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="401,195,452,222"/>
 <area shape="rect" id="node11" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="612,170,735,197"/>
 <area shape="rect" id="node15" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="637,221,710,247"/>
 <area shape="rect" id="node12" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="823,170,977,197"/>
@@ -1137,8 +1165,12 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>project a coordinate CoSy with the rotation and translation of the object for visualization </p>
+<p>Project the coordinate CoSy origin and axis direction of the marker CoSy with the rotation and translation of the object for visualization. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pictureFrame</td><td>the image in which the CoSy frame should be pasted. </td></tr>
+  </table>
+  </dd>
+</dl>
 <p>&lt;z-axis</p>
 <p>&lt;x-axis</p>
 <p>&lt;y-axis </p>
@@ -1147,15 +1179,15 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a2104a5d9d6b9f1e29bc4cd858c59882e_icgraph.png" border="0" usemap="#main_8cpp_a2104a5d9d6b9f1e29bc4cd858c59882e_icgraph" alt=""/></div>
 <map name="main_8cpp_a2104a5d9d6b9f1e29bc4cd858c59882e_icgraph" id="main_8cpp_a2104a5d9d6b9f1e29bc4cd858c59882e_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="225,18,324,45"/>
-<area shape="rect" id="node5" href="main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="242,74,307,101"/>
-<area shape="rect" id="node7" href="main_8h.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="221,129,328,155"/>
-<area shape="rect" id="node14" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="213,179,336,206"/>
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="226,18,323,45"/>
+<area shape="rect" id="node5" href="main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="225,74,324,101"/>
+<area shape="rect" id="node7" href="main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="221,129,328,155"/>
+<area shape="rect" id="node14" href="main_8h.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="213,179,336,206"/>
 <area shape="rect" id="node16" href="main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="218,241,331,267"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="419,13,544,39"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="421,13,541,39"/>
 <area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="627,5,829,47"/>
 <area shape="rect" id="node6" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="404,64,559,105"/>
-<area shape="rect" id="node8" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="456,130,507,157"/>
+<area shape="rect" id="node8" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="456,130,507,157"/>
 <area shape="rect" id="node9" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="667,105,789,131"/>
 <area shape="rect" id="node13" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="691,155,765,182"/>
 <area shape="rect" id="node10" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="877,105,1032,131"/>
@@ -1193,8 +1225,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>send the position and attitude over UDP to every receiver, the safety receiver is handled on its own in the start_camera function </p>
+<p>Send the position and attitude over UDP to every receiver, the safety receiver is handled on its own in the startTracking function because its send rate is less than 100 Hz. </p>
 <p>Roll Pitch Heading</p>
 <p>if second receiver is activated send it also the tracking data </p>
 <div class="dynheader">
@@ -1202,9 +1233,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a54b6b6db348b48d21e1265e22829c61f_icgraph.png" border="0" usemap="#main_8cpp_a54b6b6db348b48d21e1265e22829c61f_icgraph" alt=""/></div>
 <map name="main_8cpp_a54b6b6db348b48d21e1265e22829c61f_icgraph" id="main_8cpp_a54b6b6db348b48d21e1265e22829c61f_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="157,13,256,39"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="304,13,429,39"/>
-<area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="477,5,680,47"/>
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="157,13,255,39"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="303,13,423,39"/>
+<area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="471,5,673,47"/>
 </map>
 </div>
 
@@ -1225,8 +1256,12 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Add a heading offset to the attitude for the case it is necessary. </p>
+<p>Add a heading offset to the attitude for the case it is wanted by the user. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">d</td><td>denotes heading offset in degrees. </td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Convert heading offset from degrees to rad</p>
 <p>Calculate rotation about x axis</p>
 <p>Calculate rotation about y axis</p>
@@ -1237,7 +1272,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_ad19da4e648bbdc80d3123eb94711588e_icgraph.png" border="0" usemap="#main_8cpp_ad19da4e648bbdc80d3123eb94711588e_icgraph" alt=""/></div>
 <map name="main_8cpp_ad19da4e648bbdc80d3123eb94711588e_icgraph" id="main_8cpp_ad19da4e648bbdc80d3123eb94711588e_icgraph">
-<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="236,31,287,57"/>
+<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="236,31,287,57"/>
 <area shape="rect" id="node8" href="class_rigid_track.html#a72e338d6bf93d0efa3bc503f7ca736c5" title="RigidTrack::on_sbHeading\lOffset_valueChanged" alt="" coords="175,82,348,123"/>
 <area shape="rect" id="node3" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="396,5,519,32"/>
 <area shape="rect" id="node7" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="421,56,494,83"/>
@@ -1249,63 +1284,21 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ae624b0189bc5e32cbbb1f178b9f1a360"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae624b0189bc5e32cbbb1f178b9f1a360">&#9670;&nbsp;</a></span>setUpUDP()</h2>
+<a id="a1e6662e0f16887fe97c7bebe05065972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e6662e0f16887fe97c7bebe05065972">&#9670;&nbsp;</a></span>setReference()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void setUpUDP </td>
+          <td class="memname">int setReference </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>open the UDP ports for communication </p>
-<p>Initialise the QDataStream that stores the data to be send</p>
-<p>Create UDP slots</p>
-<p>if the safety feature is activated open the udp port</p>
-<p>if the second receiver feature is activated open the udp port </p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph.png" border="0" usemap="#main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph" alt=""/></div>
-<map name="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph" id="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph">
-<area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="136,5,283,32"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_icgraph.png" border="0" usemap="#main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_icgraph" alt=""/></div>
-<map name="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_icgraph" id="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="136,13,235,39"/>
-<area shape="rect" id="node3" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="283,13,408,39"/>
-<area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="456,5,659,47"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a7f3915653dcf5181fdc6e552ae8e6363"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f3915653dcf5181fdc6e552ae8e6363">&#9670;&nbsp;</a></span>setZero()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int setZero </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>determine the initial position of the object that serves as reference point or as ground frame origin </p>
+<p>Determine the initial position of the object that serves as reference point or as ground frame origin. Computes the pose 200 times and then averages it. The position and attitude are from now on used as navigation CoSy. </p>
 <p>initialize the variables with starting values</p>
 <p>Initialize Camera SDK ==&ndash;</p>
 <p>At this point the Camera SDK is actively looking for all connected cameras and will initialize them on it's own.</p>
@@ -1332,42 +1325,42 @@ Here is the caller graph for this function:</div>
 <p>&lt; axis angle to rotation matrix</p>
 <p>&ndash; Euler Angles, finally</p>
 <p>&lt; rotation matrix to euler</p>
-<p>compute the difference between last obtained TVec and the average Value When it is large the iterative method has not converged properly so it is advised to start the <a class="el" href="main_8cpp.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin...">setZero()</a> function once again </p>
+<p>compute the difference between last obtained TVec and the average Value When it is large the iterative method has not converged properly so it is advised to start the <a class="el" href="main_8cpp.html#a1e6662e0f16887fe97c7bebe05065972">setReference()</a> function once again </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a7f3915653dcf5181fdc6e552ae8e6363_cgraph.png" border="0" usemap="#main_8cpp_a7f3915653dcf5181fdc6e552ae8e6363_cgraph" alt=""/></div>
-<map name="main_8cpp_a7f3915653dcf5181fdc6e552ae8e6363_cgraph" id="main_8cpp_a7f3915653dcf5181fdc6e552ae8e6363_cgraph">
-<area shape="rect" id="node2" href="main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="149,5,283,32"/>
-<area shape="rect" id="node3" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="361,31,508,57"/>
-<area shape="rect" id="node4" href="main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="161,107,271,133"/>
-<area shape="rect" id="node5" href="classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="119,157,313,184"/>
-<area shape="rect" id="node6" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="136,208,296,235"/>
-<area shape="rect" id="node7" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="155,259,277,285"/>
-<area shape="rect" id="node8" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="163,309,269,336"/>
-<area shape="rect" id="node9" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="125,360,307,387"/>
-<area shape="rect" id="node10" href="main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="get the euler angles from a rotation matrix " alt="" coords="161,411,271,437"/>
+<div class="center"><img src="main_8cpp_a1e6662e0f16887fe97c7bebe05065972_cgraph.png" border="0" usemap="#main_8cpp_a1e6662e0f16887fe97c7bebe05065972_cgraph" alt=""/></div>
+<map name="main_8cpp_a1e6662e0f16887fe97c7bebe05065972_cgraph" id="main_8cpp_a1e6662e0f16887fe97c7bebe05065972_cgraph">
+<area shape="rect" id="node2" href="main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="determineExposure" alt="" coords="182,5,317,32"/>
+<area shape="rect" id="node3" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="395,31,541,57"/>
+<area shape="rect" id="node4" href="main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="194,107,305,133"/>
+<area shape="rect" id="node5" href="classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="152,157,347,184"/>
+<area shape="rect" id="node6" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="169,208,329,235"/>
+<area shape="rect" id="node7" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="189,259,310,285"/>
+<area shape="rect" id="node8" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="197,309,302,336"/>
+<area shape="rect" id="node9" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="159,360,340,387"/>
+<area shape="rect" id="node10" href="main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="getEulerAngles" alt="" coords="194,411,305,437"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a7f3915653dcf5181fdc6e552ae8e6363_icgraph.png" border="0" usemap="#main_8cpp_a7f3915653dcf5181fdc6e552ae8e6363_icgraph" alt=""/></div>
-<map name="main_8cpp_a7f3915653dcf5181fdc6e552ae8e6363_icgraph" id="main_8cpp_a7f3915653dcf5181fdc6e552ae8e6363_icgraph">
-<area shape="rect" id="node2" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="119,5,273,47"/>
+<div class="center"><img src="main_8cpp_a1e6662e0f16887fe97c7bebe05065972_icgraph.png" border="0" usemap="#main_8cpp_a1e6662e0f16887fe97c7bebe05065972_icgraph" alt=""/></div>
+<map name="main_8cpp_a1e6662e0f16887fe97c7bebe05065972_icgraph" id="main_8cpp_a1e6662e0f16887fe97c7bebe05065972_icgraph">
+<area shape="rect" id="node2" href="class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="152,5,307,47"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a7d029857f86ebf6ac36e9a73508699ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d029857f86ebf6ac36e9a73508699ad">&#9670;&nbsp;</a></span>start_camera()</h2>
+<a id="ae624b0189bc5e32cbbb1f178b9f1a360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae624b0189bc5e32cbbb1f178b9f1a360">&#9670;&nbsp;</a></span>setUpUDP()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int start_camera </td>
+          <td class="memname">void setUpUDP </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1375,61 +1368,149 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>start the loop that fetches frames, computes the position etc and sends it to other computers </p>
-<p>&lt; The order of points, hence which entry in list_points3d corresponds to which in list_points2d is not calculated yet</p>
-<p>&lt; Use the value of Rvec that was set in <a class="el" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file ">main()</a> as starting value for the solvePnP algorithm</p>
-<p>&lt; Use the value of Tvec that was set in <a class="el" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file ">main()</a> as starting value for the solvePnP algorithm</p>
-<p>&lt; Get the current date and time to name the log file</p>
+<p>Open the UDP ports for communication. </p>
+<p>Initialise the QDataStream that stores the data to be send</p>
+<p>Create UDP slots</p>
+<p>if the safety feature is activated open the udp port</p>
+<p>if the second receiver feature is activated open the udp port </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph.png" border="0" usemap="#main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph" alt=""/></div>
+<map name="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph" id="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph">
+<area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="136,5,283,32"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_icgraph.png" border="0" usemap="#main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_icgraph" alt=""/></div>
+<map name="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_icgraph" id="main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360_icgraph">
+<area shape="rect" id="node2" href="main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="136,13,233,39"/>
+<area shape="rect" id="node3" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="281,13,401,39"/>
+<area shape="rect" id="node4" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="449,5,652,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a25183e8d0b386ef12b557efc712a0261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25183e8d0b386ef12b557efc712a0261">&#9670;&nbsp;</a></span>startStopCamera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void startStopCamera </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start or stop the tracking depending on if the camera is currently running or not. </p>
+<p>tracking is not running so start it</p>
+<p>&lt; tracking is currently running, set exitRequest to true so the while loop in <a class="el" href="main_8cpp.html#a3d3afd29ce54eb7fc5cc7e74ab666586">startTracking()</a> exits </p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_a25183e8d0b386ef12b557efc712a0261_cgraph.png" border="0" usemap="#main_8cpp_a25183e8d0b386ef12b557efc712a0261_cgraph" alt=""/></div>
+<map name="main_8cpp_a25183e8d0b386ef12b557efc712a0261_cgraph" id="main_8cpp_a25183e8d0b386ef12b557efc712a0261_cgraph">
+<area shape="rect" id="node2" href="main_8cpp.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="173,259,271,285"/>
+<area shape="rect" id="node3" href="main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="determineExposure" alt="" coords="342,5,477,32"/>
+<area shape="rect" id="node4" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="548,81,695,108"/>
+<area shape="rect" id="node5" href="main_8cpp.html#ae624b0189bc5e32cbbb1f178b9f1a360" title="Open the UDP ports for communication. " alt="" coords="368,107,451,133"/>
+<area shape="rect" id="node6" href="main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="354,157,465,184"/>
+<area shape="rect" id="node7" href="main_8cpp.html#af2a8b7de0b15dc17198c147ba39e85f3" title="closeUDP" alt="" coords="369,208,449,235"/>
+<area shape="rect" id="node8" href="main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="getEulerAngles" alt="" coords="354,259,465,285"/>
+<area shape="rect" id="node9" href="main_8cpp.html#a54b6b6db348b48d21e1265e22829c61f" title="sendDataUDP" alt="" coords="357,309,461,336"/>
+<area shape="rect" id="node10" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="329,360,489,387"/>
+<area shape="rect" id="node11" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="349,411,470,437"/>
+<area shape="rect" id="node12" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="357,461,462,488"/>
+<area shape="rect" id="node13" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="319,512,500,539"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_a25183e8d0b386ef12b557efc712a0261_icgraph.png" border="0" usemap="#main_8cpp_a25183e8d0b386ef12b557efc712a0261_icgraph" alt=""/></div>
+<map name="main_8cpp_a25183e8d0b386ef12b557efc712a0261_icgraph" id="main_8cpp_a25183e8d0b386ef12b557efc712a0261_icgraph">
+<area shape="rect" id="node2" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="173,5,376,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3d3afd29ce54eb7fc5cc7e74ab666586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d3afd29ce54eb7fc5cc7e74ab666586">&#9670;&nbsp;</a></span>startTracking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int startTracking </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Start the loop that fetches frames, computes the position etc and sends it to other computers. This function is the core of this program, hence the pose estimation is done here. </p>
+<p>The order of points, hence which entry in list_points3d corresponds to which in list_points2d is not calculated yet</p>
+<p>Use the value of Rvec that was set in <a class="el" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc ">main()</a> as starting value for the solvePnP algorithm</p>
+<p>Use the value of Tvec that was set in <a class="el" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc ">main()</a> as starting value for the solvePnP algorithm</p>
+<p>Get the current date and time to name the log file</p>
 <p>Concat the log file name as followed. The file is saved in the folder /logs in the Rigid Track installation folder</p>
 <p>Convert the QString to a standard string</p>
-<p>&lt; Get the exposure where the right amount of markers is detected</p>
+<p>Get the exposure where the right amount of markers is detected</p>
 <p>For OptiTrack Ethernet cameras, it's important to enable development mode if you want to stop execution for an extended time while debugging without disconnecting the Ethernet devices. Lets do that now:</p>
-<p>&lt; Initialize Camera SDK</p>
+<p>Initialize Camera SDK</p>
 <p>At this point the Camera SDK is actively looking for all connected cameras and will initialize them on it's own</p>
 <p>Get a connected camera</p>
 <p>If no camera can be found, inform user in message log and exit function</p>
 <p>Determine camera resolution to size application window</p>
-<p>&lt; Set the camera mode to precision mode, it used greyscale imformation for marker property calculations</p>
-<p>&lt; Start camera output</p>
+<p>Set the camera mode to precision mode, it used greyscale imformation for marker property calculations</p>
+<p>Start camera output</p>
 <p>Turn on some overlay text so it's clear things are working even if there is nothing in the camera's view</p>
-<p>&lt; Set the camera exposure</p>
-<p>&lt; Set the camera infrared LED intensity</p>
-<p>&lt; Set the camera framerate to 100 Hz</p>
-<p>&lt; Enable the filter that blocks visible light and only passes infrared light</p>
-<p>&lt; Enable high power mode of the LEDs</p>
-<p>&lt; Disable continuous LED light</p>
-<p>&lt; Set threshold for marker detection</p>
+<p>Set the camera exposure</p>
+<p>Set the camera infrared LED intensity</p>
+<p>Set the camera framerate to 100 Hz</p>
+<p>Enable the filter that blocks visible light and only passes infrared light</p>
+<p>Enable high power mode of the LEDs</p>
+<p>Disable continuous LED light</p>
+<p>Set threshold for marker detection</p>
 <p>Create a new matrix that stores the grayscale picture from the camera</p>
-<p>&lt; QPixmap is the corresponding Qt class that saves images</p>
+<p>QPixmap is the corresponding Qt class that saves images</p>
 <p>Matrix that stores the colored picture, hence marker points, coordinate frame and reprojected points</p>
-<p>&lt; Helper variable used to kick safety switch</p>
+<p>Helper variable used to kick safety switch</p>
 <p>Variables for the min and max values that are needed for sanity checks</p>
-<p>&lt; Ff a marker is not visible or accuracy is bad increase this counter</p>
-<p>&lt; Equals the quality of the tracking</p>
-<p>&lt; Open sockets and ports for UDP communication</p>
-<p>&lt; If the safety feature is enabled send the starting message</p>
+<p>Ff a marker is not visible or accuracy is bad increase this counter</p>
+<p>Equals the quality of the tracking</p>
+<p>Open sockets and ports for UDP communication</p>
+<p>If the safety feature is enabled send the starting message</p>
 <p>Send enable message, hence send a 9 and then a 1</p>
 <p>Fetch a new frame from the camera</p>
-<p>&lt; Get the timestamp of the first frame. This time is subtracted from every subseeding frame so the time starts at 0 in the logs</p>
-<p>&lt; While no new frame is received loop</p>
-<p>&lt; Get a new camera frame</p>
-<p>&lt; There is actually a new frame</p>
-<p>&lt; Get the time stamp for the first frame. It is subtracted for the following frames</p>
-<p>&lt; Release the frame so the camera can continue</p>
-<p>&lt; Exit the while loop</p>
+<p>Get the timestamp of the first frame. This time is subtracted from every subseeding frame so the time starts at 0 in the logs</p>
+<p>While no new frame is received loop</p>
+<p>Get a new camera frame</p>
+<p>There is actually a new frame</p>
+<p>Get the time stamp for the first frame. It is subtracted for the following frames</p>
+<p>Release the frame so the camera can continue</p>
+<p>Exit the while loop</p>
 <p>Now enter the main loop that processes each frame and computes the pose, sends it and logs stuff</p>
 <p>Check if the user has not pressed "Stop Tracking" yet</p>
-<p>&lt; Fetch a new frame from the camera</p>
-<p>&lt; Did we got a new frame or does the camera still need more time</p>
-<p>&lt; Increase by one, if everything is okay it is decreased at the end of the loop again</p>
+<p>Fetch a new frame from the camera</p>
+<p>Did we got a new frame or does the camera still need more time</p>
+<p>Increase by one, if everything is okay it is decreased at the end of the loop again</p>
 <p>Only use this frame it the right number of markers is found in the picture</p>
 <p>Get the marker points in 2D in the camera image frame and store them in the list_points2dUnsorted vector The order of points that come from the camera corresponds to the Y coordinate</p>
-<p>&lt; Was the order already determined? This is false for the first frame and from then on true</p>
-<p>&lt; Now compute the order</p>
+<p>Was the order already determined? This is false for the first frame and from then on true</p>
+<p>Now compute the order</p>
 <p>Sort the 2d points with the correct indices as found in the preceeding order determination algorithm</p>
-<p>&lt; pointOrderIndices was calculated in <a class="el" href="main_8cpp.html#a11ff459289305229597defd39f510959">determineOrder()</a></p>
+<p>pointOrderIndices was calculated in <a class="el" href="main_8cpp.html#a11ff459289305229597defd39f510959">determineOrder()</a></p>
 <p>The first time the 2D-3D corresspondence was determined with gotOrder was okay. But this order can change as the object moves and the marker objects appear in a different order in the frame-&gt;Object() array. The solution is that: When a marker point (in the camera image, hence in 2D) was at a position then it wont move that much from one frame to the other. So for the new frame we take a marker object and check which marker was closest this point in the old image frame? This is probably the same (true) marker. And we do that for every other marker as well. When tracking is good and no frames are dropped because of missing markers this should work every frame.</p>
-<p>&lt; The sum of point distances is set to something unrealistic large</p>
+<p>The sum of point distances is set to something unrealistic large</p>
 <p>Calculate N_2 norm of unsorted points minus old points</p>
 <p>If the norm is smaller than minPointDistance the correspondence is more likely to be correct</p>
 <p>Update the array that saves the new point order</p>
@@ -1439,34 +1520,34 @@ Here is the caller graph for this function:</div>
 <p>Project the marker 3d points with the solution into the camera image CoSy and calculate difference to true camera image</p>
 <p>Difference of true pose and found pose</p>
 <p>Increase the framesDropped variable if accuracy of tracking is too bad</p>
-<p>&lt; Set number of subsequent frames dropped to zero because error is small enough and no marker was missing</p>
+<p>Set number of subsequent frames dropped to zero because error is small enough and no marker was missing</p>
 <p>Get the min and max values from TVec for sanity check</p>
 <p>Sanity check of values. negative z means the marker CoSy is behind the camera, that's not possible.</p>
-<p>&lt; Release the frame so the camera can move on</p>
-<p>&lt; Release the camera</p>
-<p>&lt; Close all UDP connections so the programm can be closed later on and no resources are locked</p>
-<p>&lt; Exit the function</p>
-<p>Next step is the transformation from camera CoSy to navigation CoSy Compute the relative object position from the reference position to the current one given in the camera CoSy: T_C^{NM} = Tvec - Tvec_{Ref}</p>
-<p>Transform the position from the camera CoSy to the navigation CoSy with INS alligned heading and convert from [mm] to [m] T_N^{NM} = M_{NC}  T_C^{NM}</p>
-<p>&lt; Position is the result of the preceeding calculation</p>
-<p>&lt; Invert Z if check box in GUI is activated, hence height above ground is considered</p>
+<p>Release the frame so the camera can move on</p>
+<p>Release the camera</p>
+<p>Close all UDP connections so the programm can be closed later on and no resources are locked</p>
+<p>Exit the function</p>
+<p>Next step is the transformation from camera CoSy to navigation CoSy Compute the relative object position from the reference position to the current one given in the camera CoSy: \( T_C^{NM} = Tvec - Tvec_{Ref} \)</p>
+<p>Transform the position from the camera CoSy to the navigation CoSy with INS alligned heading and convert from [mm] to [m] \( T_N^{NM} = M_{NC} \times T_C^{NM} \)</p>
+<p>Position is the result of the preceeding calculation</p>
+<p>Invert Z if check box in GUI is activated, hence height above ground is considered</p>
 <p>Realtive angle between reference orientation and current orientation</p>
-<p>&lt; Convert axis angle respresentation to ordinary rotation matrix</p>
-<p>The difference of the reference rotation and the current rotation R_{ NM } = M_{ NC }  R_{ CM }</p>
+<p>Convert axis angle respresentation to ordinary rotation matrix</p>
+<p>The difference of the reference rotation and the current rotation \( R_{ NM } = M_{ NC } \times R_{ CM } \)</p>
 <p>Euler Angles, finally</p>
 <p>Get the euler angles from the rotation matrix</p>
 <p>Add the heading offset to the heading angle</p>
 <p>Compute the velocity with finite differences. Only use is the log file. It is done here because the more precise time stamp can be used</p>
-<p>&lt; Time between the old frame and the current frame</p>
-<p>&lt; Set the old frame time to the current one</p>
-<p>&lt; Calculate the x velocity with finite differences</p>
-<p>&lt; Calculate the y velocity with finite differences</p>
-<p>&lt; Calculate the z velocity with finite differences</p>
-<p>&lt; Set the old position to the current one for next frame velocity calcuation</p>
+<p>Time between the old frame and the current frame</p>
+<p>Set the old frame time to the current one</p>
+<p>Calculate the x velocity with finite differences</p>
+<p>Calculate the y velocity with finite differences</p>
+<p>Calculate the z velocity with finite differences</p>
+<p>Set the old position to the current one for next frame velocity calcuation</p>
 <p>Send position and Euler angles over WiFi with 100 Hz</p>
 <p>Save the values in a log file, values are: Time sinc tracking started Position Euler Angles Velocity</p>
 <p>Open the log file, the folder is RigidTrackInstallationFolder/logs</p>
-<p>&lt; Close the file to save values</p>
+<p>Close the file to save values</p>
 <p>Check if the position and euler angles are below the allowed value, if yes send OKAY signal (1), if not send shutdown signal (0) Absolute x, y and z position in navigation CoSy must be smaller than the allowed distance</p>
 <p>Absolute Euler angles must be smaller than allowed value. Heading is not considered</p>
 <p>Send the OKAY signal to the desired computer every 5th time</p>
@@ -1479,9 +1560,9 @@ Here is the caller graph for this function:</div>
 <p>Send the shutdown signal, a 0</p>
 <p>Inform the user</p>
 <p>Inform the user if tracking system is disturbed (marker lost or so) or error was too big</p>
-<p>&lt; Also send the shutdown signal</p>
-<p>&lt; Send the shutdown signal, a 0</p>
-<p>&lt; Inform the user</p>
+<p>Also send the shutdown signal</p>
+<p>Send the shutdown signal, a 0</p>
+<p>Inform the user</p>
 <p>Rasterize the frame so it can be shown in the GUI</p>
 <p>Convert the frame from greyscale as it comes from the camera to rgb color</p>
 <p>Project (draw) the marker CoSy origin into 2D and save it in the cFrame image</p>
@@ -1489,106 +1570,57 @@ Here is the caller graph for this function:</div>
 <p>Draw a circle around the projected points so the result can be better compared to the real marker position In the resulting picture those are the red dots</p>
 <p>Write the current position, attitude and error values as text in the frame</p>
 <p>Send the new camera picture to the GUI and call the GUI processing routine</p>
-<p>&lt; Update the picture in the GUI</p>
-<p>&lt; Give Qt time to handle everything</p>
+<p>Update the picture in the GUI</p>
+<p>Give Qt time to handle everything</p>
 <p>Release the camera frame to fetch the new one</p>
 <p>User choose to stop the tracking, clean things up</p>
-<p>&lt; Close the UDP connections so resources are deallocated</p>
-<p>&lt; Release camera </p>
+<p>Close the UDP connections so resources are deallocated</p>
+<p>Release camera </p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a7d029857f86ebf6ac36e9a73508699ad_cgraph.png" border="0" usemap="#main_8cpp_a7d029857f86ebf6ac36e9a73508699ad_cgraph" alt=""/></div>
-<map name="main_8cpp_a7d029857f86ebf6ac36e9a73508699ad_cgraph" id="main_8cpp_a7d029857f86ebf6ac36e9a73508699ad_cgraph">
-<area shape="rect" id="node2" href="main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="175,5,310,32"/>
-<area shape="rect" id="node3" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="381,81,528,108"/>
-<area shape="rect" id="node4" href="main_8cpp.html#ae624b0189bc5e32cbbb1f178b9f1a360" title="open the UDP ports for communication " alt="" coords="201,107,284,133"/>
-<area shape="rect" id="node5" href="main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="187,157,298,184"/>
-<area shape="rect" id="node6" href="main_8cpp.html#af2a8b7de0b15dc17198c147ba39e85f3" title="close the UDP ports again to release network interfaces etc. " alt="" coords="203,208,283,235"/>
-<area shape="rect" id="node7" href="main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="get the euler angles from a rotation matrix " alt="" coords="187,259,298,285"/>
-<area shape="rect" id="node8" href="main_8cpp.html#a54b6b6db348b48d21e1265e22829c61f" title="send the position and attitude over UDP to every receiver, the safety receiver is handled on its own ..." alt="" coords="191,309,295,336"/>
-<area shape="rect" id="node9" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="163,360,323,387"/>
-<area shape="rect" id="node10" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="182,411,303,437"/>
-<area shape="rect" id="node11" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="190,461,295,488"/>
-<area shape="rect" id="node12" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="152,512,333,539"/>
+<div class="center"><img src="main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586_cgraph.png" border="0" usemap="#main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586_cgraph" alt=""/></div>
+<map name="main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586_cgraph" id="main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586_cgraph">
+<area shape="rect" id="node2" href="main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="determineExposure" alt="" coords="174,5,309,32"/>
+<area shape="rect" id="node3" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="380,81,527,108"/>
+<area shape="rect" id="node4" href="main_8cpp.html#ae624b0189bc5e32cbbb1f178b9f1a360" title="Open the UDP ports for communication. " alt="" coords="200,107,283,133"/>
+<area shape="rect" id="node5" href="main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="186,157,297,184"/>
+<area shape="rect" id="node6" href="main_8cpp.html#af2a8b7de0b15dc17198c147ba39e85f3" title="closeUDP" alt="" coords="201,208,281,235"/>
+<area shape="rect" id="node7" href="main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="getEulerAngles" alt="" coords="186,259,297,285"/>
+<area shape="rect" id="node8" href="main_8cpp.html#a54b6b6db348b48d21e1265e22829c61f" title="sendDataUDP" alt="" coords="189,309,293,336"/>
+<area shape="rect" id="node9" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="161,360,321,387"/>
+<area shape="rect" id="node10" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="181,411,302,437"/>
+<area shape="rect" id="node11" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="189,461,294,488"/>
+<area shape="rect" id="node12" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="151,512,332,539"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a7d029857f86ebf6ac36e9a73508699ad_icgraph.png" border="0" usemap="#main_8cpp_a7d029857f86ebf6ac36e9a73508699ad_icgraph" alt=""/></div>
-<map name="main_8cpp_a7d029857f86ebf6ac36e9a73508699ad_icgraph" id="main_8cpp_a7d029857f86ebf6ac36e9a73508699ad_icgraph">
-<area shape="rect" id="node2" href="main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="152,13,277,39"/>
-<area shape="rect" id="node3" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="325,5,528,47"/>
+<div class="center"><img src="main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586_icgraph.png" border="0" usemap="#main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586_icgraph" alt=""/></div>
+<map name="main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586_icgraph" id="main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586_icgraph">
+<area shape="rect" id="node2" href="main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="151,13,271,39"/>
+<area shape="rect" id="node3" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="319,5,521,47"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a2daa058d8e8204f4e0c51cd8f7d0f962"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2daa058d8e8204f4e0c51cd8f7d0f962">&#9670;&nbsp;</a></span>start_stopCamera()</h2>
+<a id="a847c0fbd3e513fb76ff145b31a9f5c37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a847c0fbd3e513fb76ff145b31a9f5c37">&#9670;&nbsp;</a></span>testAlgorithms()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void start_stopCamera </td>
+          <td class="memname">void testAlgorithms </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Start or stop the camera depending on if the camera is currently running or not. </p>
-<p>tracking is not running so start it</p>
-<p>&lt; tracking is currently running, set exitRequest to true so the while loop in <a class="el" href="main_8cpp.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ...">start_camera()</a> exits </p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8cpp_a2daa058d8e8204f4e0c51cd8f7d0f962_cgraph.png" border="0" usemap="#main_8cpp_a2daa058d8e8204f4e0c51cd8f7d0f962_cgraph" alt=""/></div>
-<map name="main_8cpp_a2daa058d8e8204f4e0c51cd8f7d0f962_cgraph" id="main_8cpp_a2daa058d8e8204f4e0c51cd8f7d0f962_cgraph">
-<area shape="rect" id="node2" href="main_8cpp.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="179,259,277,285"/>
-<area shape="rect" id="node3" href="main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="349,5,483,32"/>
-<area shape="rect" id="node4" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="555,81,701,108"/>
-<area shape="rect" id="node5" href="main_8cpp.html#ae624b0189bc5e32cbbb1f178b9f1a360" title="open the UDP ports for communication " alt="" coords="375,107,457,133"/>
-<area shape="rect" id="node6" href="main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="361,157,471,184"/>
-<area shape="rect" id="node7" href="main_8cpp.html#af2a8b7de0b15dc17198c147ba39e85f3" title="close the UDP ports again to release network interfaces etc. " alt="" coords="376,208,456,235"/>
-<area shape="rect" id="node8" href="main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="get the euler angles from a rotation matrix " alt="" coords="361,259,471,285"/>
-<area shape="rect" id="node9" href="main_8cpp.html#a54b6b6db348b48d21e1265e22829c61f" title="send the position and attitude over UDP to every receiver, the safety receiver is handled on its own ..." alt="" coords="364,309,468,336"/>
-<area shape="rect" id="node10" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="336,360,496,387"/>
-<area shape="rect" id="node11" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="355,411,477,437"/>
-<area shape="rect" id="node12" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="363,461,469,488"/>
-<area shape="rect" id="node13" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="325,512,507,539"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8cpp_a2daa058d8e8204f4e0c51cd8f7d0f962_icgraph.png" border="0" usemap="#main_8cpp_a2daa058d8e8204f4e0c51cd8f7d0f962_icgraph" alt=""/></div>
-<map name="main_8cpp_a2daa058d8e8204f4e0c51cd8f7d0f962_icgraph" id="main_8cpp_a2daa058d8e8204f4e0c51cd8f7d0f962_icgraph">
-<area shape="rect" id="node2" href="class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="179,5,381,47"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a49aae6cc1a72ace00943d9226b5070b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49aae6cc1a72ace00943d9226b5070b3">&#9670;&nbsp;</a></span>test_Algorithm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void test_Algorithm </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>project some points from 3D to 2D and then check the accuracy of the algorithms </p>
+<p>Project some points from 3D to 2D and then check the accuracy of the algorithms. Mainly to generate something that can be shown in the camera view so the user knows everything loaded correctly. </p>
 <p>&lt; in mm</p>
 <p>&lt; 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP //!&lt; not used</p>
 <p>&lt; 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP UPnP not used</p>
@@ -1597,21 +1629,21 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a49aae6cc1a72ace00943d9226b5070b3_cgraph.png" border="0" usemap="#main_8cpp_a49aae6cc1a72ace00943d9226b5070b3_cgraph" alt=""/></div>
-<map name="main_8cpp_a49aae6cc1a72ace00943d9226b5070b3_cgraph" id="main_8cpp_a49aae6cc1a72ace00943d9226b5070b3_cgraph">
+<div class="center"><img src="main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37_cgraph.png" border="0" usemap="#main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37_cgraph" alt=""/></div>
+<map name="main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37_cgraph" id="main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37_cgraph">
 <area shape="rect" id="node2" href="classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="177,5,324,32"/>
-<area shape="rect" id="node3" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="171,56,331,83"/>
-<area shape="rect" id="node4" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="198,107,303,133"/>
+<area shape="rect" id="node3" href="main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="171,56,331,83"/>
+<area shape="rect" id="node4" href="main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="198,107,303,133"/>
 <area shape="rect" id="node5" href="classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="160,157,341,184"/>
-<area shape="rect" id="node6" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="draw the position, attitude and reprojection error in the picture " alt="" coords="190,208,311,235"/>
+<area shape="rect" id="node6" href="main_8cpp.html#af6430ad2592a955a3618549547dfc5be" title="drawPositionText" alt="" coords="190,208,311,235"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a49aae6cc1a72ace00943d9226b5070b3_icgraph.png" border="0" usemap="#main_8cpp_a49aae6cc1a72ace00943d9226b5070b3_icgraph" alt=""/></div>
-<map name="main_8cpp_a49aae6cc1a72ace00943d9226b5070b3_icgraph" id="main_8cpp_a49aae6cc1a72ace00943d9226b5070b3_icgraph">
-<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="160,31,211,57"/>
+<div class="center"><img src="main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37_icgraph.png" border="0" usemap="#main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37_icgraph" alt=""/></div>
+<map name="main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37_icgraph" id="main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37_icgraph">
+<area shape="rect" id="node2" href="supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="160,31,211,57"/>
 <area shape="rect" id="node3" href="class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="259,5,381,32"/>
 <area shape="rect" id="node7" href="supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="283,56,357,83"/>
 <area shape="rect" id="node4" href="class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="429,5,584,32"/>
@@ -1635,7 +1667,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>data package that's sent to the circuit breaker </p>
+<p>8 bit per pixel and greyscale image from camera </p>
 
 </div>
 </div>
@@ -1682,6 +1714,9 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>class that handles the communication from <a class="el" href="main_8cpp.html">main.cpp</a> to the GUI </p>
+<p>Now declare variables that are used across the <a class="el" href="main_8cpp.html">main.cpp</a> file. Basically almost every variable used is declared here. </p>
 
 </div>
 </div>
@@ -1761,7 +1796,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>data package that is sent to the object </p>
+<p>data package that's sent to the safety receiver </p>
 
 </div>
 </div>
@@ -1777,7 +1812,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Port of the second receiver. </p>
+<p>data package that is sent to receiver 1 and 2 </p>
 
 </div>
 </div>
@@ -1921,7 +1956,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>max is 480 increase if markers are badly visible but should be determined automatically during <a class="el" href="main_8cpp.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin...">setZero()</a> </p>
+<p>max is 480 increase if markers are badly visible but should be determined automatically during <a class="el" href="main_8cpp.html#a1e6662e0f16887fe97c7bebe05065972">setReference()</a> </p>
 
 </div>
 </div>
@@ -2001,7 +2036,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>socket for the communication with the rope winch </p>
+<p>IPv4 adress of receiver 1. </p>
 
 </div>
 </div>
@@ -2017,7 +2052,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>IPv4 adress of the object wifi telemetry chip, can change to 192.168.4.x. This is where the position etc is sent to. </p>
+<p>IPv4 adress of safety receiver. </p>
 
 </div>
 </div>
@@ -2033,7 +2068,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>IPv4 adress of the circuit breaker, stays the same. </p>
+<p>IPv4 adress of receiver 2. </p>
 
 </div>
 </div>
@@ -2145,7 +2180,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Filename for the logfiles as standard string. </p>
+<p>Systemtime struct that saves the current date and time thats needed for the log file name creation. </p>
 
 </div>
 </div>
@@ -2161,7 +2196,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Systemtime struct that saves the current date and time thats needed for the log file name creation. </p>
+<p>file handler for writing the log file </p>
 
 </div>
 </div>
@@ -2177,7 +2212,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>stream that sends the strBuf buffer to the Qt GUI </p>
+<p>Filename for the logfiles. </p>
 
 </div>
 </div>
@@ -2193,7 +2228,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Filename for the logfiles. </p>
+<p>Filename for the logfiles as standard string. </p>
 
 </div>
 </div>
@@ -2321,7 +2356,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>IPv4 adress of the rope winch,. </p>
+<p>Port of receiver 1. </p>
 
 </div>
 </div>
@@ -2337,7 +2372,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Port of the object. </p>
+<p>Port of the safety receiver. </p>
 
 </div>
 </div>
@@ -2353,7 +2388,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Port of the safety switch. </p>
+<p>Port of receiver 2. </p>
 
 </div>
 </div>
@@ -2546,7 +2581,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>buffer that holds the strings that are sent to the Qt GUI </p>
+<p>stream that sends the strBuf buffer to the Qt GUI </p>
 
 </div>
 </div>
@@ -2562,7 +2597,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>8 bit per pixel and greyscale image from camera </p>
+<p>buffer that holds the strings that are sent to the Qt GUI </p>
 
 </div>
 </div>
@@ -2642,7 +2677,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>IP adress of the circuit breaker that disables the object if a specified region is exited. </p>
+<p>socket for the communication with receiver 1 </p>
 
 </div>
 </div>
@@ -2658,7 +2693,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>socket for the communication with the object </p>
+<p>socket for the communication with safety receiver </p>
 
 </div>
 </div>
@@ -2674,7 +2709,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>socket for the communication with the circuit breaker </p>
+<p>socket for the communication with receiver 3 </p>
 
 </div>
 </div>

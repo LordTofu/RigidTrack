@@ -222,7 +222,7 @@ public:
         retranslateUi(RigidTrackClass);
 
         QMetaObject::connectSlotsByName(RigidTrackClass);
-    } //!/< setupUi
+    } // setupUi
 
     void retranslateUi(QMainWindow *RigidTrackClass)
     {
@@ -246,21 +246,21 @@ public:
         groupBox_2->setTitle(QApplication::translate("RigidTrackClass", "Safety Protection", 0));
 #ifndef QT_NO_TOOLTIP
         cbSafety->setToolTip(QApplication::translate("RigidTrackClass", "If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.", 0));
-#endif //!/< QT_NO_TOOLTIP
+#endif // QT_NO_TOOLTIP
         cbSafety->setText(QApplication::translate("RigidTrackClass", "Enable Safety Area", 0));
 #ifndef QT_NO_TOOLTIP
         dsbDimension->setToolTip(QApplication::translate("RigidTrackClass", "Maximum distance of the object to the starting point in each dimension. If exceeded a disable signal is sent via UDP", 0));
-#endif //!/< QT_NO_TOOLTIP
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
         sbAngle->setToolTip(QApplication::translate("RigidTrackClass", "Maximum bank and pitch angle of the object. If exceeded a disable signal is sent via UDP", 0));
-#endif //!/< QT_NO_TOOLTIP
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_TOOLTIP
         lbSafetyArea->setToolTip(QApplication::translate("RigidTrackClass", "Maximum distance of the object to the starting point in each dimension. If exceeded a disable signal is sent via UDP", 0));
-#endif //!/< QT_NO_TOOLTIP
+#endif // QT_NO_TOOLTIP
         lbSafetyArea->setText(QApplication::translate("RigidTrackClass", "Safety Area Dimensions ", 0));
 #ifndef QT_NO_TOOLTIP
         lbSafetyArea_2->setToolTip(QApplication::translate("RigidTrackClass", "Maximum bank and pitch angle of the object. If exceeded a disable signal is sent via UDP", 0));
-#endif //!/< QT_NO_TOOLTIP
+#endif // QT_NO_TOOLTIP
         lbSafetyArea_2->setText(QApplication::translate("RigidTrackClass", "Safety Area Angles", 0));
         leIPSafety->setText(QApplication::translate("RigidTrackClass", "192.168.137.2:9155", 0));
         label_3->setText(QApplication::translate("RigidTrackClass", "IP Adress of Emergency Switch Press Return to Apply", 0));
@@ -269,7 +269,7 @@ public:
         groupBox_3->setTitle(QApplication::translate("RigidTrackClass", "Additional Receiver", 0));
 #ifndef QT_NO_TOOLTIP
         cbSafety2->setToolTip(QApplication::translate("RigidTrackClass", "If this check box is enabled the software will monitor the position and attitude. If the values of safety area dimensions and safety area angles are exceeded a disable signal is sent via UDP.", 0));
-#endif //!/< QT_NO_TOOLTIP
+#endif // QT_NO_TOOLTIP
         cbSafety2->setText(QApplication::translate("RigidTrackClass", "Send to second Receiver", 0));
         leIPSafety2->setText(QApplication::translate("RigidTrackClass", "192.168.137.254:9155", 0));
         cbInvert->setText(QApplication::translate("RigidTrackClass", "Invert Z", 0));
@@ -278,14 +278,14 @@ public:
         menuHelp->setTitle(QApplication::translate("RigidTrackClass", "Help", 0));
         menuOpen_Logs->setTitle(QApplication::translate("RigidTrackClass", "Open Folders", 0));
         Q_UNUSED(RigidTrackClass);
-    } //!/< retranslateUi
+    } // retranslateUi
 
 };
 
 namespace Ui {
     class RigidTrackClass: public Ui_RigidTrackClass {};
-} //!/< namespace Ui
+} // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif //!/< UI_RIGIDTRACK_H
+#endif // UI_RIGIDTRACK_H

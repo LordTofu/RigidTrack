@@ -1,8 +1,8 @@
 <map id="RigidTrack::on_pbLoadMarker_clicked" name="RigidTrack::on_pbLoadMarker_clicked">
-<area shape="rect" id="node2" href="$main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="load a marker configuration from file. This file has to be created by hand, use the standard marker c..." alt="" coords="248,107,371,133"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a56c7f641859cb2b6b99b0947d03be800" title="loadMarkerConfig" alt="" coords="248,107,371,133"/>
 <area shape="rect" id="node3" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="436,5,583,32"/>
 <area shape="rect" id="node4" href="$classcomm_object.html#a7552116eb5e18c49c6dcf943de29af7a" title="commObject::enableP3P" alt="" coords="426,56,593,83"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="429,107,589,133"/>
-<area shape="rect" id="node6" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="457,157,562,184"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="429,107,589,133"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="457,157,562,184"/>
 <area shape="rect" id="node7" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="419,208,600,235"/>
 </map>

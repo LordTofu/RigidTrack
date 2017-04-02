@@ -1,11 +1,11 @@
 <map id="drawPositionText" name="drawPositionText">
-<area shape="rect" id="node2" href="$main_8h.html#a7d029857f86ebf6ac36e9a73508699ad" title="start the loop that fetches frames, computes the position etc and sends it to other computers ..." alt="" coords="179,17,277,43"/>
-<area shape="rect" id="node5" href="$main_8h.html#a7f3915653dcf5181fdc6e552ae8e6363" title="determine the initial position of the object that serves as reference point or as ground frame origin..." alt="" coords="195,71,261,98"/>
-<area shape="rect" id="node7" href="$main_8h.html#a49aae6cc1a72ace00943d9226b5070b3" title="project some points from 3D to 2D and then check the accuracy of the algorithms " alt="" coords="175,126,281,153"/>
-<area shape="rect" id="node3" href="$main_8h.html#a2daa058d8e8204f4e0c51cd8f7d0f962" title="Start or stop the camera depending on if the camera is currently running or not. " alt="" coords="344,13,469,39"/>
+<area shape="rect" id="node2" href="$main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="179,17,277,43"/>
+<area shape="rect" id="node5" href="$main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="179,71,277,98"/>
+<area shape="rect" id="node7" href="$main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37" title="testAlgorithms" alt="" coords="175,126,281,153"/>
+<area shape="rect" id="node3" href="$main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="347,13,467,39"/>
 <area shape="rect" id="node4" href="$class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="532,5,735,47"/>
 <area shape="rect" id="node6" href="$class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="329,64,484,105"/>
-<area shape="rect" id="node8" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="file handler for writing the log file " alt="" coords="381,130,432,157"/>
+<area shape="rect" id="node8" href="$supportcode_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main initialises the GUI and values for the marker position etc " alt="" coords="381,130,432,157"/>
 <area shape="rect" id="node9" href="$class_surface.html#a728571d0386e9690ce1760931562c72b" title="Surface::PutPixel" alt="" coords="572,105,695,131"/>
 <area shape="rect" id="node13" href="$supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943" title="/&lt; Window Show State " alt="" coords="597,155,670,182"/>
 <area shape="rect" id="node10" href="$class_surface.html#a377c59f6ef131d4b879cda93578a3efa" title="Surface::SurfaceHeight" alt="" coords="783,105,937,131"/>

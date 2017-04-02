@@ -1,12 +1,12 @@
 <map id="RigidTrack::on_btnCalibrateGround_clicked" name="RigidTrack::on_btnCalibrateGround_clicked">
 <area shape="rect" id="node2" href="$main_8cpp.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="235,208,348,235"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="get the optimal exposure for the camera. For that find the minimum and maximum exposure were the righ..." alt="" coords="426,5,561,32"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a0416912fce6274568e80019b10ba294f" title="determineExposure" alt="" coords="426,5,561,32"/>
 <area shape="rect" id="node4" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="639,31,785,57"/>
 <area shape="rect" id="node5" href="$main_8cpp.html#a11ff459289305229597defd39f510959" title="determineOrder" alt="" coords="438,107,549,133"/>
 <area shape="rect" id="node6" href="$classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="396,157,591,184"/>
-<area shape="rect" id="node7" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="project a coordinate CoSy with the rotation and translation of the object for visualization ..." alt="" coords="413,208,573,235"/>
-<area shape="rect" id="node8" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="convert a opencv matrix that represents a picture to a Qt Pixmap object " alt="" coords="441,259,546,285"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#a2104a5d9d6b9f1e29bc4cd858c59882e" title="projectCoordinateFrame" alt="" coords="413,208,573,235"/>
+<area shape="rect" id="node8" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="441,259,546,285"/>
 <area shape="rect" id="node9" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="403,309,584,336"/>
-<area shape="rect" id="node10" href="$main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="get the euler angles from a rotation matrix " alt="" coords="438,360,549,387"/>
+<area shape="rect" id="node10" href="$main_8cpp.html#ab2b71933055cf32cc8e5e2100fd7723f" title="getEulerAngles" alt="" coords="438,360,549,387"/>
 <area shape="rect" id="node11" href="$classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="401,411,585,437"/>
 </map>
