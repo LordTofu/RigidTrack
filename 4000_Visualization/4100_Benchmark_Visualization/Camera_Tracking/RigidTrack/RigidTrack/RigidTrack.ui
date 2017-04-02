@@ -84,7 +84,7 @@ Camera</string>
      </rect>
     </property>
     <property name="text">
-     <string>Load
+     <string>Load Camera 
 Calibration</string>
     </property>
    </widget>
@@ -137,7 +137,7 @@ Calibration</string>
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>50</y>
+      <y>40</y>
       <width>136</width>
       <height>20</height>
      </rect>
@@ -150,13 +150,14 @@ Calibration</string>
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>20</y>
-      <width>141</width>
+      <y>10</y>
+      <width>161</width>
       <height>26</height>
      </rect>
     </property>
     <property name="text">
-     <string>IP Adress:Port of Object Wifi Chip Press Return to Apply Changes</string>
+     <string>IP Adress:Port of first Receiver
+ Press Return to Apply Changes</string>
     </property>
     <property name="wordWrap">
      <bool>true</bool>
@@ -166,7 +167,7 @@ Calibration</string>
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>30</y>
+      <y>10</y>
       <width>101</width>
       <height>101</height>
      </rect>
@@ -344,7 +345,7 @@ Calibration</string>
       </rect>
      </property>
      <property name="text">
-      <string>IP Adress of Emergency Switch Press Return to Apply</string>
+      <string>IP Adress of Safety Receiver Press Return to Apply</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -369,9 +370,9 @@ Configuration</string>
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>80</y>
+      <y>70</y>
       <width>181</width>
-      <height>80</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="title">
@@ -400,13 +401,30 @@ Configuration</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>40</y>
+       <y>70</y>
        <width>136</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
       <string>192.168.137.254:9155</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>171</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>IP Adress:Port of second Receiver
+ Press Return to Apply Changes</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
@@ -479,8 +497,15 @@ Ground</string>
     <addaction name="actionOpen_Log_Folder"/>
     <addaction name="actionOpen_Installation_Folder"/>
    </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout_Rigid_Track"/>
+   </widget>
    <addaction name="menuHelp"/>
    <addaction name="menuOpen_Logs"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -504,6 +529,11 @@ Ground</string>
   <action name="actionOpen_Installation_Folder">
    <property name="text">
     <string>Open Installation Folder</string>
+   </property>
+  </action>
+  <action name="actionAbout_Rigid_Track">
+   <property name="text">
+    <string>About Rigid Track</string>
    </property>
   </action>
  </widget>

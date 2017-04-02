@@ -40,6 +40,7 @@ public slots:
 	void enableP3P(bool value);
 	void on_btnCalibrateGround_clicked();
 	void on_actionOpen_Log_Folder_triggered();
+	void on_actionAbout_Rigid_Track_triggered();
 	void on_actionOpen_Installation_Folder_triggered();
 
 private:

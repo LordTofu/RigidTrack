@@ -39,6 +39,7 @@ public:
     QAction *actionShow_Help;
     QAction *actionOpen_Log_Folder;
     QAction *actionOpen_Installation_Folder;
+    QAction *actionAbout_Rigid_Track;
     QWidget *centralWidget;
     QPushButton *btnStartCamera;
     QLabel *lbStatus;
@@ -66,12 +67,14 @@ public:
     QGroupBox *groupBox_3;
     QCheckBox *cbSafety2;
     QLineEdit *leIPSafety2;
+    QLabel *label_4;
     QCheckBox *cbInvert;
     QProgressBar *progressBar;
     QPushButton *btnCalibrateGround;
     QMenuBar *menuBar;
     QMenu *menuHelp;
     QMenu *menuOpen_Logs;
+    QMenu *menuAbout;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -90,6 +93,8 @@ public:
         actionOpen_Log_Folder->setObjectName(QStringLiteral("actionOpen_Log_Folder"));
         actionOpen_Installation_Folder = new QAction(RigidTrackClass);
         actionOpen_Installation_Folder->setObjectName(QStringLiteral("actionOpen_Installation_Folder"));
+        actionAbout_Rigid_Track = new QAction(RigidTrackClass);
+        actionAbout_Rigid_Track->setObjectName(QStringLiteral("actionAbout_Rigid_Track"));
         centralWidget = new QWidget(RigidTrackClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         btnStartCamera = new QPushButton(centralWidget);
@@ -123,14 +128,14 @@ public:
         label->setGeometry(QRect(280, 60, 81, 21));
         leIPObject = new QLineEdit(centralWidget);
         leIPObject->setObjectName(QStringLiteral("leIPObject"));
-        leIPObject->setGeometry(QRect(390, 50, 136, 20));
+        leIPObject->setGeometry(QRect(390, 40, 136, 20));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(390, 20, 141, 26));
+        label_2->setGeometry(QRect(390, 10, 161, 26));
         label_2->setWordWrap(true);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(770, 30, 101, 101));
+        groupBox->setGeometry(QRect(770, 10, 101, 101));
         rbIterative = new QRadioButton(groupBox);
         rbIterative->setObjectName(QStringLiteral("rbIterative"));
         rbIterative->setGeometry(QRect(10, 40, 82, 17));
@@ -177,14 +182,18 @@ public:
         pbLoadMarker->setGeometry(QRect(160, 110, 101, 41));
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
-        groupBox_3->setGeometry(QRect(380, 80, 181, 80));
+        groupBox_3->setGeometry(QRect(380, 70, 181, 101));
         cbSafety2 = new QCheckBox(groupBox_3);
         cbSafety2->setObjectName(QStringLiteral("cbSafety2"));
         cbSafety2->setGeometry(QRect(10, 20, 151, 17));
         leIPSafety2 = new QLineEdit(groupBox_3);
         leIPSafety2->setObjectName(QStringLiteral("leIPSafety2"));
         leIPSafety2->setEnabled(false);
-        leIPSafety2->setGeometry(QRect(10, 40, 136, 20));
+        leIPSafety2->setGeometry(QRect(10, 70, 136, 20));
+        label_4 = new QLabel(groupBox_3);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(10, 40, 171, 26));
+        label_4->setWordWrap(true);
         cbInvert = new QCheckBox(centralWidget);
         cbInvert->setObjectName(QStringLiteral("cbInvert"));
         cbInvert->setGeometry(QRect(280, 110, 70, 17));
@@ -205,6 +214,8 @@ public:
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
         menuOpen_Logs = new QMenu(menuBar);
         menuOpen_Logs->setObjectName(QStringLiteral("menuOpen_Logs"));
+        menuAbout = new QMenu(menuBar);
+        menuAbout->setObjectName(QStringLiteral("menuAbout"));
         RigidTrackClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(RigidTrackClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -215,9 +226,11 @@ public:
 
         menuBar->addAction(menuHelp->menuAction());
         menuBar->addAction(menuOpen_Logs->menuAction());
+        menuBar->addAction(menuAbout->menuAction());
         menuHelp->addAction(actionShow_Help);
         menuOpen_Logs->addAction(actionOpen_Log_Folder);
         menuOpen_Logs->addAction(actionOpen_Installation_Folder);
+        menuAbout->addAction(actionAbout_Rigid_Track);
 
         retranslateUi(RigidTrackClass);
 
@@ -229,16 +242,18 @@ public:
         actionShow_Help->setText(QApplication::translate("RigidTrackClass", "Show Help", 0));
         actionOpen_Log_Folder->setText(QApplication::translate("RigidTrackClass", "Open Log Folder", 0));
         actionOpen_Installation_Folder->setText(QApplication::translate("RigidTrackClass", "Open Installation Folder", 0));
+        actionAbout_Rigid_Track->setText(QApplication::translate("RigidTrackClass", "About Rigid Track", 0));
         btnStartCamera->setText(QApplication::translate("RigidTrackClass", "Start Tracking", 0));
         lbStatus->setText(QApplication::translate("RigidTrackClass", "TextLabel", 0));
         btnZero->setText(QApplication::translate("RigidTrackClass", "Set Reference Point", 0));
         btnCalibrate->setText(QApplication::translate("RigidTrackClass", "Calibrate\n"
 "Camera", 0));
-        btnLoadCalib->setText(QApplication::translate("RigidTrackClass", "Load\n"
+        btnLoadCalib->setText(QApplication::translate("RigidTrackClass", "Load Camera \n"
 "Calibration", 0));
         label->setText(QApplication::translate("RigidTrackClass", "Heading Offset", 0));
         leIPObject->setText(QApplication::translate("RigidTrackClass", "192.168.137.254:9155", 0));
-        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress:Port of Object Wifi Chip Press Return to Apply Changes", 0));
+        label_2->setText(QApplication::translate("RigidTrackClass", "IP Adress:Port of first Receiver\n"
+" Press Return to Apply Changes", 0));
         groupBox->setTitle(QApplication::translate("RigidTrackClass", "PnP Algorithm", 0));
         rbIterative->setText(QApplication::translate("RigidTrackClass", "Iterative", 0));
         rbP3P->setText(QApplication::translate("RigidTrackClass", "P3P", 0));
@@ -263,7 +278,7 @@ public:
 #endif // QT_NO_TOOLTIP
         lbSafetyArea_2->setText(QApplication::translate("RigidTrackClass", "Safety Area Angles", 0));
         leIPSafety->setText(QApplication::translate("RigidTrackClass", "192.168.137.2:9155", 0));
-        label_3->setText(QApplication::translate("RigidTrackClass", "IP Adress of Emergency Switch Press Return to Apply", 0));
+        label_3->setText(QApplication::translate("RigidTrackClass", "IP Adress of Safety Receiver Press Return to Apply", 0));
         pbLoadMarker->setText(QApplication::translate("RigidTrackClass", "Load Marker\n"
 "Configuration", 0));
         groupBox_3->setTitle(QApplication::translate("RigidTrackClass", "Additional Receiver", 0));
@@ -272,11 +287,14 @@ public:
 #endif // QT_NO_TOOLTIP
         cbSafety2->setText(QApplication::translate("RigidTrackClass", "Send to second Receiver", 0));
         leIPSafety2->setText(QApplication::translate("RigidTrackClass", "192.168.137.254:9155", 0));
+        label_4->setText(QApplication::translate("RigidTrackClass", "IP Adress:Port of second Receiver\n"
+" Press Return to Apply Changes", 0));
         cbInvert->setText(QApplication::translate("RigidTrackClass", "Invert Z", 0));
         btnCalibrateGround->setText(QApplication::translate("RigidTrackClass", "Calibrate\n"
 "Ground", 0));
         menuHelp->setTitle(QApplication::translate("RigidTrackClass", "Help", 0));
         menuOpen_Logs->setTitle(QApplication::translate("RigidTrackClass", "Open Folders", 0));
+        menuAbout->setTitle(QApplication::translate("RigidTrackClass", "About", 0));
         Q_UNUSED(RigidTrackClass);
     } // retranslateUi
 

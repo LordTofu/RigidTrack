@@ -2,6 +2,7 @@
 #include <QProcess>
 #include <QdesktopServices>
 #include <QDir>
+#include <QMessageBox>
 #include <QUrl>
 #include "main.h"
 #include "communication.h"
@@ -231,6 +232,14 @@ void RigidTrack::on_actionOpen_Log_Folder_triggered()
 {
 	QString command = "explorer.exe " + QDir::currentPath().replace("/", "\\") + "\\logs";
 	QProcess::startDetached(command);
+}
+
+void RigidTrack::on_actionAbout_Rigid_Track_triggered()
+{
+	QMessageBox msgBox;
+	msgBox.setWindowTitle("About Rigid Track");
+	msgBox.setText("Rigid Track\nInstitute for Flight System Dynamics\nVersion:\t 1.0\nAuthor:\t Florian Wachter\nBuild Date:\t " + QString(__DATE__));
+	msgBox.exec();
 }
 
 void RigidTrack::on_actionOpen_Installation_Folder_triggered()
