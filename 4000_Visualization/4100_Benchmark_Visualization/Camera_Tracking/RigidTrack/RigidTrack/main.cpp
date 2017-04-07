@@ -982,8 +982,6 @@ void testAlgorithms()
 	commObj.addLog(QString::fromStdString(ss.str()));
 
 
-	float tolerance = 0.01; //!< in mm
-
 	bool useGuess = true;
 	_methodPNP = 0; //!< 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //!< not used
 
