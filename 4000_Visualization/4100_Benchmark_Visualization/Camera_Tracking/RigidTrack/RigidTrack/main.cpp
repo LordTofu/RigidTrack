@@ -436,7 +436,7 @@ int startTracking() {
 				//! Sanity check of values. negative z means the marker CoSy is behind the camera, that's not possible.
 				if (minValue < 0)
 				{
-					commObj.addLog("Negative z distance, that is not possible. Start the set zero routine again or restart Programm.");
+					commObj.addLog("Negative z distance, that is not possible. Start the set zero routine again or restart Program.");
 					frame->Release(); //! Release the frame so the camera can move on
 					camera->Release(); //! Release the camera
 					closeUDP(); //! Close all UDP connections so the programm can be closed later on and no resources are locked
@@ -852,7 +852,7 @@ int calibrateCamera()
 	}
 
 	QPixmap QPFrame;
-
+	commObj.progressUpdate(0);
 	while (number_samples < imagesToSample)
 	{
 		//! Fetch a new frame from the camera ===---
@@ -887,6 +887,7 @@ int calibrateCamera()
 			frame->Release();
 			ss.str("");
 			ss << "Samples found  =  " << number_samples;
+			commObj.progressUpdate(number_samples * 100 / imagesToSample);
 		}
 		Sleep(2);
 	}
@@ -896,7 +897,7 @@ int calibrateCamera()
 	objectPoints.resize(imagePoints.size(), objectPoints[0]);
 
 	double rms = calibrateCamera(objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs, Rvec, Tvec);
-
+	commObj.progressUpdate(0);
 	//! Release camera ==--
 	camera->Release();
 
