@@ -1,0 +1,197 @@
+.TH "RigidTrack/simpleplot.m" 3 "Sat Apr 8 2017" "Rigid Track" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RigidTrack/simpleplot.m
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBylim\fP ([\-2, 2]) grid \fBminor\fP"
+.br
+.ti -1c
+.RI "\fBsubplot\fP (3, 1, 2) \fBplot\fP(\fBt\fP"
+.br
+.ti -1c
+.RI "\fBxlabel\fP ('Time[s]') legend('V_x'"
+.br
+.ti -1c
+.RI "\fBsubplot\fP (3, 1, 3) \fBplot\fP(\fBt\fP"
+.br
+.ti -1c
+.RI "\fBylabel\fP ('Euler Angle [deg]') \fBxlabel\fP('Time[s]') legend('Roll'"
+.br
+.ti -1c
+.RI "\fBposz_downSamp\fP (\fBi\fP)"
+.br
+.ti -1c
+.RI "\fBplot\fP (\fBt\fP, \fBvelz\fP, \fBt_downSamp\fP, \fBvelz_downSamp\fP)"
+.br
+.ti -1c
+.RI "\fBstd\fP (\fBx\fP)) sprintf('Standard Deviation of Position Y is %f mm'"
+.br
+.ti -1c
+.RI "\fBstd\fP (\fBy\fP)) sprintf('Standard Deviation of Position Z is %f mm'"
+.br
+.ti -1c
+.RI "\fBstd\fP (\fBz\fP)) sprintf('Standard Deviation of Velocity X is %f m/s'"
+.br
+.ti -1c
+.RI "\fBstd\fP (\fBvelx\fP)) sprintf('Standard Deviation of Velocity Y is %f m/s'"
+.br
+.ti -1c
+.RI "\fBstd\fP (\fBvely\fP)) sprintf('Standard Deviation of Velocity Z is %f m/s'"
+.br
+.ti -1c
+.RI "\fBstd\fP (\fBvelz\fP)) sprintf('Standard Deviation of Velocity Z DS is %f mm/s'"
+.br
+.ti -1c
+.RI "\fBstd\fP (\fBvelz_downSamp\fP)) sprintf('Standard Deviation of Euler 1 is %f °'"
+.br
+.ti -1c
+.RI "\fBstd\fP (\fBeuler1\fP)) sprintf('Standard Deviation of Euler 2 is %f °'"
+.br
+.ti -1c
+.RI "\fBstd\fP (\fBeuler2\fP)) sprintf('Standard Deviation of Euler 3 is %f °'"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "clear all ImportLog \fBsamples_end\fP = 1200*100"
+.br
+.ti -1c
+.RI "\fBsamples_start\fP =1180*100"
+.br
+.ti -1c
+.RI "\fBx\fP"
+.br
+.ti -1c
+.RI "\fBV_y\fP"
+.br
+.ti -1c
+.RI "V_z grid \fBon\fP"
+.br
+.ti -1c
+.RI "\fBPitch\fP"
+.br
+.ti -1c
+.RI "grid \fBminor\fP"
+.br
+.ti -1c
+.RI "\fBt\fP =t\-t(1)"
+.br
+.ti -1c
+.RI "\fBposz_sim\fP =timeseries(\fBz\fP,\fBt\fP)"
+.br
+.ti -1c
+.RI "compute \fBvelocity\fP only with every timestep \fBt_downSamp\fP = zeros(idivide(numel(\fBt\fP), int32(10)),1)"
+.br
+.ti -1c
+.RI "\fBposz_downSamp\fP = zeros(numel(\fBt_downSamp\fP),1)"
+.br
+.ti -1c
+.RI "\fBvelz_downSamp\fP = zeros(numel(\fBt_downSamp\fP),1)"
+.br
+.ti -1c
+.RI "for \fBi\fP"
+.br
+.ti -1c
+.RI "end \fBvelz_filtered\fP = doFilter(\fBvelz\fP)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "plot (\fBt\fP, \fBvelz\fP, \fBt_downSamp\fP, \fBvelz_downSamp\fP)"
+
+.SS "posz_downSamp (\fBi\fP)"
+
+.SS "std (\fBx\fP)"
+
+.SS "std (\fBy\fP)"
+
+.SS "std (\fBz\fP)"
+
+.SS "std (\fBvelx\fP)"
+
+.SS "std (\fBvely\fP)"
+
+.SS "std (\fBvelz\fP)"
+
+.SS "std (\fBvelz_downSamp\fP)"
+
+.SS "std (\fBeuler1\fP)"
+
+.SS "std (\fBeuler2\fP)"
+
+.SS "subplot (3, 1, 2)"
+
+.SS "subplot (3, 1, 3)"
+
+.SS "xlabel ('Time'[s])"
+
+.SS "ylabel ('Euler Angle '[deg])"
+
+.SS "ylim ()"
+
+.SH "Variable Documentation"
+.PP 
+.SS "end for i"
+\fBInitial value:\fP
+.PP
+.nf
+=1:numel(t_downSamp)
+   t_downSamp(i) = t(i*10)
+.fi
+.SS "grid minor"
+
+.SS "V_z grid on"
+
+.SS "Pitch"
+
+.SS "posz_downSamp = zeros(numel(\fBt_downSamp\fP),1)"
+
+.SS "posz_sim =timeseries(\fBz\fP,\fBt\fP)"
+
+.SS "clear all ImportLog samples_end = 1200*100"
+
+.SS "samples_start =1180*100"
+
+.SS "t =t\-t(1)"
+
+.SS "compute \fBvelocity\fP only with every timestep t_downSamp = zeros(idivide(numel(\fBt\fP), int32(10)),1)"
+
+.SS "V_y"
+
+.SS "velz_downSamp = zeros(numel(\fBt_downSamp\fP),1)"
+
+.SS "end velz_filtered = doFilter(\fBvelz\fP)"
+
+.SS "x"
+\fBInitial value:\fP
+.PP
+.nf
+= x(samples_start:samples_end)
+y = y(samples_start:samples_end)
+z = z(samples_start:samples_end)
+velx = velx(samples_start:samples_end)
+vely = vely(samples_start:samples_end)
+velz = velz(samples_start:samples_end)
+euler1 = euler1(samples_start:samples_end)
+euler2 = euler2(samples_start:samples_end)
+euler3 = euler3(samples_start:samples_end)
+t = t(samples_start:samples_end)
+figure(1)
+subplot(3,1,1)
+plot(t, [x, y, z])
+xlabel('Time[s]')
+legend('x', 'y', 'z')
+grid on
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Rigid Track from the source code\&.

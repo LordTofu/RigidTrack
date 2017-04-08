@@ -1,0 +1,104 @@
+.TH "commObject" 3 "Sat Apr 8 2017" "Rigid Track" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+commObject
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <communication\&.h>\fP
+.PP
+Inherits QObject\&.
+.SS "Signals"
+
+.in +1c
+.ti -1c
+.RI "void \fBstatusChanged\fP (QString newText)"
+.br
+.RI "/< SIGNAL 0 "
+.ti -1c
+.RI "void \fBimageChanged\fP (QPixmap image)"
+.br
+.RI "/< SIGNAL 1 "
+.ti -1c
+.RI "void \fBlogAdded\fP (QString LogText)"
+.br
+.RI "/< SIGNAL 2 "
+.ti -1c
+.RI "void \fBlogCleared\fP ()"
+.br
+.RI "/< SIGNAL 3 "
+.ti -1c
+.RI "void \fBP3Penabled\fP (bool value)"
+.br
+.RI "/< SIGNAL 4 "
+.ti -1c
+.RI "void \fBprogressUpdated\fP (int value)"
+.br
+.RI "/< SIGNAL 5 "
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBchangeStatus\fP (QString newText)"
+.br
+.ti -1c
+.RI "void \fBchangeImage\fP (QPixmap image)"
+.br
+.ti -1c
+.RI "void \fBaddLog\fP (QString LogText)"
+.br
+.ti -1c
+.RI "void \fBclearLog\fP ()"
+.br
+.ti -1c
+.RI "void \fBenableP3P\fP (bool value)"
+.br
+.ti -1c
+.RI "void \fBprogressUpdate\fP (int value)"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void commObject::addLog (QString LogText)"
+
+.SS "void commObject::changeImage (QPixmap image)"
+
+.SS "void commObject::changeStatus (QString newText)"
+
+.SS "void commObject::clearLog ()"
+
+.SS "void commObject::enableP3P (bool value)"
+
+.SS "void commObject::imageChanged (QPixmap image)\fC [signal]\fP"
+
+.PP
+/< SIGNAL 1 
+.SS "void commObject::logAdded (QString LogText)\fC [signal]\fP"
+
+.PP
+/< SIGNAL 2 
+.SS "void commObject::logCleared ()\fC [signal]\fP"
+
+.PP
+/< SIGNAL 3 
+.SS "void commObject::P3Penabled (bool value)\fC [signal]\fP"
+
+.PP
+/< SIGNAL 4 
+.SS "void commObject::progressUpdate (int value)"
+
+.SS "void commObject::progressUpdated (int value)\fC [signal]\fP"
+
+.PP
+/< SIGNAL 5 
+.SS "void commObject::statusChanged (QString newText)\fC [signal]\fP"
+
+.PP
+/< SIGNAL 0 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Rigid Track from the source code\&.

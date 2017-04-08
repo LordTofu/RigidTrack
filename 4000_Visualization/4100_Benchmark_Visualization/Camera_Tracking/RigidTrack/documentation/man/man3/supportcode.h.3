@@ -1,0 +1,119 @@
+.TH "RigidTrack/supportcode.h" 3 "Sat Apr 8 2017" "Rigid Track" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RigidTrack/supportcode.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <windows\&.h>\fP
+.br
+\fC#include <gl\\gl\&.h>\fP
+.br
+\fC#include 'bitmap\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBSurface\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBWIN32_LEAN_AND_MEAN\fP"
+.br
+.ti -1c
+.RI "#define \fBBYTESPERPIXEL\fP   4"
+.br
+.ti -1c
+.RI "#define \fBRGBA\fP(\fBx\fP,  \fBy\fP,  \fBz\fP,  a)   ((a<<24)|(\fBx\fP<<16)|(\fBy\fP<<8)|\fBz\fP)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "LRESULT CALLBACK \fBWndProc\fP (HWND, UINT, WPARAM, LPARAM)"
+.br
+.RI "/< Additional Message Information "
+.ti -1c
+.RI "BOOL \fBCreateAppWindow\fP (const char *title, int width, int height, int bits, bool fullscreenflag)"
+.br
+.ti -1c
+.RI "GLvoid \fBCloseWindow\fP (GLvoid)"
+.br
+.RI "/< Properly Kill The Window "
+.ti -1c
+.RI "bool \fBPumpMessages\fP ()"
+.br
+.ti -1c
+.RI "bool \fBFullscreenToggle\fP ()"
+.br
+.ti -1c
+.RI "bool \fBPopWaitingDialog\fP ()"
+.br
+.ti -1c
+.RI "int \fBDrawGLScene\fP (\fBSurface\fP *surf, int width, int height)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "HDC \fBhDC\fP"
+.br
+.ti -1c
+.RI "bool \fBkeys\fP [256]"
+.br
+.ti -1c
+.RI "bool \fBgActive\fP"
+.br
+.ti -1c
+.RI "bool \fBgFullscreen\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define BYTESPERPIXEL   4"
+
+.SS "#define RGBA(\fBx\fP, \fBy\fP, \fBz\fP, a)   ((a<<24)|(\fBx\fP<<16)|(\fBy\fP<<8)|\fBz\fP)"
+
+.SS "#define WIN32_LEAN_AND_MEAN"
+
+.SH "Function Documentation"
+.PP 
+.SS "GLvoid CloseWindow (GLvoid)"
+
+.PP
+/< Properly Kill The Window 
+.SS "BOOL CreateAppWindow (const char * title, int width, int height, int bits, bool fullscreenflag)"
+
+.SS "int DrawGLScene (\fBSurface\fP * surf, int width, int height)"
+
+.SS "bool FullscreenToggle ()"
+
+.SS "bool PopWaitingDialog ()"
+
+.SS "bool PumpMessages ()"
+
+.SS "LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM)"
+
+.PP
+/< Additional Message Information 
+.SH "Variable Documentation"
+.PP 
+.SS "bool gActive"
+
+.SS "bool gFullscreen"
+
+.SS "HDC hDC"
+
+.SS "bool keys[256]"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Rigid Track from the source code\&.

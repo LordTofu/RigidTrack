@@ -6,24 +6,8 @@
 
 
 
-Inheritance diagram for comm\+Object\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=152pt]{classcomm_object__inherit__graph}
-\end{center}
-\end{figure}
+Inherits Q\+Object.
 
-
-Collaboration diagram for comm\+Object\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=152pt]{classcomm_object__coll__graph}
-\end{center}
-\end{figure}
 \subsection*{Signals}
 \begin{DoxyCompactItemize}
 \item 
@@ -56,6 +40,13 @@ void \hyperlink{classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e}{progress\+Up
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+
+
+Definition at line 7 of file communication.\+h.
+
+
+
 \subsection{Member Function Documentation}
 \mbox{\Hypertarget{classcomm_object_aec354c7099b3039083cc4224e071e022}\label{classcomm_object_aec354c7099b3039083cc4224e071e022}} 
 \index{comm\+Object@{comm\+Object}!add\+Log@{add\+Log}}
@@ -63,8 +54,19 @@ void \hyperlink{classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e}{progress\+Up
 \subsubsection{\texorpdfstring{add\+Log()}{addLog()}}
 {\footnotesize\ttfamily void comm\+Object\+::add\+Log (\begin{DoxyParamCaption}\item[{Q\+String}]{Log\+Text }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 20 of file communication.\+cpp.
+
+
+\begin{DoxyCode}
+20                                        \{
+21 
+22     emit \hyperlink{classcomm_object_a72620fe1bac16309baf6d148644edaf9}{logAdded}(LogText);
+23     QCoreApplication::processEvents();
+24 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -77,8 +79,19 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{change\+Image()}{changeImage()}}
 {\footnotesize\ttfamily void comm\+Object\+::change\+Image (\begin{DoxyParamCaption}\item[{Q\+Pixmap}]{image }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 14 of file communication.\+cpp.
+
+
+\begin{DoxyCode}
+14                                           \{
+15 
+16     emit \hyperlink{classcomm_object_a3828eab6be234f6216a6f80a6a82e41e}{imageChanged}(image);
+17     QCoreApplication::processEvents();
+18 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -91,8 +104,19 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{change\+Status()}{changeStatus()}}
 {\footnotesize\ttfamily void comm\+Object\+::change\+Status (\begin{DoxyParamCaption}\item[{Q\+String}]{new\+Text }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 8 of file communication.\+cpp.
+
+
+\begin{DoxyCode}
+8                                              \{
+9 
+10     emit \hyperlink{classcomm_object_adccf5b5946d35d5cf6d76f367f93e335}{statusChanged}(newText);
+11     QCoreApplication::processEvents();
+12 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -105,14 +129,36 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{clear\+Log()}{clearLog()}}
 {\footnotesize\ttfamily void comm\+Object\+::clear\+Log (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Definition at line 26 of file communication.\+cpp.
+
+
+\begin{DoxyCode}
+26                           \{
+27 
+28     emit \hyperlink{classcomm_object_af2304085624c26230e9d930d616e3e19}{logCleared}();
+29     QCoreApplication::processEvents();
+30 \}
+\end{DoxyCode}
 \mbox{\Hypertarget{classcomm_object_a7552116eb5e18c49c6dcf943de29af7a}\label{classcomm_object_a7552116eb5e18c49c6dcf943de29af7a}} 
 \index{comm\+Object@{comm\+Object}!enable\+P3P@{enable\+P3P}}
 \index{enable\+P3P@{enable\+P3P}!comm\+Object@{comm\+Object}}
 \subsubsection{\texorpdfstring{enable\+P3\+P()}{enableP3P()}}
 {\footnotesize\ttfamily void comm\+Object\+::enable\+P3P (\begin{DoxyParamCaption}\item[{bool}]{value }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 32 of file communication.\+cpp.
+
+
+\begin{DoxyCode}
+33 \{
+34     emit \hyperlink{classcomm_object_af369de87a7f2c9b7170223bedd6c08d9}{P3Penabled}(value);
+35     QCoreApplication::processEvents();
+36 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -129,8 +175,18 @@ Here is the caller graph for this function\+:
 
 /$<$ S\+I\+G\+N\+AL 1 
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 190 of file moc\+\_\+communication.\+cpp.
+
+
+\begin{DoxyCode}
+191 \{
+192     \textcolor{keywordtype}{void} *\_a[] = \{ Q\_NULLPTR, \textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(&\_t1)) \};
+193     QMetaObject::activate(\textcolor{keyword}{this}, &staticMetaObject, 1, \_a);
+194 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -147,8 +203,18 @@ Here is the caller graph for this function\+:
 
 /$<$ S\+I\+G\+N\+AL 2 
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 197 of file moc\+\_\+communication.\+cpp.
+
+
+\begin{DoxyCode}
+198 \{
+199     \textcolor{keywordtype}{void} *\_a[] = \{ Q\_NULLPTR, \textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(&\_t1)) \};
+200     QMetaObject::activate(\textcolor{keyword}{this}, &staticMetaObject, 2, \_a);
+201 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -165,8 +231,17 @@ Here is the caller graph for this function\+:
 
 /$<$ S\+I\+G\+N\+AL 3 
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 204 of file moc\+\_\+communication.\+cpp.
+
+
+\begin{DoxyCode}
+205 \{
+206     QMetaObject::activate(\textcolor{keyword}{this}, &staticMetaObject, 3, Q\_NULLPTR);
+207 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -183,8 +258,18 @@ Here is the caller graph for this function\+:
 
 /$<$ S\+I\+G\+N\+AL 4 
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 210 of file moc\+\_\+communication.\+cpp.
+
+
+\begin{DoxyCode}
+211 \{
+212     \textcolor{keywordtype}{void} *\_a[] = \{ Q\_NULLPTR, \textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(&\_t1)) \};
+213     QMetaObject::activate(\textcolor{keyword}{this}, &staticMetaObject, 4, \_a);
+214 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -197,8 +282,18 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{progress\+Update()}{progressUpdate()}}
 {\footnotesize\ttfamily void comm\+Object\+::progress\+Update (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 38 of file communication.\+cpp.
+
+
+\begin{DoxyCode}
+39 \{
+40     emit \hyperlink{classcomm_object_a6039d306f25a6b46c78942edf9cee662}{progressUpdated}(value);
+41     QCoreApplication::processEvents();
+42 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -215,8 +310,18 @@ Here is the caller graph for this function\+:
 
 /$<$ S\+I\+G\+N\+AL 5 
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 217 of file moc\+\_\+communication.\+cpp.
+
+
+\begin{DoxyCode}
+218 \{
+219     \textcolor{keywordtype}{void} *\_a[] = \{ Q\_NULLPTR, \textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(&\_t1)) \};
+220     QMetaObject::activate(\textcolor{keyword}{this}, &staticMetaObject, 5, \_a);
+221 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -233,8 +338,18 @@ Here is the caller graph for this function\+:
 
 /$<$ S\+I\+G\+N\+AL 0 
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 183 of file moc\+\_\+communication.\+cpp.
+
+
+\begin{DoxyCode}
+184 \{
+185     \textcolor{keywordtype}{void} *\_a[] = \{ Q\_NULLPTR, \textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(&\_t1)) \};
+186     QMetaObject::activate(\textcolor{keyword}{this}, &staticMetaObject, 0, \_a);
+187 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

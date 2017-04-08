@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['x',['x',['../_import_log_8m.html#a9336ebf25087d91c818ee6e9ec29f8c1',1,'x():&#160;ImportLog.m'],['../simpleplot_8m.html#a9336ebf25087d91c818ee6e9ec29f8c1',1,'x():&#160;simpleplot.m']]],
-  ['xlabel',['xlabel',['../simpleplot_8m.html#a6eb385e9d5bd65cedde308a4b4b56220',1,'simpleplot.m']]]
+  ['_7ecvmodelestimator2',['~CvModelEstimator2',['../class_cv_model_estimator2.html#a656e12f072058449ca45d785c0eaa02a',1,'CvModelEstimator2']]],
+  ['_7esurface',['~Surface',['../class_surface.html#a89de75c95cb550d432f3ea4ed1429db0',1,'Surface']]]
 ];

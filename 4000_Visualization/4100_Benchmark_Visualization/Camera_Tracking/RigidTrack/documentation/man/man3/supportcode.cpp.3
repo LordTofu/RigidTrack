@@ -1,0 +1,267 @@
+.TH "RigidTrack/supportcode.cpp" 3 "Sat Apr 8 2017" "Rigid Track" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RigidTrack/supportcode.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <windows\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <gl\\gl\&.h>\fP
+.br
+\fC#include <gl\\glu\&.h>\fP
+.br
+\fC#include 'cameralibrary\&.h'\fP
+.br
+\fC#include 'cameramanager\&.h'\fP
+.br
+\fC#include 'math\&.h'\fP
+.br
+\fC#include 'supportcode\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBLoadGLTextures\fP ()"
+.br
+.RI "/< Permanent Rendering Context "
+.ti -1c
+.RI "GLvoid \fBReSizeGLScene\fP (GLsizei width, GLsizei height)"
+.br
+.RI "/< Resize And Initialize The GL Window "
+.ti -1c
+.RI "int \fBInitGL\fP (GLvoid)"
+.br
+.RI "/< All Setup For OpenGL Goes Here "
+.ti -1c
+.RI "int \fBDrawGLScene\fP (\fBSurface\fP *surf, int width, int height)"
+.br
+.ti -1c
+.RI "LRESULT CALLBACK \fBWndProc\fP (HWND \fBhWnd\fP, UINT uMsg, WPARAM wParam, LPARAM lParam)"
+.br
+.RI "/< Additional Message Information "
+.ti -1c
+.RI "GLvoid \fBCloseWindow\fP (GLvoid)"
+.br
+.RI "/< Properly Kill The Window "
+.ti -1c
+.RI "BOOL \fBCreateAppWindow\fP (const char *title, int width, int height, int bits, bool fullscreenflag)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.RI "main initialises the GUI and values for the marker position etc "
+.ti -1c
+.RI "int WINAPI \fBWinMain\fP (HINSTANCE \fBhInstance\fP, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)"
+.br
+.RI "/< Window Show State "
+.ti -1c
+.RI "bool \fBFullscreenToggle\fP ()"
+.br
+.ti -1c
+.RI "bool \fBPumpMessages\fP ()"
+.br
+.ti -1c
+.RI "LRESULT CALLBACK \fBCBTHookProc\fP (int nCode, WPARAM wParam, LPARAM lParam)"
+.br
+.ti -1c
+.RI "VOID CALLBACK \fBTimerProc\fP (HWND \fBhWnd\fP, UINT uMsg, UINT idEvent, DWORD dwTime)"
+.br
+.ti -1c
+.RI "bool \fBPopWaitingDialog\fP ()"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBgWindowWidth\fP"
+.br
+.RI "/<============================================================================================----- /<== This is boiler-plate code for bringing up the application's window and /<== initializing OpenGL, and an OpenGL surface class for rendering the camera /<== image as a quad using the 3D hardware\&. /<============================================================================================----- "
+.ti -1c
+.RI "int \fBgWindowHeight\fP"
+.br
+.ti -1c
+.RI "bool \fBgFullscreen\fP = FALSE"
+.br
+.RI "/< Window Active Flag Set To TRUE By Default "
+.ti -1c
+.RI "bool \fBgActive\fP = TRUE"
+.br
+.RI "/< Array Used For Scanning Keyboard "
+.ti -1c
+.RI "bool \fBkeys\fP [256]"
+.br
+.RI "/< Private GDI Device Context "
+.ti -1c
+.RI "HDC \fBhDC\fP =NULL"
+.br
+.ti -1c
+.RI "GLuint \fBtexture\fP [1]"
+.br
+.RI "/< Fullscreen Flag Set To Fullscreen Mode By Default "
+.ti -1c
+.RI "int \fBgSoftwareDecimate\fP = 0"
+.br
+.RI "/< Storage For One Texture ( NEW ) "
+.ti -1c
+.RI "HWND \fBhWnd\fP =NULL"
+.br
+.RI "/< Private GDI Device Context "
+.ti -1c
+.RI "HINSTANCE \fBhInstance\fP"
+.br
+.RI "/< Holds Our Window Handle "
+.ti -1c
+.RI "HGLRC \fBhRC\fP =NULL"
+.br
+.RI "/< Holds The Instance Of The Application "
+.ti -1c
+.RI "int \fBwindowWidth\fP"
+.br
+.ti -1c
+.RI "int \fBwindowHeight\fP"
+.br
+.ti -1c
+.RI "const char * \fBwindowName\fP"
+.br
+.ti -1c
+.RI "HHOOK \fBhHook\fP = NULL"
+.br
+.RI "/<== Code to pop a simple dialog for 'waiting for cameras' using a message box and /<== no resources required for this sample application\&. "
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "LRESULT CALLBACK CBTHookProc (int nCode, WPARAM wParam, LPARAM lParam)"
+
+.SS "GLvoid CloseWindow (GLvoid)"
+
+.PP
+/< Properly Kill The Window 
+.SS "BOOL CreateAppWindow (const char * title, int width, int height, int bits, bool fullscreenflag)"
+
+.SS "int DrawGLScene (\fBSurface\fP * surf, int width, int height)"
+
+.SS "bool FullscreenToggle ()"
+
+.SS "int InitGL (GLvoid)"
+
+.PP
+/< All Setup For OpenGL Goes Here 
+.SS "int LoadGLTextures ()"
+
+.PP
+/< Permanent Rendering Context /< Load Bitmaps And Convert To Textures 
+.SS "int main (int argc, char * argv[])"
+
+.PP
+main initialises the GUI and values for the marker position etc First the GUI is set up with Signals and Slots, see Qt docu for how that works\&. Then some variables are initialized with arbitrary values\&. At last calibration and marker configuration etc\&. are loaded from xml files\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIargc\fP is not used\&. 
+.br
+\fIargv\fP is also not used\&. 
+.RE
+.PP
+
+.SS "bool PopWaitingDialog ()"
+
+.SS "bool PumpMessages ()"
+
+.SS "GLvoid ReSizeGLScene (GLsizei width, GLsizei height)"
+
+.PP
+/< Resize And Initialize The GL Window 
+.SS "VOID CALLBACK TimerProc (HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime)"
+
+.SS "int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)"
+
+.PP
+/< Window Show State 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhPrevInstance\fP /< Instance 
+.br
+\fIlpCmdLine\fP /< Previous Instance 
+.br
+\fInCmdShow\fP /< Command Line Parameters 
+.RE
+.PP
+
+.SS "LRESULT CALLBACK WndProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)"
+
+.PP
+/< Additional Message Information 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIuMsg\fP /< Handle For This Window 
+.br
+\fIwParam\fP /< Message For This Window 
+.br
+\fIlParam\fP /< Additional Message Information 
+.RE
+.PP
+
+.SH "Variable Documentation"
+.PP 
+.SS "bool gActive = TRUE"
+
+.PP
+/< Array Used For Scanning Keyboard 
+.SS "bool gFullscreen = FALSE"
+
+.PP
+/< Window Active Flag Set To TRUE By Default 
+.SS "int gSoftwareDecimate = 0"
+
+.PP
+/< Storage For One Texture ( NEW ) 
+.SS "int gWindowHeight"
+
+.SS "int gWindowWidth"
+
+.PP
+/<============================================================================================----- /<== This is boiler-plate code for bringing up the application's window and /<== initializing OpenGL, and an OpenGL surface class for rendering the camera /<== image as a quad using the 3D hardware\&. /<============================================================================================----- /< Header File For Windows /< Header File For Standard Input/Output /< Header File For The OpenGL32 Library /< Header File For The GLu32 Library 
+.SS "HDC hDC =NULL"
+
+.SS "HHOOK hHook = NULL"
+
+.PP
+/<== Code to pop a simple dialog for 'waiting for cameras' using a message box and /<== no resources required for this sample application\&. 
+.SS "HINSTANCE hInstance"
+
+.PP
+/< Holds Our Window Handle 
+.SS "HGLRC hRC =NULL"
+
+.PP
+/< Holds The Instance Of The Application 
+.SS "HWND hWnd =NULL"
+
+.PP
+/< Private GDI Device Context 
+.SS "bool keys"
+
+.PP
+/< Private GDI Device Context 
+.SS "GLuint texture[1]"
+
+.PP
+/< Fullscreen Flag Set To Fullscreen Mode By Default 
+.SS "int windowHeight"
+
+.SS "const char* windowName"
+
+.SS "int windowWidth"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Rigid Track from the source code\&.

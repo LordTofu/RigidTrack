@@ -1,0 +1,840 @@
+.TH "RigidTrack/main.cpp" 3 "Sat Apr 8 2017" "Rigid Track" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RigidTrack/main.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'RigidTrack\&.h'\fP
+.br
+\fC#include 'main\&.h'\fP
+.br
+\fC#include 'communication\&.h'\fP
+.br
+\fC#include 'cameralibrary\&.h'\fP
+.br
+\fC#include 'modulevector\&.h'\fP
+.br
+\fC#include 'modulevectorprocessing\&.h'\fP
+.br
+\fC#include 'coremath\&.h'\fP
+.br
+\fC#include <QtWidgets/QApplication>\fP
+.br
+\fC#include <QDesktopServices>\fP
+.br
+\fC#include <QInputDialog>\fP
+.br
+\fC#include <QUrl>\fP
+.br
+\fC#include <QThread>\fP
+.br
+\fC#include <QUdpSocket>\fP
+.br
+\fC#include <QFileDialog>\fP
+.br
+\fC#include <opencv\\cv\&.h>\fP
+.br
+\fC#include 'opencv2\\core\&.hpp'\fP
+.br
+\fC#include 'opencv2\\calib3d\&.hpp'\fP
+.br
+\fC#include <opencv2/imgproc/imgproc\&.hpp>\fP
+.br
+\fC#include <opencv2/calib3d/calib3d\&.hpp>\fP
+.br
+\fC#include <opencv2/highgui/highgui\&.hpp>\fP
+.br
+\fC#include <opencv2\\video\\tracking\&.hpp>\fP
+.br
+\fC#include <fstream>\fP
+.br
+\fC#include <windows\&.h>\fP
+.br
+\fC#include <conio\&.h>\fP
+.br
+\fC#include <tchar\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <iostream>\fP
+.br
+\fC#include <stdarg\&.h>\fP
+.br
+\fC#include <ctype\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <gl/glu\&.h>\fP
+.br
+\fC#include <sstream>\fP
+.br
+\fC#include <time\&.h>\fP
+.br
+\fC#include <cmath>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include <algorithm>\fP
+.br
+\fC#include <random>\fP
+.br
+\fC#include <thread>\fP
+.br
+\fC#include <strsafe\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.RI "main initialises the GUI and values for the marker position etc "
+.ti -1c
+.RI "QPixmap \fBMat2QPixmap\fP (cv::Mat src)"
+.br
+.ti -1c
+.RI "void \fBcalcBoardCornerPositions\fP (Size boardSize, float squareSize, std::vector< Point3f > &corners)"
+.br
+.ti -1c
+.RI "void \fBgetEulerAngles\fP (Mat &rotCamerMatrix, Vec3d &\fBeulerAngles\fP)"
+.br
+.ti -1c
+.RI "int \fBstartTracking\fP ()"
+.br
+.ti -1c
+.RI "void \fBstartStopCamera\fP ()"
+.br
+.RI "Start or stop the tracking depending on if the camera is currently running or not\&. "
+.ti -1c
+.RI "int \fBsetReference\fP ()"
+.br
+.ti -1c
+.RI "int \fBcalibrateCamera\fP ()"
+.br
+.RI "Start the camera calibration routine that computes the camera matrix and distortion coefficients\&. "
+.ti -1c
+.RI "void \fBloadCalibration\fP (int method)"
+.br
+.ti -1c
+.RI "void \fBtestAlgorithms\fP ()"
+.br
+.ti -1c
+.RI "void \fBprojectCoordinateFrame\fP (Mat pictureFrame)"
+.br
+.ti -1c
+.RI "void \fBsetUpUDP\fP ()"
+.br
+.RI "Open the UDP ports for communication\&. "
+.ti -1c
+.RI "void \fBsetHeadingOffset\fP (double d)"
+.br
+.ti -1c
+.RI "void \fBsendDataUDP\fP (cv::Vec3d &Position, cv::Vec3d &Euler)"
+.br
+.ti -1c
+.RI "void \fBcloseUDP\fP ()"
+.br
+.ti -1c
+.RI "void \fBloadMarkerConfig\fP (int method)"
+.br
+.ti -1c
+.RI "void \fBdrawPositionText\fP (cv::Mat &Picture, cv::Vec3d &Position, cv::Vec3d &Euler, double \fBerror\fP)"
+.br
+.ti -1c
+.RI "void \fBloadCameraPosition\fP ()"
+.br
+.ti -1c
+.RI "int \fBdetermineExposure\fP ()"
+.br
+.ti -1c
+.RI "void \fBdetermineOrder\fP ()"
+.br
+.ti -1c
+.RI "int \fBcalibrateGround\fP ()"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBcommObject\fP \fBcommObj\fP"
+.br
+.RI "class that handles the communication from \fBmain\&.cpp\fP to the GUI "
+.ti -1c
+.RI "bool \fBsafetyEnable\fP = false"
+.br
+.RI "is the safety feature enabled "
+.ti -1c
+.RI "bool \fBsafety2Enable\fP = false"
+.br
+.RI "is the second receiver enabled "
+.ti -1c
+.RI "double \fBsafetyBoxLength\fP = 1\&.5"
+.br
+.RI "length of the safety area cube in meters "
+.ti -1c
+.RI "int \fBsafetyAngle\fP = 30"
+.br
+.RI "bank and pitch angle protection in degrees "
+.ti -1c
+.RI "bool \fBexitRequested\fP = true"
+.br
+.RI "variable if tracking loop should be exited "
+.ti -1c
+.RI "int \fBinvertZ\fP = 1"
+.br
+.RI "dummy variable to invert Z direction on request "
+.ti -1c
+.RI "double \fBframeTime\fP = 0\&.01"
+.br
+.RI "100 Hz CoSy rate, is later on replaced with the hardware timestamp delivered by the camera "
+.ti -1c
+.RI "double \fBtimeOld\fP = 0\&.0"
+.br
+.RI "old time for finite differences velocity calculation\&. Is later on replaced with the hardware timestamp delivered by the camera "
+.ti -1c
+.RI "double \fBtimeFirstFrame\fP = 0"
+.br
+.RI "Time stamp of the first frame\&. This value is then subtracted for every other frame so the time in the log start at zero\&. "
+.ti -1c
+.RI "Vec3d \fBposition\fP = Vec3d()"
+.br
+.RI "position vector x,y,z for object position in O-CoSy, unit is meter "
+.ti -1c
+.RI "Vec3d \fBeulerAngles\fP = Vec3d()"
+.br
+.RI "Roll Pitch Heading in this order, units in degrees\&. "
+.ti -1c
+.RI "Vec3d \fBpositionOld\fP = Vec3d()"
+.br
+.RI "old position in O-CoSy for finite differences velocity calculation "
+.ti -1c
+.RI "Vec3d \fBvelocity\fP = Vec3d()"
+.br
+.RI "velocity vector of object in o-CoSy in respect to o-CoSy "
+.ti -1c
+.RI "Vec3d \fBposRef\fP = Vec3d()"
+.br
+.RI "initial position of object in camera CoSy "
+.ti -1c
+.RI "Vec3d \fBeulerRef\fP = Vec3d()"
+.br
+.RI "initial euler angle of object respectivley to camera CoSy "
+.ti -1c
+.RI "double \fBheadingOffset\fP = 0"
+.br
+.RI "heading offset variable for aligning INS heading with tracking heading "
+.ti -1c
+.RI "int \fBintIntensity\fP = 15"
+.br
+.RI "max infrared spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless "
+.ti -1c
+.RI "int \fBintExposure\fP = 1"
+.br
+.RI "max is 480 increase if markers are badly visible but should be determined automatically during \fBsetReference()\fP "
+.ti -1c
+.RI "int \fBintFrameRate\fP = 100"
+.br
+.RI "CoSy rate of camera, maximum is 100 fps\&. "
+.ti -1c
+.RI "int \fBintThreshold\fP = 200"
+.br
+.RI "threshold value for marker detection\&. If markers are badly visible lower this value but should not be necessary "
+.ti -1c
+.RI "Mat \fBRmat\fP = (cv::Mat_<double>(3, 1) << 0\&.0, 0\&.0, 0\&.0)"
+.br
+.RI "Rotation, translation etc\&. matrix for PnP results\&. "
+.ti -1c
+.RI "Mat \fBRmatRef\fP = (cv::Mat_<double>(3, 3) << 1\&., 0\&., 0\&., 0\&., 1\&., 0\&., 0\&., 0\&., 1\&.)"
+.br
+.RI "reference rotation matrix from camera CoSy to marker CoSy "
+.ti -1c
+.RI "Mat \fBM_CN\fP = cv::Mat_<double>(3, 3)"
+.br
+.RI "rotation matrix from camera to ground, fixed for given camera position "
+.ti -1c
+.RI "Mat \fBM_HeadingOffset\fP = cv::Mat_<double>(3, 3)"
+.br
+.RI "rotation matrix that turns the ground system to the INS magnetic heading for alignment "
+.ti -1c
+.RI "Mat \fBRvec\fP = (cv::Mat_<double>(3, 1) << 0\&.0, 0\&.0, 0\&.0)"
+.br
+.RI "rotation vector (axis-angle notation) from camera CoSy to marker CoSy "
+.ti -1c
+.RI "Mat \fBTvec\fP = (cv::Mat_<double>(3, 1) << 0\&.0, 0\&.0, 0\&.0)"
+.br
+.RI "translation vector from camera CoSy to marker CoSy in camera CoSy "
+.ti -1c
+.RI "Mat \fBRvecOriginal\fP"
+.br
+.RI "initial values as start values for algorithms and algorithm tests "
+.ti -1c
+.RI "Mat \fBTvecOriginal\fP"
+.br
+.RI "initial values as start values for algorithms and algorithm tests "
+.ti -1c
+.RI "bool \fBuseGuess\fP = true"
+.br
+.RI "set to true and the algorithm uses the last result as starting value "
+.ti -1c
+.RI "int \fBmethodPNP\fP = 0"
+.br
+.RI "solvePNP algorithm 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP //!< 4 and 1 are the same and not implemented correctly by OpenCV "
+.ti -1c
+.RI "int \fBnumberMarkers\fP = 4"
+.br
+.RI "number of markers\&. Is loaded during start up from the marker configuration file "
+.ti -1c
+.RI "std::vector< Point3d > \fBlist_points3d\fP"
+.br
+.RI "marker positions in marker CoSy "
+.ti -1c
+.RI "std::vector< Point2d > \fBlist_points2d\fP"
+.br
+.RI "marker positions projected in 2D in camera image CoSy "
+.ti -1c
+.RI "std::vector< Point2d > \fBlist_points2dOld\fP"
+.br
+.RI "marker positions in previous picture in 2D in camera image CoSy "
+.ti -1c
+.RI "std::vector< double > \fBlist_points2dDifference\fP"
+.br
+.RI "difference of the old and new 2D marker position to determine the order of the points "
+.ti -1c
+.RI "std::vector< Point2d > \fBlist_points2dProjected\fP"
+.br
+.RI "3D marker points projected to 2D in camera image CoSy with the algorithm projectPoints "
+.ti -1c
+.RI "std::vector< Point2d > \fBlist_points2dUnsorted\fP"
+.br
+.RI "marker points in 2D camera image CoSy, sorted with increasing x (camera image CoSy) but not sorted to correspond with list_points3d "
+.ti -1c
+.RI "std::vector< Point3d > \fBcoordinateFrame\fP"
+.br
+.RI "coordinate visualisazion of marker CoSy "
+.ti -1c
+.RI "std::vector< Point2d > \fBcoordinateFrameProjected\fP"
+.br
+.RI "marker CoSy projected from 3D to 2D camera image CoSy "
+.ti -1c
+.RI "int \fBpointOrderIndices\fP [] = { 0, 1, 2, 3 }"
+.br
+.RI "old correspondence from list_points3d and list_points_2d "
+.ti -1c
+.RI "int \fBpointOrderIndicesNew\fP [] = { 0, 1, 2, 3 }"
+.br
+.RI "new correspondence from list_points3d and list_points_2d "
+.ti -1c
+.RI "double \fBcurrentPointDistance\fP = 5000"
+.br
+.RI "distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image CoSy "
+.ti -1c
+.RI "double \fBminPointDistance\fP = 5000"
+.br
+.RI "minimum distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image CoSy "
+.ti -1c
+.RI "int \fBcurrentMinIndex\fP = 0"
+.br
+.RI "helper variable set to the point order that holds the current minimum point distance "
+.ti -1c
+.RI "bool \fBgotOrder\fP = false"
+.br
+.RI "order of the list_points3d and list_points3d already tetermined or not, has to be done once "
+.ti -1c
+.RI "bool \fBcamera_started\fP = false"
+.br
+.RI "variable thats needed to exit the main while loop "
+.ti -1c
+.RI "Mat \fBcameraMatrix\fP"
+.br
+.RI "camera matrix of the camera "
+.ti -1c
+.RI "Mat \fBdistCoeffs\fP"
+.br
+.RI "distortion coefficients of the camera "
+.ti -1c
+.RI "Core::DistortionModel \fBdistModel\fP"
+.br
+.RI "distortion model of the camera "
+.ti -1c
+.RI "QUdpSocket * \fBudpSocketObject\fP"
+.br
+.RI "socket for the communication with receiver 1 "
+.ti -1c
+.RI "QUdpSocket * \fBudpSocketSafety\fP"
+.br
+.RI "socket for the communication with safety receiver "
+.ti -1c
+.RI "QUdpSocket * \fBudpSocketSafety2\fP"
+.br
+.RI "socket for the communication with receiver 3 "
+.ti -1c
+.RI "QHostAddress \fBIPAdressObject\fP = QHostAddress('127\&.0\&.0\&.1')"
+.br
+.RI "IPv4 adress of receiver 1\&. "
+.ti -1c
+.RI "QHostAddress \fBIPAdressSafety\fP = QHostAddress('192\&.168\&.4\&.1')"
+.br
+.RI "IPv4 adress of safety receiver\&. "
+.ti -1c
+.RI "QHostAddress \fBIPAdressSafety2\fP = QHostAddress('192\&.168\&.4\&.4')"
+.br
+.RI "IPv4 adress of receiver 2\&. "
+.ti -1c
+.RI "int \fBportObject\fP = 9155"
+.br
+.RI "Port of receiver 1\&. "
+.ti -1c
+.RI "int \fBportSafety\fP = 9155"
+.br
+.RI "Port of the safety receiver\&. "
+.ti -1c
+.RI "int \fBportSafety2\fP = 9155"
+.br
+.RI "Port of receiver 2\&. "
+.ti -1c
+.RI "QByteArray \fBdatagram\fP"
+.br
+.RI "data package that is sent to receiver 1 and 2 "
+.ti -1c
+.RI "QByteArray \fBdata\fP"
+.br
+.RI "data package that's sent to the safety receiver "
+.ti -1c
+.RI "const int \fBBACKBUFFER_BITSPERPIXEL\fP = 8"
+.br
+.RI "8 bit per pixel and greyscale image from camera "
+.ti -1c
+.RI "std::string \fBstrBuf\fP"
+.br
+.RI "buffer that holds the strings that are sent to the Qt GUI "
+.ti -1c
+.RI "std::stringstream \fBss\fP"
+.br
+.RI "stream that sends the strBuf buffer to the Qt GUI "
+.ti -1c
+.RI "QString \fBlogFileName\fP"
+.br
+.RI "Filename for the logfiles\&. "
+.ti -1c
+.RI "std::string \fBlogName\fP"
+.br
+.RI "Filename for the logfiles as standard string\&. "
+.ti -1c
+.RI "SYSTEMTIME \fBlogDate\fP"
+.br
+.RI "Systemtime struct that saves the current date and time thats needed for the log file name creation\&. "
+.ti -1c
+.RI "std::ofstream \fBlogfile\fP"
+.br
+.RI "file handler for writing the log file "
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void calcBoardCornerPositions (Size boardSize, float squareSize, std::vector< Point3f > & corners)"
+Calculate the chess board corner positions, used for the camera calibration\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIboardSize\fP denotes how many squares are in each direction\&. 
+.br
+\fIsquareSize\fP is the square length in millimeters\&. 
+.br
+\fIcorners\fP returns the square corners in millimeters\&. 
+.RE
+.PP
+
+.SS "int calibrateCamera ()"
+
+.PP
+Start the camera calibration routine that computes the camera matrix and distortion coefficients\&. 
+.SS "int calibrateGround ()"
+Get the pose of the camera w\&.r\&.t the ground calibration frame\&. This frame sets the navigation frame for later results\&. The pose is averaged over 200 samples and then saved in the file referenceData\&.xml\&. This routine is basically the same as setReference\&. 
+.SS "void closeUDP ()"
+Close the UDP ports again to release network interfaces etc\&. If this is not done the network resources are still occupied and the program can't exit properly\&. 
+.SS "int determineExposure ()"
+Get the optimal exposure for the camera\&. For that find the minimum and maximum exposure were the right number of markers are detected\&. Then the mean of those two values is used as exposure\&. 
+.SS "void determineOrder ()"
+Compute the order of the marker points in 2D so they are the same as in the 3D array\&. Hence marker 1 must be in first place for both, list_points2d and list_points3d\&. 
+.SS "void drawPositionText (cv::Mat & Picture, cv::Vec3d & Position, cv::Vec3d & Euler, double error)"
+Draw the position, attitude and reprojection error in the picture\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIPicture\fP is the camera image in OpenCV matrix format\&. 
+.br
+\fIPosition\fP is the position of the tracked object in navigation CoSy\&. 
+.br
+\fIEuler\fP are the Euler angles with respect to the navigation frame\&. 
+.br
+\fIerror\fP is the reprojection error of the pose estimation\&. 
+.RE
+.PP
+
+.SS "void getEulerAngles (Mat & rotCamerMatrix, Vec3d & eulerAngles)"
+Get the euler angles from a rotation matrix 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrotCamerMatrix\fP is a projection matrix, here normally only the extrinsic values\&. 
+.br
+\fIeulerAngles\fP contains the Euler angles that result in the same rotation matrix as rotCamerMatrix\&. 
+.RE
+.PP
+
+.SS "void loadCalibration (int method)"
+Load a previously saved camera calibration from a file\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethod\fP whether or not load the camera calibration from calibration\&.xml\&. If ==0 then yes, if != 0 then let the user select a different file\&. 
+.RE
+.PP
+
+.SS "void loadCameraPosition ()"
+Load the rotation matrix from camera CoSy to ground CoSy It is determined during \fBcalibrateGround()\fP and stays the same once the camera is mounted and fixed\&. 
+.SS "void loadMarkerConfig (int method)"
+Load a marker configuration from file\&. This file has to be created by hand, use the standard marker configuration file as template\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethod\fP whether or not load the configuration from the markerStandard\&.xml\&. If ==0 load it, if != 0 let the user select a different file\&. 
+.RE
+.PP
+
+.SS "int main (int argc, char * argv[])"
+
+.PP
+main initialises the GUI and values for the marker position etc First the GUI is set up with Signals and Slots, see Qt docu for how that works\&. Then some variables are initialized with arbitrary values\&. At last calibration and marker configuration etc\&. are loaded from xml files\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIargc\fP is not used\&. 
+.br
+\fIargv\fP is also not used\&. 
+.RE
+.PP
+
+.SS "QPixmap Mat2QPixmap (cv::Mat src)"
+Convert an opencv matrix that represents a picture to a Qt Pixmap object for the GUI\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsrc\fP is the camera image represented as OpenCV matrix\&. 
+.RE
+.PP
+
+.SS "void projectCoordinateFrame (Mat pictureFrame)"
+Project the coordinate CoSy origin and axis direction of the marker CoSy with the rotation and translation of the object for visualization\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpictureFrame\fP the image in which the CoSy frame should be pasted\&. 
+.RE
+.PP
+
+.SS "void sendDataUDP (cv::Vec3d & Position, cv::Vec3d & Euler)"
+Send the position and attitude over UDP to every receiver, the safety receiver is handled on its own in the startTracking function because its send rate is less than 100 Hz\&. 
+.SS "void setHeadingOffset (double d)"
+Add a heading offset to the attitude for the case it is wanted by the user\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fId\fP denotes heading offset in degrees\&. 
+.RE
+.PP
+
+.SS "int setReference ()"
+Determine the initial position of the object that serves as reference point or as ground frame origin\&. Computes the pose 200 times and then averages it\&. The position and attitude are from now on used as navigation CoSy\&. 
+.SS "void setUpUDP ()"
+
+.PP
+Open the UDP ports for communication\&. 
+.SS "void startStopCamera ()"
+
+.PP
+Start or stop the tracking depending on if the camera is currently running or not\&. 
+.SS "int startTracking ()"
+Start the loop that fetches frames, computes the position etc and sends it to other computers\&. This function is the core of this program, hence the pose estimation is done here\&. 
+.SS "void testAlgorithms ()"
+Project some points from 3D to 2D and then check the accuracy of the algorithms\&. Mainly to generate something that can be shown in the camera view so the user knows everything loaded correctly\&. 
+.SH "Variable Documentation"
+.PP 
+.SS "const int BACKBUFFER_BITSPERPIXEL = 8"
+
+.PP
+8 bit per pixel and greyscale image from camera 
+.SS "bool camera_started = false"
+
+.PP
+variable thats needed to exit the main while loop 
+.SS "Mat cameraMatrix"
+
+.PP
+camera matrix of the camera 
+.SS "\fBcommObject\fP commObj"
+
+.PP
+class that handles the communication from \fBmain\&.cpp\fP to the GUI Now declare variables that are used across the \fBmain\&.cpp\fP file\&. Basically almost every variable used is declared here\&. 
+.SS "std::vector<Point3d> coordinateFrame"
+
+.PP
+coordinate visualisazion of marker CoSy 
+.SS "std::vector<Point2d> coordinateFrameProjected"
+
+.PP
+marker CoSy projected from 3D to 2D camera image CoSy 
+.SS "int currentMinIndex = 0"
+
+.PP
+helper variable set to the point order that holds the current minimum point distance 
+.SS "double currentPointDistance = 5000"
+
+.PP
+distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image CoSy 
+.SS "QByteArray data"
+
+.PP
+data package that's sent to the safety receiver 
+.SS "QByteArray datagram"
+
+.PP
+data package that is sent to receiver 1 and 2 
+.SS "Mat distCoeffs"
+
+.PP
+distortion coefficients of the camera 
+.SS "Core::DistortionModel distModel"
+
+.PP
+distortion model of the camera 
+.SS "Vec3d eulerAngles = Vec3d()"
+
+.PP
+Roll Pitch Heading in this order, units in degrees\&. 
+.SS "Vec3d eulerRef = Vec3d()"
+
+.PP
+initial euler angle of object respectivley to camera CoSy 
+.SS "bool exitRequested = true"
+
+.PP
+variable if tracking loop should be exited 
+.SS "double frameTime = 0\&.01"
+
+.PP
+100 Hz CoSy rate, is later on replaced with the hardware timestamp delivered by the camera 
+.SS "bool gotOrder = false"
+
+.PP
+order of the list_points3d and list_points3d already tetermined or not, has to be done once 
+.SS "double headingOffset = 0"
+
+.PP
+heading offset variable for aligning INS heading with tracking heading 
+.SS "int intExposure = 1"
+
+.PP
+max is 480 increase if markers are badly visible but should be determined automatically during \fBsetReference()\fP 
+.SS "int intFrameRate = 100"
+
+.PP
+CoSy rate of camera, maximum is 100 fps\&. 
+.SS "int intIntensity = 15"
+
+.PP
+max infrared spot light intensity is 15 1-6 is strobe 7-15 is continuous 13 and 14 are meaningless 
+.SS "int intThreshold = 200"
+
+.PP
+threshold value for marker detection\&. If markers are badly visible lower this value but should not be necessary 
+.SS "int invertZ = 1"
+
+.PP
+dummy variable to invert Z direction on request 
+.SS "QHostAddress IPAdressObject = QHostAddress('127\&.0\&.0\&.1')"
+
+.PP
+IPv4 adress of receiver 1\&. 
+.SS "QHostAddress IPAdressSafety = QHostAddress('192\&.168\&.4\&.1')"
+
+.PP
+IPv4 adress of safety receiver\&. 
+.SS "QHostAddress IPAdressSafety2 = QHostAddress('192\&.168\&.4\&.4')"
+
+.PP
+IPv4 adress of receiver 2\&. 
+.SS "std::vector<Point2d> list_points2d"
+
+.PP
+marker positions projected in 2D in camera image CoSy 
+.SS "std::vector<double> list_points2dDifference"
+
+.PP
+difference of the old and new 2D marker position to determine the order of the points 
+.SS "std::vector<Point2d> list_points2dOld"
+
+.PP
+marker positions in previous picture in 2D in camera image CoSy 
+.SS "std::vector<Point2d> list_points2dProjected"
+
+.PP
+3D marker points projected to 2D in camera image CoSy with the algorithm projectPoints 
+.SS "std::vector<Point2d> list_points2dUnsorted"
+
+.PP
+marker points in 2D camera image CoSy, sorted with increasing x (camera image CoSy) but not sorted to correspond with list_points3d 
+.SS "std::vector<Point3d> list_points3d"
+
+.PP
+marker positions in marker CoSy 
+.SS "SYSTEMTIME logDate"
+
+.PP
+Systemtime struct that saves the current date and time thats needed for the log file name creation\&. 
+.SS "std::ofstream logfile"
+
+.PP
+file handler for writing the log file 
+.SS "QString logFileName"
+
+.PP
+Filename for the logfiles\&. 
+.SS "std::string logName"
+
+.PP
+Filename for the logfiles as standard string\&. 
+.SS "Mat M_CN = cv::Mat_<double>(3, 3)"
+
+.PP
+rotation matrix from camera to ground, fixed for given camera position 
+.SS "Mat M_HeadingOffset = cv::Mat_<double>(3, 3)"
+
+.PP
+rotation matrix that turns the ground system to the INS magnetic heading for alignment 
+.SS "int methodPNP = 0"
+
+.PP
+solvePNP algorithm 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP //!< 4 and 1 are the same and not implemented correctly by OpenCV 
+.SS "double minPointDistance = 5000"
+
+.PP
+minimum distance from the projected 3D points (hence in 2d) to the real 2d marker positions in camera image CoSy 
+.SS "int numberMarkers = 4"
+
+.PP
+number of markers\&. Is loaded during start up from the marker configuration file 
+.SS "int pointOrderIndices[] = { 0, 1, 2, 3 }"
+
+.PP
+old correspondence from list_points3d and list_points_2d 
+.SS "int pointOrderIndicesNew[] = { 0, 1, 2, 3 }"
+
+.PP
+new correspondence from list_points3d and list_points_2d 
+.SS "int portObject = 9155"
+
+.PP
+Port of receiver 1\&. 
+.SS "int portSafety = 9155"
+
+.PP
+Port of the safety receiver\&. 
+.SS "int portSafety2 = 9155"
+
+.PP
+Port of receiver 2\&. 
+.SS "Vec3d position = Vec3d()"
+
+.PP
+position vector x,y,z for object position in O-CoSy, unit is meter 
+.SS "Vec3d positionOld = Vec3d()"
+
+.PP
+old position in O-CoSy for finite differences velocity calculation 
+.SS "Vec3d posRef = Vec3d()"
+
+.PP
+initial position of object in camera CoSy 
+.SS "Mat Rmat = (cv::Mat_<double>(3, 1) << 0\&.0, 0\&.0, 0\&.0)"
+
+.PP
+Rotation, translation etc\&. matrix for PnP results\&. rotation matrix from camera CoSy to marker CoSy 
+.SS "Mat RmatRef = (cv::Mat_<double>(3, 3) << 1\&., 0\&., 0\&., 0\&., 1\&., 0\&., 0\&., 0\&., 1\&.)"
+
+.PP
+reference rotation matrix from camera CoSy to marker CoSy 
+.SS "Mat Rvec = (cv::Mat_<double>(3, 1) << 0\&.0, 0\&.0, 0\&.0)"
+
+.PP
+rotation vector (axis-angle notation) from camera CoSy to marker CoSy 
+.SS "Mat RvecOriginal"
+
+.PP
+initial values as start values for algorithms and algorithm tests 
+.SS "bool safety2Enable = false"
+
+.PP
+is the second receiver enabled 
+.SS "int safetyAngle = 30"
+
+.PP
+bank and pitch angle protection in degrees 
+.SS "double safetyBoxLength = 1\&.5"
+
+.PP
+length of the safety area cube in meters 
+.SS "bool safetyEnable = false"
+
+.PP
+is the safety feature enabled 
+.SS "std::stringstream ss"
+
+.PP
+stream that sends the strBuf buffer to the Qt GUI 
+.SS "std::string strBuf"
+
+.PP
+buffer that holds the strings that are sent to the Qt GUI 
+.SS "double timeFirstFrame = 0"
+
+.PP
+Time stamp of the first frame\&. This value is then subtracted for every other frame so the time in the log start at zero\&. 
+.SS "double timeOld = 0\&.0"
+
+.PP
+old time for finite differences velocity calculation\&. Is later on replaced with the hardware timestamp delivered by the camera 
+.SS "Mat Tvec = (cv::Mat_<double>(3, 1) << 0\&.0, 0\&.0, 0\&.0)"
+
+.PP
+translation vector from camera CoSy to marker CoSy in camera CoSy 
+.SS "Mat TvecOriginal"
+
+.PP
+initial values as start values for algorithms and algorithm tests 
+.SS "QUdpSocket* udpSocketObject"
+
+.PP
+socket for the communication with receiver 1 
+.SS "QUdpSocket* udpSocketSafety"
+
+.PP
+socket for the communication with safety receiver 
+.SS "QUdpSocket* udpSocketSafety2"
+
+.PP
+socket for the communication with receiver 3 
+.SS "bool useGuess = true"
+
+.PP
+set to true and the algorithm uses the last result as starting value 
+.SS "Vec3d velocity = Vec3d()"
+
+.PP
+velocity vector of object in o-CoSy in respect to o-CoSy 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Rigid Track from the source code\&.

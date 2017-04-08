@@ -24,9 +24,9 @@ virtual void \hyperlink{class_cv_model_estimator2_a4946fc6c99f37e5dae1f68e78e851
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-virtual void \hyperlink{class_cv_model_estimator2_ae2aa4bbc11e6fc303d81b95daf2795ad}{compute\+Reproj\+Error} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, const Cv\+Mat $\ast$model, Cv\+Mat $\ast$\hyperlink{_import_log_8m_af10dacfa214e2575bb2e0ee407c242e0}{error})=0
+virtual void \hyperlink{class_cv_model_estimator2_ae2aa4bbc11e6fc303d81b95daf2795ad}{compute\+Reproj\+Error} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, const Cv\+Mat $\ast$model, Cv\+Mat $\ast$error)=0
 \item 
-virtual int \hyperlink{class_cv_model_estimator2_a7683a8352f66ba994982493690f418b1}{find\+Inliers} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, const Cv\+Mat $\ast$model, Cv\+Mat $\ast$\hyperlink{_import_log_8m_af10dacfa214e2575bb2e0ee407c242e0}{error}, Cv\+Mat $\ast$mask, double threshold)
+virtual int \hyperlink{class_cv_model_estimator2_a7683a8352f66ba994982493690f418b1}{find\+Inliers} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, const Cv\+Mat $\ast$model, Cv\+Mat $\ast$error, Cv\+Mat $\ast$mask, double threshold)
 \item 
 virtual bool \hyperlink{class_cv_model_estimator2_a8a1749e60a02a5cb697425bd2daa35af}{get\+Subset} (const Cv\+Mat $\ast$m1, const Cv\+Mat $\ast$m2, Cv\+Mat $\ast$ms1, Cv\+Mat $\ast$ms2, int max\+Attempts=1000)
 \item 
@@ -45,6 +45,13 @@ int \hyperlink{class_cv_model_estimator2_ac954ec76553da0908f863c48aa82d1ef}{max\
 \item 
 bool \hyperlink{class_cv_model_estimator2_a579cf07784af6c3710ab23aa841cb7d5}{check\+Partial\+Subsets}
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 48 of file \+\_\+modelest.\+h.
+
 
 
 \subsection{Constructor \& Destructor Documentation}
@@ -93,6 +100,14 @@ bool \hyperlink{class_cv_model_estimator2_a579cf07784af6c3710ab23aa841cb7d5}{che
 \subsubsection{\texorpdfstring{refine()}{refine()}}
 {\footnotesize\ttfamily virtual bool Cv\+Model\+Estimator2\+::refine (\begin{DoxyParamCaption}\item[{const Cv\+Mat $\ast$}]{,  }\item[{const Cv\+Mat $\ast$}]{,  }\item[{Cv\+Mat $\ast$}]{,  }\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
+
+
+Definition at line 60 of file \+\_\+modelest.\+h.
+
+
+\begin{DoxyCode}
+60 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \}
+\end{DoxyCode}
 \mbox{\Hypertarget{class_cv_model_estimator2_ac8c9c1586d3334f468d4152c67554adc}\label{class_cv_model_estimator2_ac8c9c1586d3334f468d4152c67554adc}} 
 \index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!run\+Kernel@{run\+Kernel}}
 \index{run\+Kernel@{run\+Kernel}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
@@ -126,11 +141,19 @@ bool \hyperlink{class_cv_model_estimator2_a579cf07784af6c3710ab23aa841cb7d5}{che
 \subsubsection{\texorpdfstring{check\+Partial\+Subsets}{checkPartialSubsets}}
 {\footnotesize\ttfamily bool Cv\+Model\+Estimator2\+::check\+Partial\+Subsets\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 77 of file \+\_\+modelest.\+h.
+
 \mbox{\Hypertarget{class_cv_model_estimator2_ac954ec76553da0908f863c48aa82d1ef}\label{class_cv_model_estimator2_ac954ec76553da0908f863c48aa82d1ef}} 
 \index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!max\+Basic\+Solutions@{max\+Basic\+Solutions}}
 \index{max\+Basic\+Solutions@{max\+Basic\+Solutions}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
 \subsubsection{\texorpdfstring{max\+Basic\+Solutions}{maxBasicSolutions}}
 {\footnotesize\ttfamily int Cv\+Model\+Estimator2\+::max\+Basic\+Solutions\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 76 of file \+\_\+modelest.\+h.
 
 \mbox{\Hypertarget{class_cv_model_estimator2_a7c4067aa8938e61ca4b2674a58ccfe35}\label{class_cv_model_estimator2_a7c4067aa8938e61ca4b2674a58ccfe35}} 
 \index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!model\+Points@{model\+Points}}
@@ -138,17 +161,29 @@ bool \hyperlink{class_cv_model_estimator2_a579cf07784af6c3710ab23aa841cb7d5}{che
 \subsubsection{\texorpdfstring{model\+Points}{modelPoints}}
 {\footnotesize\ttfamily int Cv\+Model\+Estimator2\+::model\+Points\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 74 of file \+\_\+modelest.\+h.
+
 \mbox{\Hypertarget{class_cv_model_estimator2_a93286a6b978450e6363b2403b5da1ff5}\label{class_cv_model_estimator2_a93286a6b978450e6363b2403b5da1ff5}} 
 \index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!model\+Size@{model\+Size}}
 \index{model\+Size@{model\+Size}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
 \subsubsection{\texorpdfstring{model\+Size}{modelSize}}
 {\footnotesize\ttfamily Cv\+Size Cv\+Model\+Estimator2\+::model\+Size\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+Definition at line 75 of file \+\_\+modelest.\+h.
+
 \mbox{\Hypertarget{class_cv_model_estimator2_a5199037f573a5af1bd9f419e5a64e3e4}\label{class_cv_model_estimator2_a5199037f573a5af1bd9f419e5a64e3e4}} 
 \index{Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}!rng@{rng}}
 \index{rng@{rng}!Cv\+Model\+Estimator2@{Cv\+Model\+Estimator2}}
 \subsubsection{\texorpdfstring{rng}{rng}}
 {\footnotesize\ttfamily Cv\+R\+NG Cv\+Model\+Estimator2\+::rng\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 73 of file \+\_\+modelest.\+h.
 
 
 

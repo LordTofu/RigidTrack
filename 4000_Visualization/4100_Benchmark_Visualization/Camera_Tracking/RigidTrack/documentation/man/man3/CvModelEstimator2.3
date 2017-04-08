@@ -1,0 +1,112 @@
+.TH "CvModelEstimator2" 3 "Sat Apr 8 2017" "Rigid Track" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+CvModelEstimator2
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <_modelest\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCvModelEstimator2\fP (int _modelPoints, CvSize _modelSize, int _maxBasicSolutions)"
+.br
+.ti -1c
+.RI "virtual \fB~CvModelEstimator2\fP ()"
+.br
+.ti -1c
+.RI "virtual int \fBrunKernel\fP (const CvMat *m1, const CvMat *m2, CvMat *model)=0"
+.br
+.ti -1c
+.RI "virtual bool \fBrunLMeDS\fP (const CvMat *m1, const CvMat *m2, CvMat *model, CvMat *mask, double confidence=0\&.99, int maxIters=2000)"
+.br
+.ti -1c
+.RI "virtual bool \fBrunRANSAC\fP (const CvMat *m1, const CvMat *m2, CvMat *model, CvMat *mask, double threshold, double confidence=0\&.99, int maxIters=2000)"
+.br
+.ti -1c
+.RI "virtual bool \fBrefine\fP (const CvMat *, const CvMat *, CvMat *, int)"
+.br
+.ti -1c
+.RI "virtual void \fBsetSeed\fP (int64 seed)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBcomputeReprojError\fP (const CvMat *m1, const CvMat *m2, const CvMat *model, CvMat *\fBerror\fP)=0"
+.br
+.ti -1c
+.RI "virtual int \fBfindInliers\fP (const CvMat *m1, const CvMat *m2, const CvMat *model, CvMat *\fBerror\fP, CvMat *mask, double threshold)"
+.br
+.ti -1c
+.RI "virtual bool \fBgetSubset\fP (const CvMat *m1, const CvMat *m2, CvMat *ms1, CvMat *ms2, int maxAttempts=1000)"
+.br
+.ti -1c
+.RI "virtual bool \fBcheckSubset\fP (const CvMat *ms1, int count)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "CvRNG \fBrng\fP"
+.br
+.ti -1c
+.RI "int \fBmodelPoints\fP"
+.br
+.ti -1c
+.RI "CvSize \fBmodelSize\fP"
+.br
+.ti -1c
+.RI "int \fBmaxBasicSolutions\fP"
+.br
+.ti -1c
+.RI "bool \fBcheckPartialSubsets\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "CvModelEstimator2::CvModelEstimator2 (int _modelPoints, CvSize _modelSize, int _maxBasicSolutions)"
+
+.SS "virtual CvModelEstimator2::~CvModelEstimator2 ()\fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual bool CvModelEstimator2::checkSubset (const CvMat * ms1, int count)\fC [protected]\fP, \fC [virtual]\fP"
+
+.SS "virtual void CvModelEstimator2::computeReprojError (const CvMat * m1, const CvMat * m2, const CvMat * model, CvMat * error)\fC [protected]\fP, \fC [pure virtual]\fP"
+
+.SS "virtual int CvModelEstimator2::findInliers (const CvMat * m1, const CvMat * m2, const CvMat * model, CvMat * error, CvMat * mask, double threshold)\fC [protected]\fP, \fC [virtual]\fP"
+
+.SS "virtual bool CvModelEstimator2::getSubset (const CvMat * m1, const CvMat * m2, CvMat * ms1, CvMat * ms2, int maxAttempts = \fC1000\fP)\fC [protected]\fP, \fC [virtual]\fP"
+
+.SS "virtual bool CvModelEstimator2::refine (const CvMat *, const CvMat *, CvMat *, int)\fC [inline]\fP, \fC [virtual]\fP"
+
+.SS "virtual int CvModelEstimator2::runKernel (const CvMat * m1, const CvMat * m2, CvMat * model)\fC [pure virtual]\fP"
+
+.SS "virtual bool CvModelEstimator2::runLMeDS (const CvMat * m1, const CvMat * m2, CvMat * model, CvMat * mask, double confidence = \fC0\&.99\fP, int maxIters = \fC2000\fP)\fC [virtual]\fP"
+
+.SS "virtual bool CvModelEstimator2::runRANSAC (const CvMat * m1, const CvMat * m2, CvMat * model, CvMat * mask, double threshold, double confidence = \fC0\&.99\fP, int maxIters = \fC2000\fP)\fC [virtual]\fP"
+
+.SS "virtual void CvModelEstimator2::setSeed (int64 seed)\fC [virtual]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "bool CvModelEstimator2::checkPartialSubsets\fC [protected]\fP"
+
+.SS "int CvModelEstimator2::maxBasicSolutions\fC [protected]\fP"
+
+.SS "int CvModelEstimator2::modelPoints\fC [protected]\fP"
+
+.SS "CvSize CvModelEstimator2::modelSize\fC [protected]\fP"
+
+.SS "CvRNG CvModelEstimator2::rng\fC [protected]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Rigid Track from the source code\&.

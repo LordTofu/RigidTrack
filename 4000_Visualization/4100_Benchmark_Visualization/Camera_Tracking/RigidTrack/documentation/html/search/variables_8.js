@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['i',['i',['../simpleplot_8m.html#a81b94ba50b782836960e54bcfa99fc88',1,'simpleplot.m']]],
-  ['import',['import',['../_import_log_8m.html#a97736099a9ac43f989770145ce6b9935',1,'ImportLog.m']]],
   ['intexposure',['intExposure',['../main_8cpp.html#afcaebd6cfd12b2e558363a06db8396ea',1,'main.cpp']]],
   ['intframerate',['intFrameRate',['../main_8cpp.html#aa5b833b78b107a1a04eb4edba151c0ba',1,'main.cpp']]],
   ['intintensity',['intIntensity',['../main_8cpp.html#a4e18b0b26ecc511ca7d2f2205313e537',1,'main.cpp']]],

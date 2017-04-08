@@ -1,0 +1,168 @@
+.TH "RigidTrack" 3 "Sat Apr 8 2017" "Rigid Track" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RigidTrack
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <RigidTrack\&.h>\fP
+.PP
+Inherits QMainWindow\&.
+.SS "Public Slots"
+
+.in +1c
+.ti -1c
+.RI "void \fBon_btnStartCamera_clicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_btnZero_clicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_btnCalibrate_clicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetImage\fP (QPixmap image)"
+.br
+.ti -1c
+.RI "void \fBclearLog\fP ()"
+.br
+.ti -1c
+.RI "void \fBprogressUpdate\fP (int value)"
+.br
+.ti -1c
+.RI "void \fBon_btnLoadCalib_clicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetLog\fP (QString logText)"
+.br
+.ti -1c
+.RI "void \fBon_sbHeadingOffset_valueChanged\fP (double d)"
+.br
+.ti -1c
+.RI "void \fBon_leIPObject_returnPressed\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_leIPSafety_returnPressed\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_leIPSafety2_returnPressed\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_rbP3P_clicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_rbIterative_clicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_rbEPnP_clicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_actionShow_Help_triggered\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_cbSafety_stateChanged\fP (int state)"
+.br
+.ti -1c
+.RI "void \fBon_cbSafety2_stateChanged\fP (int state)"
+.br
+.ti -1c
+.RI "void \fBon_dsbDimension_valueChanged\fP (double d)"
+.br
+.ti -1c
+.RI "void \fBon_sbAngle_valueChanged\fP (int \fBi\fP)"
+.br
+.ti -1c
+.RI "void \fBon_pbLoadMarker_clicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_cbInvert_stateChanged\fP (int state)"
+.br
+.ti -1c
+.RI "void \fBenableP3P\fP (bool value)"
+.br
+.ti -1c
+.RI "void \fBon_btnCalibrateGround_clicked\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_actionOpen_Log_Folder_triggered\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_actionAbout_Rigid_Track_triggered\fP ()"
+.br
+.ti -1c
+.RI "void \fBon_actionOpen_Installation_Folder_triggered\fP ()"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRigidTrack\fP (QWidget *parent=Q_NULLPTR)"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "RigidTrack::RigidTrack (QWidget * parent = \fCQ_NULLPTR\fP)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void RigidTrack::clearLog ()\fC [slot]\fP"
+
+.SS "void RigidTrack::enableP3P (bool value)\fC [slot]\fP"
+
+.SS "void RigidTrack::on_actionAbout_Rigid_Track_triggered ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_actionOpen_Installation_Folder_triggered ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_actionOpen_Log_Folder_triggered ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_actionShow_Help_triggered ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_btnCalibrate_clicked ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_btnCalibrateGround_clicked ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_btnLoadCalib_clicked ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_btnStartCamera_clicked ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_btnZero_clicked ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_cbInvert_stateChanged (int state)\fC [slot]\fP"
+
+.SS "void RigidTrack::on_cbSafety2_stateChanged (int state)\fC [slot]\fP"
+
+.SS "void RigidTrack::on_cbSafety_stateChanged (int state)\fC [slot]\fP"
+
+.SS "void RigidTrack::on_dsbDimension_valueChanged (double d)\fC [slot]\fP"
+
+.SS "void RigidTrack::on_leIPObject_returnPressed ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_leIPSafety2_returnPressed ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_leIPSafety_returnPressed ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_pbLoadMarker_clicked ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_rbEPnP_clicked ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_rbIterative_clicked ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_rbP3P_clicked ()\fC [slot]\fP"
+
+.SS "void RigidTrack::on_sbAngle_valueChanged (int i)\fC [slot]\fP"
+
+.SS "void RigidTrack::on_sbHeadingOffset_valueChanged (double d)\fC [slot]\fP"
+
+.SS "void RigidTrack::progressUpdate (int value)\fC [slot]\fP"
+
+.SS "void RigidTrack::setImage (QPixmap image)\fC [slot]\fP"
+
+.SS "void RigidTrack::setLog (QString logText)\fC [slot]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Rigid Track from the source code\&.

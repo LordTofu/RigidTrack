@@ -29,16 +29,14 @@
 {\ttfamily \#include $<$opencv2/calib3d/calib3d.\+hpp$>$}\newline
 {\ttfamily \#include $<$opencv2/highgui/highgui.\+hpp$>$}\newline
 {\ttfamily \#include $<$opencv2\textbackslash{}video\textbackslash{}tracking.\+hpp$>$}\newline
-Include dependency graph for main.\+h\+:
-\nopagebreak
+Include dependency graph for main.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{main_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -72,7 +70,7 @@ void \hyperlink{main_8h_af2a8b7de0b15dc17198c147ba39e85f3}{close\+U\+DP} ()
 \item 
 void \hyperlink{main_8h_a56c7f641859cb2b6b99b0947d03be800}{load\+Marker\+Config} (int method)
 \item 
-void \hyperlink{main_8h_af6430ad2592a955a3618549547dfc5be}{draw\+Position\+Text} (cv\+::\+Mat \&Picture, cv\+::\+Vec3d \&Position, cv\+::\+Vec3d \&Euler, double \hyperlink{_import_log_8m_af10dacfa214e2575bb2e0ee407c242e0}{error})
+void \hyperlink{main_8h_af6430ad2592a955a3618549547dfc5be}{draw\+Position\+Text} (cv\+::\+Mat \&Picture, cv\+::\+Vec3d \&Position, cv\+::\+Vec3d \&Euler, double error)
 \item 
 void \hyperlink{main_8h_af39fa6c3a36ad6bc24a327db7a9d73c2}{load\+Camera\+Position} ()
 \item 
@@ -124,58 +122,172 @@ int \hyperlink{main_8h_a5cc3bd09f5801804b7ae65846e0b9824}{invertZ}
 
 Start the camera calibration routine that computes the camera matrix and distortion coefficients. 
 
-Initialize Camera S\+DK ==--
-
-At this point the Camera S\+DK is actively looking for all connected cameras and will initialize them on it\textquotesingle{}s own.
-
-Get a connected camera ================-\/---
-
-Determine camera resolution
-
-Set Video Mode ==--
-
-We set the camera to Segment Mode here. This mode is support by all of our products. Depending on what device you have connected you might want to consider a different video mode to achieve the best possible tracking quality. All devices that support a mode that will achieve a better quality output with a mode other than Segment Mode are listed here along with what mode you should use if you\textquotesingle{}re looking for the best head tracking\+: \begin{DoxyVerb}V100:R1/R2    Precision Mode
-TrackIR 5     Bit-Packed Precision Mode
-V120          Precision Mode
-TBar          Precision Mode
-S250e         Precision Mode
-\end{DoxyVerb}
 
 
-If you have questions about a new device that might be conspicuously missing here or have any questions about head tracking, email support or participate in our forums.
+Definition at line 769 of file main.\+cpp.
 
-Start camera output ==--
 
-Camera Matrix creation ==--
-
-Ok, start main loop. This loop fetches and displays ===--- camera frames. ===--- But first set some camera parameters
-
-the user has to provide the size of one square in mm
-
-Fetch a new frame from the camera ===---
-
-which is why we also set this constant to 8
-
-later on, when we get the frame as usual\+:
-
-Lets have the Camera Library raster the camera\textquotesingle{}s image into our texture.
-
-$<$ If done with success,
-
-improve the found corners\textquotesingle{} coordinate accuracy for chessboard
-
-Release camera ==--
-
-Save the obtained calibration coefficients in a file for later use Here is the call graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+770 \{
+771     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Started camera calibration. 80 pictures are going to be captured."});
+772     CameraLibrary\_EnableDevelopment();
+773 \textcolor{comment}{}
+774 \textcolor{comment}{    //! Initialize Camera SDK ==--}
+775 \textcolor{comment}{}    CameraLibrary::CameraManager::X();
+776 \textcolor{comment}{}
+777 \textcolor{comment}{    //! At this point the Camera SDK is actively looking for all connected cameras and will initialize}
+778 \textcolor{comment}{    //! them on it's own.}
+779 \textcolor{comment}{}\textcolor{comment}{}
+780 \textcolor{comment}{    //! Get a connected camera ================----}
+781 \textcolor{comment}{}    CameraManager::X().WaitForInitialization();
+782 
+783     Camera *camera = CameraManager::X().GetCamera();
+784     \textcolor{keywordflow}{if} (camera == 0)
+785     \{
+786         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"No camera found!"});
+787         \textcolor{keywordflow}{return} 1;
+788     \}
+789 \textcolor{comment}{}
+790 \textcolor{comment}{    //! Determine camera resolution}
+791 \textcolor{comment}{}    \textcolor{keywordtype}{int} cameraWidth = camera->Width();
+792     \textcolor{keywordtype}{int} cameraHeight = camera->Height();
+793 \textcolor{comment}{}
+794 \textcolor{comment}{    //! Set Video Mode ==--}
+795 \textcolor{comment}{}\textcolor{comment}{}
+796 \textcolor{comment}{    //! We set the camera to Segment Mode here.  This mode is support by all of our products.}
+797 \textcolor{comment}{    //! Depending on what device you have connected you might want to consider a different}
+798 \textcolor{comment}{    //! video mode to achieve the best possible tracking quality.  All devices that support a}
+799 \textcolor{comment}{    //! mode that will achieve a better quality output with a mode other than Segment Mode are}
+800 \textcolor{comment}{    //! listed here along with what mode you should use if you're looking for the best head}
+801 \textcolor{comment}{    //! tracking:}
+802 \textcolor{comment}{    //!}
+803 \textcolor{comment}{    //!     V100:R1/R2    Precision Mode}
+804 \textcolor{comment}{    //!     TrackIR 5     Bit-Packed Precision Mode}
+805 \textcolor{comment}{    //!     V120          Precision Mode}
+806 \textcolor{comment}{    //!     TBar          Precision Mode}
+807 \textcolor{comment}{    //!     S250e         Precision Mode}
+808 \textcolor{comment}{    //!}
+809 \textcolor{comment}{    //! If you have questions about a new device that might be conspicuously missing here or}
+810 \textcolor{comment}{    //! have any questions about head tracking, email support or participate in our forums.}
+811 \textcolor{comment}{}
+812     camera->SetVideoType(Core::GrayscaleMode);
+813 \textcolor{comment}{}
+814 \textcolor{comment}{    //! Start camera output ==--}
+815 \textcolor{comment}{}    camera->Start();
+816 \textcolor{comment}{}
+817 \textcolor{comment}{    //! Camera Matrix creation  ==--}
+818 \textcolor{comment}{}    \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix} = Mat::eye(3, 3, CV\_64F);
+819     \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs} = Mat::zeros(8, 1, CV\_64F);
+820 \textcolor{comment}{}
+821 \textcolor{comment}{    //! Ok, start main loop.  This loop fetches and displays   ===---}
+822 \textcolor{comment}{    //! camera frames.                                         ===---}
+823 \textcolor{comment}{    //! But first set some camera parameters}
+824 \textcolor{comment}{}    camera->SetAGC(\textcolor{keyword}{false});
+825     camera->SetAEC(\textcolor{keyword}{false});
+826     camera->SetExposure(200);
+827     camera->SetIntensity(4);
+828     camera->SetFrameRate(30);
+829     camera->SetIRFilter(\textcolor{keyword}{true});
+830     camera->SetContinuousIR(\textcolor{keyword}{false});
+831     camera->SetHighPowerMode(\textcolor{keyword}{false});
+832 
+833     \textcolor{keywordtype}{int} number\_samples = 0;
+834     \textcolor{keywordtype}{int} imagesToSample = 80;
+835 
+836     std::vector<std::vector<Point2f> > imagePoints;
+837     std::vector<Point2f> pointBuf;
+838     \textcolor{keywordtype}{bool} found;
+839     Size boardSize(9, 6);
+840     Size imageSize(cameraWidth, cameraHeight);
+841     Mat \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}(3, 1, DataType<double>::type);
+842     Mat \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}(3, 1, DataType<double>::type);
+843 \textcolor{comment}{}
+844 \textcolor{comment}{    //! the user has to provide the size of one square in mm}
+845 \textcolor{comment}{}    \textcolor{keywordtype}{bool} ok;
+846     \textcolor{keywordtype}{int} qsquareSize = QInputDialog::getInt(\textcolor{keyword}{nullptr}, \textcolor{stringliteral}{"Chessboard size in mm"}, \textcolor{stringliteral}{"Chessboard size in mm"}, 23, 1
+      , 60, 1, &ok);
+847     \textcolor{keywordtype}{float} squareSize = 23;
+848 
+849     \textcolor{keywordflow}{if} (ok)
+850     \{
+851         squareSize = qsquareSize;
+852     \}
+853 
+854     QPixmap QPFrame;
+855     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e}{progressUpdate}(0);
+856     \textcolor{keywordflow}{while} (number\_samples < imagesToSample)
+857     \{\textcolor{comment}{}
+858 \textcolor{comment}{        //! Fetch a new frame from the camera ===---}
+859 \textcolor{comment}{}        cv::Mat matFrame(cv::Size(cameraWidth, cameraHeight), CV\_8UC1);
+860 \textcolor{comment}{}
+861 \textcolor{comment}{        //! which is why we also set this constant to 8 }
+862 \textcolor{comment}{}        \textcolor{keyword}{const} \textcolor{keywordtype}{int} \hyperlink{main_8cpp_ae144f2eb508ffc763c259d875c600ab2}{BACKBUFFER\_BITSPERPIXEL} = 8;
+863 \textcolor{comment}{}
+864 \textcolor{comment}{        //! later on, when we get the frame as usual:}
+865 \textcolor{comment}{}        CameraLibrary::Frame * frame = camera->GetFrame();
+866 
+867         \textcolor{keywordflow}{if} (frame)
+868         \{\textcolor{comment}{}
+869 \textcolor{comment}{            //! Lets have the Camera Library raster the camera's}
+870 \textcolor{comment}{            //! image into our texture.}
+871 \textcolor{comment}{}
+872             frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, BACKBUFFER\_BITSPERPIXEL, matFrame.
+      data);
+873             QPFrame = \hyperlink{main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5}{Mat2QPixmap}(matFrame);
+874             \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a6f81522c2aa1668fa402f08710e6206b}{changeImage}(QPFrame);
+875             found = findChessboardCorners(matFrame, boardSize, pointBuf, CV\_CALIB\_CB\_ADAPTIVE\_THRESH | 
+      CV\_CALIB\_CB\_FAST\_CHECK | CV\_CALIB\_CB\_NORMALIZE\_IMAGE);
+876 
+877             \textcolor{keywordflow}{if} (found)                \textcolor{comment}{//!< If done with success,}
+878 \textcolor{comment}{}            \{\textcolor{comment}{}
+879 \textcolor{comment}{                //! improve the found corners' coordinate accuracy for chessboard}
+880 \textcolor{comment}{}                cornerSubPix(matFrame, pointBuf, Size(11, 11), Size(-1, -1), TermCriteria(CV\_TERMCRIT\_EPS +
+       CV\_TERMCRIT\_ITER, 30, 0.1));
+881 
+882                 imagePoints.push\_back(pointBuf);
+883                 number\_samples += 1;
+884                 \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+885                 QCoreApplication::processEvents();
+886             \}
+887             frame->Release();
+888             \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+889             \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Samples found  =  "} << number\_samples;
+890             \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e}{progressUpdate}(number\_samples * 100 / imagesToSample);
+891         \}
+892         Sleep(2);
+893     \}
+894 
+895     std::vector<std::vector<Point3f> > objectPoints(1);
+896     \hyperlink{main_8cpp_a0a7f48017dbb3d64bfc1a171631ad7d7}{calcBoardCornerPositions}(boardSize, squareSize, objectPoints[0]);
+897     objectPoints.resize(imagePoints.size(), objectPoints[0]);
+898 
+899     \textcolor{keywordtype}{double} rms = \hyperlink{main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4}{calibrateCamera}(objectPoints, imagePoints, imageSize, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec});
+900     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e}{progressUpdate}(0);\textcolor{comment}{}
+901 \textcolor{comment}{    //! Release camera ==--}
+902 \textcolor{comment}{}    camera->Release();
+903 \textcolor{comment}{}
+904 \textcolor{comment}{    //! Save the obtained calibration coefficients in a file for later use}
+905 \textcolor{comment}{}    QString fileName = QFileDialog::getSaveFileName(\textcolor{keyword}{nullptr}, \textcolor{stringliteral}{"Save calibration file"}, \textcolor{stringliteral}{""}, \textcolor{stringliteral}{"Calibration File
+       (*.xml);;All Files (*)"});
+906     FileStorage fs(fileName.toUtf8().constData(), FileStorage::WRITE);
+907     fs << \textcolor{stringliteral}{"CameraMatrix"} << \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix};
+908     fs << \textcolor{stringliteral}{"DistCoeff"} << \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs};
+909     fs << \textcolor{stringliteral}{"RMS"} << rms;
+910     \hyperlink{main_8cpp_a7b795a27447192fa68ef7c2d8ee1adab}{strBuf} = fs.releaseAndGetString();
+911     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a1f4b8dd22ecc46bab619f6b1fe1a5144}{changeStatus}(QString::fromStdString(\hyperlink{main_8cpp_a7b795a27447192fa68ef7c2d8ee1adab}{strBuf}));
+912     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Saved calibration!"});
+913     \textcolor{keywordflow}{return} 0;
+914 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{main_8h_a5f7c5996cd5a271d0277e0741f73a5b4_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -188,64 +300,213 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{calibrate\+Ground()}{calibrateGround()}}
 {\footnotesize\ttfamily int calibrate\+Ground (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Get the pose of the camera w.\+r.\+t the ground calibration frame. This frame sets the navigation frame for later results. The pose is averaged over 200 samples and then saved in the file reference\+Data.\+xml. This routine is basically the same as set\+Reference. initialize the variables with starting values
+Get the pose of the camera w.\+r.\+t the ground calibration frame. This frame sets the navigation frame for later results. The pose is averaged over 200 samples and then saved in the file reference\+Data.\+xml. This routine is basically the same as set\+Reference. 
 
-Initialize Camera S\+DK ==--
+Definition at line 1558 of file main.\+cpp.
 
-At this point the Camera S\+DK is actively looking for all connected cameras and will initialize them on it\textquotesingle{}s own.
 
-Get a connected camera ================-\/---
-
-If no device connected, pop a message box and exit ==--
-
-Determine camera resolution to size application window ==-\/---
-
-Set camera mode to precision mode, it directly provides marker coordinates
-
-Start camera output ==--
-
-Turn on some overlay text so it\textquotesingle{}s clear things are ===--- working even if there is nothing in the camera\textquotesingle{}s view. ===--- Set some other parameters as well of the camera
-
-sample some frames and calculate the position and attitude. then average those values and use that as zero position
-
-Fetch a new frame from the camera ===---
-
-Ok, we\textquotesingle{}ve received a new frame, lets do something with it.
-
-for(int i=0; i$<$frame-\/$>$Object\+Count(); i++)
-
-sort the 2d points with the correct indices as found in the preceeding order determination algorithm
-
-Compute the pose from the 3\+D-\/2D corresponses
-
-project the marker 3d points with the solution into the camera image Co\+Sy and calculate difference to true camera image
-
-$<$Iterative Method needs time to converge to solution
-
-$<$ That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first.
-
-$<$-- one sample more \+:D
-
-Release camera ==--
-
-Divide by the number of samples to get the mean of the reference position
-
-$<$ euler\+Ref is here in Axis Angle notation
-
-$<$ axis angle to rotation matrix
-
-$<$ rotation matrix to euler
-
-Save the obtained calibration coefficients in a file for later use Here is the call graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+1559 \{\textcolor{comment}{}
+1560 \textcolor{comment}{    //! initialize the variables with starting values}
+1561 \textcolor{comment}{}    \hyperlink{main_8cpp_acf655f393e3996144226399a338e8d3b}{gotOrder} = \textcolor{keyword}{false};
+1562     \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef} = 0;
+1563     \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef} = 0;
+1564     \hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef} = 0;
+1565     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec} = \hyperlink{main_8cpp_ae101daeaec726e27690c862b7edea825}{RvecOriginal};
+1566     \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec} = \hyperlink{main_8cpp_a043bf1deaf5d42d47e0cce8982c1f18b}{TvecOriginal};
+1567 
+1568     \hyperlink{main_8cpp_a0416912fce6274568e80019b10ba294f}{determineExposure}();
+1569 
+1570     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1571     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Started ground calibration"});
+1572 
+1573     CameraLibrary\_EnableDevelopment();\textcolor{comment}{}
+1574 \textcolor{comment}{    //! Initialize Camera SDK ==--}
+1575 \textcolor{comment}{}    CameraLibrary::CameraManager::X();
+1576 \textcolor{comment}{}
+1577 \textcolor{comment}{    //! At this point the Camera SDK is actively looking for all connected cameras and will initialize}
+1578 \textcolor{comment}{    //! them on it's own.}
+1579 \textcolor{comment}{}\textcolor{comment}{}
+1580 \textcolor{comment}{    //! Get a connected camera ================----}
+1581 \textcolor{comment}{}    CameraManager::X().WaitForInitialization();
+1582     Camera *camera = CameraManager::X().GetCamera();
+1583 \textcolor{comment}{}
+1584 \textcolor{comment}{    //! If no device connected, pop a message box and exit ==--}
+1585 \textcolor{comment}{}    \textcolor{keywordflow}{if} (camera == 0)
+1586     \{
+1587         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"No camera found!"});
+1588         \textcolor{keywordflow}{return} 1;
+1589     \}
+1590 \textcolor{comment}{}
+1591 \textcolor{comment}{    //! Determine camera resolution to size application window ==----}
+1592 \textcolor{comment}{}    \textcolor{keywordtype}{int} cameraWidth = camera->Width();
+1593     \textcolor{keywordtype}{int} cameraHeight = camera->Height();
+1594     camera->GetDistortionModel(\hyperlink{main_8cpp_a9fba099569a2da23e458c2571f69652a}{distModel});
+1595     cv::Mat matFrame(cv::Size(cameraWidth, cameraHeight), CV\_8UC1);
+1596 \textcolor{comment}{}
+1597 \textcolor{comment}{    //! Set camera mode to precision mode, it directly provides marker coordinates}
+1598 \textcolor{comment}{}    camera->SetVideoType(Core::PrecisionMode);
+1599 \textcolor{comment}{}
+1600 \textcolor{comment}{    //! Start camera output ==--}
+1601 \textcolor{comment}{}    camera->Start();
+1602 \textcolor{comment}{}
+1603 \textcolor{comment}{    //! Turn on some overlay text so it's clear things are     ===---}
+1604 \textcolor{comment}{    //! working even if there is nothing in the camera's view. ===---}
+1605 \textcolor{comment}{    //! Set some other parameters as well of the camera}
+1606 \textcolor{comment}{}    camera->SetTextOverlay(\textcolor{keyword}{true});
+1607     camera->SetFrameRate(\hyperlink{main_8cpp_aa5b833b78b107a1a04eb4edba151c0ba}{intFrameRate});
+1608     camera->SetIntensity(\hyperlink{main_8cpp_a4e18b0b26ecc511ca7d2f2205313e537}{intIntensity});
+1609     camera->SetIRFilter(\textcolor{keyword}{true});
+1610     camera->SetContinuousIR(\textcolor{keyword}{false});
+1611     camera->SetHighPowerMode(\textcolor{keyword}{false});
+1612 \textcolor{comment}{}
+1613 \textcolor{comment}{    //! sample some frames and calculate the position and attitude. then average those values and use that
+       as zero position}
+1614 \textcolor{comment}{}    \textcolor{keywordtype}{int} numberSamples = 0;
+1615     \textcolor{keywordtype}{int} numberToSample = 200;
+1616     \textcolor{keywordtype}{double} projectionError = 0;
+1617 
+1618     \textcolor{keywordflow}{while} (numberSamples < numberToSample)
+1619     \{\textcolor{comment}{}
+1620 \textcolor{comment}{        //! Fetch a new frame from the camera ===---}
+1621 \textcolor{comment}{}        Frame *frame = camera->GetFrame();
+1622 
+1623         \textcolor{keywordflow}{if} (frame)
+1624         \{\textcolor{comment}{}
+1625 \textcolor{comment}{            //! Ok, we've received a new frame, lets do something}
+1626 \textcolor{comment}{            //! with it.}
+1627 \textcolor{comment}{}            \textcolor{keywordflow}{if} (frame->ObjectCount() == \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers})
+1628             \{\textcolor{comment}{}
+1629 \textcolor{comment}{                //!for(int i=0; i<frame->ObjectCount(); i++)}
+1630 \textcolor{comment}{}                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+1631                 \{
+1632                     cObject *obj = frame->Object(i);
+1633                     \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted}[i] = cv::Point2d(obj->X(), obj->Y());
+1634                 \}
+1635 
+1636                 \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_acf655f393e3996144226399a338e8d3b}{gotOrder} == \textcolor{keyword}{false})
+1637                 \{
+1638                     \hyperlink{main_8cpp_a11ff459289305229597defd39f510959}{determineOrder}();
+1639                 \}
+1640 \textcolor{comment}{}
+1641 \textcolor{comment}{                //! sort the 2d points with the correct indices as found in the preceeding order
+       determination algorithm}
+1642 \textcolor{comment}{}                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} w = 0; w < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; w++)
+1643                 \{
+1644                     \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[w] = \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted}[
+      \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}[w]];
+1645                 \}
+1646                 \hyperlink{main_8cpp_a85d3d8c8a0e3e9cfb6157c247470d934}{list\_points2dOld} = \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted};
+1647 \textcolor{comment}{}
+1648 \textcolor{comment}{                //!Compute the pose from the 3D-2D corresponses}
+1649 \textcolor{comment}{}                solvePnP(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, \hyperlink{main_8cpp_ab1cc9be1ff0871bc5de1eb4c2811ae3e}{useGuess}, 
+      \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP});
+1650 \textcolor{comment}{}
+1651 \textcolor{comment}{                //! project the marker 3d points with the solution into the camera image CoSy and calculate
+       difference to true camera image}
+1652 \textcolor{comment}{}                projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected});
+1653                 projectionError = norm(\hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected}, 
+      \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d});
+1654 
+1655                 \textcolor{keywordflow}{if} (projectionError > 3)
+1656                 \{
+1657                     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Reprojection error is bigger than 3 pixel. Correct marker
+       configuration loaded?\(\backslash\)nMarker position measured precisely?"});
+1658                     frame->Release();
+1659                     \textcolor{keywordflow}{return} 1;
+1660                 \}
+1661 
+1662                 \textcolor{keywordtype}{double} maxValue = 0;
+1663                 \textcolor{keywordtype}{double} minValue = 0;
+1664                 minMaxLoc(\hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(2), &minValue, &maxValue);
+1665 
+1666                 \textcolor{keywordflow}{if} (maxValue > 10000 || minValue < 0)
+1667                 \{
+1668 
+1669 
+1670                     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Negative z distance, thats not possible. Start the set
+       zero routine again and check marker configurations."});
+1671                     frame->Release();
+1672                     \textcolor{keywordflow}{return} 1;
+1673                 \}
+1674 
+1675                 \textcolor{keywordflow}{if} (norm(\hyperlink{main_8cpp_a1d543a183197268bcb54a06bf157852c}{positionOld}) - norm(\hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}) < 0.05)   \textcolor{comment}{//!<Iterative Method needs time
+       to converge to solution}
+1676 \textcolor{comment}{}                \{
+1677                     add(\hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef});
+1678                     add(\hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}); \textcolor{comment}{//!< That are not the values of yaw,
+       roll and pitch yet! Rodriguez has to be called first. }
+1679 \textcolor{comment}{}                    numberSamples++;    \textcolor{comment}{//!<-- one sample more :D}
+1680 \textcolor{comment}{}                    \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e}{progressUpdate}(numberSamples * 100 / numberToSample);
+1681                 \}
+1682                 \hyperlink{main_8cpp_a1d543a183197268bcb54a06bf157852c}{positionOld} = \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec};
+1683 
+1684                 Mat cFrame(480, 640, CV\_8UC3, Scalar(0, 0, 0));
+1685                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+1686                 \{
+1687                     circle(cFrame, Point(\hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].x, 
+      \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].y), 6, Scalar(0, 225, 0), 3);
+1688                 \}
+1689                 \hyperlink{main_8cpp_a2104a5d9d6b9f1e29bc4cd858c59882e}{projectCoordinateFrame}(cFrame);
+1690                 projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d});
+1691                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+1692                 \{
+1693                     circle(cFrame, Point(\hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].x, 
+      \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].y), 3, Scalar(225, 0, 0), 3);
+1694                 \}
+1695 
+1696                 QPixmap QPFrame;
+1697                 QPFrame = \hyperlink{main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5}{Mat2QPixmap}(cFrame);
+1698                 \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a6f81522c2aa1668fa402f08710e6206b}{changeImage}(QPFrame);
+1699                 QCoreApplication::processEvents();
+1700 
+1701             \}
+1702             frame->Release();
+1703         \}
+1704     \}\textcolor{comment}{}
+1705 \textcolor{comment}{    //! Release camera ==--}
+1706 \textcolor{comment}{}    camera->Release();
+1707 \textcolor{comment}{}
+1708 \textcolor{comment}{    //!Divide by the number of samples to get the mean of the reference position}
+1709 \textcolor{comment}{}    divide(\hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef}, numberToSample, \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef});
+1710     divide(\hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}, numberToSample, \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}); \textcolor{comment}{//!< eulerRef is here in Axis Angle
+       notation}
+1711 \textcolor{comment}{}
+1712     Rodrigues(\hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}, \hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef});                \textcolor{comment}{//!< axis angle to rotation matrix}
+1713 \textcolor{comment}{}
+1714     \hyperlink{main_8cpp_ab2b71933055cf32cc8e5e2100fd7723f}{getEulerAngles}(\hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef}, \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}); \textcolor{comment}{//!<  rotation matrix to euler}
+1715 \textcolor{comment}{}    \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1716     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"RmatRef is:\(\backslash\)n"};
+1717     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef} << \textcolor{stringliteral}{"\(\backslash\)n"};
+1718     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Reference Position is:\(\backslash\)n"};
+1719     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef} << \textcolor{stringliteral}{"[mm] \(\backslash\)n"};
+1720     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Reference Euler angles are:\(\backslash\)n"};
+1721     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef} << \textcolor{stringliteral}{"[deg] \(\backslash\)n"};
+1722 \textcolor{comment}{}
+1723 \textcolor{comment}{    //! Save the obtained calibration coefficients in a file for later use}
+1724 \textcolor{comment}{}    QString fileName = QFileDialog::getSaveFileName(\textcolor{keyword}{nullptr}, \textcolor{stringliteral}{"Save ground calibration file"}, \textcolor{stringliteral}{"
+      referenceData.xml"}, \textcolor{stringliteral}{"Calibration File (*.xml);;All Files (*)"});
+1725     FileStorage fs(fileName.toUtf8().constData(), FileStorage::WRITE);
+1726     fs << \textcolor{stringliteral}{"M\_NC"} << \hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef};
+1727     fs << \textcolor{stringliteral}{"eulerRef"} << \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef};
+1728     \hyperlink{main_8cpp_a7b795a27447192fa68ef7c2d8ee1adab}{strBuf} = fs.releaseAndGetString();
+1729     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a1f4b8dd22ecc46bab619f6b1fe1a5144}{changeStatus}(QString::fromStdString(\hyperlink{main_8cpp_a7b795a27447192fa68ef7c2d8ee1adab}{strBuf}));
+1730     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Saved ground calibration!"});
+1731     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e}{progressUpdate}(0);
+1732     \textcolor{keywordflow}{return} 0;
+1733 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{main_8h_a7ad2e3cfb5056dbab2098e0dd3bd353f_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -258,16 +519,39 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{close\+U\+D\+P()}{closeUDP()}}
 {\footnotesize\ttfamily void close\+U\+DP (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Close the U\+DP ports again to release network interfaces etc. If this is not done the network resources are still occupied and the program can\textquotesingle{}t exit properly. check if the socket is open and if yes close it Here is the call graph for this function\+:
-\nopagebreak
+Close the U\+DP ports again to release network interfaces etc. If this is not done the network resources are still occupied and the program can\textquotesingle{}t exit properly. 
+
+Definition at line 1168 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+1169 \{\textcolor{comment}{}
+1170 \textcolor{comment}{    //! check if the socket is open and if yes close it}
+1171 \textcolor{comment}{}    \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_ae628b9aba095776b7134cf188486e174}{udpSocketObject}->isOpen())
+1172     \{
+1173         \hyperlink{main_8cpp_ae628b9aba095776b7134cf188486e174}{udpSocketObject}->close();
+1174     \}
+1175 
+1176     \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety}->isOpen())
+1177     \{
+1178         \hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety}->close();
+1179     \}
+1180 
+1181     \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_a4260e46da4e0e430642b2d8d8d3c7dd1}{udpSocketSafety2}->isOpen())
+1182     \{
+1183         \hyperlink{main_8cpp_a4260e46da4e0e430642b2d8d8d3c7dd1}{udpSocketSafety2}->close();
+1184     \}
+1185     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Closed all UDP ports."});
+1186 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=286pt]{main_8h_af2a8b7de0b15dc17198c147ba39e85f3_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -280,92 +564,163 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{determine\+Exposure()}{determineExposure()}}
 {\footnotesize\ttfamily int determine\+Exposure (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected. Then the mean of those two values is used as exposure. For Opti\+Track Ethernet cameras, it\textquotesingle{}s important to enable development mode if you want to stop execution for an extended time while debugging without disconnecting the Ethernet devices. Lets do that now\+:
+Get the optimal exposure for the camera. For that find the minimum and maximum exposure were the right number of markers are detected. Then the mean of those two values is used as exposure. 
 
-Initialize Camera S\+DK ==--
+Definition at line 1357 of file main.\+cpp.
 
-At this point the Camera S\+DK is actively looking for all connected cameras and will initialize them on it\textquotesingle{}s own.
 
-Get a connected camera ================-\/---
-
-If no device connected, pop a message box and exit ==--
-
-Determine camera resolution to size application window ==-\/---
-
-set the camera mode to precision mode, it used greyscale imformation for marker property calculations
-
-Start camera output ==--
-
-Turn on some overlay text so it\textquotesingle{}s clear things are ===--- working even if there is nothing in the camera\textquotesingle{}s view. ===---
-
-set the camera exposure
-
-set the camera infrared L\+ED intensity
-
-set the camera framerate to 100 Hz
-
-enable the filter that blocks visible light and only passes infrared light
-
-enable high power mode of the leds
-
-enable continuous L\+ED light
-
-set threshold for marker detection
-
-set exposure such that num markers are visible
-
-Number of objects (markers) found in the current picture with the given exposure
-
-exposure when objects detected the first time is number\+Markers
-
-exposure when objects detected is first time number\+Markers+1
-
-set the exposure to the smallest value possible
-
-if the markers arent found after number\+Tries then there might be no markers at all in the real world
-
-Determine minimum exposure, hence when are number\+Markers objects detected
-
-get a new camera frame
-
-frame received
-
-how many objects are detected in the image
-
-if the right amount if markers is found, exit while loop
-
-not the right amount of markers was found so increase the exposure and try again
-
-Now determine maximum exposure, hence when are number\+Markers+1 objects detected
-
-if the markers arent found after number\+Tries then there might be no markers at all in the real world
-
-how many objects are detected in the image
-
-if the right amount if markers is found, exit while loop
-
-not the right amount of markers was found so decrease the exposure and try again
-
-set the exposure to the mean of min and max exposure determined
-
-and now check if the correct amount of markers is detected with that new value
-
-how many objects are detected in the image
-
-are all markers and not more or less detected in the image
-
-Release camera ==--
-
-all markers and not more or less are found Here is the call graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+1358 \{\textcolor{comment}{}
+1359 \textcolor{comment}{    //! For OptiTrack Ethernet cameras, it's important to enable development mode if you}
+1360 \textcolor{comment}{    //! want to stop execution for an extended time while debugging without disconnecting}
+1361 \textcolor{comment}{    //! the Ethernet devices.  Lets do that now:}
+1362 \textcolor{comment}{}
+1363     CameraLibrary\_EnableDevelopment();
+1364 \textcolor{comment}{}
+1365 \textcolor{comment}{    //! Initialize Camera SDK ==--}
+1366 \textcolor{comment}{}    CameraLibrary::CameraManager::X();
+1367 \textcolor{comment}{}
+1368 \textcolor{comment}{    //! At this point the Camera SDK is actively looking for all connected cameras and will initialize}
+1369 \textcolor{comment}{    //! them on it's own.}
+1370 \textcolor{comment}{}\textcolor{comment}{}
+1371 \textcolor{comment}{    //! Get a connected camera ================----}
+1372 \textcolor{comment}{}    CameraManager::X().WaitForInitialization();
+1373     Camera *camera = CameraManager::X().GetCamera();
+1374 \textcolor{comment}{}
+1375 \textcolor{comment}{    //! If no device connected, pop a message box and exit ==--}
+1376 \textcolor{comment}{}    \textcolor{keywordflow}{if} (camera == 0)
+1377     \{
+1378         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"No camera found!"});
+1379         \textcolor{keywordflow}{return} 1;
+1380     \}
+1381 \textcolor{comment}{}
+1382 \textcolor{comment}{    //! Determine camera resolution to size application window ==----}
+1383 \textcolor{comment}{}    \textcolor{keywordtype}{int} cameraWidth = camera->Width();
+1384     \textcolor{keywordtype}{int} cameraHeight = camera->Height();
+1385 
+1386     camera->SetVideoType(Core::PrecisionMode);  \textcolor{comment}{//! set the camera mode to precision mode, it used
+       greyscale imformation for marker property calculations}
+1387 \textcolor{comment}{}\textcolor{comment}{}
+1388 \textcolor{comment}{                                                //! Start camera output ==--}
+1389 \textcolor{comment}{}    camera->Start();
+1390 \textcolor{comment}{}
+1391 \textcolor{comment}{    //! Turn on some overlay text so it's clear things are     ===---}
+1392 \textcolor{comment}{    //! working even if there is nothing in the camera's view. ===---}
+1393 \textcolor{comment}{}    camera->SetTextOverlay(\textcolor{keyword}{true});
+1394     camera->SetExposure(\hyperlink{main_8cpp_afcaebd6cfd12b2e558363a06db8396ea}{intExposure});    \textcolor{comment}{//! set the camera exposure}
+1395 \textcolor{comment}{}    camera->SetIntensity(\hyperlink{main_8cpp_a4e18b0b26ecc511ca7d2f2205313e537}{intIntensity}); \textcolor{comment}{//! set the camera infrared LED intensity}
+1396 \textcolor{comment}{}    camera->SetFrameRate(\hyperlink{main_8cpp_aa5b833b78b107a1a04eb4edba151c0ba}{intFrameRate}); \textcolor{comment}{//! set the camera framerate to 100 Hz}
+1397 \textcolor{comment}{}    camera->SetIRFilter(\textcolor{keyword}{true});  \textcolor{comment}{//! enable the filter that blocks visible light and only passes infrared
+       light}
+1398 \textcolor{comment}{}    camera->SetHighPowerMode(\textcolor{keyword}{true}); \textcolor{comment}{//! enable high power mode of the leds}
+1399 \textcolor{comment}{}    camera->SetContinuousIR(\textcolor{keyword}{false}); \textcolor{comment}{//! enable continuous LED light}
+1400 \textcolor{comment}{}    camera->SetThreshold(\hyperlink{main_8cpp_ac61559ce6020b8ec00161bc3a994ddcc}{intThreshold}); \textcolor{comment}{//! set threshold for marker detection}
+1401 \textcolor{comment}{}\textcolor{comment}{}
+1402 \textcolor{comment}{    //!set exposure such that num markers are visible}
+1403 \textcolor{comment}{}    \textcolor{keywordtype}{int} numberObjects = 0;  \textcolor{comment}{//! Number of objects (markers) found in the current picture with the given
+       exposure    }
+1404 \textcolor{comment}{}    \textcolor{keywordtype}{int} minExposure = 1;    \textcolor{comment}{//! exposure when objects detected the first time is numberMarkers }
+1405 \textcolor{comment}{}    \textcolor{keywordtype}{int} maxExposure = 480;  \textcolor{comment}{//! exposure when objects detected is first time numberMarkers+1}
+1406 \textcolor{comment}{}    \hyperlink{main_8cpp_afcaebd6cfd12b2e558363a06db8396ea}{intExposure} = minExposure;   \textcolor{comment}{//! set the exposure to the smallest value possible}
+1407 \textcolor{comment}{}    \textcolor{keywordtype}{int} numberTries = 0;    \textcolor{comment}{//! if the markers arent found after numberTries then there might be no markers
+       at all in the real world}
+1408 \textcolor{comment}{}\textcolor{comment}{}
+1409 \textcolor{comment}{                            //! Determine minimum exposure, hence when are numberMarkers objects detected}
+1410 \textcolor{comment}{}    camera->SetExposure(\hyperlink{main_8cpp_afcaebd6cfd12b2e558363a06db8396ea}{intExposure});
+1411     \textcolor{keywordflow}{while} (numberObjects != \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers} && numberTries < 48)
+1412     \{\textcolor{comment}{}
+1413 \textcolor{comment}{        //! get a new camera frame}
+1414 \textcolor{comment}{}        Frame *frame = camera->GetFrame();
+1415         \textcolor{keywordflow}{if} (frame) \textcolor{comment}{//! frame received}
+1416 \textcolor{comment}{}        \{
+1417             numberObjects = frame->ObjectCount();   \textcolor{comment}{//! how many objects are detected in the image}
+1418 \textcolor{comment}{}            \textcolor{keywordflow}{if} (numberObjects == \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}) \{ minExposure = 
+      \hyperlink{main_8cpp_afcaebd6cfd12b2e558363a06db8396ea}{intExposure}; frame->Release(); \textcolor{keywordflow}{break}; \} \textcolor{comment}{//! if the right amount if markers is found, exit while
+       loop}
+1419 \textcolor{comment}{}\textcolor{comment}{            //! not the right amount of markers was found so increase the exposure and try again}
+1420 \textcolor{comment}{}            numberTries++;
+1421             \hyperlink{main_8cpp_afcaebd6cfd12b2e558363a06db8396ea}{intExposure} += 10;
+1422             camera->SetExposure(\hyperlink{main_8cpp_afcaebd6cfd12b2e558363a06db8396ea}{intExposure});
+1423             \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1424             \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Exposure: "} << \hyperlink{main_8cpp_afcaebd6cfd12b2e558363a06db8396ea}{intExposure} << \textcolor{stringliteral}{"\(\backslash\)t"};
+1425             \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Objects found: "} << numberObjects;
+1426             \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+1427             frame->Release();
+1428         \}
+1429     \}
+1430 \textcolor{comment}{}
+1431 \textcolor{comment}{    //! Now determine maximum exposure, hence when are numberMarkers+1 objects detected}
+1432 \textcolor{comment}{}    numberTries = 0;    \textcolor{comment}{//! if the markers arent found after numberTries then there might be no markers at
+       all in the real world}
+1433 \textcolor{comment}{}    intExposure = maxExposure;
+1434     camera->SetExposure(intExposure);
+1435     numberObjects = 0;
+1436     \textcolor{keywordflow}{while} (numberObjects != \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers} && numberTries < 48)
+1437     \{
+1438         Frame *frame = camera->GetFrame();
+1439         \textcolor{keywordflow}{if} (frame)
+1440         \{
+1441             numberObjects = frame->ObjectCount(); \textcolor{comment}{//! how many objects are detected in the image}
+1442 \textcolor{comment}{}            \textcolor{keywordflow}{if} (numberObjects == \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}) \{ maxExposure = 
+      \hyperlink{main_8cpp_afcaebd6cfd12b2e558363a06db8396ea}{intExposure}; frame->Release(); \textcolor{keywordflow}{break}; \} \textcolor{comment}{//! if the right amount if markers is found, exit while
+       loop}
+1443 \textcolor{comment}{}\textcolor{comment}{}
+1444 \textcolor{comment}{            //! not the right amount of markers was found so decrease the exposure and try again}
+1445 \textcolor{comment}{}            intExposure -= 10;
+1446             numberTries++;
+1447             camera->SetExposure(intExposure);
+1448             \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1449             \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Exposure: "} << intExposure << \textcolor{stringliteral}{"\(\backslash\)t"};
+1450             \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Objects found: "} << numberObjects;
+1451             \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+1452             frame->Release();
+1453         \}
+1454     \}
+1455 \textcolor{comment}{}
+1456 \textcolor{comment}{    //! set the exposure to the mean of min and max exposure determined}
+1457 \textcolor{comment}{}    camera->SetExposure((minExposure + maxExposure) / 2.0);
+1458 \textcolor{comment}{}
+1459 \textcolor{comment}{    //! and now check if the correct amount of markers is detected with that new value}
+1460 \textcolor{comment}{}    \textcolor{keywordflow}{while} (1)
+1461     \{
+1462         Frame *frame = camera->GetFrame();
+1463         \textcolor{keywordflow}{if} (frame)
+1464         \{
+1465             numberObjects = frame->ObjectCount(); \textcolor{comment}{//! how many objects are detected in the image}
+1466 \textcolor{comment}{}            \textcolor{keywordflow}{if} (numberObjects != \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}) \textcolor{comment}{//! are all markers and not more or less
+       detected in the image}
+1467 \textcolor{comment}{}            \{
+1468                 frame->Release();
+1469                 \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Was not able to detect the right amount of markers."});\textcolor{comment}{}
+1470 \textcolor{comment}{                //! Release camera ==--}
+1471 \textcolor{comment}{}                camera->Release();
+1472                 \textcolor{keywordflow}{return} 1;
+1473             \}
+1474             \textcolor{keywordflow}{else}  \textcolor{comment}{//! all markers and not more or less are found}
+1475 \textcolor{comment}{}            \{
+1476                 frame->Release();
+1477                 intExposure = (minExposure + maxExposure) / 2.0;
+1478                 \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Found the correct number of markers."});
+1479                 \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Exposure set to:"});
+1480                 \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::number(intExposure));
+1481                 \textcolor{keywordflow}{break};
+1482             \}
+1483         \}
+1484     \}
+1485 
+1486     camera->Release();
+1487     \textcolor{keywordflow}{return} 0;
+1488 
+1489 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=327pt]{main_8h_a0416912fce6274568e80019b10ba294f_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -378,34 +733,81 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{determine\+Order()}{determineOrder()}}
 {\footnotesize\ttfamily void determine\+Order (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Compute the order of the marker points in 2D so they are the same as in the 3D array. Hence marker 1 must be in first place for both, list\+\_\+points2d and list\+\_\+points3d. determine the 3\+D-\/2D correspondences that are crucial for the PnP algorithm Try every possible correspondence and solve PnP Then project the 3D marker points into the 2D camera image and check the difference between projected points and points as seen by the camera the corresponce with the smallest difference is probably the correct one
+Compute the order of the marker points in 2D so they are the same as in the 3D array. Hence marker 1 must be in first place for both, list\+\_\+points2d and list\+\_\+points3d. 
 
-the difference between true 2D points and projected points is super big
+Definition at line 1493 of file main.\+cpp.
 
-now try every possible permutation of correspondence
 
-reset the starting values for solve\+PnP
-
-sort the 2d points with the current permutation
-
-Call solve P\+NP with P3P since its more robust and sufficient for start value determination
-
-set the current difference of all point correspondences to zero
-
-project the 3D points with the solve\+PnP solution onto 2D
-
-now compute the absolute difference (error)
-
-if the difference with the current permutation is smaller than the smallest value till now it is probably the more correct permutation
-
-$<$ set the smallest value of difference to the current one
-
-$<$ now safe the better permutation
-
-try every permutation
-
-now that the correct order is found assign it to the indices array Here is the caller graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+1494 \{\textcolor{comment}{}
+1495 \textcolor{comment}{    //! determine the 3D-2D correspondences that are crucial for the PnP algorithm}
+1496 \textcolor{comment}{    //! Try every possible correspondence and solve PnP}
+1497 \textcolor{comment}{    //! Then project the 3D marker points into the 2D camera image and check the difference }
+1498 \textcolor{comment}{    //! between projected points and points as seen by the camera}
+1499 \textcolor{comment}{    //! the corresponce with the smallest difference is probably the correct one}
+1500 \textcolor{comment}{}\textcolor{comment}{}
+1501 \textcolor{comment}{        //! the difference between true 2D points and projected points is super big}
+1502 \textcolor{comment}{}    \hyperlink{main_8cpp_ab826a7ca5876afdd6c0bccf04b73b30b}{minPointDistance} = 5000;
+1503     std::sort(\hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}, \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices} + 4);
+1504 \textcolor{comment}{}
+1505 \textcolor{comment}{    //! now try every possible permutation of correspondence}
+1506 \textcolor{comment}{}    \textcolor{keywordflow}{do} \{\textcolor{comment}{}
+1507 \textcolor{comment}{        //! reset the starting values for solvePnP}
+1508 \textcolor{comment}{}        \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec} = \hyperlink{main_8cpp_ae101daeaec726e27690c862b7edea825}{RvecOriginal};
+1509         \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec} = \hyperlink{main_8cpp_a043bf1deaf5d42d47e0cce8982c1f18b}{TvecOriginal};
+1510 \textcolor{comment}{}
+1511 \textcolor{comment}{        //! sort the 2d points with the current permutation}
+1512 \textcolor{comment}{}        \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} m = 0; m < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; m++)
+1513         \{
+1514             \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[m] = \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted}[
+      \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}[m]];
+1515         \}
+1516 \textcolor{comment}{}
+1517 \textcolor{comment}{        //! Call solve PNP with P3P since its more robust and sufficient for start value determination}
+1518 \textcolor{comment}{}        solvePnP(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, \hyperlink{main_8cpp_ab1cc9be1ff0871bc5de1eb4c2811ae3e}{useGuess}, SOLVEPNP\_P3P);
+1519 \textcolor{comment}{}
+1520 \textcolor{comment}{        //! set the current difference of all point correspondences to zero}
+1521 \textcolor{comment}{}        \hyperlink{main_8cpp_afe37bd67ad83a2d897cf5977cba70ef3}{currentPointDistance} = 0;
+1522 \textcolor{comment}{}
+1523 \textcolor{comment}{        //! project the 3D points with the solvePnP solution onto 2D}
+1524 \textcolor{comment}{}        projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected});
+1525 \textcolor{comment}{}
+1526 \textcolor{comment}{        //! now compute the absolute difference (error)}
+1527 \textcolor{comment}{}        \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = 0; n < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; n++)
+1528         \{
+1529             \hyperlink{main_8cpp_afe37bd67ad83a2d897cf5977cba70ef3}{currentPointDistance} += norm(\hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[n] - 
+      \hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected}[n]);
+1530         \}
+1531 \textcolor{comment}{}
+1532 \textcolor{comment}{        //! if the difference with the current permutation is smaller than the smallest value till now}
+1533 \textcolor{comment}{        //! it is probably the more correct permutation}
+1534 \textcolor{comment}{}        \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_afe37bd67ad83a2d897cf5977cba70ef3}{currentPointDistance} < \hyperlink{main_8cpp_ab826a7ca5876afdd6c0bccf04b73b30b}{minPointDistance})
+1535         \{
+1536             \hyperlink{main_8cpp_ab826a7ca5876afdd6c0bccf04b73b30b}{minPointDistance} = \hyperlink{main_8cpp_afe37bd67ad83a2d897cf5977cba70ef3}{currentPointDistance};    \textcolor{comment}{//!< set the
+       smallest value of difference to the current one}
+1537 \textcolor{comment}{}            \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} b = 0; b < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; b++)    \textcolor{comment}{//!< now safe the better permutation}
+1538 \textcolor{comment}{}            \{
+1539                 \hyperlink{main_8cpp_acc9e758efd664582db86f976cec195fa}{pointOrderIndicesNew}[b] = \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}[b];
+1540             \}
+1541         \}
+1542 
+1543 
+1544     \}\textcolor{comment}{}
+1545 \textcolor{comment}{    //! try every permutation }
+1546 \textcolor{comment}{}    \textcolor{keywordflow}{while} (std::next\_permutation(\hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}, 
+      \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices} + 4));
+1547 \textcolor{comment}{}
+1548 \textcolor{comment}{    //! now that the correct order is found assign it to the indices array}
+1549 \textcolor{comment}{}    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} w = 0; w < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; w++)
+1550     \{
+1551         \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}[w] = \hyperlink{main_8cpp_acc9e758efd664582db86f976cec195fa}{pointOrderIndicesNew}[w];
+1552     \}
+1553     \hyperlink{main_8cpp_acf655f393e3996144226399a338e8d3b}{gotOrder} = \textcolor{keyword}{true};
+1554 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -429,8 +831,43 @@ Draw the position, attitude and reprojection error in the picture.
 \mbox{\tt in}  & {\em error} & is the reprojection error of the pose estimation. \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 1310 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+1311 \{
+1312     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1313     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"X: "} << Position[0] << \textcolor{stringliteral}{" m"};
+1314     putText(Picture, \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(), cv::Point(200, 440), 1, 1, cv::Scalar(255, 255, 255));
+1315 
+1316     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1317     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Y: "} << Position[1] << \textcolor{stringliteral}{" m"};
+1318     putText(Picture, \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(), cv::Point(200, 455), 1, 1, cv::Scalar(255, 255, 255));
+1319 
+1320     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1321     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Z: "} << Position[2] << \textcolor{stringliteral}{" m"};
+1322     putText(Picture, \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(), cv::Point(200, 470), 1, 1, cv::Scalar(255, 255, 255));
+1323 
+1324     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1325     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Heading: "} << Euler[2] << \textcolor{stringliteral}{" deg"};
+1326     putText(Picture, \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(), cv::Point(350, 440), 1, 1, cv::Scalar(255, 255, 255));
+1327 
+1328     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1329     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Pitch: "} << Euler[1] << \textcolor{stringliteral}{" deg"};
+1330     putText(Picture, \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(), cv::Point(350, 455), 1, 1, cv::Scalar(255, 255, 255));
+1331 
+1332     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1333     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Roll: "} << Euler[0] << \textcolor{stringliteral}{" deg"};
+1334     putText(Picture, \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(), cv::Point(350, 470), 1, 1, cv::Scalar(255, 255, 255));
+1335 
+1336     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1337     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Error: "} << error << \textcolor{stringliteral}{" px"};
+1338     putText(Picture, \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(), cv::Point(10, 470), 1, 1, cv::Scalar(255, 255, 255));
+1339 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -448,16 +885,48 @@ Load a previously saved camera calibration from a file.
 \mbox{\tt in}  & {\em method} & whether or not load the camera calibration from calibration.\+xml. If ==0 then yes, if != 0 then let the user select a different file. \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+Definition at line 918 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+918                                  \{
+919 
+920     QString fileName;
+921     \textcolor{keywordflow}{if} (method == 0)
+922     \{
+923         fileName = \textcolor{stringliteral}{"calibration.xml"};
+924     \}
+925     \textcolor{keywordflow}{else}
+926     \{
+927         fileName = QFileDialog::getOpenFileName(\textcolor{keyword}{nullptr}, \textcolor{stringliteral}{"Choose a previous saved calibration file"}, \textcolor{stringliteral}{""}, \textcolor{stringliteral}{"
+      Calibration Files (*.xml);;All Files (*)"});
+928         \textcolor{keywordflow}{if} (fileName.length() == 0)
+929         \{
+930             fileName = \textcolor{stringliteral}{"calibration.xml"};
+931         \}
+932     \}
+933     FileStorage fs;
+934     fs.open(fileName.toUtf8().constData(), FileStorage::READ);
+935     fs[\textcolor{stringliteral}{"CameraMatrix"}] >> \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix};
+936     fs[\textcolor{stringliteral}{"DistCoeff"}] >> \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs};
+937     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Loaded calibration from file:"});
+938     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(fileName);
+939     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+940     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"\(\backslash\)nCamera Matrix is"} << \textcolor{stringliteral}{"\(\backslash\)n"} << cameraMatrix << \textcolor{stringliteral}{"\(\backslash\)n"};
+941     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"\(\backslash\)nDistortion Coefficients are"} << \textcolor{stringliteral}{"\(\backslash\)n"} << distCoeffs << \textcolor{stringliteral}{"\(\backslash\)n"};
+942     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+943 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=306pt]{main_8h_ad39626702ff983d5fdab4b703bfaf964_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -470,16 +939,31 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{load\+Camera\+Position()}{loadCameraPosition()}}
 {\footnotesize\ttfamily void load\+Camera\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Load the rotation matrix from camera Co\+Sy to ground Co\+Sy It is determined during \hyperlink{main_8cpp_a7ad2e3cfb5056dbab2098e0dd3bd353f}{calibrate\+Ground()} and stays the same once the camera is mounted and fixed. Open the reference\+Data.\+xml that contains the rotation from camera Co\+Sy to ground Co\+Sy Here is the call graph for this function\+:
-\nopagebreak
+Load the rotation matrix from camera Co\+Sy to ground Co\+Sy It is determined during \hyperlink{main_8cpp_a7ad2e3cfb5056dbab2098e0dd3bd353f}{calibrate\+Ground()} and stays the same once the camera is mounted and fixed. 
+
+Definition at line 1343 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+1344 \{\textcolor{comment}{}
+1345 \textcolor{comment}{    //! Open the referenceData.xml that contains the rotation from camera CoSy to ground CoSy}
+1346 \textcolor{comment}{}    FileStorage fs;
+1347     fs.open(\textcolor{stringliteral}{"referenceData.xml"}, FileStorage::READ);
+1348     fs[\textcolor{stringliteral}{"M\_NC"}] >> \hyperlink{main_8cpp_af604b9538ec8923428a78439eaf55f8e}{M\_CN};
+1349     fs[\textcolor{stringliteral}{"M\_NC"}] >> \hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef};
+1350     fs[\textcolor{stringliteral}{"posRef"}] >> \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef};
+1351     fs[\textcolor{stringliteral}{"eulerRef"}] >> \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef};
+1352     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Loaded reference pose."});
+1353 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=330pt]{main_8h_af39fa6c3a36ad6bc24a327db7a9d73c2_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -497,50 +981,141 @@ Load a marker configuration from file. This file has to be created by hand, use 
 \mbox{\tt in}  & {\em method} & whether or not load the configuration from the marker\+Standard.\+xml. If ==0 load it, if != 0 let the user select a different file. \\
 \hline
 \end{DoxyParams}
-during start up of the programm load the standard marker configuration
 
-open the standard marker configuration file
 
-copy the values to the respective variables
+Definition at line 1190 of file main.\+cpp.
 
-inizialise vectors with correct length depending on the number of markers
 
-save the marker locations in the points3d vector
-
-if the load marker configuration button was clicked show a open file dialog
-
-was cancel or abort clicked
-
-if yes load the standard marker configuration
-
-open the selected marker configuration file
-
-copy the values to the respective variables
-
-inizialise vectors with correct length depending on the number of markers
-
-save the marker locations in the points3d vector
-
-Print out the number of markers and their position to the G\+UI
-
-check if P3P algorithm can be enabled, it needs exactly 4 marker points to work
-
-if P3P is possible, let the user choose which algorithm he wants but keep iterative active
-
-More (or less) marker than 4 loaded, P3P is not possible, hence user cant select P3P in G\+UI
-
-now display the marker configuration in the camera view
-
-Set the camera pose parallel to the marker coordinate system Here is the call graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+1191 \{
+1192     QString fileName;\textcolor{comment}{}
+1193 \textcolor{comment}{    //! during start up of the programm load the standard marker configuration}
+1194 \textcolor{comment}{}    \textcolor{keywordflow}{if} (method == 0)
+1195     \{\textcolor{comment}{}
+1196 \textcolor{comment}{        //! open the standard marker configuration file}
+1197 \textcolor{comment}{}        FileStorage fs;
+1198         fs.open(\textcolor{stringliteral}{"markerStandard.xml"}, FileStorage::READ);
+1199 \textcolor{comment}{}
+1200 \textcolor{comment}{        //! copy the values to the respective variables}
+1201 \textcolor{comment}{}        fs[\textcolor{stringliteral}{"numberMarkers"}] >> \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers};
+1202 \textcolor{comment}{}
+1203 \textcolor{comment}{        //! inizialise vectors with correct length depending on the number of markers}
+1204 \textcolor{comment}{}        \hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d} = std::vector<Point3d>(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1205         \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d} = std::vector<Point2d>(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1206         \hyperlink{main_8cpp_a85d3d8c8a0e3e9cfb6157c247470d934}{list\_points2dOld} = std::vector<Point2d>(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1207         \hyperlink{main_8cpp_aea88a68a83d84419dd1c5a93b21b1958}{list\_points2dDifference} = std::vector<double>(
+      \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1208         \hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected} = std::vector<Point2d>(
+      \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1209         \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted} = std::vector<Point2d>(
+      \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1210 \textcolor{comment}{}
+1211 \textcolor{comment}{        //! save the marker locations in the points3d vector}
+1212 \textcolor{comment}{}        fs[\textcolor{stringliteral}{"list\_points3d"}] >> \hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d};
+1213         fs.release();
+1214         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Loaded marker configuration from file:"});
+1215         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(fileName);
+1216 
+1217 
+1218 
+1219     \}
+1220     \textcolor{keywordflow}{else}
+1221     \{\textcolor{comment}{}
+1222 \textcolor{comment}{        //! if the load marker configuration button was clicked show a open file dialog }
+1223 \textcolor{comment}{}        fileName = QFileDialog::getOpenFileName(\textcolor{keyword}{nullptr}, \textcolor{stringliteral}{"Choose a previous saved marker configuration file
+      "}, \textcolor{stringliteral}{""}, \textcolor{stringliteral}{"marker configuratio files (*.xml);;All Files (*)"});
+1224 \textcolor{comment}{}
+1225 \textcolor{comment}{        //! was cancel or abort clicked }
+1226 \textcolor{comment}{}        \textcolor{keywordflow}{if} (fileName.length() == 0)
+1227         \{\textcolor{comment}{}
+1228 \textcolor{comment}{            //! if yes load the standard marker configuration}
+1229 \textcolor{comment}{}            fileName = \textcolor{stringliteral}{"markerStandard.xml"};
+1230         \}
+1231 \textcolor{comment}{}
+1232 \textcolor{comment}{        //! open the selected marker configuration file}
+1233 \textcolor{comment}{}        FileStorage fs;
+1234         fs.open(fileName.toUtf8().constData(), FileStorage::READ);
+1235 \textcolor{comment}{}
+1236 \textcolor{comment}{        //! copy the values to the respective variables}
+1237 \textcolor{comment}{}        fs[\textcolor{stringliteral}{"numberMarkers"}] >> \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers};
+1238 \textcolor{comment}{}
+1239 \textcolor{comment}{        //! inizialise vectors with correct length depending on the number of markers}
+1240 \textcolor{comment}{}        list\_points3d = std::vector<Point3d>(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1241         list\_points2d = std::vector<Point2d>(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1242         list\_points2dOld = std::vector<Point2d>(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1243         list\_points2dDifference = std::vector<double>(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1244         list\_points2dProjected = std::vector<Point2d>(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1245         list\_points2dUnsorted = std::vector<Point2d>(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+1246 \textcolor{comment}{}
+1247 \textcolor{comment}{        //! save the marker locations in the points3d vector}
+1248 \textcolor{comment}{}        fs[\textcolor{stringliteral}{"list\_points3d"}] >> \hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d};
+1249         fs.release();
+1250         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Loaded marker configuration from file:"});
+1251         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(fileName);
+1252 
+1253     \}
+1254 \textcolor{comment}{}
+1255 \textcolor{comment}{    //! Print out the number of markers and their position to the GUI}
+1256 \textcolor{comment}{}    \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1257     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Number of Markers: "} << numberMarkers << \textcolor{stringliteral}{"\(\backslash\)n"};
+1258     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Marker 3D Points X,Y and Z [mm]: \(\backslash\)n"};
+1259     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+1260     \{
+1261         \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Marker "} << i + 1 << \textcolor{stringliteral}{":\(\backslash\)t"} << list\_points3d[i].x << \textcolor{stringliteral}{"\(\backslash\)t"} << list\_points3d[i].y << \textcolor{stringliteral}{"\(\backslash\)t"} << 
+      list\_points3d[i].z << \textcolor{stringliteral}{"\(\backslash\)n"};
+1262     \}
+1263     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+1264 \textcolor{comment}{}
+1265 \textcolor{comment}{    //! check if P3P algorithm can be enabled, it needs exactly 4 marker points to work}
+1266 \textcolor{comment}{}    \textcolor{keywordflow}{if} (numberMarkers == 4)
+1267     \{\textcolor{comment}{}
+1268 \textcolor{comment}{        //! if P3P is possible, let the user choose which algorithm he wants but keep iterative active}
+1269 \textcolor{comment}{}        \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP} = 0;
+1270         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a7552116eb5e18c49c6dcf943de29af7a}{enableP3P}(\textcolor{keyword}{true});
+1271     \}
+1272     \textcolor{keywordflow}{else}
+1273     \{\textcolor{comment}{}
+1274 \textcolor{comment}{        //! More (or less) marker than 4 loaded, P3P is not possible, hence user cant select P3P in GUI}
+1275 \textcolor{comment}{}        \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP} = 0;
+1276         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a7552116eb5e18c49c6dcf943de29af7a}{enableP3P}(\textcolor{keyword}{false});
+1277         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"P3P algorithm disabled, only works with 4 markers."});
+1278     \}
+1279 \textcolor{comment}{}
+1280 \textcolor{comment}{    //! now display the marker configuration in the camera view }
+1281 \textcolor{comment}{}    Mat cFrame(480, 640, CV\_8UC3, Scalar(0, 0, 0));
+1282 \textcolor{comment}{}
+1283 \textcolor{comment}{    //! Set the camera pose parallel to the marker coordinate system}
+1284 \textcolor{comment}{}    \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(0) = 0;
+1285     \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(1) = 0;
+1286     \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(2) = 4500;
+1287     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}.at<\textcolor{keywordtype}{double}>(0) = 0 * 3.141592653589 / 180.0;
+1288     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}.at<\textcolor{keywordtype}{double}>(1) = 0 * 3.141592653589 / 180.0;
+1289     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}.at<\textcolor{keywordtype}{double}>(2) = -90. * 3.141592653589 / 180.0;
+1290 
+1291     projectPoints(list\_points3d, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, 
+      \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, list\_points2dProjected);
+1292     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+1293     \{
+1294         circle(cFrame, Point(list\_points2dProjected[i].x, list\_points2dProjected[i].y), 3, Scalar(255, 0, 0
+      ), 3);
+1295     \}
+1296 
+1297     \hyperlink{main_8cpp_a2104a5d9d6b9f1e29bc4cd858c59882e}{projectCoordinateFrame}(cFrame);
+1298     QPixmap QPFrame;
+1299     QPFrame = \hyperlink{main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5}{Mat2QPixmap}(cFrame);
+1300     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a6f81522c2aa1668fa402f08710e6206b}{changeImage}(QPFrame);
+1301     QCoreApplication::processEvents();
+1302 
+1303 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=344pt]{main_8h_a56c7f641859cb2b6b99b0947d03be800_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -558,12 +1133,24 @@ Project the coordinate Co\+Sy origin and axis direction of the marker Co\+Sy wit
 \mbox{\tt in}  & {\em picture\+Frame} & the image in which the Co\+Sy frame should be pasted. \\
 \hline
 \end{DoxyParams}
-$<$z-\/axis
 
-$<$x-\/axis
 
-$<$y-\/axis Here is the caller graph for this function\+:
-\nopagebreak
+Definition at line 1076 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+1077 \{
+1078     projectPoints(\hyperlink{main_8cpp_ab34a04f5429de54d618fe1c9bd363c4e}{coordinateFrame}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_a25a0b285905c7882d629b8f561425a2f}{coordinateFrameProjected});
+1079     line(pictureFrame, \hyperlink{main_8cpp_a25a0b285905c7882d629b8f561425a2f}{coordinateFrameProjected}[0], 
+      \hyperlink{main_8cpp_a25a0b285905c7882d629b8f561425a2f}{coordinateFrameProjected}[3], Scalar(0, 0, 255), 2); \textcolor{comment}{//!<z-axis}
+1080 \textcolor{comment}{}    line(pictureFrame, \hyperlink{main_8cpp_a25a0b285905c7882d629b8f561425a2f}{coordinateFrameProjected}[0], 
+      \hyperlink{main_8cpp_a25a0b285905c7882d629b8f561425a2f}{coordinateFrameProjected}[1], Scalar(255, 0, 0), 2); \textcolor{comment}{//!<x-axis}
+1081 \textcolor{comment}{}    line(pictureFrame, \hyperlink{main_8cpp_a25a0b285905c7882d629b8f561425a2f}{coordinateFrameProjected}[0], 
+      \hyperlink{main_8cpp_a25a0b285905c7882d629b8f561425a2f}{coordinateFrameProjected}[2], Scalar(0, 255, 0), 2); \textcolor{comment}{//!<y-axis}
+1082 \textcolor{comment}{}\}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -576,10 +1163,31 @@ $<$y-\/axis Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{send\+Data\+U\+D\+P()}{sendDataUDP()}}
 {\footnotesize\ttfamily void send\+Data\+U\+DP (\begin{DoxyParamCaption}\item[{cv\+::\+Vec3d \&}]{Position,  }\item[{cv\+::\+Vec3d \&}]{Euler }\end{DoxyParamCaption})}
 
-Send the position and attitude over U\+DP to every receiver, the safety receiver is handled on its own in the start\+Tracking function because its send rate is less than 100 Hz. Roll Pitch Heading
+Send the position and attitude over U\+DP to every receiver, the safety receiver is handled on its own in the start\+Tracking function because its send rate is less than 100 Hz. 
 
-if second receiver is activated send it also the tracking data Here is the caller graph for this function\+:
-\nopagebreak
+Definition at line 1149 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+1150 \{
+1151     \hyperlink{main_8cpp_af38b495bf1b0e0651895215823059d30}{datagram}.clear();
+1152     QDataStream out(&\hyperlink{main_8cpp_af38b495bf1b0e0651895215823059d30}{datagram}, QIODevice::WriteOnly);
+1153     out.setVersion(QDataStream::Qt\_4\_3);
+1154     out << (float)Position[0] << (\textcolor{keywordtype}{float})Position[1] << (float)Position[2];
+1155     out << (float)Euler[0] << (\textcolor{keywordtype}{float})Euler[1] << (float)Euler[2]; \textcolor{comment}{//! Roll Pitch Heading}
+1156 \textcolor{comment}{}    \hyperlink{main_8cpp_ae628b9aba095776b7134cf188486e174}{udpSocketObject}->writeDatagram(\hyperlink{main_8cpp_af38b495bf1b0e0651895215823059d30}{datagram}, 
+      \hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject}, \hyperlink{main_8cpp_a9a00043c93a3362969c1c1fcd3a70fea}{portObject});
+1157 \textcolor{comment}{}
+1158 \textcolor{comment}{    //! if second receiver is activated send it also the tracking data}
+1159 \textcolor{comment}{}    \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_a436fb814ccc3f02617dade4dc6511143}{safety2Enable})
+1160     \{
+1161         \hyperlink{main_8cpp_a4260e46da4e0e430642b2d8d8d3c7dd1}{udpSocketSafety2}->writeDatagram(\hyperlink{main_8cpp_af38b495bf1b0e0651895215823059d30}{datagram}, 
+      \hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2}, \hyperlink{main_8cpp_a2601be9c226be24c71ec8282f632e723}{portSafety2});
+1162     \}
+1163 
+1164 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -597,16 +1205,42 @@ Add a heading offset to the attitude for the case it is wanted by the user.
 \mbox{\tt in}  & {\em d} & denotes heading offset in degrees. \\
 \hline
 \end{DoxyParams}
-Convert heading offset from degrees to rad
 
-Calculate rotation about x axis
 
-Calculate rotation about y axis
+Definition at line 1117 of file main.\+cpp.
 
-Calculate rotation about z axis
 
-Combined rotation matrix Here is the caller graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+1118 \{
+1119     \hyperlink{main_8cpp_a377d62efbf6892902616cb71a4a5d5d7}{headingOffset} = d;
+1120     d = d * 3.141592653589 / 180.0; \textcolor{comment}{//! Convert heading offset from degrees to rad}
+1121 \textcolor{comment}{}\textcolor{comment}{}
+1122 \textcolor{comment}{    //! Calculate rotation about x axis}
+1123 \textcolor{comment}{}    Mat R\_x = (Mat\_<double>(3, 3) <<
+1124         1, 0, 0,
+1125         0, 1, 0,
+1126         0, 0, 1
+1127         );
+1128 \textcolor{comment}{}
+1129 \textcolor{comment}{    //! Calculate rotation about y axis}
+1130 \textcolor{comment}{}    Mat R\_y = (Mat\_<double>(3, 3) <<
+1131         1, 0, 0,
+1132         0, 1, 0,
+1133         0, 0, 1
+1134         );
+1135 \textcolor{comment}{}
+1136 \textcolor{comment}{    //! Calculate rotation about z axis}
+1137 \textcolor{comment}{}    Mat R\_z = (Mat\_<double>(3, 3) <<
+1138         cos(d), -sin(d), 0,
+1139         sin(d), cos(d), 0,
+1140         0, 0, 1);
+1141 
+1142 \textcolor{comment}{}
+1143 \textcolor{comment}{    //! Combined rotation matrix}
+1144 \textcolor{comment}{}    \hyperlink{main_8cpp_a7b0c222d472eacfd5b0d73ed769baae0}{M\_HeadingOffset} = R\_z * R\_y * R\_x;
+1145 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -619,68 +1253,217 @@ Combined rotation matrix Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{set\+Reference()}{setReference()}}
 {\footnotesize\ttfamily int set\+Reference (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Determine the initial position of the object that serves as reference point or as ground frame origin. Computes the pose 200 times and then averages it. The position and attitude are from now on used as navigation Co\+Sy. initialize the variables with starting values
+Determine the initial position of the object that serves as reference point or as ground frame origin. Computes the pose 200 times and then averages it. The position and attitude are from now on used as navigation Co\+Sy. 
 
-Initialize Camera S\+DK ==--
+Definition at line 590 of file main.\+cpp.
 
-At this point the Camera S\+DK is actively looking for all connected cameras and will initialize them on it\textquotesingle{}s own.
 
-Get a connected camera ================-\/---
-
-If no device connected, pop a message box and exit ==--
-
-Determine camera resolution to size application window ==-\/---
-
-Set camera mode to precision mode, it directly provides marker coordinates
-
-Start camera output ==--
-
-Turn on some overlay text so it\textquotesingle{}s clear things are ===--- working even if there is nothing in the camera\textquotesingle{}s view. ===--- Set some other parameters as well of the camera
-
-sample some frames and calculate the position and attitude. then average those values and use that as zero position
-
-$<$ difference between the marker points as seen by the camera and the projected marker points with Rvec and Tvec
-
-Fetch a new frame from the camera ===---
-
-Ok, we\textquotesingle{}ve received a new frame, lets do something with it.
-
-for(int i=0; i$<$frame-\/$>$Object\+Count(); i++)
-
-sort the 2d points with the correct indices as found in the preceeding order determination algorithm
-
-Compute the pose from the 3\+D-\/2D corresponses
-
-project the marker 3d points with the solution into the camera image Co\+Sy and calculate difference to true camera image
-
-$<$Iterative Method needs time to converge to solution
-
-$<$ That are not the values of yaw, roll and pitch yet! Rodriguez has to be called first.
-
-$<$ one sample more \+:D
-
-Release camera ==--
-
-Divide by the number of samples to get the mean of the reference position
-
-$<$ euler\+Ref is here in Axis Angle notation
-
-$<$ axis angle to rotation matrix
-
--- Euler Angles, finally
-
-$<$ rotation matrix to euler
-
-compute the difference between last obtained T\+Vec and the average Value When it is large the iterative method has not converged properly so it is advised to start the \hyperlink{main_8cpp_a1e6662e0f16887fe97c7bebe05065972}{set\+Reference()} function once again Here is the call graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+591 \{\textcolor{comment}{}
+592 \textcolor{comment}{    //! initialize the variables with starting values}
+593 \textcolor{comment}{}    \hyperlink{main_8cpp_acf655f393e3996144226399a338e8d3b}{gotOrder} = \textcolor{keyword}{false};
+594     \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef} = 0;
+595     \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef} = 0;
+596     \hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef} = 0;
+597     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec} = \hyperlink{main_8cpp_ae101daeaec726e27690c862b7edea825}{RvecOriginal};
+598     \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec} = \hyperlink{main_8cpp_a043bf1deaf5d42d47e0cce8982c1f18b}{TvecOriginal};
+599 
+600     \hyperlink{main_8cpp_a0416912fce6274568e80019b10ba294f}{determineExposure}();
+601 
+602     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+603     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Started reference coordinate determination."});
+604 
+605     CameraLibrary\_EnableDevelopment();\textcolor{comment}{}
+606 \textcolor{comment}{    //! Initialize Camera SDK ==--}
+607 \textcolor{comment}{}    CameraLibrary::CameraManager::X();
+608 \textcolor{comment}{}
+609 \textcolor{comment}{    //! At this point the Camera SDK is actively looking for all connected cameras and will initialize}
+610 \textcolor{comment}{    //! them on it's own.}
+611 \textcolor{comment}{}\textcolor{comment}{}
+612 \textcolor{comment}{    //! Get a connected camera ================----}
+613 \textcolor{comment}{}    CameraManager::X().WaitForInitialization();
+614     Camera *camera = CameraManager::X().GetCamera();
+615 \textcolor{comment}{}
+616 \textcolor{comment}{    //! If no device connected, pop a message box and exit ==--}
+617 \textcolor{comment}{}    \textcolor{keywordflow}{if} (camera == 0)
+618     \{
+619         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"No camera found!"});
+620         \textcolor{keywordflow}{return} 1;
+621     \}
+622 \textcolor{comment}{}
+623 \textcolor{comment}{    //! Determine camera resolution to size application window ==----}
+624 \textcolor{comment}{}    \textcolor{keywordtype}{int} cameraWidth = camera->Width();
+625     \textcolor{keywordtype}{int} cameraHeight = camera->Height();
+626     camera->GetDistortionModel(\hyperlink{main_8cpp_a9fba099569a2da23e458c2571f69652a}{distModel});
+627     cv::Mat matFrame(cv::Size(cameraWidth, cameraHeight), CV\_8UC1);
+628 \textcolor{comment}{}
+629 \textcolor{comment}{    //! Set camera mode to precision mode, it directly provides marker coordinates}
+630 \textcolor{comment}{}    camera->SetVideoType(Core::PrecisionMode);
+631 \textcolor{comment}{}
+632 \textcolor{comment}{    //! Start camera output ==--}
+633 \textcolor{comment}{}    camera->Start();
+634 \textcolor{comment}{}
+635 \textcolor{comment}{    //! Turn on some overlay text so it's clear things are     ===---}
+636 \textcolor{comment}{    //! working even if there is nothing in the camera's view. ===---}
+637 \textcolor{comment}{    //! Set some other parameters as well of the camera}
+638 \textcolor{comment}{}    camera->SetTextOverlay(\textcolor{keyword}{true});
+639     camera->SetFrameRate(\hyperlink{main_8cpp_aa5b833b78b107a1a04eb4edba151c0ba}{intFrameRate});
+640     camera->SetIntensity(\hyperlink{main_8cpp_a4e18b0b26ecc511ca7d2f2205313e537}{intIntensity});
+641     camera->SetIRFilter(\textcolor{keyword}{true});
+642     camera->SetContinuousIR(\textcolor{keyword}{false});
+643     camera->SetHighPowerMode(\textcolor{keyword}{false});
+644 \textcolor{comment}{}
+645 \textcolor{comment}{    //! sample some frames and calculate the position and attitude. then average those values and use that
+       as zero position}
+646 \textcolor{comment}{}    \textcolor{keywordtype}{int} numberSamples = 0;
+647     \textcolor{keywordtype}{int} numberToSample = 200;
+648     \textcolor{keywordtype}{double} projectionError = 0; \textcolor{comment}{//!< difference between the marker points as seen by the camera and the
+       projected marker points with Rvec and Tvec}
+649 \textcolor{comment}{}
+650     \textcolor{keywordflow}{while} (numberSamples < numberToSample)
+651     \{\textcolor{comment}{}
+652 \textcolor{comment}{        //! Fetch a new frame from the camera ===---}
+653 \textcolor{comment}{}        Frame *frame = camera->GetFrame();
+654 
+655         \textcolor{keywordflow}{if} (frame)
+656         \{\textcolor{comment}{}
+657 \textcolor{comment}{            //! Ok, we've received a new frame, lets do something}
+658 \textcolor{comment}{            //! with it.}
+659 \textcolor{comment}{}            \textcolor{keywordflow}{if} (frame->ObjectCount() == \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers})
+660             \{\textcolor{comment}{}
+661 \textcolor{comment}{                //!for(int i=0; i<frame->ObjectCount(); i++)}
+662 \textcolor{comment}{}                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+663                 \{
+664                     cObject *obj = frame->Object(i);
+665                     \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted}[i] = cv::Point2d(obj->X(), obj->Y());
+666                 \}
+667 
+668                 \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_acf655f393e3996144226399a338e8d3b}{gotOrder} == \textcolor{keyword}{false})
+669                 \{
+670                     \hyperlink{main_8cpp_a11ff459289305229597defd39f510959}{determineOrder}();
+671                 \}
+672 \textcolor{comment}{}
+673 \textcolor{comment}{                //! sort the 2d points with the correct indices as found in the preceeding order
+       determination algorithm}
+674 \textcolor{comment}{}                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} w = 0; w < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; w++)
+675                 \{
+676                     \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[w] = \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted}[
+      \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}[w]];
+677                 \}
+678                 \hyperlink{main_8cpp_a85d3d8c8a0e3e9cfb6157c247470d934}{list\_points2dOld} = \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted};
+679 \textcolor{comment}{}
+680 \textcolor{comment}{                //!Compute the pose from the 3D-2D corresponses}
+681 \textcolor{comment}{}                solvePnP(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, \hyperlink{main_8cpp_ab1cc9be1ff0871bc5de1eb4c2811ae3e}{useGuess}, 
+      \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP});
+682 \textcolor{comment}{}
+683 \textcolor{comment}{                //! project the marker 3d points with the solution into the camera image CoSy and calculate
+       difference to true camera image}
+684 \textcolor{comment}{}                projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected});
+685                 projectionError = norm(\hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected}, 
+      \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d});
+686 
+687                 \textcolor{keywordtype}{double} maxValue = 0;
+688                 \textcolor{keywordtype}{double} minValue = 0;
+689                 minMaxLoc(\hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(2), &minValue, &maxValue);
+690 
+691                 \textcolor{keywordflow}{if} (maxValue > 10000 || minValue < 0)
+692                 \{
+693                     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+694                     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Negative z distance, thats not possible. Start the set zero routine again or
+       restart Programm."};
+695                     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+696                     frame->Release();
+697                     \textcolor{keywordflow}{return} 1;
+698                 \}
+699 
+700                 \textcolor{keywordflow}{if} (projectionError > 3)
+701                 \{
+702                     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Reprojection error is bigger than 3 pixel. Correct marker
+       configuration loaded?\(\backslash\)nMarker position measured precisely?"});
+703                     frame->Release();
+704                     \textcolor{keywordflow}{return} 1;
+705                 \}
+706 
+707                 \textcolor{keywordflow}{if} (norm(\hyperlink{main_8cpp_a1d543a183197268bcb54a06bf157852c}{positionOld}) - norm(\hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}) < 0.05)   \textcolor{comment}{//!<Iterative Method needs time
+       to converge to solution}
+708 \textcolor{comment}{}                \{
+709                     add(\hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef});
+710                     add(\hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}); \textcolor{comment}{//!< That are not the values of yaw,
+       roll and pitch yet! Rodriguez has to be called first. }
+711 \textcolor{comment}{}                    numberSamples++;    \textcolor{comment}{//!<  one sample more :D}
+712 \textcolor{comment}{}                    \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e}{progressUpdate}(numberSamples * 100 / numberToSample);
+713                 \}
+714                 \hyperlink{main_8cpp_a1d543a183197268bcb54a06bf157852c}{positionOld} = \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec};
+715 
+716                 Mat cFrame(480, 640, CV\_8UC3, Scalar(0, 0, 0));
+717                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+718                 \{
+719                     circle(cFrame, Point(\hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].x, 
+      \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].y), 6, Scalar(0, 225, 0), 3);
+720                 \}
+721                 \hyperlink{main_8cpp_a2104a5d9d6b9f1e29bc4cd858c59882e}{projectCoordinateFrame}(cFrame);
+722                 projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d});
+723                 \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+724                 \{
+725                     circle(cFrame, Point(\hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].x, 
+      \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].y), 3, Scalar(225, 0, 0), 3);
+726                 \}
+727                 \hyperlink{main_8cpp_af6430ad2592a955a3618549547dfc5be}{drawPositionText}(cFrame, \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}, 
+      \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}, projectionError);
+728 
+729                 QPixmap QPFrame;
+730                 QPFrame = \hyperlink{main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5}{Mat2QPixmap}(cFrame);
+731                 \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a6f81522c2aa1668fa402f08710e6206b}{changeImage}(QPFrame);
+732                 QCoreApplication::processEvents();
+733 
+734             \}
+735             frame->Release();
+736         \}
+737     \}\textcolor{comment}{}
+738 \textcolor{comment}{    //! Release camera ==--}
+739 \textcolor{comment}{}    camera->Release();
+740 \textcolor{comment}{}
+741 \textcolor{comment}{    //!Divide by the number of samples to get the mean of the reference position}
+742 \textcolor{comment}{}    divide(\hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef}, numberToSample, \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef});
+743     divide(\hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}, numberToSample, \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}); \textcolor{comment}{//!< eulerRef is here in Axis Angle
+       notation}
+744 \textcolor{comment}{}
+745     Rodrigues(\hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}, \hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef});                \textcolor{comment}{//!< axis angle to rotation matrix}
+746 \textcolor{comment}{}\textcolor{comment}{    //!-- Euler Angles, finally }
+747 \textcolor{comment}{}    \hyperlink{main_8cpp_ab2b71933055cf32cc8e5e2100fd7723f}{getEulerAngles}(\hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef}, \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef}); \textcolor{comment}{//!<  rotation matrix to euler}
+748 \textcolor{comment}{}    \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+749     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"RmatRef is:\(\backslash\)n"};
+750     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef} << \textcolor{stringliteral}{"\(\backslash\)n"};
+751     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Reference Position is:\(\backslash\)n"};
+752     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef} << \textcolor{stringliteral}{"[mm] \(\backslash\)n"};
+753     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Reference Euler Angles are:\(\backslash\)n"};
+754     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \hyperlink{main_8cpp_acd6966c004a57c4080ba204152200e7f}{eulerRef} << \textcolor{stringliteral}{"[deg] \(\backslash\)n"};
+755 \textcolor{comment}{}
+756 \textcolor{comment}{    //! compute the difference between last obtained TVec and the average Value}
+757 \textcolor{comment}{    //! When it is large the iterative method has not converged properly so it is advised to start the
+       setReference() function once again}
+758 \textcolor{comment}{}    \textcolor{keywordtype}{double} error = norm(posRef) - norm(\hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec});
+759     \textcolor{keywordflow}{if} (error > 5.0)
+760     \{
+761         \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Caution, distance between reference position and last position is: "} << error << \textcolor{stringliteral}{"\(\backslash\)n Start
+       the set zero routine once again."};
+762     \}
+763     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+764     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e}{progressUpdate}(0);
+765     \textcolor{keywordflow}{return} 0;
+766 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{main_8h_a1e6662e0f16887fe97c7bebe05065972_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -697,22 +1480,52 @@ Here is the caller graph for this function\+:
 
 Open the U\+DP ports for communication. 
 
-Initialise the Q\+Data\+Stream that stores the data to be send
 
-Create U\+DP slots
 
-if the safety feature is activated open the udp port
+Definition at line 1085 of file main.\+cpp.
 
-if the second receiver feature is activated open the udp port Here is the call graph for this function\+:
-\nopagebreak
+
+\begin{DoxyCode}
+1086 \{\textcolor{comment}{}
+1087 \textcolor{comment}{    //! Initialise the QDataStream that stores the data to be send}
+1088 \textcolor{comment}{}    QDataStream out(&\hyperlink{main_8cpp_af38b495bf1b0e0651895215823059d30}{datagram}, QIODevice::WriteOnly);
+1089     out.setVersion(QDataStream::Qt\_4\_3);
+1090 \textcolor{comment}{}
+1091 \textcolor{comment}{    //! Create UDP slots}
+1092 \textcolor{comment}{}    \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Opening UDP ports."});
+1093     \hyperlink{main_8cpp_ae628b9aba095776b7134cf188486e174}{udpSocketObject} = \textcolor{keyword}{new} QUdpSocket(0);
+1094     \hyperlink{main_8cpp_ae628b9aba095776b7134cf188486e174}{udpSocketObject}->connectToHost(\hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject}, 
+      \hyperlink{main_8cpp_a9a00043c93a3362969c1c1fcd3a70fea}{portObject});
+1095     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Opened first receiver UDP port."});
+1096 
+1097     \hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety} = \textcolor{keyword}{new} QUdpSocket(0);
+1098     \hyperlink{main_8cpp_a4260e46da4e0e430642b2d8d8d3c7dd1}{udpSocketSafety2} = \textcolor{keyword}{new} QUdpSocket(0);
+1099 \textcolor{comment}{}
+1100 \textcolor{comment}{    //! if the safety feature is activated open the udp port}
+1101 \textcolor{comment}{}    \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_aa6266eedab8b3c011be53baffbfc42ab}{safetyEnable})
+1102     \{
+1103         \hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety}->connectToHost(\hyperlink{main_8cpp_afefb1102a8a4a71b55d6f24f46404cc5}{IPAdressSafety}, 
+      \hyperlink{main_8cpp_a137bc8cc9d53ad9b176c988a99bc7142}{portSafety});
+1104         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Opened safety UDP port."});
+1105     \}
+1106 \textcolor{comment}{}
+1107 \textcolor{comment}{    //! if the second receiver feature is activated open the udp port}
+1108 \textcolor{comment}{}    \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_a436fb814ccc3f02617dade4dc6511143}{safety2Enable})
+1109     \{
+1110         \hyperlink{main_8cpp_a4260e46da4e0e430642b2d8d8d3c7dd1}{udpSocketSafety2}->connectToHost(\hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2}, 
+      \hyperlink{main_8cpp_a2601be9c226be24c71ec8282f632e723}{portSafety2});
+1111         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Opened second receiver UDP port."});
+1112     \}
+1113 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=288pt]{main_8h_ae624b0189bc5e32cbbb1f178b9f1a360_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -729,18 +1542,34 @@ Here is the caller graph for this function\+:
 
 Start or stop the tracking depending on if the camera is currently running or not. 
 
-tracking is not running so start it
 
-$<$ tracking is currently running, set exit\+Request to true so the while loop in \hyperlink{main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586}{start\+Tracking()} exits Here is the call graph for this function\+:
-\nopagebreak
+
+Definition at line 574 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+575 \{\textcolor{comment}{}
+576 \textcolor{comment}{    //! tracking is not running so start it}
+577 \textcolor{comment}{}    \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_a6b1342fd3f76c3ce13245825cff8e400}{exitRequested})
+578     \{
+579         \hyperlink{main_8cpp_a6b1342fd3f76c3ce13245825cff8e400}{exitRequested} = \textcolor{keyword}{false};
+580         \hyperlink{main_8cpp_a3d3afd29ce54eb7fc5cc7e74ab666586}{startTracking}();
+581     \}
+582     \textcolor{keywordflow}{else}  \textcolor{comment}{//!< tracking is currently running, set exitRequest to true so the while loop in startTracking()
+       exits}
+583 \textcolor{comment}{}    \{
+584         \hyperlink{main_8cpp_a6b1342fd3f76c3ce13245825cff8e400}{exitRequested} = \textcolor{keyword}{true};
+585     \}
+586 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{main_8h_a25183e8d0b386ef12b557efc712a0261_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -753,252 +1582,402 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{start\+Tracking()}{startTracking()}}
 {\footnotesize\ttfamily int start\+Tracking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Start the loop that fetches frames, computes the position etc and sends it to other computers. This function is the core of this program, hence the pose estimation is done here. The order of points, hence which entry in list\+\_\+points3d corresponds to which in list\+\_\+points2d is not calculated yet
-
-Use the value of Rvec that was set in \hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main()} as starting value for the solve\+PnP algorithm
-
-Use the value of Tvec that was set in \hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main()} as starting value for the solve\+PnP algorithm
-
-Get the current date and time to name the log file
-
-Concat the log file name as followed. The file is saved in the folder /logs in the Rigid Track installation folder
-
-Convert the Q\+String to a standard string
-
-Get the exposure where the right amount of markers is detected
-
-For Opti\+Track Ethernet cameras, it\textquotesingle{}s important to enable development mode if you want to stop execution for an extended time while debugging without disconnecting the Ethernet devices. Lets do that now\+:
-
-Initialize Camera S\+DK
-
-At this point the Camera S\+DK is actively looking for all connected cameras and will initialize them on it\textquotesingle{}s own
-
-Get a connected camera
-
-If no camera can be found, inform user in message log and exit function
-
-Determine camera resolution to size application window
-
-Set the camera mode to precision mode, it used greyscale imformation for marker property calculations
-
-Start camera output
-
-Turn on some overlay text so it\textquotesingle{}s clear things are working even if there is nothing in the camera\textquotesingle{}s view
-
-Set the camera exposure
-
-Set the camera infrared L\+ED intensity
-
-Set the camera framerate to 100 Hz
-
-Enable the filter that blocks visible light and only passes infrared light
-
-Enable high power mode of the L\+E\+Ds
-
-Disable continuous L\+ED light
-
-Set threshold for marker detection
-
-Create a new matrix that stores the grayscale picture from the camera
-
-Q\+Pixmap is the corresponding Qt class that saves images
-
-Matrix that stores the colored picture, hence marker points, coordinate frame and reprojected points
-
-Helper variable used to kick safety switch
-
-Variables for the min and max values that are needed for sanity checks
-
-Ff a marker is not visible or accuracy is bad increase this counter
-
-Equals the quality of the tracking
-
-Open sockets and ports for U\+DP communication
-
-If the safety feature is enabled send the starting message
-
-Send enable message, hence send a 9 and then a 1
-
-Fetch a new frame from the camera
-
-Get the timestamp of the first frame. This time is subtracted from every subseeding frame so the time starts at 0 in the logs
-
-While no new frame is received loop
-
-Get a new camera frame
-
-There is actually a new frame
-
-Get the time stamp for the first frame. It is subtracted for the following frames
-
-Release the frame so the camera can continue
-
-Exit the while loop
-
-Now enter the main loop that processes each frame and computes the pose, sends it and logs stuff
-
-Check if the user has not pressed \char`\"{}\+Stop Tracking\char`\"{} yet
-
-Fetch a new frame from the camera
-
-Did we got a new frame or does the camera still need more time
-
-Increase by one, if everything is okay it is decreased at the end of the loop again
-
-Only use this frame it the right number of markers is found in the picture
-
-Get the marker points in 2D in the camera image frame and store them in the list\+\_\+points2d\+Unsorted vector The order of points that come from the camera corresponds to the Y coordinate
-
-Was the order already determined? This is false for the first frame and from then on true
-
-Now compute the order
-
-Sort the 2d points with the correct indices as found in the preceeding order determination algorithm
-
-point\+Order\+Indices was calculated in \hyperlink{main_8cpp_a11ff459289305229597defd39f510959}{determine\+Order()}
-
-The first time the 2\+D-\/3D corresspondence was determined with got\+Order was okay. But this order can change as the object moves and the marker objects appear in a different order in the frame-\/$>$Object() array. The solution is that\+: When a marker point (in the camera image, hence in 2D) was at a position then it wont move that much from one frame to the other. So for the new frame we take a marker object and check which marker was closest this point in the old image frame? This is probably the same (true) marker. And we do that for every other marker as well. When tracking is good and no frames are dropped because of missing markers this should work every frame.
-
-The sum of point distances is set to something unrealistic large
-
-Calculate N\+\_\+2 norm of unsorted points minus old points
-
-If the norm is smaller than min\+Point\+Distance the correspondence is more likely to be correct
-
-Update the array that saves the new point order
-
-Now the new order is found, set the point order to the new value
-
-Save the unsorted position of the marker points for the next loop
-
-Compute the object pose from the 3\+D-\/2D corresponses
-
-Project the marker 3d points with the solution into the camera image Co\+Sy and calculate difference to true camera image
-
-Difference of true pose and found pose
-
-Increase the frames\+Dropped variable if accuracy of tracking is too bad
-
-Set number of subsequent frames dropped to zero because error is small enough and no marker was missing
-
-Get the min and max values from T\+Vec for sanity check
-
-Sanity check of values. negative z means the marker Co\+Sy is behind the camera, that\textquotesingle{}s not possible.
-
-Release the frame so the camera can move on
-
-Release the camera
-
-Close all U\+DP connections so the programm can be closed later on and no resources are locked
-
-Exit the function
-
-Next step is the transformation from camera Co\+Sy to navigation Co\+Sy Compute the relative object position from the reference position to the current one given in the camera Co\+Sy\+: $ T_C^{NM} = Tvec - Tvec_{Ref} $
-
-Transform the position from the camera Co\+Sy to the navigation Co\+Sy with I\+NS alligned heading and convert from \mbox{[}mm\mbox{]} to \mbox{[}m\mbox{]} $ T_N^{NM} = M_{NC} \times T_C^{NM} $
-
-Position is the result of the preceeding calculation
-
-Invert Z if check box in G\+UI is activated, hence height above ground is considered
-
-Realtive angle between reference orientation and current orientation
-
-Convert axis angle respresentation to ordinary rotation matrix
-
-The difference of the reference rotation and the current rotation $ R_{ NM } = M_{ NC } \times R_{ CM } $
-
-Euler Angles, finally
-
-Get the euler angles from the rotation matrix
-
-Add the heading offset to the heading angle
-
-Compute the velocity with finite differences. Only use is the log file. It is done here because the more precise time stamp can be used
-
-Time between the old frame and the current frame
-
-Set the old frame time to the current one
-
-Calculate the x velocity with finite differences
-
-Calculate the y velocity with finite differences
-
-Calculate the z velocity with finite differences
-
-Set the old position to the current one for next frame velocity calcuation
-
-Send position and Euler angles over Wi\+Fi with 100 Hz
-
-Save the values in a log file, values are\+: Time sinc tracking started Position Euler Angles Velocity
-
-Open the log file, the folder is Rigid\+Track\+Installation\+Folder/logs
-
-Close the file to save values
-
-Check if the position and euler angles are below the allowed value, if yes send O\+K\+AY signal (1), if not send shutdown signal (0) Absolute x, y and z position in navigation Co\+Sy must be smaller than the allowed distance
-
-Absolute Euler angles must be smaller than allowed value. Heading is not considered
-
-Send the O\+K\+AY signal to the desired computer every 5th time
-
-Send the 1
-
-reset the counter that is needed for decimation to every 5th time step
-
-The euler angles of the object exceeded the allowed euler angles, send the shutdown signal (0)
-
-Send the shutdown signal, a 0
-
-Inform the user
-
-The position of the object exceeded the allowed position, shut the object down
-
-Send the shutdown signal, a 0
-
-Inform the user
-
-Inform the user if tracking system is disturbed (marker lost or so) or error was too big
-
-Also send the shutdown signal
-
-Send the shutdown signal, a 0
-
-Inform the user
-
-Rasterize the frame so it can be shown in the G\+UI
-
-Convert the frame from greyscale as it comes from the camera to rgb color
-
-Project (draw) the marker Co\+Sy origin into 2D and save it in the c\+Frame image
-
-Project the marker points from 3D to the camera image frame (2d) with the computed pose
-
-Draw a circle around the projected points so the result can be better compared to the real marker position In the resulting picture those are the red dots
-
-Write the current position, attitude and error values as text in the frame
-
-Send the new camera picture to the G\+UI and call the G\+UI processing routine
-
-Update the picture in the G\+UI
-
-Give Qt time to handle everything
-
-Release the camera frame to fetch the new one
-
-User choose to stop the tracking, clean things up
-
-Close the U\+DP connections so resources are deallocated
-
-Release camera Here is the call graph for this function\+:
-\nopagebreak
+Start the loop that fetches frames, computes the position etc and sends it to other computers. This function is the core of this program, hence the pose estimation is done here. 
+
+Definition at line 256 of file main.\+cpp.
+
+
+\begin{DoxyCode}
+256                     \{
+257 
+258 
+259     \hyperlink{main_8cpp_acf655f393e3996144226399a338e8d3b}{gotOrder} = \textcolor{keyword}{false}; \textcolor{comment}{//! The order of points, hence which entry in list\_points3d corresponds to
+       which in list\_points2d is not calculated yet}
+260 \textcolor{comment}{}    \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec} = \hyperlink{main_8cpp_ae101daeaec726e27690c862b7edea825}{RvecOriginal}; \textcolor{comment}{//! Use the value of Rvec that was set in main() as starting value
+       for the solvePnP algorithm}
+261 \textcolor{comment}{}    \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec} = \hyperlink{main_8cpp_a043bf1deaf5d42d47e0cce8982c1f18b}{TvecOriginal}; \textcolor{comment}{//! Use the value of Tvec that was set in main() as starting value
+       for the solvePnP algorithm}
+262 \textcolor{comment}{}    GetLocalTime(&\hyperlink{main_8cpp_aba7ea4b1074abf42199ab9ab295e9c33}{logDate});  \textcolor{comment}{//! Get the current date and time to name the log file}
+263 \textcolor{comment}{}\textcolor{comment}{}
+264 \textcolor{comment}{    //! Concat the log file name as followed. The file is saved in the folder /logs in the Rigid Track
+       installation folder}
+265 \textcolor{comment}{}    \hyperlink{main_8cpp_a10895c5c32e9441213c79f05d2b5ba45}{logFileName} = \textcolor{stringliteral}{"./logs/positionLog\_"} + QString::number(\hyperlink{main_8cpp_aba7ea4b1074abf42199ab9ab295e9c33}{logDate}.wDay) + \textcolor{stringliteral}{"\_"} + 
+      QString::number(\hyperlink{main_8cpp_aba7ea4b1074abf42199ab9ab295e9c33}{logDate}.wMonth) + \textcolor{stringliteral}{"\_"} + QString::number(\hyperlink{main_8cpp_aba7ea4b1074abf42199ab9ab295e9c33}{logDate}.wYear);
+266     \hyperlink{main_8cpp_a10895c5c32e9441213c79f05d2b5ba45}{logFileName} += \textcolor{stringliteral}{"\_"} + QString::number(\hyperlink{main_8cpp_aba7ea4b1074abf42199ab9ab295e9c33}{logDate}.wHour) + \textcolor{stringliteral}{"\_"} + QString::number(
+      \hyperlink{main_8cpp_aba7ea4b1074abf42199ab9ab295e9c33}{logDate}.wMinute) + \textcolor{stringliteral}{"\_"} + QString::number(\hyperlink{main_8cpp_aba7ea4b1074abf42199ab9ab295e9c33}{logDate}.wSecond) + \textcolor{stringliteral}{".txt"};
+267     \hyperlink{main_8cpp_a7a642b2c947e62ff5ec692ec95783bd0}{logName} = \hyperlink{main_8cpp_a10895c5c32e9441213c79f05d2b5ba45}{logFileName}.toStdString(); \textcolor{comment}{//! Convert the QString to a standard string}
+268 \textcolor{comment}{}
+269     \hyperlink{main_8cpp_a0416912fce6274568e80019b10ba294f}{determineExposure}(); \textcolor{comment}{//! Get the exposure where the right amount of markers is
+       detected}
+270 \textcolor{comment}{}\textcolor{comment}{}
+271 \textcolor{comment}{    //! For OptiTrack Ethernet cameras, it's important to enable development mode if you}
+272 \textcolor{comment}{    //! want to stop execution for an extended time while debugging without disconnecting}
+273 \textcolor{comment}{    //! the Ethernet devices.  Lets do that now:}
+274 \textcolor{comment}{}
+275     CameraLibrary\_EnableDevelopment();
+276     CameraLibrary::CameraManager::X(); \textcolor{comment}{//! Initialize Camera SDK}
+277 \textcolor{comment}{}\textcolor{comment}{}
+278 \textcolor{comment}{    //! At this point the Camera SDK is actively looking for all connected cameras and will initialize}
+279 \textcolor{comment}{    //! them on it's own}
+280 \textcolor{comment}{}\textcolor{comment}{}
+281 \textcolor{comment}{    //! Get a connected camera}
+282 \textcolor{comment}{}    CameraManager::X().WaitForInitialization();
+283     Camera *camera = CameraManager::X().GetCamera();
+284 \textcolor{comment}{}
+285 \textcolor{comment}{    //! If no camera can be found, inform user in message log and exit function}
+286 \textcolor{comment}{}    \textcolor{keywordflow}{if} (camera == 0)
+287     \{
+288         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"No camera found!"});
+289         \textcolor{keywordflow}{return} 1;
+290     \}
+291 \textcolor{comment}{}
+292 \textcolor{comment}{    //! Determine camera resolution to size application window }
+293 \textcolor{comment}{}    \textcolor{keywordtype}{int} cameraWidth = camera->Width();
+294     \textcolor{keywordtype}{int} cameraHeight = camera->Height();
+295 
+296     camera->SetVideoType(Core::PrecisionMode);  \textcolor{comment}{//! Set the camera mode to precision mode, it used
+       greyscale imformation for marker property calculations}
+297 \textcolor{comment}{}
+298     camera->Start(); \textcolor{comment}{//! Start camera output}
+299 \textcolor{comment}{}\textcolor{comment}{}
+300 \textcolor{comment}{    //! Turn on some overlay text so it's clear things are}
+301 \textcolor{comment}{    //! working even if there is nothing in the camera's view}
+302 \textcolor{comment}{}    camera->SetTextOverlay(\textcolor{keyword}{true});
+303     camera->SetExposure(\hyperlink{main_8cpp_afcaebd6cfd12b2e558363a06db8396ea}{intExposure});    \textcolor{comment}{//! Set the camera exposure}
+304 \textcolor{comment}{}    camera->SetIntensity(\hyperlink{main_8cpp_a4e18b0b26ecc511ca7d2f2205313e537}{intIntensity}); \textcolor{comment}{//! Set the camera infrared LED intensity}
+305 \textcolor{comment}{}    camera->SetFrameRate(\hyperlink{main_8cpp_aa5b833b78b107a1a04eb4edba151c0ba}{intFrameRate}); \textcolor{comment}{//! Set the camera framerate to 100 Hz}
+306 \textcolor{comment}{}    camera->SetIRFilter(\textcolor{keyword}{true});  \textcolor{comment}{//! Enable the filter that blocks visible light and only passes infrared
+       light}
+307 \textcolor{comment}{}    camera->SetHighPowerMode(\textcolor{keyword}{true}); \textcolor{comment}{//! Enable high power mode of the LEDs}
+308 \textcolor{comment}{}    camera->SetContinuousIR(\textcolor{keyword}{false}); \textcolor{comment}{//! Disable continuous LED light}
+309 \textcolor{comment}{}    camera->SetThreshold(\hyperlink{main_8cpp_ac61559ce6020b8ec00161bc3a994ddcc}{intThreshold}); \textcolor{comment}{//! Set threshold for marker detection}
+310 \textcolor{comment}{}\textcolor{comment}{}
+311 \textcolor{comment}{    //! Create a new matrix that stores the grayscale picture from the camera}
+312 \textcolor{comment}{}    Mat matFrame = Mat::zeros(cv::Size(cameraWidth, cameraHeight), CV\_8UC1);
+313     QPixmap QPFrame; \textcolor{comment}{//! QPixmap is the corresponding Qt class that saves images}
+314 \textcolor{comment}{}\textcolor{comment}{    //! Matrix that stores the colored picture, hence marker points, coordinate frame and reprojected
+       points}
+315 \textcolor{comment}{}    Mat cFrame(480, 640, CV\_8UC3, Scalar(0, 0, 0));
+316 
+317     \textcolor{keywordtype}{int} v = 0;  \textcolor{comment}{//! Helper variable used to kick safety switch}
+318 \textcolor{comment}{}\textcolor{comment}{    //! Variables for the min and max values that are needed for sanity checks}
+319 \textcolor{comment}{}    \textcolor{keywordtype}{double} maxValue = 0;
+320     \textcolor{keywordtype}{double} minValue = 0;
+321     \textcolor{keywordtype}{int} framesDropped = 0; \textcolor{comment}{//! Ff a marker is not visible or accuracy is bad increase this counter}
+322 \textcolor{comment}{}    \textcolor{keywordtype}{double} projectionError = 0; \textcolor{comment}{//! Equals the quality of the tracking}
+323 \textcolor{comment}{}
+324     \hyperlink{main_8cpp_ae624b0189bc5e32cbbb1f178b9f1a360}{setUpUDP}(); \textcolor{comment}{//! Open sockets and ports for UDP communication}
+325 \textcolor{comment}{}
+326     \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_aa6266eedab8b3c011be53baffbfc42ab}{safetyEnable}) \textcolor{comment}{//! If the safety feature is enabled send the starting message}
+327 \textcolor{comment}{}    \{\textcolor{comment}{}
+328 \textcolor{comment}{        //! Send enable message, hence send a 9 and then a 1 }
+329 \textcolor{comment}{}        \hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data}.setNum((\textcolor{keywordtype}{int})(9));
+330         \hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety}->write(\hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data});
+331         \hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data}.setNum((\textcolor{keywordtype}{int})(1));
+332         \hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety}->write(\hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data});
+333     \}
+334 \textcolor{comment}{}
+335 \textcolor{comment}{    //! Fetch a new frame from the camera}
+336 \textcolor{comment}{}    \textcolor{keywordtype}{bool} gotTime = \textcolor{keyword}{false}; \textcolor{comment}{//! Get the timestamp of the first frame. This time is subtracted from every
+       subseeding frame so the time starts at 0 in the logs}
+337 \textcolor{comment}{}    \textcolor{keywordflow}{while} (!gotTime) \textcolor{comment}{//! While no new frame is received loop }
+338 \textcolor{comment}{}    \{
+339         Frame *frame = camera->GetFrame(); \textcolor{comment}{//! Get a new camera frame}
+340 \textcolor{comment}{}        \textcolor{keywordflow}{if} (frame)  \textcolor{comment}{//! There is actually a new frame}
+341 \textcolor{comment}{}        \{
+342             \hyperlink{main_8cpp_ac7de3790df75e7d70bfe280b9af47a56}{timeFirstFrame} = frame->TimeStamp(); \textcolor{comment}{//! Get the time stamp for the first frame.
+       It is subtracted for the following frames}
+343 \textcolor{comment}{}            frame->Release();   \textcolor{comment}{//! Release the frame so the camera can continue}
+344 \textcolor{comment}{}            gotTime = \textcolor{keyword}{true}; \textcolor{comment}{//! Exit the while loop}
+345 \textcolor{comment}{}        \}
+346     \}
+347 \textcolor{comment}{}
+348 \textcolor{comment}{    //! Now enter the main loop that processes each frame and computes the pose, sends it and logs stuff}
+349 \textcolor{comment}{}    \textcolor{keywordflow}{while} (!\hyperlink{main_8cpp_a6b1342fd3f76c3ce13245825cff8e400}{exitRequested}) \textcolor{comment}{//! Check if the user has not pressed "Stop Tracking" yet}
+350 \textcolor{comment}{}    \{
+351 
+352         Frame *frame = camera->GetFrame(); \textcolor{comment}{//! Fetch a new frame from the camera}
+353 \textcolor{comment}{}
+354         \textcolor{keywordflow}{if} (frame) \textcolor{comment}{//! Did we got a new frame or does the camera still need more time}
+355 \textcolor{comment}{}        \{
+356             framesDropped++; \textcolor{comment}{//! Increase by one, if everything is okay it is decreased at the end of the
+       loop again}
+357 \textcolor{comment}{}\textcolor{comment}{}
+358 \textcolor{comment}{            //! Only use this frame it the right number of markers is found in the picture}
+359 \textcolor{comment}{}            \textcolor{keywordflow}{if} (frame->ObjectCount() == \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers})
+360             \{\textcolor{comment}{}
+361 \textcolor{comment}{                //! Get the marker points in 2D in the camera image frame and store them in the
+       list\_points2dUnsorted vector}
+362 \textcolor{comment}{                //! The order of points that come from the camera corresponds to the Y coordinate}
+363 \textcolor{comment}{}                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+364                 \{
+365                     cObject *obj = frame->Object(i);
+366                     \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted}[i] = cv::Point2d(obj->X(), obj->Y());
+367                 \}
+368 
+369                 \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_acf655f393e3996144226399a338e8d3b}{gotOrder} == \textcolor{keyword}{false}) \textcolor{comment}{//! Was the order already determined? This is false for the
+       first frame and from then on true}
+370 \textcolor{comment}{}                \{
+371                     \hyperlink{main_8cpp_a11ff459289305229597defd39f510959}{determineOrder}(); \textcolor{comment}{//! Now compute the order}
+372 \textcolor{comment}{}                \}
+373 \textcolor{comment}{}
+374 \textcolor{comment}{                //! Sort the 2d points with the correct indices as found in the preceeding order
+       determination algorithm}
+375 \textcolor{comment}{}                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} w = 0; w < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; w++)
+376                 \{
+377                     \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[w] = \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted}[
+      \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}[w]]; \textcolor{comment}{//! pointOrderIndices was calculated in determineOrder()}
+378 \textcolor{comment}{}                \}
+379                 \hyperlink{main_8cpp_a85d3d8c8a0e3e9cfb6157c247470d934}{list\_points2dOld} = \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted};
+380 \textcolor{comment}{}
+381 \textcolor{comment}{                //! The first time the 2D-3D corresspondence was determined with gotOrder was okay. }
+382 \textcolor{comment}{                //! But this order can change as the object moves and the marker objects appear in a}
+383 \textcolor{comment}{                //! different order in the frame->Object() array.}
+384 \textcolor{comment}{                //! The solution is that: When a marker point (in the camera image, hence in 2D) was at}
+385 \textcolor{comment}{                //! a position then it wont move that much from one frame to the other.}
+386 \textcolor{comment}{                //! So for the new frame we take a marker object and check which marker was closest this
+       point  }
+387 \textcolor{comment}{                //! in the old image frame? This is probably the same (true) marker. And we do that for
+       every other marker as well.}
+388 \textcolor{comment}{                //! When tracking is good and no frames are dropped because of missing markers this should
+       work every frame.}
+389 \textcolor{comment}{}                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; j++)
+390                 \{
+391                     \hyperlink{main_8cpp_ab826a7ca5876afdd6c0bccf04b73b30b}{minPointDistance} = 5000; \textcolor{comment}{//! The sum of point distances is set to
+       something unrealistic large}
+392 \textcolor{comment}{}                    \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} k = 0; k < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; k++)
+393                     \{\textcolor{comment}{}
+394 \textcolor{comment}{                        //! Calculate N\_2 norm of unsorted points minus old points}
+395 \textcolor{comment}{}                        \hyperlink{main_8cpp_afe37bd67ad83a2d897cf5977cba70ef3}{currentPointDistance} = norm(
+      \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted}[\hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}[j]] - 
+      \hyperlink{main_8cpp_a85d3d8c8a0e3e9cfb6157c247470d934}{list\_points2dOld}[k]);\textcolor{comment}{}
+396 \textcolor{comment}{                        //! If the norm is smaller than minPointDistance the correspondence is more likely
+       to be correct}
+397 \textcolor{comment}{}                        \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_afe37bd67ad83a2d897cf5977cba70ef3}{currentPointDistance} < 
+      \hyperlink{main_8cpp_ab826a7ca5876afdd6c0bccf04b73b30b}{minPointDistance})
+398                         \{\textcolor{comment}{}
+399 \textcolor{comment}{                            //! Update the array that saves the new point order}
+400 \textcolor{comment}{}                            \hyperlink{main_8cpp_ab826a7ca5876afdd6c0bccf04b73b30b}{minPointDistance} = 
+      \hyperlink{main_8cpp_afe37bd67ad83a2d897cf5977cba70ef3}{currentPointDistance};
+401                             \hyperlink{main_8cpp_acc9e758efd664582db86f976cec195fa}{pointOrderIndicesNew}[j] = k;
+402                         \}
+403                     \}
+404                 \}
+405 \textcolor{comment}{}
+406 \textcolor{comment}{                //! Now the new order is found, set the point order to the new value}
+407 \textcolor{comment}{}                \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} k = 0; k < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; k++)
+408                 \{
+409                     \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}[k] = \hyperlink{main_8cpp_acc9e758efd664582db86f976cec195fa}{pointOrderIndicesNew}[k];
+410                     \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[k] = \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted}[
+      \hyperlink{main_8cpp_ac06fee052099b9fc9f0826315bb64a4a}{pointOrderIndices}[k]];
+411                 \}
+412 \textcolor{comment}{}
+413 \textcolor{comment}{                //! Save the unsorted position of the marker points for the next loop}
+414 \textcolor{comment}{}                \hyperlink{main_8cpp_a85d3d8c8a0e3e9cfb6157c247470d934}{list\_points2dOld} = \hyperlink{main_8cpp_a54cb682bd037283c18b5a9a447ff5e5e}{list\_points2dUnsorted};
+415 \textcolor{comment}{}
+416 \textcolor{comment}{                //!Compute the object pose from the 3D-2D corresponses}
+417 \textcolor{comment}{}                solvePnP(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, \hyperlink{main_8cpp_ab1cc9be1ff0871bc5de1eb4c2811ae3e}{useGuess}, 
+      \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP});
+418 \textcolor{comment}{}
+419 \textcolor{comment}{                //! Project the marker 3d points with the solution into the camera image CoSy and calculate
+       difference to true camera image}
+420 \textcolor{comment}{}                projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected});
+421                 projectionError = norm(\hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected}, 
+      \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}); \textcolor{comment}{//! Difference of true pose and found pose}
+422 \textcolor{comment}{}\textcolor{comment}{}
+423 \textcolor{comment}{                //! Increase the framesDropped variable if accuracy of tracking is too bad}
+424 \textcolor{comment}{}                \textcolor{keywordflow}{if} (projectionError > 5)
+425                 \{
+426                     framesDropped++;
+427                 \}
+428                 \textcolor{keywordflow}{else}
+429                 \{
+430                     framesDropped = 0;  \textcolor{comment}{//! Set number of subsequent frames dropped to zero because error
+       is small enough and no marker was missing}
+431 \textcolor{comment}{}                \}
+432 \textcolor{comment}{}
+433 \textcolor{comment}{                //! Get the min and max values from TVec for sanity check}
+434 \textcolor{comment}{}                minMaxLoc(\hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(2), &minValue, &maxValue);
+435 \textcolor{comment}{}
+436 \textcolor{comment}{                //! Sanity check of values. negative z means the marker CoSy is behind the camera, that's
+       not possible.}
+437 \textcolor{comment}{}                \textcolor{keywordflow}{if} (minValue < 0)
+438                 \{
+439                     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Negative z distance, that is not possible. Start the set
+       zero routine again or restart Program."});
+440                     frame->Release(); \textcolor{comment}{//! Release the frame so the camera can move on}
+441 \textcolor{comment}{}                    camera->Release(); \textcolor{comment}{//! Release the camera}
+442 \textcolor{comment}{}                    \hyperlink{main_8cpp_af2a8b7de0b15dc17198c147ba39e85f3}{closeUDP}(); \textcolor{comment}{//! Close all UDP connections so the programm can be closed later
+       on and no resources are locked}
+443 \textcolor{comment}{}                    \textcolor{keywordflow}{return} 1; \textcolor{comment}{//! Exit the function}
+444 \textcolor{comment}{}                \}
+445 \textcolor{comment}{}
+446 \textcolor{comment}{                //! Next step is the transformation from camera CoSy to navigation CoSy}
+447 \textcolor{comment}{                //! Compute the relative object position from the reference position to the current one}
+448 \textcolor{comment}{                //! given in the camera CoSy: \(\backslash\)f$ T\_C^\{NM\} = Tvec - Tvec\_\{Ref\} \(\backslash\)f$}
+449 \textcolor{comment}{}                subtract(\hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, \hyperlink{main_8cpp_a9d2e25dbfda0ebcdbb488652c8b15fad}{posRef}, \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position});
+450 \textcolor{comment}{}
+451 \textcolor{comment}{                //! Transform the position from the camera CoSy to the navigation CoSy with INS alligned
+       heading and convert from [mm] to [m]}
+452 \textcolor{comment}{                //! \(\backslash\)f$ T\_N^\{NM\} = M\_\{NC\} \(\backslash\)times T\_C^\{NM\} \(\backslash\)f$}
+453 \textcolor{comment}{}                Mat V = 0.001 * \hyperlink{main_8cpp_a7b0c222d472eacfd5b0d73ed769baae0}{M\_HeadingOffset} * \hyperlink{main_8cpp_af604b9538ec8923428a78439eaf55f8e}{M\_CN}.t() * (Mat)
+      \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position};
+454                 \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position} = V;   \textcolor{comment}{//! Position is the result of the preceeding calculation }
+455 \textcolor{comment}{}                \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[2] *= \hyperlink{main_8cpp_a5cc3bd09f5801804b7ae65846e0b9824}{invertZ};  \textcolor{comment}{//! Invert Z if check box in GUI is activated,
+       hence height above ground is considered}
+456 \textcolor{comment}{}\textcolor{comment}{}
+457 \textcolor{comment}{                //! Realtive angle between reference orientation and current orientation}
+458 \textcolor{comment}{}                Rodrigues(\hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_adb13e6a4e95f0640adf01ada840748d9}{Rmat});  \textcolor{comment}{//! Convert axis angle respresentation to ordinary rotation
+       matrix}
+459 \textcolor{comment}{}\textcolor{comment}{}
+460 \textcolor{comment}{                //! The difference of the reference rotation and the current rotation}
+461 \textcolor{comment}{                //! \(\backslash\)f$ R\_\{ NM \} = M\_\{ NC \} \(\backslash\)times R\_\{ CM \} \(\backslash\)f$}
+462 \textcolor{comment}{}                \hyperlink{main_8cpp_adb13e6a4e95f0640adf01ada840748d9}{Rmat} = \hyperlink{main_8cpp_a4ee4d2abbe47b92c21b81c5c4389086e}{RmatRef}.t() *\hyperlink{main_8cpp_adb13e6a4e95f0640adf01ada840748d9}{Rmat};
+463 \textcolor{comment}{}
+464 \textcolor{comment}{                //! Euler Angles, finally }
+465 \textcolor{comment}{}                \hyperlink{main_8cpp_ab2b71933055cf32cc8e5e2100fd7723f}{getEulerAngles}(\hyperlink{main_8cpp_adb13e6a4e95f0640adf01ada840748d9}{Rmat}, \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}); \textcolor{comment}{//! Get the euler angles
+       from the rotation matrix }
+466 \textcolor{comment}{}                \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[2] += \hyperlink{main_8cpp_a377d62efbf6892902616cb71a4a5d5d7}{headingOffset}; \textcolor{comment}{//! Add the heading offset to the
+       heading angle}
+467 \textcolor{comment}{}\textcolor{comment}{}
+468 \textcolor{comment}{                //! Compute the velocity with finite differences. Only use is the log file. It is done here
+       because the more precise time stamp can be used}
+469 \textcolor{comment}{}                \hyperlink{main_8cpp_ada7a8f4e3e45f929a512ffb0d9ff9012}{frameTime} = frame->TimeStamp() - \hyperlink{main_8cpp_acf4e0d12f76439e42c1ce9fd3d2bcbc8}{timeOld};   \textcolor{comment}{//! Time between the old frame
+       and the current frame}
+470 \textcolor{comment}{}                \hyperlink{main_8cpp_acf4e0d12f76439e42c1ce9fd3d2bcbc8}{timeOld} = frame->TimeStamp();    \textcolor{comment}{//! Set the old frame time to the current  one}
+471 \textcolor{comment}{}                \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[0] = (\hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[0] - \hyperlink{main_8cpp_a1d543a183197268bcb54a06bf157852c}{positionOld}[0]) / 
+      \hyperlink{main_8cpp_ada7a8f4e3e45f929a512ffb0d9ff9012}{frameTime}; \textcolor{comment}{//! Calculate the x velocity with finite differences}
+472 \textcolor{comment}{}                \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[1] = (\hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[1] - \hyperlink{main_8cpp_a1d543a183197268bcb54a06bf157852c}{positionOld}[1]) / 
+      \hyperlink{main_8cpp_ada7a8f4e3e45f929a512ffb0d9ff9012}{frameTime}; \textcolor{comment}{//! Calculate the y velocity with finite differences}
+473 \textcolor{comment}{}                \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[2] = (\hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[2] - \hyperlink{main_8cpp_a1d543a183197268bcb54a06bf157852c}{positionOld}[2]) / 
+      \hyperlink{main_8cpp_ada7a8f4e3e45f929a512ffb0d9ff9012}{frameTime}; \textcolor{comment}{//! Calculate the z velocity with finite differences}
+474 \textcolor{comment}{}                \hyperlink{main_8cpp_a1d543a183197268bcb54a06bf157852c}{positionOld} = \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position};  \textcolor{comment}{//! Set the old position to the current one for
+       next frame velocity calcuation}
+475 \textcolor{comment}{}\textcolor{comment}{}
+476 \textcolor{comment}{                //! Send position and Euler angles over WiFi with 100 Hz}
+477 \textcolor{comment}{}                \hyperlink{main_8cpp_a54b6b6db348b48d21e1265e22829c61f}{sendDataUDP}(\hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}, \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles});
+478 \textcolor{comment}{}
+479 \textcolor{comment}{                //! Save the values in a log file, values are:}
+480 \textcolor{comment}{                //! Time sinc tracking started  Position    Euler Angles    Velocity}
+481 \textcolor{comment}{}                \hyperlink{main_8cpp_a267046e6c367b4c2dec18b9b772ab67a}{logfile}.open(\hyperlink{main_8cpp_a7a642b2c947e62ff5ec692ec95783bd0}{logName}, std::ios::app); \textcolor{comment}{//! Open the log file, the folder is
+       RigidTrackInstallationFolder/logs}
+482 \textcolor{comment}{}                \hyperlink{main_8cpp_a267046e6c367b4c2dec18b9b772ab67a}{logfile} << frame->TimeStamp() - \hyperlink{main_8cpp_ac7de3790df75e7d70bfe280b9af47a56}{timeFirstFrame} << \textcolor{stringliteral}{";"} << 
+      \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[0] << \textcolor{stringliteral}{";"} << \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[1] << \textcolor{stringliteral}{";"} << \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[2] << \textcolor{stringliteral}{";"};
+483                 \hyperlink{main_8cpp_a267046e6c367b4c2dec18b9b772ab67a}{logfile} << \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[0] << \textcolor{stringliteral}{";"} << 
+      \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[1] << \textcolor{stringliteral}{";"} << \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[2] << \textcolor{stringliteral}{";"};
+484                 \hyperlink{main_8cpp_a267046e6c367b4c2dec18b9b772ab67a}{logfile} << \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[0] << \textcolor{stringliteral}{";"} << \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[1] << \textcolor{stringliteral}{";"} << 
+      \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[2] << \textcolor{stringliteral}{"\(\backslash\)n"};
+485                 \hyperlink{main_8cpp_a267046e6c367b4c2dec18b9b772ab67a}{logfile}.close(); \textcolor{comment}{//! Close the file to save values}
+486 \textcolor{comment}{}            \}
+487 \textcolor{comment}{}
+488 \textcolor{comment}{            //! Check if the position and euler angles are below the allowed value, if yes send OKAY signal
+       (1), if not send shutdown signal (0)}
+489 \textcolor{comment}{            //! Absolute x, y and z position in navigation CoSy must be smaller than the allowed distance}
+490 \textcolor{comment}{}            \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_aa6266eedab8b3c011be53baffbfc42ab}{safetyEnable})
+491             \{
+492                 \textcolor{keywordflow}{if} ((abs(position[0]) < \hyperlink{main_8cpp_a2c1b807fcb2de5a6759bd60ccae6dd7e}{safetyBoxLength} && abs(position[1]) < 
+      \hyperlink{main_8cpp_a2c1b807fcb2de5a6759bd60ccae6dd7e}{safetyBoxLength} && abs(position[2]) < \hyperlink{main_8cpp_a2c1b807fcb2de5a6759bd60ccae6dd7e}{safetyBoxLength}))
+493                 \{\textcolor{comment}{}
+494 \textcolor{comment}{                    //! Absolute Euler angles must be smaller than allowed value. Heading is not considered
+       }
+495 \textcolor{comment}{}                    \textcolor{keywordflow}{if} ((abs(eulerAngles[0]) < \hyperlink{main_8cpp_ae65386c3310ab826e84fba757296de9a}{safetyAngle} && abs(eulerAngles[1]) < 
+      \hyperlink{main_8cpp_ae65386c3310ab826e84fba757296de9a}{safetyAngle}))
+496                     \{\textcolor{comment}{}
+497 \textcolor{comment}{                        //! Send the OKAY signal to the desired computer every 5th time}
+498 \textcolor{comment}{}                        \textcolor{keywordflow}{if} (v == 5) \{
+499                             \hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data}.setNum((\textcolor{keywordtype}{int})(1));
+500                             \hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety}->write(\hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data}); \textcolor{comment}{//! Send the 1 }
+501 \textcolor{comment}{}                            v = 0; \textcolor{comment}{//! reset the counter that is needed for decimation to every 5th time
+       step}
+502 \textcolor{comment}{}                        \}
+503                     \}\textcolor{comment}{}
+504 \textcolor{comment}{                    //! The euler angles of the object exceeded the allowed euler angles, send the shutdown
+       signal (0)}
+505 \textcolor{comment}{}                    \textcolor{keywordflow}{else}
+506                     \{
+507                         \hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data}.setNum((\textcolor{keywordtype}{int})(0));  \textcolor{comment}{//! Send the shutdown signal, a 0 }
+508 \textcolor{comment}{}                        \hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety}->write(\hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data});
+509                         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Object exceeded allowed Euler angles, shutdown signal
+       sent."}); \textcolor{comment}{//! Inform the user}
+510 \textcolor{comment}{}
+511                     \}
+512                 \}\textcolor{comment}{}
+513 \textcolor{comment}{                //! The position of the object exceeded the allowed position, shut the object down}
+514 \textcolor{comment}{}                \textcolor{keywordflow}{else}
+515                 \{
+516                     \hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data}.setNum((\textcolor{keywordtype}{int})(0));  \textcolor{comment}{//! Send the shutdown signal, a 0 }
+517 \textcolor{comment}{}                    \hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety}->write(\hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data});
+518                     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Object left allowed area, shutdown signal sent."}); \textcolor{comment}{//!
+       Inform the user}
+519 \textcolor{comment}{}
+520                 \}
+521             \}
+522 \textcolor{comment}{}
+523 \textcolor{comment}{            //! Inform the user if tracking system is disturbed (marker lost or so) or error was too big }
+524 \textcolor{comment}{}            \textcolor{keywordflow}{if} (framesDropped > 10)
+525             \{
+526                 \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_aa6266eedab8b3c011be53baffbfc42ab}{safetyEnable}) \textcolor{comment}{//! Also send the shutdown signal}
+527 \textcolor{comment}{}                \{
+528                     \hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data}.setNum((\textcolor{keywordtype}{int})(0));  \textcolor{comment}{//! Send the shutdown signal, a 0 }
+529 \textcolor{comment}{}                    \hyperlink{main_8cpp_a6aa0c3a69dc10d5c4432dcf62e2155d3}{udpSocketSafety}->write(\hyperlink{main_8cpp_ad44c6ce322034044d573e6d4678d630b}{data});
+530                 \}
+531                 \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Lost marker points or precision was bad!"}); \textcolor{comment}{//! Inform the
+       user}
+532 \textcolor{comment}{}                framesDropped = 0;
+533             \}
+534 \textcolor{comment}{}
+535 \textcolor{comment}{            //! Rasterize the frame so it can be shown in the GUI}
+536 \textcolor{comment}{}            frame->Rasterize(cameraWidth, cameraHeight, matFrame.step, 
+      \hyperlink{main_8cpp_ae144f2eb508ffc763c259d875c600ab2}{BACKBUFFER\_BITSPERPIXEL}, matFrame.data);
+537 \textcolor{comment}{}
+538 \textcolor{comment}{            //! Convert the frame from greyscale as it comes from the camera to rgb color }
+539 \textcolor{comment}{}            cvtColor(matFrame, cFrame, COLOR\_GRAY2RGB);
+540 \textcolor{comment}{}
+541 \textcolor{comment}{            //! Project (draw) the marker CoSy origin into 2D and save it in the cFrame image}
+542 \textcolor{comment}{}            \hyperlink{main_8cpp_a2104a5d9d6b9f1e29bc4cd858c59882e}{projectCoordinateFrame}(cFrame);
+543 \textcolor{comment}{}
+544 \textcolor{comment}{            //! Project the marker points from 3D to the camera image frame (2d) with the computed pose}
+545 \textcolor{comment}{}            projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d});
+546             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+547             \{\textcolor{comment}{}
+548 \textcolor{comment}{                //! Draw a circle around the projected points so the result can be better compared to the
+       real marker position}
+549 \textcolor{comment}{                //! In the resulting picture those are the red dots}
+550 \textcolor{comment}{}                circle(cFrame, Point(\hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].x, 
+      \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d}[i].y), 3, Scalar(225, 0, 0), 3);
+551             \}
+552 \textcolor{comment}{}
+553 \textcolor{comment}{            //! Write the current position, attitude and error values as text in the frame}
+554 \textcolor{comment}{}            \hyperlink{main_8cpp_af6430ad2592a955a3618549547dfc5be}{drawPositionText}(cFrame, position, eulerAngles, projectionError);
+555 \textcolor{comment}{}
+556 \textcolor{comment}{            //! Send the new camera picture to the GUI and call the GUI processing routine}
+557 \textcolor{comment}{}            QPixmap QPFrame;
+558             QPFrame = \hyperlink{main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5}{Mat2QPixmap}(cFrame);
+559             \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a6f81522c2aa1668fa402f08710e6206b}{changeImage}(QPFrame); \textcolor{comment}{//! Update the picture in the GUI}
+560 \textcolor{comment}{}            QCoreApplication::processEvents(); \textcolor{comment}{//! Give Qt time to handle everything}
+561 \textcolor{comment}{}\textcolor{comment}{}
+562 \textcolor{comment}{            //! Release the camera frame to fetch the new one}
+563 \textcolor{comment}{}            frame->Release();
+564         \}
+565     \}
+566 \textcolor{comment}{}
+567 \textcolor{comment}{    //! User choose to stop the tracking, clean things up}
+568 \textcolor{comment}{}    \hyperlink{main_8cpp_af2a8b7de0b15dc17198c147ba39e85f3}{closeUDP}(); \textcolor{comment}{//! Close the UDP connections so resources are deallocated}
+569 \textcolor{comment}{}    camera->Release();  \textcolor{comment}{//! Release camera}
+570 \textcolor{comment}{}    \textcolor{keywordflow}{return} 0;
+571 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{main_8h_a3d3afd29ce54eb7fc5cc7e74ab666586_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1011,24 +1990,157 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{test\+Algorithms()}{testAlgorithms()}}
 {\footnotesize\ttfamily void test\+Algorithms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Project some points from 3D to 2D and then check the accuracy of the algorithms. Mainly to generate something that can be shown in the camera view so the user knows everything loaded correctly. $<$ in mm
+Project some points from 3D to 2D and then check the accuracy of the algorithms. Mainly to generate something that can be shown in the camera view so the user knows everything loaded correctly. 
 
-$<$ 0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP //!$<$ not used
+Definition at line 947 of file main.\+cpp.
 
-$<$ 0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP U\+PnP not used
 
-$<$ 0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP //!$<$ not used
-
-$<$ 0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP //!$<$ not used Here is the call graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+948 \{
+949 
+950     \textcolor{keywordtype}{int} \_methodPNP;
+951 
+952     std::vector<Point2d> noise(\hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers});
+953 
+954     \hyperlink{main_8cpp_ae101daeaec726e27690c862b7edea825}{RvecOriginal} = \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec};
+955     \hyperlink{main_8cpp_a043bf1deaf5d42d47e0cce8982c1f18b}{TvecOriginal} = \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec};
+956 
+957     projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, 
+      \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected});
+958 
+959     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+960     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"Unsorted Points 2D Projected \(\backslash\)n"};
+961     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \hyperlink{main_8cpp_a7b88d0425a68875639d40a17079df819}{list\_points2dProjected} << \textcolor{stringliteral}{"\(\backslash\)n"};
+962     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+963 
+964     Mat cFrame(480, 640, CV\_8UC3, Scalar(0, 0, 0));
+965     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+966     \{
+967         circle(cFrame, Point(list\_points2dProjected[i].x, list\_points2dProjected[i].y), 6, Scalar(0, 255, 0
+      ), 3);
+968     \}
+969 
+970     \hyperlink{main_8cpp_a2104a5d9d6b9f1e29bc4cd858c59882e}{projectCoordinateFrame}(cFrame);
+971 
+972     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+973     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"=====================================================\(\backslash\)n"};
+974     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"================= Projected Points ==================\(\backslash\)n"};
+975     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << list\_points2dProjected << \textcolor{stringliteral}{"\(\backslash\)n"};
+976 
+977     randn(noise, 0, 0.5);
+978     add(list\_points2dProjected, noise, list\_points2dProjected);
+979 
+980     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"================ With Noise Points ==================\(\backslash\)n"};
+981     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << list\_points2dProjected << \textcolor{stringliteral}{"\(\backslash\)n"};
+982     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+983 
+984 
+985     \textcolor{keywordtype}{bool} \hyperlink{main_8cpp_ab1cc9be1ff0871bc5de1eb4c2811ae3e}{useGuess} = \textcolor{keyword}{true};
+986     \_methodPNP = 0; \textcolor{comment}{//!< 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //!< not used}
+987 \textcolor{comment}{}
+988     solvePnP(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, list\_points2dProjected, \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, 
+      \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}, \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}, useGuess, \_methodPNP);
+989 
+990     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+991     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"=====================================================\(\backslash\)n"};
+992     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"==================== Iterative =====================\(\backslash\)n"};
+993     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"rvec: "} << \textcolor{stringliteral}{"\(\backslash\)n"};
+994     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec} << \textcolor{stringliteral}{"\(\backslash\)n"};
+995     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"tvec: "} << \textcolor{stringliteral}{"\(\backslash\)n"};
+996     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec} << \textcolor{stringliteral}{"\(\backslash\)n"};
+997 
+998     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+999 
+1000     \_methodPNP = 1; \textcolor{comment}{//!< 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP UPnP not used}
+1001 \textcolor{comment}{}    Rvec = cv::Mat::zeros(3, 1, CV\_64F);
+1002     Tvec = cv::Mat::zeros(3, 1, CV\_64F);
+1003     solvePnP(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, list\_points2dProjected, \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, 
+      \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, Rvec, Tvec, useGuess, \_methodPNP);
+1004 
+1005     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1006     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"=====================================================\(\backslash\)n"};
+1007     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"====================    EPNP    =====================\(\backslash\)n"};
+1008     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"rvec: "} << \textcolor{stringliteral}{"\(\backslash\)n"};
+1009     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << Rvec << \textcolor{stringliteral}{"\(\backslash\)n"};
+1010     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"tvec: "} << \textcolor{stringliteral}{"\(\backslash\)n"};
+1011     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << Tvec << \textcolor{stringliteral}{"\(\backslash\)n"};
+1012 
+1013     projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, Rvec, Tvec, \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, 
+      \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, list\_points2dProjected);
+1014     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+1015     \{
+1016         circle(cFrame, Point(list\_points2dProjected[i].x, list\_points2dProjected[i].y), 3, Scalar(255, 0, 0
+      ), 3);
+1017     \}
+1018     QPixmap QPFrame;
+1019     QPFrame = \hyperlink{main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5}{Mat2QPixmap}(cFrame);
+1020     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a6f81522c2aa1668fa402f08710e6206b}{changeImage}(QPFrame);
+1021     QCoreApplication::processEvents();
+1022     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+1023     \textcolor{keywordflow}{if} (numberMarkers == 4)
+1024     \{
+1025         \_methodPNP = 2; \textcolor{comment}{//!< 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //!< not used}
+1026 \textcolor{comment}{}        Rvec = cv::Mat::zeros(3, 1, CV\_64F);
+1027         Tvec = cv::Mat::zeros(3, 1, CV\_64F);
+1028         solvePnP(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, list\_points2dProjected, 
+      \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, Rvec, Tvec, useGuess, \_methodPNP);
+1029 
+1030         \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1031         \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"=====================================================\(\backslash\)n"};
+1032         \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"====================     P3P    =====================\(\backslash\)n"};
+1033         \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"rvec: "} << \textcolor{stringliteral}{"\(\backslash\)n"};
+1034         \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << Rvec << \textcolor{stringliteral}{"\(\backslash\)n"};
+1035         \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"tvec: "} << \textcolor{stringliteral}{"\(\backslash\)n"};
+1036         \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << Tvec << \textcolor{stringliteral}{"\(\backslash\)n"};
+1037 
+1038         projectPoints(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, Rvec, Tvec, \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, 
+      \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, list\_points2dProjected);
+1039         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{main_8cpp_ae1d37a43f631aefe76b6e540da786064}{numberMarkers}; i++)
+1040         \{
+1041             circle(cFrame, Point(list\_points2dProjected[i].x, list\_points2dProjected[i].y), 3, Scalar(255, 
+      0, 0), 3);
+1042         \}
+1043         \textcolor{keywordtype}{double} projectionError = norm(list\_points2dProjected, \hyperlink{main_8cpp_ad583e75f176dafdb7de3f214673851de}{list\_points2d});
+1044         putText(cFrame, \textcolor{stringliteral}{"Testing Algorithms Finished"}, cv::Point(5, 420), 1, 1, cv::Scalar(255, 255, 255));
+1045         \hyperlink{main_8cpp_af6430ad2592a955a3618549547dfc5be}{drawPositionText}(cFrame, \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}, \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}, projectionError)
+      ;
+1046 
+1047         QPixmap QPFrame;
+1048         QPFrame = \hyperlink{main_8cpp_a3e3cc959a7ab6f93ea52863d86373ce5}{Mat2QPixmap}(cFrame);
+1049         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_a6f81522c2aa1668fa402f08710e6206b}{changeImage}(QPFrame);
+1050         QCoreApplication::processEvents();
+1051         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+1052     \}
+1053 
+1054     \_methodPNP = 4; \textcolor{comment}{//!< 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP  //!< not used}
+1055 \textcolor{comment}{}    Rvec = cv::Mat::zeros(3, 1, CV\_64F);
+1056     Tvec = cv::Mat::zeros(3, 1, CV\_64F);
+1057     solvePnP(\hyperlink{main_8cpp_a933edb4ba1c0589d59020164c2f1ff87}{list\_points3d}, list\_points2dProjected, \hyperlink{main_8cpp_a53e8957a459b639ca82d938157f3b085}{cameraMatrix}, 
+      \hyperlink{main_8cpp_a8d67876da148be9118bba1c0d017fb57}{distCoeffs}, Rvec, Tvec, useGuess, \_methodPNP);
+1058 
+1059     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str(\textcolor{stringliteral}{""});
+1060     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"=====================================================\(\backslash\)n"};
+1061     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"====================    UPNP    =====================\(\backslash\)n"};
+1062     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"rvec: "} << \textcolor{stringliteral}{"\(\backslash\)n"};
+1063     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << Rvec << \textcolor{stringliteral}{"\(\backslash\)n"};
+1064     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << \textcolor{stringliteral}{"tvec: "} << \textcolor{stringliteral}{"\(\backslash\)n"};
+1065     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss} << Tvec << \textcolor{stringliteral}{"\(\backslash\)n"};
+1066 
+1067     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::fromStdString(\hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.str()));
+1068 
+1069     Rvec = \hyperlink{main_8cpp_ae101daeaec726e27690c862b7edea825}{RvecOriginal};
+1070     Tvec = \hyperlink{main_8cpp_a043bf1deaf5d42d47e0cce8982c1f18b}{TvecOriginal};
+1071 
+1072 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=332pt]{main_8h_a847c0fbd3e513fb76ff145b31a9f5c37_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1048,7 +2160,11 @@ Here is the caller graph for this function\+:
 
 class that handles the communication from \hyperlink{main_8cpp}{main.\+cpp} to the G\+UI 
 
-Now declare variables that are used across the \hyperlink{main_8cpp}{main.\+cpp} file. Basically almost every variable used is declared here. \mbox{\Hypertarget{main_8h_a5cc3bd09f5801804b7ae65846e0b9824}\label{main_8h_a5cc3bd09f5801804b7ae65846e0b9824}} 
+Now declare variables that are used across the \hyperlink{main_8cpp}{main.\+cpp} file. Basically almost every variable used is declared here. 
+
+Definition at line 63 of file main.\+cpp.
+
+\mbox{\Hypertarget{main_8h_a5cc3bd09f5801804b7ae65846e0b9824}\label{main_8h_a5cc3bd09f5801804b7ae65846e0b9824}} 
 \index{main.\+h@{main.\+h}!invertZ@{invertZ}}
 \index{invertZ@{invertZ}!main.\+h@{main.\+h}}
 \subsubsection{\texorpdfstring{invertZ}{invertZ}}
@@ -1057,6 +2173,10 @@ Now declare variables that are used across the \hyperlink{main_8cpp}{main.\+cpp}
 
 
 dummy variable to invert Z direction on request 
+
+
+
+Definition at line 70 of file main.\+cpp.
 
 \mbox{\Hypertarget{main_8h_ab97ac0d82b1753d0eef37089be17e5e1}\label{main_8h_ab97ac0d82b1753d0eef37089be17e5e1}} 
 \index{main.\+h@{main.\+h}!I\+P\+Adress\+Object@{I\+P\+Adress\+Object}}
@@ -1068,6 +2188,10 @@ dummy variable to invert Z direction on request
 
 I\+Pv4 adress of receiver 1. 
 
+
+
+Definition at line 126 of file main.\+cpp.
+
 \mbox{\Hypertarget{main_8h_afefb1102a8a4a71b55d6f24f46404cc5}\label{main_8h_afefb1102a8a4a71b55d6f24f46404cc5}} 
 \index{main.\+h@{main.\+h}!I\+P\+Adress\+Safety@{I\+P\+Adress\+Safety}}
 \index{I\+P\+Adress\+Safety@{I\+P\+Adress\+Safety}!main.\+h@{main.\+h}}
@@ -1077,6 +2201,10 @@ I\+Pv4 adress of receiver 1.
 
 
 I\+Pv4 adress of safety receiver. 
+
+
+
+Definition at line 127 of file main.\+cpp.
 
 \mbox{\Hypertarget{main_8h_a354806cf8cbface3575f2541d8fbcbda}\label{main_8h_a354806cf8cbface3575f2541d8fbcbda}} 
 \index{main.\+h@{main.\+h}!I\+P\+Adress\+Safety2@{I\+P\+Adress\+Safety2}}
@@ -1088,6 +2216,10 @@ I\+Pv4 adress of safety receiver.
 
 I\+Pv4 adress of receiver 2. 
 
+
+
+Definition at line 128 of file main.\+cpp.
+
 \mbox{\Hypertarget{main_8h_ab5e634b66221f494504aea1557af5df9}\label{main_8h_ab5e634b66221f494504aea1557af5df9}} 
 \index{main.\+h@{main.\+h}!method\+P\+NP@{method\+P\+NP}}
 \index{method\+P\+NP@{method\+P\+NP}!main.\+h@{main.\+h}}
@@ -1097,6 +2229,10 @@ I\+Pv4 adress of receiver 2.
 
 
 solve\+P\+NP algorithm 0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP //!$<$ 4 and 1 are the same and not implemented correctly by Open\+CV 
+
+
+
+Definition at line 100 of file main.\+cpp.
 
 \mbox{\Hypertarget{main_8h_a9a00043c93a3362969c1c1fcd3a70fea}\label{main_8h_a9a00043c93a3362969c1c1fcd3a70fea}} 
 \index{main.\+h@{main.\+h}!port\+Object@{port\+Object}}
@@ -1108,6 +2244,10 @@ solve\+P\+NP algorithm 0 = iterative 1 = E\+P\+NP 2 = P3P 4 = U\+P\+NP //!$<$ 4 
 
 Port of receiver 1. 
 
+
+
+Definition at line 129 of file main.\+cpp.
+
 \mbox{\Hypertarget{main_8h_a137bc8cc9d53ad9b176c988a99bc7142}\label{main_8h_a137bc8cc9d53ad9b176c988a99bc7142}} 
 \index{main.\+h@{main.\+h}!port\+Safety@{port\+Safety}}
 \index{port\+Safety@{port\+Safety}!main.\+h@{main.\+h}}
@@ -1117,6 +2257,10 @@ Port of receiver 1.
 
 
 Port of the safety receiver. 
+
+
+
+Definition at line 130 of file main.\+cpp.
 
 \mbox{\Hypertarget{main_8h_a2601be9c226be24c71ec8282f632e723}\label{main_8h_a2601be9c226be24c71ec8282f632e723}} 
 \index{main.\+h@{main.\+h}!port\+Safety2@{port\+Safety2}}
@@ -1128,6 +2272,10 @@ Port of the safety receiver.
 
 Port of receiver 2. 
 
+
+
+Definition at line 131 of file main.\+cpp.
+
 \mbox{\Hypertarget{main_8h_a436fb814ccc3f02617dade4dc6511143}\label{main_8h_a436fb814ccc3f02617dade4dc6511143}} 
 \index{main.\+h@{main.\+h}!safety2\+Enable@{safety2\+Enable}}
 \index{safety2\+Enable@{safety2\+Enable}!main.\+h@{main.\+h}}
@@ -1137,6 +2285,10 @@ Port of receiver 2.
 
 
 is the second receiver enabled 
+
+
+
+Definition at line 66 of file main.\+cpp.
 
 \mbox{\Hypertarget{main_8h_ae65386c3310ab826e84fba757296de9a}\label{main_8h_ae65386c3310ab826e84fba757296de9a}} 
 \index{main.\+h@{main.\+h}!safety\+Angle@{safety\+Angle}}
@@ -1148,6 +2300,10 @@ is the second receiver enabled
 
 bank and pitch angle protection in degrees 
 
+
+
+Definition at line 68 of file main.\+cpp.
+
 \mbox{\Hypertarget{main_8h_a2c1b807fcb2de5a6759bd60ccae6dd7e}\label{main_8h_a2c1b807fcb2de5a6759bd60ccae6dd7e}} 
 \index{main.\+h@{main.\+h}!safety\+Box\+Length@{safety\+Box\+Length}}
 \index{safety\+Box\+Length@{safety\+Box\+Length}!main.\+h@{main.\+h}}
@@ -1158,6 +2314,10 @@ bank and pitch angle protection in degrees
 
 length of the safety area cube in meters 
 
+
+
+Definition at line 67 of file main.\+cpp.
+
 \mbox{\Hypertarget{main_8h_aa6266eedab8b3c011be53baffbfc42ab}\label{main_8h_aa6266eedab8b3c011be53baffbfc42ab}} 
 \index{main.\+h@{main.\+h}!safety\+Enable@{safety\+Enable}}
 \index{safety\+Enable@{safety\+Enable}!main.\+h@{main.\+h}}
@@ -1167,4 +2327,8 @@ length of the safety area cube in meters
 
 
 is the safety feature enabled 
+
+
+
+Definition at line 65 of file main.\+cpp.
 

@@ -35,6 +35,13 @@ int \hyperlink{class_surface_abe0d542404575c60911d6ad4219560f9}{Pixel\+Span} ()
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+
+
+Definition at line 25 of file supportcode.\+h.
+
+
+
 \subsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_surface_a323ba9165c8635e84eb0c490fe88d846}\label{class_surface_a323ba9165c8635e84eb0c490fe88d846}} 
 \index{Surface@{Surface}!Surface@{Surface}}
@@ -46,8 +53,45 @@ int \hyperlink{class_surface_abe0d542404575c60911d6ad4219560f9}{Pixel\+Span} ()
 
 /$<$============================== 
 
-/$<$== Use power of 2 texture sizes == Here is the call graph for this function\+:
-\nopagebreak
+
+
+Definition at line 417 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+417                                       : buffer(0), mDirty(\textcolor{keyword}{true})
+418 \{\textcolor{comment}{}
+419 \textcolor{comment}{    //!/<== Use power of 2 texture sizes ==}
+420 \textcolor{comment}{}
+421     mSurfaceWidth = \hyperlink{class_surface_aeb8a8540f415a4d29c440667e8532e91}{CalculateSize}(\hyperlink{class_surface_ae76d7c2fa208df6979a77cc60e8105c0}{Width});
+422     mSurfaceHeight = \hyperlink{class_surface_aeb8a8540f415a4d29c440667e8532e91}{CalculateSize}(\hyperlink{class_surface_ab901f48d51b3fd427415b580dc15518c}{Height});
+423 
+424     mSpan = mSurfaceWidth;
+425 
+426     mWidth = \hyperlink{class_surface_ae76d7c2fa208df6979a77cc60e8105c0}{Width};
+427     mHeight = \hyperlink{class_surface_ab901f48d51b3fd427415b580dc15518c}{Height};
+428 
+429     buffer = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) malloc(mSurfaceWidth * mSurfaceHeight * 
+      \hyperlink{supportcode_8h_afb291d1c2072afc3383bc2e688e75d3b}{BYTESPERPIXEL});
+430 
+431     memset(buffer, 0, mSurfaceWidth * mSurfaceHeight * BYTESPERPIXEL);
+432 
+433     \textcolor{keywordflow}{if}(buffer==0)
+434         \textcolor{keywordflow}{throw}(\textcolor{stringliteral}{" nable to allocate surface buffer"});
+435 
+436     glGenTextures(1, &mTexture);
+437     \textcolor{keywordflow}{if}(mTexture==0)
+438         \textcolor{keywordflow}{throw}(\textcolor{stringliteral}{" nable to gen OpenGL texture"});
+439 
+440 
+441     glBindTexture(GL\_TEXTURE\_2D, mTexture);
+442     glTexImage2D(GL\_TEXTURE\_2D, 0, GL\_RGBA8, mSurfaceWidth, mSurfaceHeight, 0, GL\_RGBA, GL\_UNSIGNED\_BYTE, 
+      buffer);
+443     glTexParameteri(GL\_TEXTURE\_2D,GL\_TEXTURE\_MIN\_FILTER,GL\_LINEAR);
+444     glTexParameteri(GL\_TEXTURE\_2D,GL\_TEXTURE\_MAG\_FILTER,GL\_LINEAR);
+445 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -62,6 +106,16 @@ int \hyperlink{class_surface_abe0d542404575c60911d6ad4219560f9}{Pixel\+Span} ()
 
 
 
+Definition at line 447 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+448 \{
+449 
+450 \}
+\end{DoxyCode}
+
+
 \subsection{Member Function Documentation}
 \mbox{\Hypertarget{class_surface_aeb8a8540f415a4d29c440667e8532e91}\label{class_surface_aeb8a8540f415a4d29c440667e8532e91}} 
 \index{Surface@{Surface}!Calculate\+Size@{Calculate\+Size}}
@@ -69,8 +123,22 @@ int \hyperlink{class_surface_abe0d542404575c60911d6ad4219560f9}{Pixel\+Span} ()
 \subsubsection{\texorpdfstring{Calculate\+Size()}{CalculateSize()}}
 {\footnotesize\ttfamily int Surface\+::\+Calculate\+Size (\begin{DoxyParamCaption}\item[{int}]{Width }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 494 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+495 \{
+496     \textcolor{keywordtype}{int} mSize = 1;
+497 
+498     \textcolor{keywordflow}{while}(mSize<\hyperlink{class_surface_ae76d7c2fa208df6979a77cc60e8105c0}{Width})
+499         mSize*=2;
+500 
+501     \textcolor{keywordflow}{return} mSize;
+502 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -83,8 +151,15 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Get\+Buffer()}{GetBuffer()}}
 {\footnotesize\ttfamily unsigned char$\ast$ Surface\+::\+Get\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+Definition at line 40 of file supportcode.\+h.
+
+
+\begin{DoxyCode}
+40 \{ \textcolor{keywordflow}{return} buffer; \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -97,8 +172,23 @@ Here is the call graph for this function\+:
 \subsubsection{\texorpdfstring{Get\+Texture()}{GetTexture()}}
 {\footnotesize\ttfamily G\+Luint Surface\+::\+Get\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-/$<$if(m\+Dirty==true) Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 504 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+505 \{\textcolor{comment}{}
+506 \textcolor{comment}{    //!/<if(mDirty==true)}
+507 \textcolor{comment}{}    \{
+508         glTexImage2D(GL\_TEXTURE\_2D, 0, GL\_RGBA8, mSurfaceWidth, mSurfaceHeight, 0, GL\_RGBA, 
+      GL\_UNSIGNED\_BYTE, buffer);
+509         mDirty = \textcolor{keyword}{false};
+510     \}
+511     \textcolor{keywordflow}{return} mTexture; 
+512 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -111,8 +201,15 @@ Here is the call graph for this function\+:
 \subsubsection{\texorpdfstring{Height()}{Height()}}
 {\footnotesize\ttfamily int Surface\+::\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 35 of file supportcode.\+h.
+
+
+\begin{DoxyCode}
+35 \{ \textcolor{keywordflow}{return} mHeight; \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -125,8 +222,15 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Pixel\+Span()}{PixelSpan()}}
 {\footnotesize\ttfamily int Surface\+::\+Pixel\+Span (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+Definition at line 42 of file supportcode.\+h.
+
+
+\begin{DoxyCode}
+42 \{ \textcolor{keywordflow}{return} mSpan; \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -139,16 +243,29 @@ Here is the call graph for this function\+:
 \subsubsection{\texorpdfstring{Put\+Pixel()}{PutPixel()}}
 {\footnotesize\ttfamily void Surface\+::\+Put\+Pixel (\begin{DoxyParamCaption}\item[{int}]{X,  }\item[{int}]{Y,  }\item[{P\+I\+X\+EL}]{Color }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+Definition at line 514 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+515 \{
+516     \textcolor{keywordflow}{if}(X>=0 && Y>=0 && X<mWidth && Y<mHeight)
+517     \{
+518         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *point = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}*)buffer + (Y*mSpan)+X;
+519         *point = Color;
+520         mDirty = \textcolor{keyword}{true};
+521     \}
+522 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{class_surface_a728571d0386e9690ce1760931562c72b_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -161,8 +278,26 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Rebind\+Texture()}{RebindTexture()}}
 {\footnotesize\ttfamily void Surface\+::\+Rebind\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 452 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+453 \{
+454     glGenTextures(1, &mTexture);
+455     \textcolor{keywordflow}{if}(mTexture==0)
+456         \textcolor{keywordflow}{throw}(\textcolor{stringliteral}{" nable to gen OpenGL texture"});
+457 
+458 
+459     glBindTexture(GL\_TEXTURE\_2D, mTexture);
+460     glTexImage2D(GL\_TEXTURE\_2D, 0, GL\_RGBA8, mSurfaceWidth, mSurfaceHeight, 0, GL\_RGBA, GL\_UNSIGNED\_BYTE, 
+      buffer);
+461     glTexParameteri(GL\_TEXTURE\_2D,GL\_TEXTURE\_MIN\_FILTER,GL\_LINEAR);
+462     glTexParameteri(GL\_TEXTURE\_2D,GL\_TEXTURE\_MAG\_FILTER,GL\_LINEAR);
+463 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -175,8 +310,41 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Resize()}{Resize()}}
 {\footnotesize\ttfamily void Surface\+::\+Resize (\begin{DoxyParamCaption}\item[{int}]{Width,  }\item[{int}]{Height }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+Definition at line 466 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+467 \{
+468     \textcolor{keywordflow}{if}(\hyperlink{class_surface_ae76d7c2fa208df6979a77cc60e8105c0}{Width}==mWidth && \hyperlink{class_surface_ab901f48d51b3fd427415b580dc15518c}{Height}==mHeight)
+469         \textcolor{keywordflow}{return};
+470 
+471     \textcolor{keywordflow}{if}(\hyperlink{class_surface_ae76d7c2fa208df6979a77cc60e8105c0}{Width}<1 || \hyperlink{class_surface_ab901f48d51b3fd427415b580dc15518c}{Height}<1)
+472         \textcolor{keywordflow}{return};
+473 
+474     \textcolor{keywordtype}{int} newSize = \hyperlink{class_surface_aeb8a8540f415a4d29c440667e8532e91}{CalculateSize}(\hyperlink{class_surface_ae76d7c2fa208df6979a77cc60e8105c0}{Width});
+475 
+476     \textcolor{keywordflow}{if}(newSize>mSurfaceWidth || newSize>mSurfaceHeight)
+477     \{
+478         \textcolor{keywordflow}{if}(buffer!=0)
+479             free(buffer);
+480 
+481         mSurfaceWidth = newSize;
+482         mSurfaceHeight = newSize;
+483         mSpan = mSurfaceWidth;
+484         mWidth = \hyperlink{class_surface_ae76d7c2fa208df6979a77cc60e8105c0}{Width};
+485         mHeight = \hyperlink{class_surface_ab901f48d51b3fd427415b580dc15518c}{Height};
+486         buffer = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) malloc(mSurfaceWidth * mSurfaceHeight * 
+      \hyperlink{supportcode_8h_afb291d1c2072afc3383bc2e688e75d3b}{BYTESPERPIXEL});
+487         \textcolor{keywordflow}{if}(buffer==0)
+488             \textcolor{keywordflow}{throw}(\textcolor{stringliteral}{"Unable to allocate surface buffer"});
+489 
+490         mDirty = \textcolor{keyword}{true};
+491     \}
+492 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -189,16 +357,22 @@ Here is the call graph for this function\+:
 \subsubsection{\texorpdfstring{Surface\+Height()}{SurfaceHeight()}}
 {\footnotesize\ttfamily int Surface\+::\+Surface\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+Definition at line 37 of file supportcode.\+h.
+
+
+\begin{DoxyCode}
+37 \{ \textcolor{keywordflow}{return} mSurfaceHeight; \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{class_surface_a377c59f6ef131d4b879cda93578a3efa_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -211,8 +385,15 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Surface\+Width()}{SurfaceWidth()}}
 {\footnotesize\ttfamily int Surface\+::\+Surface\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 36 of file supportcode.\+h.
+
+
+\begin{DoxyCode}
+36 \{ \textcolor{keywordflow}{return} mSurfaceWidth;  \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -225,8 +406,15 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Width()}{Width()}}
 {\footnotesize\ttfamily int Surface\+::\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+Definition at line 34 of file supportcode.\+h.
+
+
+\begin{DoxyCode}
+34 \{ \textcolor{keywordflow}{return} mWidth;  \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

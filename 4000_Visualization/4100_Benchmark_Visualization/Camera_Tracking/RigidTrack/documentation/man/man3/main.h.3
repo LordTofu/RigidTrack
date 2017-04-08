@@ -1,0 +1,321 @@
+.TH "RigidTrack/main.h" 3 "Sat Apr 8 2017" "Rigid Track" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RigidTrack/main.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <fstream>\fP
+.br
+\fC#include <windows\&.h>\fP
+.br
+\fC#include <conio\&.h>\fP
+.br
+\fC#include <tchar\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <iostream>\fP
+.br
+\fC#include <stdarg\&.h>\fP
+.br
+\fC#include <ctype\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <gl/glu\&.h>\fP
+.br
+\fC#include <sstream>\fP
+.br
+\fC#include <thread>\fP
+.br
+\fC#include <future>\fP
+.br
+\fC#include <atomic>\fP
+.br
+\fC#include 'communication\&.h'\fP
+.br
+\fC#include 'RigidTrack\&.h'\fP
+.br
+\fC#include <QtWidgets/QApplication>\fP
+.br
+\fC#include <QUdpSocket>\fP
+.br
+\fC#include 'cameralibrary\&.h'\fP
+.br
+\fC#include 'modulevector\&.h'\fP
+.br
+\fC#include 'modulevectorprocessing\&.h'\fP
+.br
+\fC#include 'coremath\&.h'\fP
+.br
+\fC#include <opencv\\cv\&.h>\fP
+.br
+\fC#include 'opencv2\\core\&.hpp'\fP
+.br
+\fC#include 'opencv2\\calib3d\&.hpp'\fP
+.br
+\fC#include <opencv2/imgproc/imgproc\&.hpp>\fP
+.br
+\fC#include <opencv2/calib3d/calib3d\&.hpp>\fP
+.br
+\fC#include <opencv2/highgui/highgui\&.hpp>\fP
+.br
+\fC#include <opencv2\\video\\tracking\&.hpp>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBstartTracking\fP ()"
+.br
+.ti -1c
+.RI "void \fBstartStopCamera\fP ()"
+.br
+.RI "Start or stop the tracking depending on if the camera is currently running or not\&. "
+.ti -1c
+.RI "int \fBsetReference\fP ()"
+.br
+.ti -1c
+.RI "int \fBcalibrateCamera\fP ()"
+.br
+.RI "Start the camera calibration routine that computes the camera matrix and distortion coefficients\&. "
+.ti -1c
+.RI "void \fBloadCalibration\fP (int method)"
+.br
+.ti -1c
+.RI "void \fBtestAlgorithms\fP ()"
+.br
+.ti -1c
+.RI "void \fBprojectCoordinateFrame\fP (Mat pictureFrame)"
+.br
+.ti -1c
+.RI "void \fBsetUpUDP\fP ()"
+.br
+.RI "Open the UDP ports for communication\&. "
+.ti -1c
+.RI "void \fBsetHeadingOffset\fP (double d)"
+.br
+.ti -1c
+.RI "void \fBsendDataUDP\fP (cv::Vec3d &Position, cv::Vec3d &Euler)"
+.br
+.ti -1c
+.RI "void \fBcloseUDP\fP ()"
+.br
+.ti -1c
+.RI "void \fBloadMarkerConfig\fP (int method)"
+.br
+.ti -1c
+.RI "void \fBdrawPositionText\fP (cv::Mat &Picture, cv::Vec3d &Position, cv::Vec3d &Euler, double \fBerror\fP)"
+.br
+.ti -1c
+.RI "void \fBloadCameraPosition\fP ()"
+.br
+.ti -1c
+.RI "int \fBdetermineExposure\fP ()"
+.br
+.ti -1c
+.RI "void \fBdetermineOrder\fP ()"
+.br
+.ti -1c
+.RI "int \fBcalibrateGround\fP ()"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBmethodPNP\fP"
+.br
+.RI "solvePNP algorithm 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP //!< 4 and 1 are the same and not implemented correctly by OpenCV "
+.ti -1c
+.RI "bool \fBsafetyEnable\fP"
+.br
+.RI "is the safety feature enabled "
+.ti -1c
+.RI "bool \fBsafety2Enable\fP"
+.br
+.RI "is the second receiver enabled "
+.ti -1c
+.RI "double \fBsafetyBoxLength\fP"
+.br
+.RI "length of the safety area cube in meters "
+.ti -1c
+.RI "int \fBsafetyAngle\fP"
+.br
+.RI "bank and pitch angle protection in degrees "
+.ti -1c
+.RI "QHostAddress \fBIPAdressObject\fP"
+.br
+.RI "IPv4 adress of receiver 1\&. "
+.ti -1c
+.RI "QHostAddress \fBIPAdressSafety\fP"
+.br
+.RI "IPv4 adress of safety receiver\&. "
+.ti -1c
+.RI "QHostAddress \fBIPAdressSafety2\fP"
+.br
+.RI "IPv4 adress of receiver 2\&. "
+.ti -1c
+.RI "int \fBportObject\fP"
+.br
+.RI "Port of receiver 1\&. "
+.ti -1c
+.RI "int \fBportSafety\fP"
+.br
+.RI "Port of the safety receiver\&. "
+.ti -1c
+.RI "int \fBportSafety2\fP"
+.br
+.RI "Port of receiver 2\&. "
+.ti -1c
+.RI "int \fBinvertZ\fP"
+.br
+.RI "dummy variable to invert Z direction on request "
+.ti -1c
+.RI "\fBcommObject\fP \fBcommObj\fP"
+.br
+.RI "class that handles the communication from \fBmain\&.cpp\fP to the GUI "
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int calibrateCamera ()"
+
+.PP
+Start the camera calibration routine that computes the camera matrix and distortion coefficients\&. 
+.SS "int calibrateGround ()"
+Get the pose of the camera w\&.r\&.t the ground calibration frame\&. This frame sets the navigation frame for later results\&. The pose is averaged over 200 samples and then saved in the file referenceData\&.xml\&. This routine is basically the same as setReference\&. 
+.SS "void closeUDP ()"
+Close the UDP ports again to release network interfaces etc\&. If this is not done the network resources are still occupied and the program can't exit properly\&. 
+.SS "int determineExposure ()"
+Get the optimal exposure for the camera\&. For that find the minimum and maximum exposure were the right number of markers are detected\&. Then the mean of those two values is used as exposure\&. 
+.SS "void determineOrder ()"
+Compute the order of the marker points in 2D so they are the same as in the 3D array\&. Hence marker 1 must be in first place for both, list_points2d and list_points3d\&. 
+.SS "void drawPositionText (cv::Mat & Picture, cv::Vec3d & Position, cv::Vec3d & Euler, double error)"
+Draw the position, attitude and reprojection error in the picture\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIPicture\fP is the camera image in OpenCV matrix format\&. 
+.br
+\fIPosition\fP is the position of the tracked object in navigation CoSy\&. 
+.br
+\fIEuler\fP are the Euler angles with respect to the navigation frame\&. 
+.br
+\fIerror\fP is the reprojection error of the pose estimation\&. 
+.RE
+.PP
+
+.SS "void loadCalibration (int method)"
+Load a previously saved camera calibration from a file\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethod\fP whether or not load the camera calibration from calibration\&.xml\&. If ==0 then yes, if != 0 then let the user select a different file\&. 
+.RE
+.PP
+
+.SS "void loadCameraPosition ()"
+Load the rotation matrix from camera CoSy to ground CoSy It is determined during \fBcalibrateGround()\fP and stays the same once the camera is mounted and fixed\&. 
+.SS "void loadMarkerConfig (int method)"
+Load a marker configuration from file\&. This file has to be created by hand, use the standard marker configuration file as template\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethod\fP whether or not load the configuration from the markerStandard\&.xml\&. If ==0 load it, if != 0 let the user select a different file\&. 
+.RE
+.PP
+
+.SS "void projectCoordinateFrame (Mat pictureFrame)"
+Project the coordinate CoSy origin and axis direction of the marker CoSy with the rotation and translation of the object for visualization\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpictureFrame\fP the image in which the CoSy frame should be pasted\&. 
+.RE
+.PP
+
+.SS "void sendDataUDP (cv::Vec3d & Position, cv::Vec3d & Euler)"
+Send the position and attitude over UDP to every receiver, the safety receiver is handled on its own in the startTracking function because its send rate is less than 100 Hz\&. 
+.SS "void setHeadingOffset (double d)"
+Add a heading offset to the attitude for the case it is wanted by the user\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fId\fP denotes heading offset in degrees\&. 
+.RE
+.PP
+
+.SS "int setReference ()"
+Determine the initial position of the object that serves as reference point or as ground frame origin\&. Computes the pose 200 times and then averages it\&. The position and attitude are from now on used as navigation CoSy\&. 
+.SS "void setUpUDP ()"
+
+.PP
+Open the UDP ports for communication\&. 
+.SS "void startStopCamera ()"
+
+.PP
+Start or stop the tracking depending on if the camera is currently running or not\&. 
+.SS "int startTracking ()"
+Start the loop that fetches frames, computes the position etc and sends it to other computers\&. This function is the core of this program, hence the pose estimation is done here\&. 
+.SS "void testAlgorithms ()"
+Project some points from 3D to 2D and then check the accuracy of the algorithms\&. Mainly to generate something that can be shown in the camera view so the user knows everything loaded correctly\&. 
+.SH "Variable Documentation"
+.PP 
+.SS "\fBcommObject\fP commObj"
+
+.PP
+class that handles the communication from \fBmain\&.cpp\fP to the GUI Now declare variables that are used across the \fBmain\&.cpp\fP file\&. Basically almost every variable used is declared here\&. 
+.SS "int invertZ"
+
+.PP
+dummy variable to invert Z direction on request 
+.SS "QHostAddress IPAdressObject"
+
+.PP
+IPv4 adress of receiver 1\&. 
+.SS "QHostAddress IPAdressSafety"
+
+.PP
+IPv4 adress of safety receiver\&. 
+.SS "QHostAddress IPAdressSafety2"
+
+.PP
+IPv4 adress of receiver 2\&. 
+.SS "int methodPNP"
+
+.PP
+solvePNP algorithm 0 = iterative 1 = EPNP 2 = P3P 4 = UPNP //!< 4 and 1 are the same and not implemented correctly by OpenCV 
+.SS "int portObject"
+
+.PP
+Port of receiver 1\&. 
+.SS "int portSafety"
+
+.PP
+Port of the safety receiver\&. 
+.SS "int portSafety2"
+
+.PP
+Port of receiver 2\&. 
+.SS "bool safety2Enable"
+
+.PP
+is the second receiver enabled 
+.SS "int safetyAngle"
+
+.PP
+bank and pitch angle protection in degrees 
+.SS "double safetyBoxLength"
+
+.PP
+length of the safety area cube in meters 
+.SS "bool safetyEnable"
+
+.PP
+is the safety feature enabled 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Rigid Track from the source code\&.

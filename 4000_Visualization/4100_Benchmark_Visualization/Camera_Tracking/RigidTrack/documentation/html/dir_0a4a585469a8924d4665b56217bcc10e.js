@@ -8,7 +8,6 @@ var dir_0a4a585469a8924d4665b56217bcc10e =
     [ "communication.h", "communication_8h.html", [
       [ "commObject", "classcomm_object.html", "classcomm_object" ]
     ] ],
-    [ "ImportLog.m", "_import_log_8m.html", "_import_log_8m" ],
     [ "main.cpp", "main_8cpp.html", "main_8cpp" ],
     [ "main.h", "main_8h.html", "main_8h" ],
     [ "precomp.hpp", "precomp_8hpp.html", "precomp_8hpp" ],
@@ -17,7 +16,6 @@ var dir_0a4a585469a8924d4665b56217bcc10e =
     [ "RigidTrack.h", "_rigid_track_8h.html", [
       [ "RigidTrack", "class_rigid_track.html", "class_rigid_track" ]
     ] ],
-    [ "simpleplot.m", "simpleplot_8m.html", "simpleplot_8m" ],
     [ "supportcode.cpp", "supportcode_8cpp.html", "supportcode_8cpp" ],
     [ "supportcode.h", "supportcode_8h.html", "supportcode_8h" ]
 ];

@@ -33,6 +33,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.ico"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Rigid Track
    </div>
@@ -95,20 +96,8 @@ $(document).ready(function(){initNavTree('classcomm_object.html','');});
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="communication_8h_source.html">communication.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for commObject:</div>
-<div class="dyncontent">
-<div class="center"><img src="classcomm_object__inherit__graph.png" border="0" usemap="#comm_object_inherit__map" alt="Inheritance graph"/></div>
-<map name="comm_object_inherit__map" id="comm_object_inherit__map">
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for commObject:</div>
-<div class="dyncontent">
-<div class="center"><img src="classcomm_object__coll__graph.png" border="0" usemap="#comm_object_coll__map" alt="Collaboration graph"/></div>
-<map name="comm_object_coll__map" id="comm_object_coll__map">
-</map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits QObject.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
@@ -146,7 +135,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acfc97f4310e2b7d841ecb8cf8be0088e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e">progressUpdate</a> (int value)</td></tr>
 <tr class="separator:acfc97f4310e2b7d841ecb8cf8be0088e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="communication_8h_source.html#l00007">7</a> of file <a class="el" href="communication_8h_source.html">communication.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aec354c7099b3039083cc4224e071e022"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aec354c7099b3039083cc4224e071e022">&#9670;&nbsp;</a></span>addLog()</h2>
 
@@ -162,7 +154,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="communication_8cpp_source.html#l00020">20</a> of file <a class="el" href="communication_8cpp_source.html">communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                       {</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    emit <a class="code" href="classcomm_object.html#a72620fe1bac16309baf6d148644edaf9">logAdded</a>(LogText);</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    QCoreApplication::processEvents();</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div><div class="ttc" id="classcomm_object_html_a72620fe1bac16309baf6d148644edaf9"><div class="ttname"><a href="classcomm_object.html#a72620fe1bac16309baf6d148644edaf9">commObject::logAdded</a></div><div class="ttdeci">void logAdded(QString LogText)</div><div class="ttdoc">/&lt; SIGNAL 2 </div><div class="ttdef"><b>Definition:</b> <a href="_debug_2moc__communication_8cpp_source.html#l00197">moc_communication.cpp:197</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_aec354c7099b3039083cc4224e071e022_icgraph.png" border="0" usemap="#classcomm_object_aec354c7099b3039083cc4224e071e022_icgraph" alt=""/></div>
@@ -219,7 +214,10 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="communication_8cpp_source.html#l00014">14</a> of file <a class="el" href="communication_8cpp_source.html">communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                                          {</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    emit <a class="code" href="classcomm_object.html#a3828eab6be234f6216a6f80a6a82e41e">imageChanged</a>(image);</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    QCoreApplication::processEvents();</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div><div class="ttc" id="classcomm_object_html_a3828eab6be234f6216a6f80a6a82e41e"><div class="ttname"><a href="classcomm_object.html#a3828eab6be234f6216a6f80a6a82e41e">commObject::imageChanged</a></div><div class="ttdeci">void imageChanged(QPixmap image)</div><div class="ttdoc">/&lt; SIGNAL 1 </div><div class="ttdef"><b>Definition:</b> <a href="_debug_2moc__communication_8cpp_source.html#l00190">moc_communication.cpp:190</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a6f81522c2aa1668fa402f08710e6206b_icgraph.png" border="0" usemap="#classcomm_object_a6f81522c2aa1668fa402f08710e6206b_icgraph" alt=""/></div>
@@ -262,7 +260,10 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="communication_8cpp_source.html#l00008">8</a> of file <a class="el" href="communication_8cpp_source.html">communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                                             {</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    emit <a class="code" href="classcomm_object.html#adccf5b5946d35d5cf6d76f367f93e335">statusChanged</a>(newText);</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    QCoreApplication::processEvents();</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div><div class="ttc" id="classcomm_object_html_adccf5b5946d35d5cf6d76f367f93e335"><div class="ttname"><a href="classcomm_object.html#adccf5b5946d35d5cf6d76f367f93e335">commObject::statusChanged</a></div><div class="ttdeci">void statusChanged(QString newText)</div><div class="ttdoc">/&lt; SIGNAL 0 </div><div class="ttdef"><b>Definition:</b> <a href="_debug_2moc__communication_8cpp_source.html#l00183">moc_communication.cpp:183</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a1f4b8dd22ecc46bab619f6b1fe1a5144_icgraph.png" border="0" usemap="#classcomm_object_a1f4b8dd22ecc46bab619f6b1fe1a5144_icgraph" alt=""/></div>
@@ -291,6 +292,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="communication_8cpp_source.html#l00026">26</a> of file <a class="el" href="communication_8cpp_source.html">communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                          {</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    emit <a class="code" href="classcomm_object.html#af2304085624c26230e9d930d616e3e19">logCleared</a>();</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    QCoreApplication::processEvents();</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div><div class="ttc" id="classcomm_object_html_af2304085624c26230e9d930d616e3e19"><div class="ttname"><a href="classcomm_object.html#af2304085624c26230e9d930d616e3e19">commObject::logCleared</a></div><div class="ttdeci">void logCleared()</div><div class="ttdoc">/&lt; SIGNAL 3 </div><div class="ttdef"><b>Definition:</b> <a href="_debug_2moc__communication_8cpp_source.html#l00204">moc_communication.cpp:204</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a7552116eb5e18c49c6dcf943de29af7a"></a>
@@ -308,7 +312,10 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="communication_8cpp_source.html#l00032">32</a> of file <a class="el" href="communication_8cpp_source.html">communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    emit <a class="code" href="classcomm_object.html#af369de87a7f2c9b7170223bedd6c08d9">P3Penabled</a>(value);</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    QCoreApplication::processEvents();</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div><div class="ttc" id="classcomm_object_html_af369de87a7f2c9b7170223bedd6c08d9"><div class="ttname"><a href="classcomm_object.html#af369de87a7f2c9b7170223bedd6c08d9">commObject::P3Penabled</a></div><div class="ttdeci">void P3Penabled(bool value)</div><div class="ttdoc">/&lt; SIGNAL 4 </div><div class="ttdef"><b>Definition:</b> <a href="_debug_2moc__communication_8cpp_source.html#l00210">moc_communication.cpp:210</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a7552116eb5e18c49c6dcf943de29af7a_icgraph.png" border="0" usemap="#classcomm_object_a7552116eb5e18c49c6dcf943de29af7a_icgraph" alt=""/></div>
@@ -351,7 +358,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>/&lt; SIGNAL 1 </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="_debug_2moc__communication_8cpp_source.html#l00190">190</a> of file <a class="el" href="_debug_2moc__communication_8cpp_source.html">moc_communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;{</div><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordtype">void</span> *_a[] = { Q_NULLPTR, <span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(&amp;_t1)) };</div><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    QMetaObject::activate(<span class="keyword">this</span>, &amp;staticMetaObject, 1, _a);</div><div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;}</div></div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a3828eab6be234f6216a6f80a6a82e41e_icgraph.png" border="0" usemap="#classcomm_object_a3828eab6be234f6216a6f80a6a82e41e_icgraph" alt=""/></div>
@@ -405,7 +414,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>/&lt; SIGNAL 2 </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="_debug_2moc__communication_8cpp_source.html#l00197">197</a> of file <a class="el" href="_debug_2moc__communication_8cpp_source.html">moc_communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;{</div><div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="keywordtype">void</span> *_a[] = { Q_NULLPTR, <span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(&amp;_t1)) };</div><div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    QMetaObject::activate(<span class="keyword">this</span>, &amp;staticMetaObject, 2, _a);</div><div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;}</div></div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a72620fe1bac16309baf6d148644edaf9_icgraph.png" border="0" usemap="#classcomm_object_a72620fe1bac16309baf6d148644edaf9_icgraph" alt=""/></div>
@@ -472,7 +483,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>/&lt; SIGNAL 3 </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="_debug_2moc__communication_8cpp_source.html#l00204">204</a> of file <a class="el" href="_debug_2moc__communication_8cpp_source.html">moc_communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;{</div><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    QMetaObject::activate(<span class="keyword">this</span>, &amp;staticMetaObject, 3, Q_NULLPTR);</div><div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;}</div></div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_af2304085624c26230e9d930d616e3e19_icgraph.png" border="0" usemap="#classcomm_object_af2304085624c26230e9d930d616e3e19_icgraph" alt=""/></div>
@@ -508,7 +521,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>/&lt; SIGNAL 4 </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="_debug_2moc__communication_8cpp_source.html#l00210">210</a> of file <a class="el" href="_debug_2moc__communication_8cpp_source.html">moc_communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;{</div><div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordtype">void</span> *_a[] = { Q_NULLPTR, <span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(&amp;_t1)) };</div><div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    QMetaObject::activate(<span class="keyword">this</span>, &amp;staticMetaObject, 4, _a);</div><div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;}</div></div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_af369de87a7f2c9b7170223bedd6c08d9_icgraph.png" border="0" usemap="#classcomm_object_af369de87a7f2c9b7170223bedd6c08d9_icgraph" alt=""/></div>
@@ -542,7 +557,10 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="communication_8cpp_source.html#l00038">38</a> of file <a class="el" href="communication_8cpp_source.html">communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    emit <a class="code" href="classcomm_object.html#a6039d306f25a6b46c78942edf9cee662">progressUpdated</a>(value);</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    QCoreApplication::processEvents();</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div><div class="ttc" id="classcomm_object_html_a6039d306f25a6b46c78942edf9cee662"><div class="ttname"><a href="classcomm_object.html#a6039d306f25a6b46c78942edf9cee662">commObject::progressUpdated</a></div><div class="ttdeci">void progressUpdated(int value)</div><div class="ttdoc">/&lt; SIGNAL 5 </div><div class="ttdef"><b>Definition:</b> <a href="_debug_2moc__communication_8cpp_source.html#l00217">moc_communication.cpp:217</a></div></div>
+</div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e_icgraph.png" border="0" usemap="#classcomm_object_acfc97f4310e2b7d841ecb8cf8be0088e_icgraph" alt=""/></div>
@@ -581,7 +599,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>/&lt; SIGNAL 5 </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="_debug_2moc__communication_8cpp_source.html#l00217">217</a> of file <a class="el" href="_debug_2moc__communication_8cpp_source.html">moc_communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;{</div><div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordtype">void</span> *_a[] = { Q_NULLPTR, <span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(&amp;_t1)) };</div><div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    QMetaObject::activate(<span class="keyword">this</span>, &amp;staticMetaObject, 5, _a);</div><div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;}</div></div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_a6039d306f25a6b46c78942edf9cee662_icgraph.png" border="0" usemap="#classcomm_object_a6039d306f25a6b46c78942edf9cee662_icgraph" alt=""/></div>
@@ -621,7 +641,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>/&lt; SIGNAL 0 </p>
-<div class="dynheader">
+
+<p class="definition">Definition at line <a class="el" href="_debug_2moc__communication_8cpp_source.html#l00183">183</a> of file <a class="el" href="_debug_2moc__communication_8cpp_source.html">moc_communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;{</div><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">void</span> *_a[] = { Q_NULLPTR, <span class="keyword">const_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(&amp;_t1)) };</div><div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    QMetaObject::activate(<span class="keyword">this</span>, &amp;staticMetaObject, 0, _a);</div><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div></div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcomm_object_adccf5b5946d35d5cf6d76f367f93e335_icgraph.png" border="0" usemap="#classcomm_object_adccf5b5946d35d5cf6d76f367f93e335_icgraph" alt=""/></div>
@@ -638,8 +660,8 @@ Here is the caller graph for this function:</div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>RigidTrack/<a class="el" href="communication_8h_source.html">communication.h</a></li>
-<li>RigidTrack/<a class="el" href="communication_8cpp.html">communication.cpp</a></li>
-<li>RigidTrack/GeneratedFiles/Debug/<a class="el" href="_debug_2moc__communication_8cpp.html">moc_communication.cpp</a></li>
+<li>RigidTrack/<a class="el" href="communication_8cpp_source.html">communication.cpp</a></li>
+<li>RigidTrack/GeneratedFiles/Debug/<a class="el" href="_debug_2moc__communication_8cpp_source.html">moc_communication.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

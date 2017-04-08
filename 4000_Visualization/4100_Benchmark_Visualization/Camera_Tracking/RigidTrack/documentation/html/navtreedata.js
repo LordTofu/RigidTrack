@@ -1,6 +1,11 @@
 var NAVTREE =
 [
   [ "Rigid Track", "index.html", [
+    [ "Rigid Track Doxygen Documentation", "index.html", [
+      [ "Introduction", "index.html#intro_sec", null ],
+      [ "Rigid Track Installation", "index.html#softInstall_sec", null ],
+      [ "Source Code", "index.html#source_code", null ]
+    ] ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ]
     ] ],
@@ -17,7 +22,7 @@ var NAVTREE =
     [ "Files", null, [
       [ "File List", "files.html", "files" ],
       [ "File Members", "globals.html", [
-        [ "All", "globals.html", "globals_dup" ],
+        [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Macros", "globals_defs.html", null ]
@@ -29,7 +34,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "__modelest_8h.html",
-"main_8cpp.html#abaff8b0ee6c1e5a95211c7981b025955"
+"main_8cpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

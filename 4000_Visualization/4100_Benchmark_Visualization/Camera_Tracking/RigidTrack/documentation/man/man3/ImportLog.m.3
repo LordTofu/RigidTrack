@@ -1,0 +1,123 @@
+.TH "RigidTrack/ImportLog.m" 3 "Sat Apr 8 2017" "Rigid Track" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+RigidTrack/ImportLog.m
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "Close the \fBtext\fP \fBfile\fP \fBfclose\fP (\fBfileID\fP)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "Import \fBdata\fP from \fBtext\fP file Script for importing \fBdata\fP from the following \fBtext\fP \fBfile\fP"
+.br
+.ti -1c
+.RI "Format for each line of \fBtext\fP"
+.br
+.ti -1c
+.RI "Format for each line of see the TEXTSCAN documentation \fBformatSpec\fP = '%f%f%f%f%f%f%f%f%f%f%f%[^\\n\\r]'"
+.br
+.ti -1c
+.RI "Open the \fBtext\fP \fBfile\fP \fBfileID\fP = fopen(filename,'r')"
+.br
+.ti -1c
+.RI "Read columns of \fBdata\fP according to the format This call is based \fBon\fP the structure of the \fBfile\fP used to generate this code If an \fBerror\fP occurs for a different try regenerating the code from the Import Tool \fBdataArray\fP = textscan(\fBfileID\fP, \fBformatSpec\fP, 'Delimiter', delimiter, 'EmptyValue' ,NaN, 'ReturnOnError', false)"
+.br
+.ti -1c
+.RI "Post processing for unimportable \fBdata\fP No unimportable \fBdata\fP rules were applied during the \fBimport\fP"
+.br
+.ti -1c
+.RI "Post processing for unimportable data No unimportable data rules were applied during the so no post processing code is included To generate code which works for unimportable \fBdata\fP"
+.br
+.ti -1c
+.RI "Post processing for unimportable \fBdata\fP No unimportable \fBdata\fP rules were applied during the so no post processing code is included To generate code which works for unimportable select unimportable cells in a \fBfile\fP and regenerate the script Allocate imported array to column variable names \fBt\fP = \fBdataArray\fP{:, 1}"
+.br
+.ti -1c
+.RI "\fBx\fP = \fBdataArray\fP{:, 2}"
+.br
+.ti -1c
+.RI "\fBy\fP = \fBdataArray\fP{:, 3}"
+.br
+.ti -1c
+.RI "\fBz\fP = \fBdataArray\fP{:, 4}"
+.br
+.ti -1c
+.RI "\fBeuler1\fP = \fBdataArray\fP{:, 5}"
+.br
+.ti -1c
+.RI "\fBeuler2\fP = \fBdataArray\fP{:, 6}"
+.br
+.ti -1c
+.RI "\fBeuler3\fP = \fBdataArray\fP{:, 7}"
+.br
+.ti -1c
+.RI "\fBvelx\fP = \fBdataArray\fP{:, 8}"
+.br
+.ti -1c
+.RI "\fBvely\fP = \fBdataArray\fP{:, 9}"
+.br
+.ti -1c
+.RI "\fBvelz\fP = \fBdataArray\fP{:, 10}"
+.br
+.ti -1c
+.RI "\fBerror\fP = \fBdataArray\fP{:, 11}"
+.br
+.ti -1c
+.RI "Clear temporary variables clearvars filename delimiter \fBformatSpec\fP \fBfileID\fP \fBdataArray\fP \fBans\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "Close the \fBtext\fP \fBfile\fP fclose (\fBfileID\fP)"
+
+.SH "Variable Documentation"
+.PP 
+.SS "Clear temporary variables clearvars filename delimiter \fBformatSpec\fP \fBfileID\fP \fBdataArray\fP ans"
+
+.SS "Post processing for unimportable data No unimportable data rules were applied during the so no post processing code is included To generate code which works for unimportable data"
+
+.SS "Read columns of \fBdata\fP according to the format This call is based \fBon\fP the structure of the \fBfile\fP used to generate this code If an \fBerror\fP occurs for a different try regenerating the code from the Import Tool dataArray = textscan(\fBfileID\fP, \fBformatSpec\fP, 'Delimiter', delimiter, 'EmptyValue' ,NaN, 'ReturnOnError', false)"
+
+.SS "error = \fBdataArray\fP{:, 11}"
+
+.SS "euler1 = \fBdataArray\fP{:, 5}"
+
+.SS "euler2 = \fBdataArray\fP{:, 6}"
+
+.SS "euler3 = \fBdataArray\fP{:, 7}"
+
+.SS "Read columns of \fBdata\fP according to the format This call is based \fBon\fP the structure of the file used to generate this code If an \fBerror\fP occurs for a different file"
+
+.SS "Open the \fBtext\fP \fBfile\fP fileID = fopen(filename,'r')"
+
+.SS "Format for each line of see the TEXTSCAN documentation formatSpec = '%f%f%f%f%f%f%f%f%f%f%f%[^\\n\\r]'"
+
+.SS "Post processing for unimportable \fBdata\fP No unimportable \fBdata\fP rules were applied during the import"
+
+.SS "Post processing for unimportable \fBdata\fP No unimportable \fBdata\fP rules were applied during the so no post processing code is included To generate code which works for unimportable select unimportable cells in a \fBfile\fP and regenerate the script Allocate imported array to column variable names t = \fBdataArray\fP{:, 1}"
+
+.SS "Format for each line of text"
+
+.SS "velx = \fBdataArray\fP{:, 8}"
+
+.SS "vely = \fBdataArray\fP{:, 9}"
+
+.SS "velz = \fBdataArray\fP{:, 10}"
+
+.SS "x = \fBdataArray\fP{:, 2}"
+
+.SS "y = \fBdataArray\fP{:, 3}"
+
+.SS "z = \fBdataArray\fP{:, 4}"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Rigid Track from the source code\&.

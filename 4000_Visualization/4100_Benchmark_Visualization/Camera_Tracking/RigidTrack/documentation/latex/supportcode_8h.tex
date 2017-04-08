@@ -3,16 +3,14 @@
 {\ttfamily \#include $<$windows.\+h$>$}\newline
 {\ttfamily \#include $<$gl\textbackslash{}gl.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}bitmap.\+h\char`\"{}}\newline
-Include dependency graph for supportcode.\+h\+:
-\nopagebreak
+Include dependency graph for supportcode.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=276pt]{supportcode_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -31,7 +29,7 @@ class \hyperlink{class_surface}{Surface}
 \item 
 \#define \hyperlink{supportcode_8h_afb291d1c2072afc3383bc2e688e75d3b}{B\+Y\+T\+E\+S\+P\+E\+R\+P\+I\+X\+EL}~4
 \item 
-\#define \hyperlink{supportcode_8h_af031fd52a9e727c19a42fbef373ffca9}{R\+G\+BA}(\hyperlink{simpleplot_8m_a9336ebf25087d91c818ee6e9ec29f8c1}{x},  \hyperlink{_import_log_8m_a2fb1c5cf58867b5bbc9a1b145a86f3a0}{y},  \hyperlink{_import_log_8m_a25ed1bcb423b0b7200f485fc5ff71c8e}{z},  a)~((a$<$$<$24)$\vert$(\hyperlink{simpleplot_8m_a9336ebf25087d91c818ee6e9ec29f8c1}{x}$<$$<$16)$\vert$(\hyperlink{_import_log_8m_a2fb1c5cf58867b5bbc9a1b145a86f3a0}{y}$<$$<$8)$\vert$\hyperlink{_import_log_8m_a25ed1bcb423b0b7200f485fc5ff71c8e}{z})
+\#define \hyperlink{supportcode_8h_af031fd52a9e727c19a42fbef373ffca9}{R\+G\+BA}(x,  y,  z,  a)~((a$<$$<$24)$\vert$(x$<$$<$16)$\vert$(y$<$$<$8)$\vert$z)
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -70,17 +68,29 @@ bool \hyperlink{supportcode_8h_a7b5a9c7e9c526f41104703da9b9fa703}{g\+Fullscreen}
 \subsubsection{\texorpdfstring{B\+Y\+T\+E\+S\+P\+E\+R\+P\+I\+X\+EL}{BYTESPERPIXEL}}
 {\footnotesize\ttfamily \#define B\+Y\+T\+E\+S\+P\+E\+R\+P\+I\+X\+EL~4}
 
+
+
+Definition at line 17 of file supportcode.\+h.
+
 \mbox{\Hypertarget{supportcode_8h_af031fd52a9e727c19a42fbef373ffca9}\label{supportcode_8h_af031fd52a9e727c19a42fbef373ffca9}} 
 \index{supportcode.\+h@{supportcode.\+h}!R\+G\+BA@{R\+G\+BA}}
 \index{R\+G\+BA@{R\+G\+BA}!supportcode.\+h@{supportcode.\+h}}
 \subsubsection{\texorpdfstring{R\+G\+BA}{RGBA}}
-{\footnotesize\ttfamily \#define R\+G\+BA(\begin{DoxyParamCaption}\item[{}]{\hyperlink{simpleplot_8m_a9336ebf25087d91c818ee6e9ec29f8c1}{x},  }\item[{}]{\hyperlink{_import_log_8m_a2fb1c5cf58867b5bbc9a1b145a86f3a0}{y},  }\item[{}]{\hyperlink{_import_log_8m_a25ed1bcb423b0b7200f485fc5ff71c8e}{z},  }\item[{}]{a }\end{DoxyParamCaption})~((a$<$$<$24)$\vert$(\hyperlink{simpleplot_8m_a9336ebf25087d91c818ee6e9ec29f8c1}{x}$<$$<$16)$\vert$(\hyperlink{_import_log_8m_a2fb1c5cf58867b5bbc9a1b145a86f3a0}{y}$<$$<$8)$\vert$\hyperlink{_import_log_8m_a25ed1bcb423b0b7200f485fc5ff71c8e}{z})}
+{\footnotesize\ttfamily \#define R\+G\+BA(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z,  }\item[{}]{a }\end{DoxyParamCaption})~((a$<$$<$24)$\vert$(x$<$$<$16)$\vert$(y$<$$<$8)$\vert$z)}
+
+
+
+Definition at line 18 of file supportcode.\+h.
 
 \mbox{\Hypertarget{supportcode_8h_ac7bef5d85e3dcd73eef56ad39ffc84a9}\label{supportcode_8h_ac7bef5d85e3dcd73eef56ad39ffc84a9}} 
 \index{supportcode.\+h@{supportcode.\+h}!W\+I\+N32\+\_\+\+L\+E\+A\+N\+\_\+\+A\+N\+D\+\_\+\+M\+E\+AN@{W\+I\+N32\+\_\+\+L\+E\+A\+N\+\_\+\+A\+N\+D\+\_\+\+M\+E\+AN}}
 \index{W\+I\+N32\+\_\+\+L\+E\+A\+N\+\_\+\+A\+N\+D\+\_\+\+M\+E\+AN@{W\+I\+N32\+\_\+\+L\+E\+A\+N\+\_\+\+A\+N\+D\+\_\+\+M\+E\+AN}!supportcode.\+h@{supportcode.\+h}}
 \subsubsection{\texorpdfstring{W\+I\+N32\+\_\+\+L\+E\+A\+N\+\_\+\+A\+N\+D\+\_\+\+M\+E\+AN}{WIN32\_LEAN\_AND\_MEAN}}
 {\footnotesize\ttfamily \#define W\+I\+N32\+\_\+\+L\+E\+A\+N\+\_\+\+A\+N\+D\+\_\+\+M\+E\+AN}
+
+
+
+Definition at line 3 of file supportcode.\+h.
 
 
 
@@ -95,32 +105,55 @@ bool \hyperlink{supportcode_8h_a7b5a9c7e9c526f41104703da9b9fa703}{g\+Fullscreen}
 
 /$<$ Properly Kill The Window 
 
-/$<$ Are We In Fullscreen Mode?
 
-/$<$ If So Switch Back To The Desktop
 
-/$<$ Show Mouse Pointer
+Definition at line 192 of file supportcode.\+cpp.
 
-/$<$ Do We Have A Rendering Context?
 
-/$<$ Are We Able To Release The DC And RC Contexts?
-
-/$<$ Are We Able To Delete The RC?
-
-/$<$ Set RC To N\+U\+LL
-
-/$<$ Are We Able To Release The DC
-
-/$<$ Set DC To N\+U\+LL
-
-/$<$ Are We Able To Destroy The Window?
-
-/$<$ Set h\+Wnd To N\+U\+LL
-
-/$<$ Are We Able To Unregister Class
-
-/$<$ Set h\+Instance To N\+U\+LL Here is the caller graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+193 \{
+194     \textcolor{keywordflow}{if} (\hyperlink{supportcode_8cpp_a7b5a9c7e9c526f41104703da9b9fa703}{gFullscreen})                                     \textcolor{comment}{//!/< Are We In Fullscreen Mode?}
+195 \textcolor{comment}{}    \{
+196         ChangeDisplaySettings(NULL,0);                  \textcolor{comment}{//!/< If So Switch Back To The Desktop}
+197 \textcolor{comment}{}        ShowCursor(TRUE);                               \textcolor{comment}{//!/< Show Mouse Pointer}
+198 \textcolor{comment}{}    \}
+199 
+200     \textcolor{keywordflow}{if} (\hyperlink{supportcode_8cpp_a874963259c7cd998acfe6e187fbdb4c1}{hRC})                                         \textcolor{comment}{//!/< Do We Have A Rendering Context?}
+201 \textcolor{comment}{}    \{
+202         \textcolor{keywordflow}{if} (!wglMakeCurrent(NULL,NULL))                 \textcolor{comment}{//!/< Are We Able To Release The DC And RC
+       Contexts?}
+203 \textcolor{comment}{}        \{
+204             MessageBox(NULL,L\textcolor{stringliteral}{"Release Of DC And RC Failed."},L\textcolor{stringliteral}{"SHUTDOWN ERROR"},MB\_OK | MB\_ICONINFORMATION);
+205         \}
+206 
+207         \textcolor{keywordflow}{if} (!wglDeleteContext(\hyperlink{supportcode_8cpp_a874963259c7cd998acfe6e187fbdb4c1}{hRC}))                      \textcolor{comment}{//!/< Are We Able To Delete The RC?}
+208 \textcolor{comment}{}        \{
+209             MessageBox(NULL, L\textcolor{stringliteral}{"Release Rendering Context Failed."}, L\textcolor{stringliteral}{"SHUTDOWN ERROR"},MB\_OK | 
+      MB\_ICONINFORMATION);
+210         \}
+211         \hyperlink{supportcode_8cpp_a874963259c7cd998acfe6e187fbdb4c1}{hRC}=NULL;                                        \textcolor{comment}{//!/< Set RC To NULL}
+212 \textcolor{comment}{}    \}
+213 
+214     \textcolor{keywordflow}{if} (\hyperlink{supportcode_8cpp_a78f6446a0e13adc7b7b2f239112ac785}{hDC} && !ReleaseDC(\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd},\hyperlink{supportcode_8cpp_a78f6446a0e13adc7b7b2f239112ac785}{hDC}))                  \textcolor{comment}{//!/< Are We Able To Release The DC}
+215 \textcolor{comment}{}    \{
+216         MessageBox(NULL, L\textcolor{stringliteral}{"Release Device Context Failed."}, L\textcolor{stringliteral}{"SHUTDOWN ERROR"},MB\_OK | MB\_ICONINFORMATION);
+217         \hyperlink{supportcode_8cpp_a78f6446a0e13adc7b7b2f239112ac785}{hDC}=NULL;                                        \textcolor{comment}{//!/< Set DC To NULL}
+218 \textcolor{comment}{}    \}
+219 
+220     \textcolor{keywordflow}{if} (\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd} && !DestroyWindow(\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd}))                   \textcolor{comment}{//!/< Are We Able To Destroy The Window?}
+221 \textcolor{comment}{}    \{
+222         MessageBox(NULL, L\textcolor{stringliteral}{"Could Not Release hWnd."}, L\textcolor{stringliteral}{"SHUTDOWN ERROR"},MB\_OK | MB\_ICONINFORMATION);
+223         \hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd}=NULL;                                      \textcolor{comment}{//!/< Set hWnd To NULL}
+224 \textcolor{comment}{}    \}
+225 
+226     \textcolor{keywordflow}{if} (!UnregisterClass(L\textcolor{stringliteral}{"OpenGL"},\hyperlink{supportcode_8cpp_a74029128723095e7bf00a71d46af8b24}{hInstance}))         \textcolor{comment}{//!/< Are We Able To Unregister Class}
+227 \textcolor{comment}{}    \{
+228         MessageBox(NULL, L\textcolor{stringliteral}{"Could Not Unregister Class."}, L\textcolor{stringliteral}{"SHUTDOWN ERROR"},MB\_OK | MB\_ICONINFORMATION);
+229         \hyperlink{supportcode_8cpp_a74029128723095e7bf00a71d46af8b24}{hInstance}=NULL;                                    \textcolor{comment}{//!/< Set hInstance To NULL}
+230 \textcolor{comment}{}    \}
+231 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -133,212 +166,195 @@ bool \hyperlink{supportcode_8h_a7b5a9c7e9c526f41104703da9b9fa703}{g\+Fullscreen}
 \subsubsection{\texorpdfstring{Create\+App\+Window()}{CreateAppWindow()}}
 {\footnotesize\ttfamily B\+O\+OL Create\+App\+Window (\begin{DoxyParamCaption}\item[{const char $\ast$}]{title,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{int}]{bits,  }\item[{bool}]{fullscreenflag }\end{DoxyParamCaption})}
 
-/$<$ Holds The Results After Searching For A Match
 
-/$<$ Windows Class Structure
 
-/$<$ Window Extended Style
-
-/$<$ Window Style
-
-/$<$ Grabs Rectangle Upper Left / Lower Right Values
-
-/$<$ Set Left Value To 0
-
-/$<$ Set Right Value To Requested Width
-
-/$<$ Set Top Value To 0
-
-/$<$ Set Bottom Value To Requested Height
-
-/$<$ Set The Global Fullscreen Flag
-
-/$<$ Grab An Instance For Our Window
-
-/$<$ Redraw On Size, And Own DC For Window.
-
-/$<$ Wnd\+Proc Handles Messages
-
-/$<$ No Extra Window Data
-
-/$<$ No Extra Window Data
-
-/$<$ Set The Instance
-
-/$<$ Load The Arrow Pointer
-
-/$<$ No Background Required For GL
-
-/$<$ We Don\textquotesingle{}t Want A Menu
-
-/$<$ Set The Class Name
-
-/$<$ Attempt To Register The Window Class
-
-/$<$ Return F\+A\+L\+SE
-
-/$<$ Attempt Fullscreen Mode?
-
-/$<$ Device Mode
-
-/$<$ Makes Sure Memory\textquotesingle{}s Cleared
-
-/$<$ Size Of The Devmode Structure
-
-/$<$ Selected Screen Width
-
-/$<$ Selected Screen Height
-
-/$<$ Selected Bits Per Pixel
-
-/$<$ Try To Set Selected Mode And Get Results. N\+O\+TE\+: C\+D\+S\+\_\+\+F\+U\+L\+L\+S\+C\+R\+E\+EN Gets Rid Of Start Bar.
-
-/$<$ If The Mode Fails, Offer Two Options. Quit Or Use Windowed Mode.
-
-/$<$ Windowed Mode Selected. Fullscreen = F\+A\+L\+SE
-
-/$<$ Pop Up A Message Box Letting User Know The Program Is Closing.
-
-/$<$ Return F\+A\+L\+SE
-
-/$<$ Are We Still In Fullscreen Mode?
-
-/$<$ Window Extended Style
-
-/$<$ Windows Style
-
-/$<$ Hide Mouse Pointer
-
-/$<$ Window Extended Style
-
-/$<$ Windows Style
-
-/$<$ Adjust Window To True Requested Size
-
-/$<$ Create The Window
-
-/$<$ Extended Style For The Window
-
-/$<$ Class Name
-
-/$<$ Window Title
-
-/$<$ Defined Window Style
-
-/$<$ Required Window Style
-
-/$<$ Required Window Style
-
-/$<$ Window Position
-
-/$<$ Calculate Window Width
-
-/$<$ Calculate Window Height
-
-/$<$ No Parent Window
-
-/$<$ No Menu
-
-/$<$ Instance
-
-/$<$ Dont Pass Anything To W\+M\+\_\+\+C\+R\+E\+A\+TE
-
-/$<$ Reset The Display
-
-/$<$ Return F\+A\+L\+SE
-
-/$<$ pfd Tells Windows How We Want Things To Be
-
-/$<$ Size Of This Pixel Format Descriptor
-
-/$<$ Version Number
-
-/$<$ Format Must Support Window
-
-/$<$ Format Must Support Open\+GL
-
-/$<$ Must Support Double Buffering
-
-/$<$ Request An R\+G\+BA Format
-
-/$<$ Select Our Color Depth
-
-/$<$ Color Bits Ignored
-
-/$<$ No Alpha Buffer
-
-/$<$ Shift Bit Ignored
-
-/$<$ No Accumulation Buffer
-
-/$<$ Accumulation Bits Ignored
-
-/$<$ 16\+Bit Z-\/\+Buffer (Depth Buffer)
-
-/$<$ No Stencil Buffer
-
-/$<$ No Auxiliary Buffer
-
-/$<$ Main Drawing Layer
-
-/$<$ Reserved
-
-/$<$ Layer Masks Ignored
-
-/$<$ Did We Get A Device Context?
-
-/$<$ Reset The Display
-
-/$<$ Return F\+A\+L\+SE
-
-/$<$ Did Windows Find A Matching Pixel Format?
-
-/$<$ Reset The Display
-
-/$<$ Return F\+A\+L\+SE
-
-/$<$ Are We Able To Set The Pixel Format?
-
-/$<$ Reset The Display
-
-/$<$ Return F\+A\+L\+SE
-
-/$<$ Are We Able To Get A Rendering Context?
-
-/$<$ Reset The Display
-
-/$<$ Return F\+A\+L\+SE
-
-/$<$ Try To Activate The Rendering Context
-
-/$<$ Reset The Display
-
-/$<$ Return F\+A\+L\+SE
-
-/$<$ Show The Window
-
-/$<$ Slightly Higher Priority
-
-/$<$ Sets Keyboard Focus To The Window
-
-/$<$ Set Up Our Perspective GL Screen
-
-/$<$ Initialize Our Newly Created GL Window
-
-/$<$ Reset The Display
-
-/$<$ Return F\+A\+L\+SE
-
-/$<$ Success Here is the call graph for this function\+:
-\nopagebreak
+Definition at line 244 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+245 \{
+246     \hyperlink{supportcode_8cpp_aa61000540636bfdc4c9f27045ab84ce9}{windowWidth}  = width;
+247     \hyperlink{supportcode_8cpp_af140802328ffe8a45749114b1c5a2056}{windowHeight} = height;
+248     \hyperlink{supportcode_8cpp_ac52506ec868fd9a3d70f048530a23950}{windowName}   = title;
+249 
+250     GLuint      PixelFormat;            \textcolor{comment}{//!/< Holds The Results After Searching For A Match}
+251 \textcolor{comment}{}    WNDCLASS    wc;                     \textcolor{comment}{//!/< Windows Class Structure}
+252 \textcolor{comment}{}    DWORD       dwExStyle;              \textcolor{comment}{//!/< Window Extended Style}
+253 \textcolor{comment}{}    DWORD       dwStyle;                \textcolor{comment}{//!/< Window Style}
+254 \textcolor{comment}{}    RECT        WindowRect;             \textcolor{comment}{//!/< Grabs Rectangle Upper Left / Lower Right Values}
+255 \textcolor{comment}{}    WindowRect.left=(long)0;            \textcolor{comment}{//!/< Set Left Value To 0}
+256 \textcolor{comment}{}    WindowRect.right=(long)width;       \textcolor{comment}{//!/< Set Right Value To Requested Width}
+257 \textcolor{comment}{}    WindowRect.top=(long)0;             \textcolor{comment}{//!/< Set Top Value To 0}
+258 \textcolor{comment}{}    WindowRect.bottom=(long)height;     \textcolor{comment}{//!/< Set Bottom Value To Requested Height}
+259 \textcolor{comment}{}
+260     \hyperlink{supportcode_8cpp_a7b5a9c7e9c526f41104703da9b9fa703}{gFullscreen}=fullscreenflag;          \textcolor{comment}{//!/< Set The Global Fullscreen Flag}
+261 \textcolor{comment}{}    
+262     HICON hIcon = (HICON)LoadImage(0,IDI\_WINLOGO,IMAGE\_ICON,0,0,LR\_SHARED);
+263 
+264     \hyperlink{supportcode_8cpp_a74029128723095e7bf00a71d46af8b24}{hInstance}          = GetModuleHandle(NULL);                \textcolor{comment}{//!/< Grab An Instance For Our
+       Window}
+265 \textcolor{comment}{}    wc.style            = CS\_HREDRAW | CS\_VREDRAW | CS\_OWNDC;   \textcolor{comment}{//!/< Redraw On Size, And Own DC For
+       Window.}
+266 \textcolor{comment}{}    wc.lpfnWndProc      = (WNDPROC) \hyperlink{supportcode_8cpp_ae749e989b362e19783c7af4a2bf46c95}{WndProc};                 \textcolor{comment}{//!/< WndProc Handles Messages}
+267 \textcolor{comment}{}    wc.cbClsExtra       = 0;                                    \textcolor{comment}{//!/< No Extra Window Data}
+268 \textcolor{comment}{}    wc.cbWndExtra       = 0;                                    \textcolor{comment}{//!/< No Extra Window Data}
+269 \textcolor{comment}{}    wc.hInstance        = \hyperlink{supportcode_8cpp_a74029128723095e7bf00a71d46af8b24}{hInstance};                           \textcolor{comment}{//!/< Set The Instance}
+270 \textcolor{comment}{}    wc.hIcon            = 0;
+271     wc.hCursor          = LoadCursor(NULL, IDC\_ARROW);          \textcolor{comment}{//!/< Load The Arrow Pointer}
+272 \textcolor{comment}{}    wc.hbrBackground    = NULL;                                 \textcolor{comment}{//!/< No Background Required For GL}
+273 \textcolor{comment}{}    wc.lpszMenuName     = NULL;                                 \textcolor{comment}{//!/< We Don't Want A Menu}
+274 \textcolor{comment}{}    wc.lpszClassName    = L\textcolor{stringliteral}{"OpenGL"};                                \textcolor{comment}{//!/< Set The Class Name}
+275 \textcolor{comment}{}
+276     \textcolor{keywordflow}{if} (!RegisterClass(&wc))                                    \textcolor{comment}{//!/< Attempt To Register The Window Class}
+277 \textcolor{comment}{}    \{
+278         MessageBox(NULL, L\textcolor{stringliteral}{"Failed To Register The Window Class."},L\textcolor{stringliteral}{"ERROR"},MB\_OK|MB\_ICONEXCLAMATION);
+279         \textcolor{keywordflow}{return} FALSE;                                           \textcolor{comment}{//!/< Return FALSE}
+280 \textcolor{comment}{}    \}
+281     
+282     \textcolor{keywordflow}{if} (\hyperlink{supportcode_8cpp_a7b5a9c7e9c526f41104703da9b9fa703}{gFullscreen})                                             \textcolor{comment}{//!/< Attempt Fullscreen Mode?}
+283 \textcolor{comment}{}    \{
+284         DEVMODE dmScreenSettings;                               \textcolor{comment}{//!/< Device Mode}
+285 \textcolor{comment}{}        memset(&dmScreenSettings,0,\textcolor{keyword}{sizeof}(dmScreenSettings));   \textcolor{comment}{//!/< Makes Sure Memory's Cleared}
+286 \textcolor{comment}{}        dmScreenSettings.dmSize=\textcolor{keyword}{sizeof}(dmScreenSettings);       \textcolor{comment}{//!/< Size Of The Devmode Structure}
+287 \textcolor{comment}{}        dmScreenSettings.dmPelsWidth    = width;                \textcolor{comment}{//!/< Selected Screen Width}
+288 \textcolor{comment}{}        dmScreenSettings.dmPelsHeight   = height;               \textcolor{comment}{//!/< Selected Screen Height}
+289 \textcolor{comment}{}        dmScreenSettings.dmBitsPerPel   = bits;                 \textcolor{comment}{//!/< Selected Bits Per Pixel}
+290 \textcolor{comment}{}        dmScreenSettings.dmFields=DM\_BITSPERPEL|DM\_PELSWIDTH|DM\_PELSHEIGHT;
+291 \textcolor{comment}{}
+292 \textcolor{comment}{        //!/< Try To Set Selected Mode And Get Results.  NOTE: CDS\_FULLSCREEN Gets Rid Of Start Bar.}
+293 \textcolor{comment}{}        \textcolor{keywordflow}{if} (ChangeDisplaySettings(&dmScreenSettings,CDS\_FULLSCREEN)!=DISP\_CHANGE\_SUCCESSFUL)
+294         \{\textcolor{comment}{}
+295 \textcolor{comment}{            //!/< If The Mode Fails, Offer Two Options.  Quit Or Use Windowed Mode.}
+296 \textcolor{comment}{}            \textcolor{keywordflow}{if} (MessageBox(NULL, L\textcolor{stringliteral}{"The Requested Fullscreen Mode Is Not Supported By\(\backslash\)nYour Video Card. Use
+       Windowed Mode Instead?"},L\textcolor{stringliteral}{"NeHe GL"},MB\_YESNO|MB\_ICONEXCLAMATION)==IDYES)
+297             \{
+298                 \hyperlink{supportcode_8cpp_a7b5a9c7e9c526f41104703da9b9fa703}{gFullscreen}=FALSE;       \textcolor{comment}{//!/< Windowed Mode Selected.  Fullscreen = FALSE}
+299 \textcolor{comment}{}            \}
+300             \textcolor{keywordflow}{else}
+301             \{\textcolor{comment}{}
+302 \textcolor{comment}{                //!/< Pop Up A Message Box Letting User Know The Program Is Closing.}
+303 \textcolor{comment}{}                MessageBox(NULL, L\textcolor{stringliteral}{"Program Will Now Close."},L\textcolor{stringliteral}{" RROR"},MB\_OK|MB\_ICONSTOP);
+304                 \textcolor{keywordflow}{return} FALSE;                                   \textcolor{comment}{//!/< Return FALSE}
+305 \textcolor{comment}{}            \}
+306         \}
+307     \}
+308 
+309     \textcolor{keywordflow}{if} (\hyperlink{supportcode_8cpp_a7b5a9c7e9c526f41104703da9b9fa703}{gFullscreen})                                             \textcolor{comment}{//!/< Are We Still In
+       Fullscreen Mode?}
+310 \textcolor{comment}{}    \{
+311         dwExStyle=WS\_EX\_APPWINDOW;                              \textcolor{comment}{//!/< Window Extended Style}
+312 \textcolor{comment}{}        dwStyle=WS\_POPUP;                                       \textcolor{comment}{//!/< Windows Style}
+313 \textcolor{comment}{}        ShowCursor(FALSE);                                      \textcolor{comment}{//!/< Hide Mouse Pointer}
+314 \textcolor{comment}{}    \}
+315     \textcolor{keywordflow}{else}
+316     \{
+317         dwExStyle=WS\_EX\_APPWINDOW | WS\_EX\_WINDOWEDGE;           \textcolor{comment}{//!/< Window Extended Style}
+318 \textcolor{comment}{}        dwStyle=WS\_OVERLAPPEDWINDOW;                            \textcolor{comment}{//!/< Windows Style}
+319 \textcolor{comment}{}    \}
+320 
+321     AdjustWindowRectEx(&WindowRect, dwStyle, FALSE, dwExStyle);     \textcolor{comment}{//!/< Adjust Window To True Requested
+       Size}
+322 \textcolor{comment}{}\textcolor{comment}{}
+323 \textcolor{comment}{    //!/< Create The Window}
+324 \textcolor{comment}{}    \textcolor{keywordflow}{if} (!(\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd}=CreateWindowEx(  dwExStyle,                          \textcolor{comment}{//!/< Extended Style For The Window}
+325 \textcolor{comment}{}        L\textcolor{stringliteral}{" penGL"},                          \textcolor{comment}{//!/< Class Name}
+326 \textcolor{comment}{}                                L\textcolor{stringliteral}{"title"},                               \textcolor{comment}{//!/< Window Title}
+327 \textcolor{comment}{}                                dwStyle |                           \textcolor{comment}{//!/< Defined Window Style}
+328 \textcolor{comment}{}                                WS\_CLIPSIBLINGS |                   \textcolor{comment}{//!/< Required Window Style}
+329 \textcolor{comment}{}                                WS\_CLIPCHILDREN,                    \textcolor{comment}{//!/< Required Window Style}
+330 \textcolor{comment}{}                                0, 0,                               \textcolor{comment}{//!/< Window Position}
+331 \textcolor{comment}{}                                WindowRect.right-WindowRect.left,   \textcolor{comment}{//!/< Calculate Window Width}
+332 \textcolor{comment}{}                                WindowRect.bottom-WindowRect.top,   \textcolor{comment}{//!/< Calculate Window Height}
+333 \textcolor{comment}{}                                NULL,                               \textcolor{comment}{//!/< No Parent Window}
+334 \textcolor{comment}{}                                NULL,                               \textcolor{comment}{//!/< No Menu}
+335 \textcolor{comment}{}                                \hyperlink{supportcode_8cpp_a74029128723095e7bf00a71d46af8b24}{hInstance},                         \textcolor{comment}{//!/< Instance}
+336 \textcolor{comment}{}                                NULL)))                             \textcolor{comment}{//!/< Dont Pass Anything To WM\_CREATE}
+337 \textcolor{comment}{}    \{
+338         \hyperlink{supportcode_8cpp_a4709a40ac779c9bbb341a15554eae549}{CloseWindow}();                               \textcolor{comment}{//!/< Reset The Display}
+339 \textcolor{comment}{}        MessageBox(NULL,L\textcolor{stringliteral}{" indow Creation Error."},L\textcolor{stringliteral}{"Error"}, MB\_OK|MB\_ICONEXCLAMATION);
+340         \textcolor{keywordflow}{return} FALSE;                               \textcolor{comment}{//!/< Return FALSE}
+341 \textcolor{comment}{}    \}
+342 
+343     \textcolor{keyword}{static}  PIXELFORMATDESCRIPTOR pfd=              \textcolor{comment}{//!/< pfd Tells Windows How We Want Things To Be}
+344 \textcolor{comment}{}    \{
+345         \textcolor{keyword}{sizeof}(PIXELFORMATDESCRIPTOR),              \textcolor{comment}{//!/< Size Of This Pixel Format Descriptor}
+346 \textcolor{comment}{}        1,                                          \textcolor{comment}{//!/< Version Number}
+347 \textcolor{comment}{}        PFD\_DRAW\_TO\_WINDOW |                        \textcolor{comment}{//!/< Format Must Support Window}
+348 \textcolor{comment}{}        PFD\_SUPPORT\_OPENGL |                        \textcolor{comment}{//!/< Format Must Support OpenGL}
+349 \textcolor{comment}{}        PFD\_DOUBLEBUFFER,                           \textcolor{comment}{//!/< Must Support Double Buffering}
+350 \textcolor{comment}{}        PFD\_TYPE\_RGBA,                              \textcolor{comment}{//!/< Request An RGBA Format}
+351 \textcolor{comment}{}        bits,                                       \textcolor{comment}{//!/< Select Our Color Depth}
+352 \textcolor{comment}{}        0, 0, 0, 0, 0, 0,                           \textcolor{comment}{//!/< Color Bits Ignored}
+353 \textcolor{comment}{}        0,                                          \textcolor{comment}{//!/< No Alpha Buffer}
+354 \textcolor{comment}{}        0,                                          \textcolor{comment}{//!/< Shift Bit Ignored}
+355 \textcolor{comment}{}        0,                                          \textcolor{comment}{//!/< No Accumulation Buffer}
+356 \textcolor{comment}{}        0, 0, 0, 0,                                 \textcolor{comment}{//!/< Accumulation Bits Ignored}
+357 \textcolor{comment}{}        16,                                         \textcolor{comment}{//!/< 16Bit Z-Buffer (Depth Buffer)  }
+358 \textcolor{comment}{}        0,                                          \textcolor{comment}{//!/< No Stencil Buffer}
+359 \textcolor{comment}{}        0,                                          \textcolor{comment}{//!/< No Auxiliary Buffer}
+360 \textcolor{comment}{}        PFD\_MAIN\_PLANE,                             \textcolor{comment}{//!/< Main Drawing Layer}
+361 \textcolor{comment}{}        0,                                          \textcolor{comment}{//!/< Reserved}
+362 \textcolor{comment}{}        0, 0, 0                                     \textcolor{comment}{//!/< Layer Masks Ignored}
+363 \textcolor{comment}{}    \};
+364     
+365     \textcolor{keywordflow}{if} (!(\hyperlink{supportcode_8cpp_a78f6446a0e13adc7b7b2f239112ac785}{hDC}=GetDC(\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd})))                          \textcolor{comment}{//!/< Did We Get A Device Context?}
+366 \textcolor{comment}{}    \{
+367         \hyperlink{supportcode_8cpp_a4709a40ac779c9bbb341a15554eae549}{CloseWindow}();                               \textcolor{comment}{//!/< Reset The Display}
+368 \textcolor{comment}{}        MessageBox(NULL,L\textcolor{stringliteral}{" an't Create A GL Device Context."},L\textcolor{stringliteral}{" RROR"},MB\_OK|MB\_ICONEXCLAMATION);
+369         \textcolor{keywordflow}{return} FALSE;                               \textcolor{comment}{//!/< Return FALSE}
+370 \textcolor{comment}{}    \}
+371 
+372     \textcolor{keywordflow}{if} (!(PixelFormat=ChoosePixelFormat(\hyperlink{supportcode_8cpp_a78f6446a0e13adc7b7b2f239112ac785}{hDC},&pfd)))  \textcolor{comment}{//!/< Did Windows Find A Matching Pixel Format?}
+373 \textcolor{comment}{}    \{
+374         \hyperlink{supportcode_8cpp_a4709a40ac779c9bbb341a15554eae549}{CloseWindow}();                               \textcolor{comment}{//!/< Reset The Display}
+375 \textcolor{comment}{}        MessageBox(NULL, L\textcolor{stringliteral}{" an't Find A Suitable PixelFormat."}, L\textcolor{stringliteral}{" RROR"},MB\_OK|MB\_ICONEXCLAMATION);
+376         \textcolor{keywordflow}{return} FALSE;                               \textcolor{comment}{//!/< Return FALSE}
+377 \textcolor{comment}{}    \}
+378 
+379     \textcolor{keywordflow}{if}(!SetPixelFormat(\hyperlink{supportcode_8cpp_a78f6446a0e13adc7b7b2f239112ac785}{hDC},PixelFormat,&pfd))        \textcolor{comment}{//!/< Are We Able To Set The Pixel Format?}
+380 \textcolor{comment}{}    \{
+381         \hyperlink{supportcode_8cpp_a4709a40ac779c9bbb341a15554eae549}{CloseWindow}();                               \textcolor{comment}{//!/< Reset The Display}
+382 \textcolor{comment}{}        MessageBox(NULL, L\textcolor{stringliteral}{" an't Set The PixelFormat."}, L\textcolor{stringliteral}{" RROR"},MB\_OK|MB\_ICONEXCLAMATION);
+383         \textcolor{keywordflow}{return} FALSE;                               \textcolor{comment}{//!/< Return FALSE}
+384 \textcolor{comment}{}    \}
+385 
+386     \textcolor{keywordflow}{if} (!(\hyperlink{supportcode_8cpp_a874963259c7cd998acfe6e187fbdb4c1}{hRC}=wglCreateContext(\hyperlink{supportcode_8cpp_a78f6446a0e13adc7b7b2f239112ac785}{hDC})))             \textcolor{comment}{//!/< Are We Able To Get A Rendering Context?}
+387 \textcolor{comment}{}    \{
+388         \hyperlink{supportcode_8cpp_a4709a40ac779c9bbb341a15554eae549}{CloseWindow}();                               \textcolor{comment}{//!/< Reset The Display}
+389 \textcolor{comment}{}        MessageBox(NULL, L\textcolor{stringliteral}{" an't Create A GL Rendering Context."}, L\textcolor{stringliteral}{" RROR"},MB\_OK|MB\_ICONEXCLAMATION);
+390         \textcolor{keywordflow}{return} FALSE;                               \textcolor{comment}{//!/< Return FALSE}
+391 \textcolor{comment}{}    \}
+392 
+393     \textcolor{keywordflow}{if}(!wglMakeCurrent(\hyperlink{supportcode_8cpp_a78f6446a0e13adc7b7b2f239112ac785}{hDC},\hyperlink{supportcode_8cpp_a874963259c7cd998acfe6e187fbdb4c1}{hRC}))                  \textcolor{comment}{//!/< Try To Activate The Rendering Context}
+394 \textcolor{comment}{}    \{
+395         \hyperlink{supportcode_8cpp_a4709a40ac779c9bbb341a15554eae549}{CloseWindow}();                               \textcolor{comment}{//!/< Reset The Display}
+396 \textcolor{comment}{}        MessageBox(NULL, L\textcolor{stringliteral}{" an't Activate The GL Rendering Context."}, L\textcolor{stringliteral}{" RROR"},MB\_OK|MB\_ICONEXCLAMATION);
+397         \textcolor{keywordflow}{return} FALSE;                               \textcolor{comment}{//!/< Return FALSE}
+398 \textcolor{comment}{}    \}
+399 
+400     ShowWindow(\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd},SW\_SHOW);                       \textcolor{comment}{//!/< Show The Window}
+401 \textcolor{comment}{}    SetForegroundWindow(\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd});                      \textcolor{comment}{//!/< Slightly Higher Priority}
+402 \textcolor{comment}{}    SetFocus(\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd});                                 \textcolor{comment}{//!/< Sets Keyboard Focus To The Window}
+403 \textcolor{comment}{}    \hyperlink{supportcode_8cpp_a87bb84d489df61ed7b0c002584fd984f}{ReSizeGLScene}(width, height);                  \textcolor{comment}{//!/< Set Up Our Perspective GL Screen}
+404 \textcolor{comment}{}
+405     \textcolor{keywordflow}{if} (!\hyperlink{supportcode_8cpp_aa4c387d3f1ebce6d57684b6a10c9b0ae}{InitGL}())                                    \textcolor{comment}{//!/< Initialize Our Newly Created GL Window}
+406 \textcolor{comment}{}    \{
+407         \hyperlink{supportcode_8cpp_a4709a40ac779c9bbb341a15554eae549}{CloseWindow}();                               \textcolor{comment}{//!/< Reset The Display}
+408 \textcolor{comment}{}        MessageBox(NULL, L\textcolor{stringliteral}{" nitialization Failed."}, L\textcolor{stringliteral}{" RROR"},MB\_OK|MB\_ICONEXCLAMATION);
+409         \textcolor{keywordflow}{return} FALSE;                               \textcolor{comment}{//!/< Return FALSE}
+410 \textcolor{comment}{}    \}
+411 
+412     \textcolor{keywordflow}{return} TRUE;                                    \textcolor{comment}{//!/< Success}
+413 \textcolor{comment}{}\}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{supportcode_8h_acd4be192aca2369a87f51d952150a77b_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -351,26 +367,64 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Draw\+G\+L\+Scene()}{DrawGLScene()}}
 {\footnotesize\ttfamily int Draw\+G\+L\+Scene (\begin{DoxyParamCaption}\item[{\hyperlink{class_surface}{Surface} $\ast$}]{surf,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
 
-/$<$== Only display every other frame in case V\+S\+Y\+NC is enabled. Otherwise
 
-/$<$== application would get behind
 
-/$<$ Clear The Screen And The Depth Buffer
+Definition at line 76 of file supportcode.\+cpp.
 
-/$<$ Reset The View
 
-/$<$ Swap Buffers (Double Buffering)
-
-/$<$ Keep Going Here is the call graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+77 \{
+78     \textcolor{keywordflow}{if}(surf==NULL)
+79         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+80 
+81     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} frameThrottler = \textcolor{keyword}{true};
+82     frameThrottler=!frameThrottler;
+83 
+84     \textcolor{keywordflow}{if}(frameThrottler)  \textcolor{comment}{//!/<== Only display every other frame in case VSYNC is enabled.  Otherwise}
+85 \textcolor{comment}{}        \textcolor{keywordflow}{return} \textcolor{keyword}{true};    \textcolor{comment}{//!/<== application would get behind}
+86 \textcolor{comment}{}
+87     \textcolor{keywordtype}{int} pixelWidth = width; 
+88     \textcolor{keywordtype}{int} pixelHeight= height;
+89 
+90     glClear(GL\_COLOR\_BUFFER\_BIT | GL\_DEPTH\_BUFFER\_BIT); \textcolor{comment}{//!/< Clear The Screen And The Depth Buffer}
+91 \textcolor{comment}{}    glLoadIdentity();                                   \textcolor{comment}{//!/< Reset The View}
+92 \textcolor{comment}{}
+93     \textcolor{keyword}{static} GLuint ff = 0;
+94 
+95     \textcolor{keywordtype}{int} tex = surf->\hyperlink{class_surface_a2cd8789d26457187b8af4be8c178e9d4}{GetTexture}();
+96     \textcolor{keywordflow}{if}(tex==0)
+97         tex=ff;
+98     \textcolor{keywordflow}{else}
+99         ff=tex;
+100     \textcolor{keywordflow}{if}(tex==0)
+101         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+102 
+103     glBindTexture(GL\_TEXTURE\_2D, tex);
+104 
+105     glBegin(GL\_QUADS);
+106         glTexCoord2f(0.0f, 0.0f); glVertex3f( 0,    0, 0);
+107         glTexCoord2f((GLfloat)pixelWidth/(GLfloat)surf->\hyperlink{class_surface_a4cbf23ea0c8ff533271109fc2a1a863d}{SurfaceWidth}(), 0.0f); glVertex3f( (
+      GLfloat)\hyperlink{supportcode_8cpp_a6e4233ff9ab23aeef9133345aca8665d}{gWindowWidth},  0, 0);
+108         glTexCoord2f((GLfloat)pixelWidth/(GLfloat)surf->\hyperlink{class_surface_a4cbf23ea0c8ff533271109fc2a1a863d}{SurfaceWidth}(), (GLfloat)pixelHeight/(
+      GLfloat)surf->\hyperlink{class_surface_a377c59f6ef131d4b879cda93578a3efa}{SurfaceHeight}()); glVertex3f( (GLfloat)\hyperlink{supportcode_8cpp_a6e4233ff9ab23aeef9133345aca8665d}{gWindowWidth},(GLfloat)
+      \hyperlink{supportcode_8cpp_a71831ba298cd6aa2fdd51d72bdf5be98}{gWindowHeight}, 0);
+109         glTexCoord2f(0.0f, (GLfloat)pixelHeight/(GLfloat)surf->\hyperlink{class_surface_a377c59f6ef131d4b879cda93578a3efa}{SurfaceHeight}()); glVertex3f( 0
+      , (GLfloat) \hyperlink{supportcode_8cpp_a71831ba298cd6aa2fdd51d72bdf5be98}{gWindowHeight}, 0);
+110     glEnd();
+111 
+112     SwapBuffers(\hyperlink{supportcode_8cpp_a78f6446a0e13adc7b7b2f239112ac785}{hDC});                    \textcolor{comment}{//!/< Swap Buffers (Double Buffering)}
+113 \textcolor{comment}{}
+114     \textcolor{keywordflow}{return} \textcolor{keyword}{true};                                        \textcolor{comment}{//!/< Keep Going}
+115 \textcolor{comment}{}\}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{supportcode_8h_ac43c2dc16b0859b03a4f7d04a7e97d3c_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -383,12 +437,28 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Fullscreen\+Toggle()}{FullscreenToggle()}}
 {\footnotesize\ttfamily bool Fullscreen\+Toggle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-/$<$ If So Make Key F\+A\+L\+SE
 
-/$<$ Kill Our Current Window
 
-/$<$ Toggle Fullscreen / Windowed Mode Here is the call graph for this function\+:
-\nopagebreak
+Definition at line 536 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+537 \{
+538     \hyperlink{supportcode_8cpp_ac1c14f83748810574c0213d24f7ee4b3}{keys}[VK\_F1]=FALSE;                  \textcolor{comment}{//!/< If So Make Key FALSE}
+539 \textcolor{comment}{}    \hyperlink{supportcode_8cpp_a4709a40ac779c9bbb341a15554eae549}{CloseWindow}();                       \textcolor{comment}{//!/< Kill Our Current Window}
+540 \textcolor{comment}{}    \hyperlink{supportcode_8cpp_a7b5a9c7e9c526f41104703da9b9fa703}{gFullscreen}=!\hyperlink{supportcode_8cpp_a7b5a9c7e9c526f41104703da9b9fa703}{gFullscreen};         \textcolor{comment}{//!/< Toggle Fullscreen / Windowed Mode}
+541 \textcolor{comment}{}
+542     \textcolor{keywordflow}{if} (!\hyperlink{supportcode_8cpp_acd4be192aca2369a87f51d952150a77b}{CreateAppWindow}(\hyperlink{supportcode_8cpp_ac52506ec868fd9a3d70f048530a23950}{windowName},\hyperlink{supportcode_8cpp_aa61000540636bfdc4c9f27045ab84ce9}{windowWidth},
+      \hyperlink{supportcode_8cpp_af140802328ffe8a45749114b1c5a2056}{windowHeight},32,\hyperlink{supportcode_8cpp_a7b5a9c7e9c526f41104703da9b9fa703}{gFullscreen}))
+543     \{
+544         MessageBox(0, L\textcolor{stringliteral}{"Unable to toggle to full screen"},L\textcolor{stringliteral}{"Error"}, MB\_OK);
+545         \textcolor{keywordflow}{return} 1;
+546     \}
+547 
+548     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+549 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -401,10 +471,34 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Pop\+Waiting\+Dialog()}{PopWaitingDialog()}}
 {\footnotesize\ttfamily bool Pop\+Waiting\+Dialog (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-/$<$== hook in so we can create a message box that has only a \textquotesingle{}Cancel\textquotesingle{} button ==--
 
-/$<$== user has clicked the cancel button ==-- Here is the call graph for this function\+:
-\nopagebreak
+
+Definition at line 615 of file supportcode.\+cpp.
+
+
+\begin{DoxyCode}
+616 \{\textcolor{comment}{}
+617 \textcolor{comment}{    //!/<== hook in so we can create a message box that has only a 'Cancel' button ==--}
+618 \textcolor{comment}{}
+619     \hyperlink{supportcode_8cpp_abac6fbc03119621dc0613441e5cec5fc}{hHook} = SetWindowsHookEx(WH\_CBT, reinterpret\_cast<HOOKPROC>(&
+      \hyperlink{supportcode_8cpp_a17f99e323714d00ed14865018691574c}{CBTHookProc}), NULL, GetCurrentThreadId());
+620 
+621     UINT\_PTR nTimer = SetTimer(0, 100, 3000,(TIMERPROC) \hyperlink{supportcode_8cpp_a07f77ba099d001c473f6748492e16dc5}{TimerProc});
+622     \textcolor{keywordtype}{int} iResult = MessageBox( 0, L\textcolor{stringliteral}{"waiting for connected cameras..."}, L\textcolor{stringliteral}{"Camera Initialization"}, MB\_OK );
+623 
+624     \textcolor{keywordflow}{if}( iResult == IDOK )
+625     \{\textcolor{comment}{}
+626 \textcolor{comment}{        //!/<== user has clicked the cancel button ==--}
+627 \textcolor{comment}{}        UnhookWindowsHookEx(\hyperlink{supportcode_8cpp_abac6fbc03119621dc0613441e5cec5fc}{hHook});
+628         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+629     \}
+630 
+631     KillTimer(0, nTimer);
+632 
+633     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+634 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -417,15 +511,30 @@ Here is the caller graph for this function\+:
 \subsubsection{\texorpdfstring{Pump\+Messages()}{PumpMessages()}}
 {\footnotesize\ttfamily bool Pump\+Messages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-/$<$ Is There A Message Waiting?
 
-/$<$ Have We Received A Quit Message?
 
-/$<$ If Not, Deal With Window Messages
+Definition at line 551 of file supportcode.\+cpp.
 
-/$<$ Translate The Message
 
-/$<$ Dispatch The Message \mbox{\Hypertarget{supportcode_8h_a9135ea2a0d6fce68ba3b858226a31a4f}\label{supportcode_8h_a9135ea2a0d6fce68ba3b858226a31a4f}} 
+\begin{DoxyCode}
+552 \{
+553     MSG msg;
+554 
+555     \textcolor{keywordflow}{if} (PeekMessage(&msg,NULL,0,0,PM\_REMOVE))   \textcolor{comment}{//!/< Is There A Message Waiting?}
+556 \textcolor{comment}{}    \{
+557         \textcolor{keywordflow}{if} (msg.message==WM\_QUIT)               \textcolor{comment}{//!/< Have We Received A Quit Message?}
+558 \textcolor{comment}{}            \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+559         \textcolor{keywordflow}{else}                                    \textcolor{comment}{//!/< If Not, Deal With Window Messages}
+560 \textcolor{comment}{}        \{
+561             TranslateMessage(&msg);             \textcolor{comment}{//!/< Translate The Message}
+562 \textcolor{comment}{}            DispatchMessage(&msg);              \textcolor{comment}{//!/< Dispatch The Message}
+563 \textcolor{comment}{}        \}
+564     \}
+565 
+566     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+567 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{supportcode_8h_a9135ea2a0d6fce68ba3b858226a31a4f}\label{supportcode_8h_a9135ea2a0d6fce68ba3b858226a31a4f}} 
 \index{supportcode.\+h@{supportcode.\+h}!Wnd\+Proc@{Wnd\+Proc}}
 \index{Wnd\+Proc@{Wnd\+Proc}!supportcode.\+h@{supportcode.\+h}}
 \subsubsection{\texorpdfstring{Wnd\+Proc()}{WndProc()}}
@@ -435,66 +544,91 @@ Here is the caller graph for this function\+:
 
 /$<$ Additional Message Information 
 
-/$<$ Check For Windows Messages
 
-/$<$ Watch For Window Activate Message
 
-/$<$ Check Minimization State
+Definition at line 118 of file supportcode.\+cpp.
 
-/$<$ Program Is Active
 
-/$<$ Program Is No Longer Active
-
-/$<$ Return To The Message Loop
-
-/$<$ Intercept System Commands
-
-/$<$ Check System Calls
-
-/$<$ Screensaver Trying To Start?
-
-/$<$ Monitor Trying To Enter Powersave?
-
-/$<$ Prevent From Happening
-
-/$<$ Exit
-
-/$<$ Did We Receive A Close Message?
-
-/$<$ Send A Quit Message
-
-/$<$ Jump Back
-
-/$<$ Is A Key Being Held Down?
-
-/$<$ If So, Mark It As T\+R\+UE
-
-/$<$ Jump Back
-
-/$<$ Has A Key Been Released?
-
-/$<$ If So, Mark It As F\+A\+L\+SE
-
-/$<$ Jump Back
-
-/$<$ Jump Back
-
-/$<$ Resize The Open\+GL Window
-
-/$<$ Lo\+Word=Width, Hi\+Word=Height
-
-/$<$ Jump Back
-
-/$<$ Pass All Unhandled Messages To Def\+Window\+Proc Here is the call graph for this function\+:
-\nopagebreak
+\begin{DoxyCode}
+122 \{
+123     \textcolor{keywordflow}{switch} (uMsg)                                   \textcolor{comment}{//!/< Check For Windows Messages}
+124 \textcolor{comment}{}    \{
+125         \textcolor{keywordflow}{case} WM\_ACTIVATE:                           \textcolor{comment}{//!/< Watch For Window Activate Message}
+126 \textcolor{comment}{}        \{
+127             \textcolor{keywordflow}{if} (!HIWORD(wParam))                    \textcolor{comment}{//!/< Check Minimization State}
+128 \textcolor{comment}{}            \{
+129                 \hyperlink{supportcode_8cpp_a6d31dc000e2efbdae8825a7ff0d542c1}{gActive}=TRUE;                        \textcolor{comment}{//!/< Program Is Active}
+130 \textcolor{comment}{}            \}
+131             \textcolor{keywordflow}{else}
+132             \{
+133                 \hyperlink{supportcode_8cpp_a6d31dc000e2efbdae8825a7ff0d542c1}{gActive}=FALSE;                       \textcolor{comment}{//!/< Program Is No Longer Active}
+134 \textcolor{comment}{}            \}
+135 
+136             \textcolor{keywordflow}{return} 0;                               \textcolor{comment}{//!/< Return To The Message Loop}
+137 \textcolor{comment}{}        \}
+138 
+139         \textcolor{keywordflow}{case} WM\_POWERBROADCAST:
+140             \textcolor{keywordflow}{if}(wParam == PBT\_APMSUSPEND)
+141             \{
+142                 CameraLibrary::CameraManager::X().PrepareForSuspend();
+143             \}
+144             \textcolor{keywordflow}{if}(wParam == PBT\_APMRESUMEAUTOMATIC)
+145             \{
+146                 CameraLibrary::CameraManager::X().ResumeFromSuspend();
+147             \}
+148             \textcolor{keywordflow}{break};
+149 
+150         \textcolor{keywordflow}{case} WM\_SYSCOMMAND:                         \textcolor{comment}{//!/< Intercept System Commands}
+151 \textcolor{comment}{}        \{
+152             \textcolor{keywordflow}{switch} (wParam)                         \textcolor{comment}{//!/< Check System Calls}
+153 \textcolor{comment}{}            \{
+154                 \textcolor{keywordflow}{case} SC\_SCREENSAVE:                 \textcolor{comment}{//!/< Screensaver Trying To Start?}
+155 \textcolor{comment}{}                \textcolor{keywordflow}{case} SC\_MONITORPOWER:               \textcolor{comment}{//!/< Monitor Trying To Enter Powersave?}
+156 \textcolor{comment}{}                \textcolor{keywordflow}{return} 0;                           \textcolor{comment}{//!/< Prevent From Happening}
+157 \textcolor{comment}{}            \}
+158             \textcolor{keywordflow}{break};                                  \textcolor{comment}{//!/< Exit}
+159 \textcolor{comment}{}        \}
+160 
+161         \textcolor{keywordflow}{case} WM\_CLOSE:                              \textcolor{comment}{//!/< Did We Receive A Close Message?}
+162 \textcolor{comment}{}        \{
+163             PostQuitMessage(0);                     \textcolor{comment}{//!/< Send A Quit Message}
+164 \textcolor{comment}{}            \textcolor{keywordflow}{return} 0;                               \textcolor{comment}{//!/< Jump Back}
+165 \textcolor{comment}{}        \}
+166 
+167         \textcolor{keywordflow}{case} WM\_KEYDOWN:                            \textcolor{comment}{//!/< Is A Key Being Held Down?}
+168 \textcolor{comment}{}        \{
+169             \hyperlink{supportcode_8cpp_ac1c14f83748810574c0213d24f7ee4b3}{keys}[wParam] = TRUE;                    \textcolor{comment}{//!/< If So, Mark It As TRUE}
+170 \textcolor{comment}{}            \textcolor{keywordflow}{return} 0;                               \textcolor{comment}{//!/< Jump Back}
+171 \textcolor{comment}{}        \}
+172 
+173         \textcolor{keywordflow}{case} WM\_KEYUP:                              \textcolor{comment}{//!/< Has A Key Been Released?}
+174 \textcolor{comment}{}        \{
+175             \hyperlink{supportcode_8cpp_ac1c14f83748810574c0213d24f7ee4b3}{keys}[wParam] = FALSE;                   \textcolor{comment}{//!/< If So, Mark It As FALSE}
+176 \textcolor{comment}{}            \textcolor{keywordflow}{return} 0;                               \textcolor{comment}{//!/< Jump Back}
+177 \textcolor{comment}{}        \}
+178         \textcolor{keywordflow}{case} WM\_MOVE:
+179             \textcolor{keywordflow}{return} 0;                               \textcolor{comment}{//!/< Jump Back}
+180 \textcolor{comment}{}        \textcolor{keywordflow}{case} WM\_PAINT:
+181             \textcolor{keywordflow}{return} 0;
+182         \textcolor{keywordflow}{case} WM\_SIZE:                               \textcolor{comment}{//!/< Resize The OpenGL Window}
+183 \textcolor{comment}{}        \{
+184             \hyperlink{supportcode_8cpp_a87bb84d489df61ed7b0c002584fd984f}{ReSizeGLScene}(LOWORD(lParam),HIWORD(lParam));  \textcolor{comment}{//!/< LoWord=Width, HiWord=Height}
+185 \textcolor{comment}{}            \textcolor{keywordflow}{return} 0;                               \textcolor{comment}{//!/< Jump Back}
+186 \textcolor{comment}{}        \}
+187     \}
+188 \textcolor{comment}{}
+189 \textcolor{comment}{    //!/< Pass All Unhandled Messages To DefWindowProc}
+190 \textcolor{comment}{}    \textcolor{keywordflow}{return} DefWindowProc(\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd},uMsg,wParam,lParam);
+191 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=262pt]{supportcode_8h_a9135ea2a0d6fce68ba3b858226a31a4f_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -521,6 +655,10 @@ Here is the caller graph for this function\+:
 \index{h\+DC@{h\+DC}!supportcode.\+h@{supportcode.\+h}}
 \subsubsection{\texorpdfstring{h\+DC}{hDC}}
 {\footnotesize\ttfamily H\+DC h\+DC}
+
+
+
+Definition at line 24 of file supportcode.\+cpp.
 
 \mbox{\Hypertarget{supportcode_8h_a23ca8db2cebbfb94538122c439146f1a}\label{supportcode_8h_a23ca8db2cebbfb94538122c439146f1a}} 
 \index{supportcode.\+h@{supportcode.\+h}!keys@{keys}}

@@ -3,6 +3,7 @@ var class_rigid_track =
     [ "RigidTrack", "class_rigid_track.html#abd3d529ea29b1050439c97c5a5aa8c4b", null ],
     [ "clearLog", "class_rigid_track.html#a6c99fedc157054f4fb752309457fa848", null ],
     [ "enableP3P", "class_rigid_track.html#a39aba14e1c846cb3f1773d9145cf96e1", null ],
+    [ "on_actionAbout_Rigid_Track_triggered", "class_rigid_track.html#ac9b641557306f6dff0ac73bc3a9b3f60", null ],
     [ "on_actionOpen_Installation_Folder_triggered", "class_rigid_track.html#a7d858fcf6c9fe852ee3facfe6588aec1", null ],
     [ "on_actionOpen_Log_Folder_triggered", "class_rigid_track.html#a63a85d33ef48741b0e671ebbbd43083a", null ],
     [ "on_actionShow_Help_triggered", "class_rigid_track.html#af14465ac3ad6957b939c63cbae2d7d8c", null ],

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['on_5factionabout_5frigid_5ftrack_5ftriggered',['on_actionAbout_Rigid_Track_triggered',['../class_rigid_track.html#ac9b641557306f6dff0ac73bc3a9b3f60',1,'RigidTrack']]],
   ['on_5factionopen_5finstallation_5ffolder_5ftriggered',['on_actionOpen_Installation_Folder_triggered',['../class_rigid_track.html#a7d858fcf6c9fe852ee3facfe6588aec1',1,'RigidTrack']]],
   ['on_5factionopen_5flog_5ffolder_5ftriggered',['on_actionOpen_Log_Folder_triggered',['../class_rigid_track.html#a63a85d33ef48741b0e671ebbbd43083a',1,'RigidTrack']]],
   ['on_5factionshow_5fhelp_5ftriggered',['on_actionShow_Help_triggered',['../class_rigid_track.html#af14465ac3ad6957b939c63cbae2d7d8c',1,'RigidTrack']]],
