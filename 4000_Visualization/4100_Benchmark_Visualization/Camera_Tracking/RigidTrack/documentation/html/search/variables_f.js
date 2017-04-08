@@ -1,13 +1,7 @@
 var searchData=
 [
-  ['safety2enable',['safety2Enable',['../main_8cpp.html#a436fb814ccc3f02617dade4dc6511143',1,'safety2Enable():&#160;main.cpp'],['../main_8h.html#a436fb814ccc3f02617dade4dc6511143',1,'safety2Enable():&#160;main.cpp']]],
-  ['safetyangle',['safetyAngle',['../main_8cpp.html#ae65386c3310ab826e84fba757296de9a',1,'safetyAngle():&#160;main.cpp'],['../main_8h.html#ae65386c3310ab826e84fba757296de9a',1,'safetyAngle():&#160;main.cpp']]],
-  ['safetyboxlength',['safetyBoxLength',['../main_8cpp.html#a2c1b807fcb2de5a6759bd60ccae6dd7e',1,'safetyBoxLength():&#160;main.cpp'],['../main_8h.html#a2c1b807fcb2de5a6759bd60ccae6dd7e',1,'safetyBoxLength():&#160;main.cpp']]],
-  ['safetyenable',['safetyEnable',['../main_8cpp.html#aa6266eedab8b3c011be53baffbfc42ab',1,'safetyEnable():&#160;main.cpp'],['../main_8h.html#aa6266eedab8b3c011be53baffbfc42ab',1,'safetyEnable():&#160;main.cpp']]],
-  ['sbangle',['sbAngle',['../class_ui___rigid_track_class.html#ac232f3d19d53b00aa61431725cbf71c4',1,'Ui_RigidTrackClass']]],
-  ['sbheadingoffset',['sbHeadingOffset',['../class_ui___rigid_track_class.html#a7a9db994f872078ce46a81b435f70cf9',1,'Ui_RigidTrackClass']]],
-  ['ss',['ss',['../main_8cpp.html#a8fc3524f4e679a41dcc8d0f302d637ed',1,'main.cpp']]],
-  ['statusbar',['statusBar',['../class_ui___rigid_track_class.html#ac1ced4ae725bc0095307704d5d4fc4f2',1,'Ui_RigidTrackClass']]],
-  ['strbuf',['strBuf',['../main_8cpp.html#a7b795a27447192fa68ef7c2d8ee1adab',1,'main.cpp']]],
-  ['stringdata0',['stringdata0',['../structqt__meta__stringdata__comm_object__t.html#a6206d59bc929b76a102101c37f263f52',1,'qt_meta_stringdata_commObject_t::stringdata0()'],['../structqt__meta__stringdata___rigid_track__t.html#adbbd4919c3447a71740e7dbb4e92814e',1,'qt_meta_stringdata_RigidTrack_t::stringdata0()']]]
+  ['udpsocketobject',['udpSocketObject',['../main_8cpp.html#ae628b9aba095776b7134cf188486e174',1,'main.cpp']]],
+  ['udpsocketsafety',['udpSocketSafety',['../main_8cpp.html#a6aa0c3a69dc10d5c4432dcf62e2155d3',1,'main.cpp']]],
+  ['udpsocketsafety2',['udpSocketSafety2',['../main_8cpp.html#a4260e46da4e0e430642b2d8d8d3c7dd1',1,'main.cpp']]],
+  ['useguess',['useGuess',['../main_8cpp.html#ab1cc9be1ff0871bc5de1eb4c2811ae3e',1,'main.cpp']]]
 ];

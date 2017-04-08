@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['imagechanged',['imageChanged',['../classcomm_object.html#a3828eab6be234f6216a6f80a6a82e41e',1,'commObject']]],
-  ['initgl',['InitGL',['../supportcode_8cpp.html#aa4c387d3f1ebce6d57684b6a10c9b0ae',1,'supportcode.cpp']]]
+  ['testalgorithms',['testAlgorithms',['../main_8cpp.html#a847c0fbd3e513fb76ff145b31a9f5c37',1,'testAlgorithms():&#160;main.cpp'],['../main_8h.html#a847c0fbd3e513fb76ff145b31a9f5c37',1,'testAlgorithms():&#160;main.cpp']]]
 ];

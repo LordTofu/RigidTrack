@@ -1,5 +1,4 @@
 <map id="RigidTrack/main.h" name="RigidTrack/main.h">
-<area shape="rect" id="node16" href="$communication_8h.html" title="communication.h" alt="" coords="81,155,203,181"/>
-<area shape="rect" id="node19" href="$_rigid_track_8h.html" title="RigidTrack.h" alt="" coords="1471,80,1565,107"/>
-<area shape="rect" id="node21" href="$ui___rigid_track_8h.html" title="ui_RigidTrack.h" alt="" coords="1463,155,1573,181"/>
+<area shape="rect" id="node16" href="$communication_8h_source.html" title="communication.h" alt="" coords="1200,155,1321,181"/>
+<area shape="rect" id="node19" href="$_rigid_track_8h.html" title="Rigid Track GUI source header with Qt Signals and Slots. " alt="" coords="1312,80,1407,107"/>
 </map>

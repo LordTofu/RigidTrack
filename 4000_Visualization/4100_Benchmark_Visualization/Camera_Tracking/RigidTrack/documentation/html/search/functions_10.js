@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['width',['Width',['../class_surface.html#ae76d7c2fa208df6979a77cc60e8105c0',1,'Surface']]],
-  ['winmain',['WinMain',['../supportcode_8cpp.html#a661c2abc03926acfaeb93b4ae7db4943',1,'supportcode.cpp']]],
-  ['wndproc',['WndProc',['../supportcode_8cpp.html#ae749e989b362e19783c7af4a2bf46c95',1,'WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam):&#160;supportcode.cpp'],['../supportcode_8h.html#a9135ea2a0d6fce68ba3b858226a31a4f',1,'WndProc(HWND, UINT, WPARAM, LPARAM):&#160;supportcode.cpp']]]
+  ['_7ecvmodelestimator2',['~CvModelEstimator2',['../class_cv_model_estimator2.html#a656e12f072058449ca45d785c0eaa02a',1,'CvModelEstimator2']]],
+  ['_7esurface',['~Surface',['../class_surface.html#a89de75c95cb550d432f3ea4ed1429db0',1,'Surface']]]
 ];

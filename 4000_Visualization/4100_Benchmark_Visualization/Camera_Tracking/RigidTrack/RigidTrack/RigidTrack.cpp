@@ -1,3 +1,11 @@
+/*!
+* @file RigidTrack.cpp
+*  @brief     Rigid Track GUI source that contains functions for GUI events.
+*  @author    Florian J.T. Wachter
+*  @version   1.0
+*  @date      April, 8th 2017
+*/
+
 #include "RigidTrack.h"
 #include <QProcess>
 #include <QdesktopServices>

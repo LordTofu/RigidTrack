@@ -1,8 +1,9 @@
 <map id="calibrateCamera" name="calibrateCamera">
-<area shape="rect" id="node2" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="352,5,499,32"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="373,93,478,120"/>
-<area shape="rect" id="node4" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="335,163,516,189"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#a0a7f48017dbb3d64bfc1a171631ad7d7" title="calcBoardCornerPositions" alt="" coords="339,223,511,249"/>
-<area shape="rect" id="node6" href="$main_8cpp.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="169,121,285,148"/>
-<area shape="rect" id="node7" href="$classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="333,273,517,300"/>
+<area shape="rect" id="node2" href="$classcomm_object.html#aec354c7099b3039083cc4224e071e022" title="commObject::addLog" alt="" coords="357,5,504,32"/>
+<area shape="rect" id="node3" href="$classcomm_object.html#acfc97f4310e2b7d841ecb8cf8be0088e" title="commObject::progressUpdate" alt="" coords="333,75,528,101"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#a3e3cc959a7ab6f93ea52863d86373ce5" title="Mat2QPixmap" alt="" coords="378,163,483,189"/>
+<area shape="rect" id="node5" href="$classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b" title="commObject::changeImage" alt="" coords="340,223,521,249"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#a0a7f48017dbb3d64bfc1a171631ad7d7" title="calcBoardCornerPositions" alt="" coords="345,277,517,304"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="169,176,285,203"/>
+<area shape="rect" id="node8" href="$classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144" title="commObject::changeStatus" alt="" coords="339,328,523,355"/>
 </map>

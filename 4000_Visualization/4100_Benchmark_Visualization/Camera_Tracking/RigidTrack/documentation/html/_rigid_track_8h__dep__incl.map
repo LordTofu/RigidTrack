@@ -1,7 +1,5 @@
 <map id="RigidTrack/RigidTrack.h" name="RigidTrack/RigidTrack.h">
-<area shape="rect" id="node2" href="$_debug_2moc___rigid_track_8cpp.html" title="RigidTrack/GeneratedFiles\l/Debug/moc_RigidTrack.cpp" alt="" coords="5,80,191,121"/>
-<area shape="rect" id="node3" href="$main_8h.html" title="RigidTrack/main.h" alt="" coords="267,87,393,114"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="RigidTrack/main.cpp" alt="" coords="164,169,304,196"/>
-<area shape="rect" id="node5" href="$_rigid_track_8cpp.html" title="RigidTrack/RigidTrack.cpp" alt="" coords="339,169,513,196"/>
-<area shape="rect" id="node6" href="$_release_2moc___rigid_track_8cpp.html" title="RigidTrack/GeneratedFiles\l/Release/moc_RigidTrack.cpp" alt="" coords="469,80,663,121"/>
+<area shape="rect" id="node2" href="$main_8cpp.html" title="Rigid Track main file that contains most functionallity. " alt="" coords="5,155,145,181"/>
+<area shape="rect" id="node3" href="$main_8h.html" title="Header file for main.cpp. " alt="" coords="108,80,235,107"/>
+<area shape="rect" id="node4" href="$_rigid_track_8cpp.html" title="Rigid Track GUI source that contains functions for GUI events. " alt="" coords="181,155,354,181"/>
 </map>

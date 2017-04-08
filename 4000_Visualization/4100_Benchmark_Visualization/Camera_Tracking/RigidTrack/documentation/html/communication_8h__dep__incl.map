@@ -1,11 +1,7 @@
 <map id="RigidTrack/communication.h" name="RigidTrack/communication.h">
-<area shape="rect" id="node2" href="$communication_8cpp.html" title="RigidTrack/communication.cpp" alt="" coords="5,87,205,114"/>
-<area shape="rect" id="node3" href="$_debug_2moc__communication_8cpp.html" title="RigidTrack/GeneratedFiles\l/Debug/moc_communication.cpp" alt="" coords="230,80,442,121"/>
-<area shape="rect" id="node4" href="$main_8h.html" title="RigidTrack/main.h" alt="" coords="518,87,645,114"/>
-<area shape="rect" id="node5" href="$_rigid_track_8h.html" title="RigidTrack/RigidTrack.h" alt="" coords="385,169,543,196"/>
-<area shape="rect" id="node8" href="$main_8cpp.html" title="RigidTrack/main.cpp" alt="" coords="497,251,637,278"/>
-<area shape="rect" id="node9" href="$_rigid_track_8cpp.html" title="RigidTrack/RigidTrack.cpp" alt="" coords="661,251,835,278"/>
-<area shape="rect" id="node10" href="$_release_2moc__communication_8cpp.html" title="RigidTrack/GeneratedFiles\l/Release/moc_communication.cpp" alt="" coords="771,80,994,121"/>
-<area shape="rect" id="node6" href="$_debug_2moc___rigid_track_8cpp.html" title="RigidTrack/GeneratedFiles\l/Debug/moc_RigidTrack.cpp" alt="" coords="67,244,253,285"/>
-<area shape="rect" id="node7" href="$_release_2moc___rigid_track_8cpp.html" title="RigidTrack/GeneratedFiles\l/Release/moc_RigidTrack.cpp" alt="" coords="277,244,472,285"/>
+<area shape="rect" id="node2" href="$communication_8cpp.html" title="RigidTrack/communication.cpp" alt="" coords="5,80,205,107"/>
+<area shape="rect" id="node3" href="$main_8h.html" title="Header file for main.cpp. " alt="" coords="285,80,411,107"/>
+<area shape="rect" id="node4" href="$_rigid_track_8h.html" title="Rigid Track GUI source header with Qt Signals and Slots. " alt="" coords="382,155,541,181"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="Rigid Track main file that contains most functionallity. " alt="" coords="217,229,357,256"/>
+<area shape="rect" id="node6" href="$_rigid_track_8cpp.html" title="Rigid Track GUI source that contains functions for GUI events. " alt="" coords="381,229,555,256"/>
 </map>

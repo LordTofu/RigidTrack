@@ -8,7 +8,8 @@
 {\ttfamily \#include \char`\"{}cameramanager.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}math.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}supportcode.\+h\char`\"{}}\newline
-Include dependency graph for supportcode.\+cpp\+:\nopagebreak
+Include dependency graph for supportcode.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -108,7 +109,8 @@ Definition at line 575 of file supportcode.\+cpp.
 587     \textcolor{keywordflow}{return} CallNextHookEx(\hyperlink{supportcode_8cpp_abac6fbc03119621dc0613441e5cec5fc}{hHook}, nCode, wParam, lParam);
 588 \}
 \end{DoxyCode}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -173,7 +175,8 @@ Definition at line 192 of file supportcode.\+cpp.
 230 \textcolor{comment}{}    \}
 231 \}
 \end{DoxyCode}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -367,14 +370,16 @@ Definition at line 244 of file supportcode.\+cpp.
 412     \textcolor{keywordflow}{return} TRUE;                                    \textcolor{comment}{//!/< Success}
 413 \textcolor{comment}{}\}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{supportcode_8cpp_acd4be192aca2369a87f51d952150a77b_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -437,14 +442,16 @@ Definition at line 76 of file supportcode.\+cpp.
 114     \textcolor{keywordflow}{return} \textcolor{keyword}{true};                                        \textcolor{comment}{//!/< Keep Going}
 115 \textcolor{comment}{}\}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{supportcode_8cpp_ac43c2dc16b0859b03a4f7d04a7e97d3c_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -478,7 +485,8 @@ Definition at line 536 of file supportcode.\+cpp.
 548     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
 549 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -514,7 +522,8 @@ Definition at line 62 of file supportcode.\+cpp.
 73 \textcolor{comment}{}    \textcolor{keywordflow}{return} TRUE;                                        \textcolor{comment}{//!/< Initialization Went OK}
 74 \textcolor{comment}{}\}
 \end{DoxyCode}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -560,81 +569,83 @@ First the G\+UI is set up with Signals and Slots, see Qt docu for how that works
 \end{DoxyParams}
 
 
-Definition at line 151 of file main.\+cpp.
+Definition at line 156 of file main.\+cpp.
 
 
 \begin{DoxyCode}
-152 \{
-153     QApplication a(argc, argv);
-154     \hyperlink{class_rigid_track}{RigidTrack} w;
-155     w.show();   \textcolor{comment}{//!< show the GUI}
-156 \textcolor{comment}{}\textcolor{comment}{    //! connect the Qt slots and signals for event handling}
-157 \textcolor{comment}{}    QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(statusChanged(QString)), &w, SLOT(setStatus(QString)), 
+157 \{
+158     QApplication a(argc, argv);
+159     \hyperlink{class_rigid_track}{RigidTrack} w;
+160     w.show();   \textcolor{comment}{//!< show the GUI}
+161 \textcolor{comment}{}\textcolor{comment}{    //! connect the Qt slots and signals for event handling}
+162 \textcolor{comment}{}    QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(statusChanged(QString)), &w, SLOT(setStatus(QString)), 
       Qt::DirectConnection);
-158     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), 
+163     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(imageChanged(QPixmap)), &w, SLOT(setImage(QPixmap)), 
       Qt::DirectConnection);
-159     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), 
+164     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(logAdded(QString)), &w, SLOT(setLog(QString)), 
       Qt::DirectConnection);
-160     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(logCleared()), &w, SLOT(clearLog(QString)), 
+165     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(logCleared()), &w, SLOT(clearLog(QString)), 
       Qt::DirectConnection);
-161     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(P3Penabled(\textcolor{keywordtype}{bool})), &w, SLOT(enableP3P(\textcolor{keywordtype}{bool})), 
+166     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(P3Penabled(\textcolor{keywordtype}{bool})), &w, SLOT(enableP3P(\textcolor{keywordtype}{bool})), 
       Qt::DirectConnection);
-162     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(progressUpdated(\textcolor{keywordtype}{int})), &w, SLOT(progressUpdate(\textcolor{keywordtype}{int})), 
+167     QObject::connect(&\hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}, SIGNAL(progressUpdated(\textcolor{keywordtype}{int})), &w, SLOT(progressUpdate(\textcolor{keywordtype}{int})), 
       Qt::DirectConnection);
-163 
-164     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"RigidTrack Version:"});
-165     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::number(\_MSC\_FULL\_VER));
-166     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Built on:"});
-167     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString(\_\_DATE\_\_));
-168 \textcolor{comment}{}
-169 \textcolor{comment}{    //! initial guesses for position and rotation, important for Iterative Method!}
-170 \textcolor{comment}{}    \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(0) = 45;
-171     \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(1) = 45;
-172     \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(2) = 4500;
-173     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}.at<\textcolor{keywordtype}{double}>(0) = 0 * 3.141592653589 / 180.0;
-174     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}.at<\textcolor{keywordtype}{double}>(1) = 0 * 3.141592653589 / 180.0;
-175     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}.at<\textcolor{keywordtype}{double}>(2) = -45 * 3.141592653589 / 180.0;
-176 \textcolor{comment}{}
-177 \textcolor{comment}{    //! Points that make up the marker CoSy axis system, hence one line in each axis direction}
-178 \textcolor{comment}{}    \hyperlink{main_8cpp_ab34a04f5429de54d618fe1c9bd363c4e}{coordinateFrame} = std::vector<Point3d>(4);
-179     \hyperlink{main_8cpp_a25a0b285905c7882d629b8f561425a2f}{coordinateFrameProjected} = std::vector<Point2d>(4);
-180     coordinateFrame[0] = cv::Point3d(0, 0, 0);
-181     coordinateFrame[1] = cv::Point3d(300, 0, 0);
-182     coordinateFrame[2] = cv::Point3d(0, 300, 0);
-183     coordinateFrame[3] = cv::Point3d(0, 0, 300);
-184 
-185     \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[0] = 1.1234;     \textcolor{comment}{//!< set position initial values}
-186 \textcolor{comment}{}    \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[1] = 1.2345;     \textcolor{comment}{//!< set position initial values}
-187 \textcolor{comment}{}    \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[2] = 1.3456;     \textcolor{comment}{//!< set position initial values}
-188 \textcolor{comment}{}
-189     \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[0] = 0.123;    \textcolor{comment}{//!< set velocity initial values}
-190 \textcolor{comment}{}    \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[1] = 0.234;    \textcolor{comment}{//!< set velocity initial values}
-191 \textcolor{comment}{}    \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[2] = 0.345;    \textcolor{comment}{//!< set velocity initial values}
-192 \textcolor{comment}{}
-193     \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[0] = 1.002;  \textcolor{comment}{//!< set initial euler angles to arbitrary values for testing}
-194 \textcolor{comment}{}    \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[1] = 1.003;  \textcolor{comment}{//!< set initial euler angles to arbitrary values for testing}
-195 \textcolor{comment}{}    \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[2] = 1.004;  \textcolor{comment}{//!< set initial euler angles to arbitrary values for testing}
-196 \textcolor{comment}{}
-197     \hyperlink{main_8cpp_ad19da4e648bbdc80d3123eb94711588e}{setHeadingOffset}(0.0); \textcolor{comment}{//!< set the heading offset to 0 }
-198 \textcolor{comment}{}
-199     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.precision(4); \textcolor{comment}{//!< outputs in the log etc are limited to 3 decimal values}
-200 \textcolor{comment}{}
-201     \hyperlink{main_8cpp_af39fa6c3a36ad6bc24a327db7a9d73c2}{loadCameraPosition}(); \textcolor{comment}{//!< load the rotation matrix from camera CoSy to ground CoSy}
-202 \textcolor{comment}{}    \hyperlink{main_8cpp_ad39626702ff983d5fdab4b703bfaf964}{loadCalibration}(0); \textcolor{comment}{//!< load the calibration file with the camera intrinsics}
-203 \textcolor{comment}{}    \hyperlink{main_8cpp_a56c7f641859cb2b6b99b0947d03be800}{loadMarkerConfig}(0); \textcolor{comment}{//!< load the standard marker configuration}
-204 \textcolor{comment}{}    \hyperlink{main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37}{testAlgorithms}(); \textcolor{comment}{//!< test the algorithms and their accuracy}
+168 
+169     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"RigidTrack Version:"});
+170     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::number(\_MSC\_FULL\_VER));
+171     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Built on:"});
+172     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString(\_\_DATE\_\_));
+173 \textcolor{comment}{}
+174 \textcolor{comment}{    //! initial guesses for position and rotation, important for Iterative Method!}
+175 \textcolor{comment}{}    \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(0) = 45;
+176     \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(1) = 45;
+177     \hyperlink{main_8cpp_a9215ba881de0242c883e5b065d6d2ff9}{Tvec}.at<\textcolor{keywordtype}{double}>(2) = 4500;
+178     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}.at<\textcolor{keywordtype}{double}>(0) = 0 * 3.141592653589 / 180.0;
+179     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}.at<\textcolor{keywordtype}{double}>(1) = 0 * 3.141592653589 / 180.0;
+180     \hyperlink{main_8cpp_ae095f10a005e68d20233dc15b4077ca6}{Rvec}.at<\textcolor{keywordtype}{double}>(2) = -45 * 3.141592653589 / 180.0;
+181 \textcolor{comment}{}
+182 \textcolor{comment}{    //! Points that make up the marker CoSy axis system, hence one line in each axis direction}
+183 \textcolor{comment}{}    \hyperlink{main_8cpp_ab34a04f5429de54d618fe1c9bd363c4e}{coordinateFrame} = std::vector<Point3d>(4);
+184     \hyperlink{main_8cpp_a25a0b285905c7882d629b8f561425a2f}{coordinateFrameProjected} = std::vector<Point2d>(4);
+185     coordinateFrame[0] = cv::Point3d(0, 0, 0);
+186     coordinateFrame[1] = cv::Point3d(300, 0, 0);
+187     coordinateFrame[2] = cv::Point3d(0, 300, 0);
+188     coordinateFrame[3] = cv::Point3d(0, 0, 300);
+189 
+190     \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[0] = 1.1234;     \textcolor{comment}{//!< set position initial values}
+191 \textcolor{comment}{}    \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[1] = 1.2345;     \textcolor{comment}{//!< set position initial values}
+192 \textcolor{comment}{}    \hyperlink{main_8cpp_ac6dab448fd1f9b3aed1205fbd8179f5d}{position}[2] = 1.3456;     \textcolor{comment}{//!< set position initial values}
+193 \textcolor{comment}{}
+194     \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[0] = 0.123;    \textcolor{comment}{//!< set velocity initial values}
+195 \textcolor{comment}{}    \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[1] = 0.234;    \textcolor{comment}{//!< set velocity initial values}
+196 \textcolor{comment}{}    \hyperlink{main_8cpp_a700b8df52e2beb702d06651ed6130e73}{velocity}[2] = 0.345;    \textcolor{comment}{//!< set velocity initial values}
+197 \textcolor{comment}{}
+198     \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[0] = 1.002;  \textcolor{comment}{//!< set initial euler angles to arbitrary values for testing}
+199 \textcolor{comment}{}    \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[1] = 1.003;  \textcolor{comment}{//!< set initial euler angles to arbitrary values for testing}
+200 \textcolor{comment}{}    \hyperlink{main_8cpp_a0a53d01e06c71d6360afcb0fabf2aa8e}{eulerAngles}[2] = 1.004;  \textcolor{comment}{//!< set initial euler angles to arbitrary values for testing}
+201 \textcolor{comment}{}
+202     \hyperlink{main_8cpp_ad19da4e648bbdc80d3123eb94711588e}{setHeadingOffset}(0.0); \textcolor{comment}{//!< set the heading offset to 0 }
+203 \textcolor{comment}{}
+204     \hyperlink{main_8cpp_a8fc3524f4e679a41dcc8d0f302d637ed}{ss}.precision(4); \textcolor{comment}{//!< outputs in the log etc are limited to 3 decimal values}
 205 \textcolor{comment}{}
-206     \textcolor{keywordflow}{return} a.exec();
-207 \}
+206     \hyperlink{main_8cpp_af39fa6c3a36ad6bc24a327db7a9d73c2}{loadCameraPosition}(); \textcolor{comment}{//!< load the rotation matrix from camera CoSy to ground CoSy}
+207 \textcolor{comment}{}    \hyperlink{main_8cpp_ad39626702ff983d5fdab4b703bfaf964}{loadCalibration}(0); \textcolor{comment}{//!< load the calibration file with the camera intrinsics}
+208 \textcolor{comment}{}    \hyperlink{main_8cpp_a56c7f641859cb2b6b99b0947d03be800}{loadMarkerConfig}(0); \textcolor{comment}{//!< load the standard marker configuration}
+209 \textcolor{comment}{}    \hyperlink{main_8cpp_a847c0fbd3e513fb76ff145b31a9f5c37}{testAlgorithms}(); \textcolor{comment}{//!< test the algorithms and their accuracy}
+210 \textcolor{comment}{}
+211     \textcolor{keywordflow}{return} a.exec();
+212 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{supportcode_8cpp_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -674,7 +685,8 @@ Definition at line 615 of file supportcode.\+cpp.
 633     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
 634 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -745,7 +757,8 @@ Definition at line 42 of file supportcode.\+cpp.
 59 \textcolor{comment}{}    glLoadIdentity();                                   \textcolor{comment}{//!/< Reset The Modelview Matrix}
 60 \textcolor{comment}{}\}
 \end{DoxyCode}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -788,7 +801,8 @@ Definition at line 590 of file supportcode.\+cpp.
 612     \}
 613 \}
 \end{DoxyCode}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -824,7 +838,8 @@ Definition at line 528 of file supportcode.\+cpp.
 533     \textcolor{keywordflow}{return} \hyperlink{supportcode_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}(0,0);
 534 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -927,14 +942,16 @@ Definition at line 118 of file supportcode.\+cpp.
 190 \textcolor{comment}{}    \textcolor{keywordflow}{return} DefWindowProc(\hyperlink{supportcode_8cpp_afec4341c234519e145bac6f0e5edaa51}{hWnd},uMsg,wParam,lParam);
 191 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=262pt]{supportcode_8cpp_ae749e989b362e19783c7af4a2bf46c95_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

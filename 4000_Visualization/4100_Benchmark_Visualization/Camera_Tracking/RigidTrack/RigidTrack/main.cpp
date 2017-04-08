@@ -1,8 +1,13 @@
-//! 
-//! Main File that contains basically all functions not related to GUI.
-//! Functions for calibration, loading and saving files and the pose estimation 
-//! itself are contained here. 
-//!
+/*!
+* @file main.cpp
+*  @brief     Rigid Track main file that contains most functionallity.
+*  @details   This file contains allmost all functional code for pose estimation, calibration 
+* and so on. The GUI related part is in RigidTrack.cpp and the communication from main.cpp to GUI
+* is done with the commObj class from communication.cpp.
+*  @author    Florian J.T. Wachter
+*  @version   1.0
+*  @date      April, 8th 2017
+*/
 
 #include "RigidTrack.h"
 #include "main.h"

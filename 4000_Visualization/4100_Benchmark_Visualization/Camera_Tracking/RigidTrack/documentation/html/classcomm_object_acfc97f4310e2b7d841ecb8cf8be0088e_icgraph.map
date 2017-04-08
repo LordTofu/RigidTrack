@@ -1,6 +1,8 @@
 <map id="commObject::progressUpdate" name="commObject::progressUpdate">
-<area shape="rect" id="node2" href="$main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="255,17,354,43"/>
-<area shape="rect" id="node4" href="$main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="248,71,361,98"/>
-<area shape="rect" id="node3" href="$class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="423,5,577,47"/>
-<area shape="rect" id="node5" href="$class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="409,71,591,112"/>
+<area shape="rect" id="node2" href="$main_8h.html#a1e6662e0f16887fe97c7bebe05065972" title="setReference" alt="" coords="257,13,355,39"/>
+<area shape="rect" id="node4" href="$main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4" title="Start the camera calibration routine that computes the camera matrix and distortion coefficients..." alt="" coords="248,87,364,114"/>
+<area shape="rect" id="node6" href="$main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f" title="calibrateGround" alt="" coords="249,141,363,167"/>
+<area shape="rect" id="node3" href="$class_rigid_track.html#afb1a4edcacc818db4ec6bb017dd07e0f" title="RigidTrack::on_btnZero\l_clicked" alt="" coords="425,5,580,47"/>
+<area shape="rect" id="node5" href="$class_rigid_track.html#aed2c39da404909142074f7dd2ce75a63" title="RigidTrack::on_btnCalibrate\l_clicked" alt="" coords="412,75,593,116"/>
+<area shape="rect" id="node7" href="$class_rigid_track.html#a9a939d6db3d268e75a603cb3d492a91b" title="RigidTrack::on_btnCalibrate\lGround_clicked" alt="" coords="412,140,593,181"/>
 </map>

@@ -1,6 +1,5 @@
 <map id="RigidTrack/RigidTrack.cpp" name="RigidTrack/RigidTrack.cpp">
-<area shape="rect" id="node2" href="$_rigid_track_8h.html" title="RigidTrack.h" alt="" coords="4053,80,4148,107"/>
-<area shape="rect" id="node17" href="$main_8h.html" title="main.h" alt="" coords="4075,155,4137,181"/>
-<area shape="rect" id="node32" href="$communication_8h.html" title="communication.h" alt="" coords="5388,229,5509,256"/>
-<area shape="rect" id="node4" href="$ui___rigid_track_8h.html" title="ui_RigidTrack.h" alt="" coords="1135,155,1245,181"/>
+<area shape="rect" id="node2" href="$_rigid_track_8h.html" title="Rigid Track GUI source header with Qt Signals and Slots. " alt="" coords="3258,80,3353,107"/>
+<area shape="rect" id="node6" href="$main_8h.html" title="Header file for main.cpp. " alt="" coords="1700,155,1761,181"/>
+<area shape="rect" id="node21" href="$communication_8h_source.html" title="communication.h" alt="" coords="3405,229,3526,256"/>
 </map>

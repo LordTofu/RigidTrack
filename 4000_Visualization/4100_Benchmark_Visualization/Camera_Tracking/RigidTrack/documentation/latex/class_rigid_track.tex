@@ -75,7 +75,7 @@ void \hyperlink{class_rigid_track_a7d858fcf6c9fe852ee3facfe6588aec1}{on\+\_\+act
 \subsection{Detailed Description}
 
 
-Definition at line 9 of file Rigid\+Track.\+h.
+Definition at line 17 of file Rigid\+Track.\+h.
 
 
 
@@ -88,23 +88,16 @@ Definition at line 9 of file Rigid\+Track.\+h.
 
 
 
-Definition at line 12 of file Rigid\+Track.\+cpp.
+Definition at line 20 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-13     : QMainWindow(parent)
-14 \{
-15     ui.\hyperlink{class_ui___rigid_track_class_a7f78fefc15716049b873bef4d3450e38}{setupUi}(\textcolor{keyword}{this});
-16     
-17 \}
+21     : QMainWindow(parent)
+22 \{
+23     ui.setupUi(\textcolor{keyword}{this});
+24     
+25 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_rigid_track_abd3d529ea29b1050439c97c5a5aa8c4b_cgraph}
-\end{center}
-\end{figure}
 
 
 \subsection{Member Function Documentation}
@@ -116,13 +109,13 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 34 of file Rigid\+Track.\+cpp.
+Definition at line 42 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-35 \{
-36     ui.\hyperlink{class_ui___rigid_track_class_a8573490fa3f39f7c45af77f33c9b9297}{listLog}->reset();
-37 \}
+43 \{
+44     ui.listLog->reset();
+45 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_a39aba14e1c846cb3f1773d9145cf96e1}\label{class_rigid_track_a39aba14e1c846cb3f1773d9145cf96e1}} 
 \index{Rigid\+Track@{Rigid\+Track}!enable\+P3P@{enable\+P3P}}
@@ -132,13 +125,13 @@ Definition at line 34 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 221 of file Rigid\+Track.\+cpp.
+Definition at line 229 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-222 \{
-223     RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a3f20a41a0b0d35ff5a077530743c82c9}{rbP3P}->setEnabled(value);
-224 \}
+230 \{
+231     RigidTrack::ui.rbP3P->setEnabled(value);
+232 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_ac9b641557306f6dff0ac73bc3a9b3f60}\label{class_rigid_track_ac9b641557306f6dff0ac73bc3a9b3f60}} 
 \index{Rigid\+Track@{Rigid\+Track}!on\+\_\+action\+About\+\_\+\+Rigid\+\_\+\+Track\+\_\+triggered@{on\+\_\+action\+About\+\_\+\+Rigid\+\_\+\+Track\+\_\+triggered}}
@@ -148,17 +141,17 @@ Definition at line 221 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 237 of file Rigid\+Track.\+cpp.
+Definition at line 245 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-238 \{
-239     QMessageBox msgBox;
-240     msgBox.setWindowTitle(\textcolor{stringliteral}{"About Rigid Track"});
-241     msgBox.setText(\textcolor{stringliteral}{"Rigid Track\(\backslash\)nInstitute for Flight System Dynamics\(\backslash\)nVersion:\(\backslash\)t 1.0\(\backslash\)nAuthor:\(\backslash\)t Florian
+246 \{
+247     QMessageBox msgBox;
+248     msgBox.setWindowTitle(\textcolor{stringliteral}{"About Rigid Track"});
+249     msgBox.setText(\textcolor{stringliteral}{"Rigid Track\(\backslash\)nInstitute for Flight System Dynamics\(\backslash\)nVersion:\(\backslash\)t 1.0\(\backslash\)nAuthor:\(\backslash\)t Florian
        Wachter\(\backslash\)nBuild Date:\(\backslash\)t "} + QString(\_\_DATE\_\_));
-242     msgBox.exec();
-243 \}
+250     msgBox.exec();
+251 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_a7d858fcf6c9fe852ee3facfe6588aec1}\label{class_rigid_track_a7d858fcf6c9fe852ee3facfe6588aec1}} 
 \index{Rigid\+Track@{Rigid\+Track}!on\+\_\+action\+Open\+\_\+\+Installation\+\_\+\+Folder\+\_\+triggered@{on\+\_\+action\+Open\+\_\+\+Installation\+\_\+\+Folder\+\_\+triggered}}
@@ -168,15 +161,15 @@ Definition at line 237 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 245 of file Rigid\+Track.\+cpp.
+Definition at line 253 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-246 \{
-247     QString command = \textcolor{stringliteral}{"explorer.exe "} + QDir::currentPath().replace(\textcolor{stringliteral}{"/"}, \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)"});
-248     QProcess::startDetached(command);
-249     
-250 \}
+254 \{
+255     QString command = \textcolor{stringliteral}{"explorer.exe "} + QDir::currentPath().replace(\textcolor{stringliteral}{"/"}, \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)"});
+256     QProcess::startDetached(command);
+257     
+258 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_a63a85d33ef48741b0e671ebbbd43083a}\label{class_rigid_track_a63a85d33ef48741b0e671ebbbd43083a}} 
 \index{Rigid\+Track@{Rigid\+Track}!on\+\_\+action\+Open\+\_\+\+Log\+\_\+\+Folder\+\_\+triggered@{on\+\_\+action\+Open\+\_\+\+Log\+\_\+\+Folder\+\_\+triggered}}
@@ -186,14 +179,14 @@ Definition at line 245 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 231 of file Rigid\+Track.\+cpp.
+Definition at line 239 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-232 \{
-233     QString command = \textcolor{stringliteral}{"explorer.exe "} + QDir::currentPath().replace(\textcolor{stringliteral}{"/"}, \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)"}) + \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)logs"};
-234     QProcess::startDetached(command);
-235 \}
+240 \{
+241     QString command = \textcolor{stringliteral}{"explorer.exe "} + QDir::currentPath().replace(\textcolor{stringliteral}{"/"}, \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)"}) + \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)logs"};
+242     QProcess::startDetached(command);
+243 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_af14465ac3ad6957b939c63cbae2d7d8c}\label{class_rigid_track_af14465ac3ad6957b939c63cbae2d7d8c}} 
 \index{Rigid\+Track@{Rigid\+Track}!on\+\_\+action\+Show\+\_\+\+Help\+\_\+triggered@{on\+\_\+action\+Show\+\_\+\+Help\+\_\+triggered}}
@@ -203,18 +196,18 @@ Definition at line 231 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 152 of file Rigid\+Track.\+cpp.
+Definition at line 160 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-153 \{
-154     \textcolor{comment}{}
-155 \textcolor{comment}{    //!/< append help.pdf to the path since this is the documentation in html format}
-156 \textcolor{comment}{}    QString qtStrFile = QDir::currentPath().replace(\textcolor{stringliteral}{"/"}, \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)"}) + \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)help.pdf"};
-157 \textcolor{comment}{}
-158 \textcolor{comment}{    //!/< open the documentation help file in the standard browser}
-159 \textcolor{comment}{}    QDesktopServices::openUrl(QUrl::fromLocalFile(qtStrFile));
-160 \}
+161 \{
+162     \textcolor{comment}{}
+163 \textcolor{comment}{    //!/< append help.pdf to the path since this is the documentation in html format}
+164 \textcolor{comment}{}    QString qtStrFile = QDir::currentPath().replace(\textcolor{stringliteral}{"/"}, \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)"}) + \textcolor{stringliteral}{"\(\backslash\)\(\backslash\)help.pdf"};
+165 \textcolor{comment}{}
+166 \textcolor{comment}{    //!/< open the documentation help file in the standard browser}
+167 \textcolor{comment}{}    QDesktopServices::openUrl(QUrl::fromLocalFile(qtStrFile));
+168 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_aed2c39da404909142074f7dd2ce75a63}\label{class_rigid_track_aed2c39da404909142074f7dd2ce75a63}} 
 \index{Rigid\+Track@{Rigid\+Track}!on\+\_\+btn\+Calibrate\+\_\+clicked@{on\+\_\+btn\+Calibrate\+\_\+clicked}}
@@ -224,15 +217,16 @@ Definition at line 152 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 24 of file Rigid\+Track.\+cpp.
+Definition at line 32 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-25 \{
-26     \hyperlink{main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4}{calibrateCamera}();
-27 \}
+33 \{
+34     \hyperlink{main_8cpp_a5f7c5996cd5a271d0277e0741f73a5b4}{calibrateCamera}();
+35 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -247,15 +241,16 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 226 of file Rigid\+Track.\+cpp.
+Definition at line 234 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-227 \{
-228     \hyperlink{main_8cpp_a7ad2e3cfb5056dbab2098e0dd3bd353f}{calibrateGround}();
-229 \}
+235 \{
+236     \hyperlink{main_8cpp_a7ad2e3cfb5056dbab2098e0dd3bd353f}{calibrateGround}();
+237 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -270,15 +265,16 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 44 of file Rigid\+Track.\+cpp.
+Definition at line 52 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-45 \{
-46     \hyperlink{main_8cpp_ad39626702ff983d5fdab4b703bfaf964}{loadCalibration}(1);
-47 \}
+53 \{
+54     \hyperlink{main_8cpp_ad39626702ff983d5fdab4b703bfaf964}{loadCalibration}(1);
+55 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -293,23 +289,24 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 252 of file Rigid\+Track.\+cpp.
+Definition at line 260 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-253 \{
-254     \textcolor{keywordflow}{if}(RigidTrack::ui.btnStartCamera->text() == \textcolor{stringliteral}{"Start Tracking"})
-255     \{
-256         RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a72fc55bdb6021b52b9ec0e97e112d57d}{btnStartCamera}->setText(\textcolor{stringliteral}{"Stop Tracking"});
-257     \}
-258     \textcolor{keywordflow}{else}
-259     \{
-260         RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a72fc55bdb6021b52b9ec0e97e112d57d}{btnStartCamera}->setText(\textcolor{stringliteral}{"Start Tracking"});
-261     \}
-262     \hyperlink{main_8cpp_a25183e8d0b386ef12b557efc712a0261}{startStopCamera}();
-263 \}
+261 \{
+262     \textcolor{keywordflow}{if}(RigidTrack::ui.btnStartCamera->text() == \textcolor{stringliteral}{"Start Tracking"})
+263     \{
+264         RigidTrack::ui.btnStartCamera->setText(\textcolor{stringliteral}{"Stop Tracking"});
+265     \}
+266     \textcolor{keywordflow}{else}
+267     \{
+268         RigidTrack::ui.btnStartCamera->setText(\textcolor{stringliteral}{"Start Tracking"});
+269     \}
+270     \hyperlink{main_8cpp_a25183e8d0b386ef12b557efc712a0261}{startStopCamera}();
+271 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -324,15 +321,16 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 19 of file Rigid\+Track.\+cpp.
+Definition at line 27 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-20 \{
-21     \hyperlink{main_8cpp_a1e6662e0f16887fe97c7bebe05065972}{setReference}();
-22 \}
+28 \{
+29     \hyperlink{main_8cpp_a1e6662e0f16887fe97c7bebe05065972}{setReference}();
+30 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -347,20 +345,20 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 209 of file Rigid\+Track.\+cpp.
+Definition at line 217 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-210 \{
-211     \textcolor{keywordflow}{if} (state)
-212     \{
-213         \hyperlink{main_8cpp_a5cc3bd09f5801804b7ae65846e0b9824}{invertZ} = -1;
-214     \}
-215     \textcolor{keywordflow}{else}
-216     \{
-217         \hyperlink{main_8cpp_a5cc3bd09f5801804b7ae65846e0b9824}{invertZ} = 1;
-218     \}
-219 \}
+218 \{
+219     \textcolor{keywordflow}{if} (state)
+220     \{
+221         \hyperlink{main_8cpp_a5cc3bd09f5801804b7ae65846e0b9824}{invertZ} = -1;
+222     \}
+223     \textcolor{keywordflow}{else}
+224     \{
+225         \hyperlink{main_8cpp_a5cc3bd09f5801804b7ae65846e0b9824}{invertZ} = 1;
+226     \}
+227 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_ad6ba1cfe25f18ff0d9f5993aafa36d16}\label{class_rigid_track_ad6ba1cfe25f18ff0d9f5993aafa36d16}} 
 \index{Rigid\+Track@{Rigid\+Track}!on\+\_\+cb\+Safety2\+\_\+state\+Changed@{on\+\_\+cb\+Safety2\+\_\+state\+Changed}}
@@ -370,25 +368,26 @@ Definition at line 209 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 179 of file Rigid\+Track.\+cpp.
+Definition at line 187 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-180 \{
-181     RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a70522f29594cbdc654ffed858b3e1fc5}{leIPSafety2}->setEnabled(state);
-182     \hyperlink{main_8cpp_a436fb814ccc3f02617dade4dc6511143}{safety2Enable} = state;
-183     \textcolor{keywordflow}{if} (state)
-184     \{
-185         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Enabled second Receiver"});
-186         \hyperlink{class_rigid_track_a555c536593d659b940de43cd2db8d6c1}{on\_leIPSafety2\_returnPressed}();
-187     \}
-188     \textcolor{keywordflow}{else}
-189     \{
-190         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Disabled second Receiver"});
-191     \}
-192 \}
+188 \{
+189     RigidTrack::ui.leIPSafety2->setEnabled(state);
+190     \hyperlink{main_8cpp_a436fb814ccc3f02617dade4dc6511143}{safety2Enable} = state;
+191     \textcolor{keywordflow}{if} (state)
+192     \{
+193         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Enabled second Receiver"});
+194         \hyperlink{class_rigid_track_a555c536593d659b940de43cd2db8d6c1}{on\_leIPSafety2\_returnPressed}();
+195     \}
+196     \textcolor{keywordflow}{else}
+197     \{
+198         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Disabled second Receiver"});
+199     \}
+200 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -403,27 +402,28 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 162 of file Rigid\+Track.\+cpp.
+Definition at line 170 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-163 \{
-164     RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a20f78b58534d29da3d836c2af79a6232}{dsbDimension}->setEnabled(state);
-165     RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_ac232f3d19d53b00aa61431725cbf71c4}{sbAngle}->setEnabled(state);
-166     \hyperlink{main_8cpp_aa6266eedab8b3c011be53baffbfc42ab}{safetyEnable} = state;
-167     RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_af722611603b357175b3ce505bdf468b1}{leIPSafety}->setEnabled(state);
-168     \textcolor{keywordflow}{if} (state)
-169     \{
-170         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Enabled Safety Area Protection"});
-171         \hyperlink{class_rigid_track_aa527ab3a2ddc7b31bf1063260efc9755}{on\_leIPSafety\_returnPressed}();
-172     \}
-173     \textcolor{keywordflow}{else}
-174     \{
-175         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Disabled Safety Area Protection"});
-176     \}
-177 \}
+171 \{
+172     RigidTrack::ui.dsbDimension->setEnabled(state);
+173     RigidTrack::ui.sbAngle->setEnabled(state);
+174     \hyperlink{main_8cpp_aa6266eedab8b3c011be53baffbfc42ab}{safetyEnable} = state;
+175     RigidTrack::ui.leIPSafety->setEnabled(state);
+176     \textcolor{keywordflow}{if} (state)
+177     \{
+178         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Enabled Safety Area Protection"});
+179         \hyperlink{class_rigid_track_aa527ab3a2ddc7b31bf1063260efc9755}{on\_leIPSafety\_returnPressed}();
+180     \}
+181     \textcolor{keywordflow}{else}
+182     \{
+183         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Disabled Safety Area Protection"});
+184     \}
+185 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -438,13 +438,13 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 194 of file Rigid\+Track.\+cpp.
+Definition at line 202 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-195 \{
-196     \hyperlink{main_8cpp_a2c1b807fcb2de5a6759bd60ccae6dd7e}{safetyBoxLength} = d;
-197 \}
+203 \{
+204     \hyperlink{main_8cpp_a2c1b807fcb2de5a6759bd60ccae6dd7e}{safetyBoxLength} = d;
+205 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_a9f037a061b2577815fc80e5e9f8d46d9}\label{class_rigid_track_a9f037a061b2577815fc80e5e9f8d46d9}} 
 \index{Rigid\+Track@{Rigid\+Track}!on\+\_\+le\+I\+P\+Object\+\_\+return\+Pressed@{on\+\_\+le\+I\+P\+Object\+\_\+return\+Pressed}}
@@ -454,36 +454,37 @@ Definition at line 194 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 60 of file Rigid\+Track.\+cpp.
+Definition at line 68 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-61 \{
-62     \textcolor{keywordflow}{try}\{
-63     QString adress = RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a8372ffd3f54aa2672228e28e48fe18f3}{leIPObject}->text();
-64     \hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject} = QHostAddress(adress.split(\textcolor{stringliteral}{":"})[0]);
-65     \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject}.isNull() || adress.split(\textcolor{stringliteral}{":"}).length() == 1 || adress.split(\textcolor{stringliteral}{":"})[1]==0
+69 \{
+70     \textcolor{keywordflow}{try}\{
+71     QString adress = RigidTrack::ui.leIPObject->text();
+72     \hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject} = QHostAddress(adress.split(\textcolor{stringliteral}{":"})[0]);
+73     \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject}.isNull() || adress.split(\textcolor{stringliteral}{":"}).length() == 1 || adress.split(\textcolor{stringliteral}{":"})[1]==0
       )
-66     \{
-67         \textcolor{keywordflow}{throw} 2;
-68     \}
-69     \hyperlink{main_8cpp_a9a00043c93a3362969c1c1fcd3a70fea}{portObject} = adress.split(\textcolor{stringliteral}{":"})[1].toInt();
-70     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Object IP changed to:"});
-71     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject}.toString());
-72     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Object Port changed to:"});
-73     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::number(\hyperlink{main_8cpp_a9a00043c93a3362969c1c1fcd3a70fea}{portObject}));
-74     \}
-75     \textcolor{keywordflow}{catch} (...)
-76     \{
-77         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Error Changing the IP Adress or Port! Restored Standard Values
+74     \{
+75         \textcolor{keywordflow}{throw} 2;
+76     \}
+77     \hyperlink{main_8cpp_a9a00043c93a3362969c1c1fcd3a70fea}{portObject} = adress.split(\textcolor{stringliteral}{":"})[1].toInt();
+78     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Object IP changed to:"});
+79     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject}.toString());
+80     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Object Port changed to:"});
+81     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::number(\hyperlink{main_8cpp_a9a00043c93a3362969c1c1fcd3a70fea}{portObject}));
+82     \}
+83     \textcolor{keywordflow}{catch} (...)
+84     \{
+85         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Error Changing the IP Adress or Port! Restored Standard Values
        192.168.0.1:9155"});
-78         \hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject} = QHostAddress(\textcolor{stringliteral}{"192.168.0.1"});
-79         \hyperlink{main_8cpp_a9a00043c93a3362969c1c1fcd3a70fea}{portObject} = 9155;
-80         RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a8372ffd3f54aa2672228e28e48fe18f3}{leIPObject}->setText(\textcolor{stringliteral}{"192.168.0.1:9155"});
-81     \}
-82 \}
+86         \hyperlink{main_8cpp_ab97ac0d82b1753d0eef37089be17e5e1}{IPAdressObject} = QHostAddress(\textcolor{stringliteral}{"192.168.0.1"});
+87         \hyperlink{main_8cpp_a9a00043c93a3362969c1c1fcd3a70fea}{portObject} = 9155;
+88         RigidTrack::ui.leIPObject->setText(\textcolor{stringliteral}{"192.168.0.1:9155"});
+89     \}
+90 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -498,43 +499,45 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 109 of file Rigid\+Track.\+cpp.
+Definition at line 117 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-110 \{
-111     \textcolor{keywordflow}{try} \{
-112     QString adress = RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a70522f29594cbdc654ffed858b3e1fc5}{leIPSafety2}->text();
-113     \hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2} = QHostAddress(adress.split(\textcolor{stringliteral}{":"})[0]);
-114     \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2}.isNull() || adress.split(\textcolor{stringliteral}{":"}).length() == 1 || adress.split(\textcolor{stringliteral}{":"})[1] 
+118 \{
+119     \textcolor{keywordflow}{try} \{
+120     QString adress = RigidTrack::ui.leIPSafety2->text();
+121     \hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2} = QHostAddress(adress.split(\textcolor{stringliteral}{":"})[0]);
+122     \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2}.isNull() || adress.split(\textcolor{stringliteral}{":"}).length() == 1 || adress.split(\textcolor{stringliteral}{":"})[1] 
       == 0)
-115     \{
-116         \textcolor{keywordflow}{throw} 2;
-117     \}
-118     \hyperlink{main_8cpp_a2601be9c226be24c71ec8282f632e723}{portSafety2} = adress.split(\textcolor{stringliteral}{":"})[1].toInt();
-119     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Receiver 2 IP changed to:"});
-120     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2}.toString());
-121     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Receiver 2 Port changed to:"});
-122     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::number(\hyperlink{main_8cpp_a2601be9c226be24c71ec8282f632e723}{portSafety2}));
-123     \}
-124     \textcolor{keywordflow}{catch} (...)
-125     \{
-126         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Error Changing the IP Adress or Port! Restored Standard Values
+123     \{
+124         \textcolor{keywordflow}{throw} 2;
+125     \}
+126     \hyperlink{main_8cpp_a2601be9c226be24c71ec8282f632e723}{portSafety2} = adress.split(\textcolor{stringliteral}{":"})[1].toInt();
+127     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Receiver 2 IP changed to:"});
+128     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2}.toString());
+129     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Receiver 2 Port changed to:"});
+130     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::number(\hyperlink{main_8cpp_a2601be9c226be24c71ec8282f632e723}{portSafety2}));
+131     \}
+132     \textcolor{keywordflow}{catch} (...)
+133     \{
+134         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Error Changing the IP Adress or Port! Restored Standard Values
        192.168.0.1:9155"});
-127         \hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2} = QHostAddress(\textcolor{stringliteral}{"192.168.0.1"});
-128         \hyperlink{main_8cpp_a2601be9c226be24c71ec8282f632e723}{portSafety2} = 9155;
-129         RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a70522f29594cbdc654ffed858b3e1fc5}{leIPSafety2}->setText(\textcolor{stringliteral}{"192.168.0.1:9155"});
-130     \}
-131 \}
+135         \hyperlink{main_8cpp_a354806cf8cbface3575f2541d8fbcbda}{IPAdressSafety2} = QHostAddress(\textcolor{stringliteral}{"192.168.0.1"});
+136         \hyperlink{main_8cpp_a2601be9c226be24c71ec8282f632e723}{portSafety2} = 9155;
+137         RigidTrack::ui.leIPSafety2->setText(\textcolor{stringliteral}{"192.168.0.1:9155"});
+138     \}
+139 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{class_rigid_track_a555c536593d659b940de43cd2db8d6c1_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -549,43 +552,45 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 85 of file Rigid\+Track.\+cpp.
+Definition at line 93 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-86 \{
-87     \textcolor{keywordflow}{try}\{
-88     QString adress = RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_af722611603b357175b3ce505bdf468b1}{leIPSafety}->text();
-89     \hyperlink{main_8cpp_afefb1102a8a4a71b55d6f24f46404cc5}{IPAdressSafety} = QHostAddress(adress.split(\textcolor{stringliteral}{":"})[0]);
-90     \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_afefb1102a8a4a71b55d6f24f46404cc5}{IPAdressSafety}.isNull() || adress.split(\textcolor{stringliteral}{":"}).length() == 1 || adress.split(\textcolor{stringliteral}{":"})[1] ==
+94 \{
+95     \textcolor{keywordflow}{try}\{
+96     QString adress = RigidTrack::ui.leIPSafety->text();
+97     \hyperlink{main_8cpp_afefb1102a8a4a71b55d6f24f46404cc5}{IPAdressSafety} = QHostAddress(adress.split(\textcolor{stringliteral}{":"})[0]);
+98     \textcolor{keywordflow}{if} (\hyperlink{main_8cpp_afefb1102a8a4a71b55d6f24f46404cc5}{IPAdressSafety}.isNull() || adress.split(\textcolor{stringliteral}{":"}).length() == 1 || adress.split(\textcolor{stringliteral}{":"})[1] ==
        0)
-91     \{
-92         \textcolor{keywordflow}{throw} 2;
-93     \}
-94     \hyperlink{main_8cpp_a137bc8cc9d53ad9b176c988a99bc7142}{portSafety} = adress.split(\textcolor{stringliteral}{":"})[1].toInt();
-95     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Safety Switch IP changed to:"});
-96     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\hyperlink{main_8cpp_afefb1102a8a4a71b55d6f24f46404cc5}{IPAdressSafety}.toString());
-97     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Safety Switch Port changed to:"});
-98     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::number(\hyperlink{main_8cpp_a137bc8cc9d53ad9b176c988a99bc7142}{portSafety}));
-99     \}
-100     \textcolor{keywordflow}{catch} (...)
-101     \{
-102         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Error Changing the IP Adress or Port! Restored Standard Values
-       192.168.0.1:9155"});
-103         \hyperlink{main_8cpp_afefb1102a8a4a71b55d6f24f46404cc5}{IPAdressSafety} = QHostAddress(\textcolor{stringliteral}{"192.168.0.1"});
-104         \hyperlink{main_8cpp_a137bc8cc9d53ad9b176c988a99bc7142}{portSafety} = 9155;
-105         RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_af722611603b357175b3ce505bdf468b1}{leIPSafety}->setText(\textcolor{stringliteral}{"192.168.0.1:9155"});
-106     \}
+99     \{
+100         \textcolor{keywordflow}{throw} 2;
+101     \}
+102     \hyperlink{main_8cpp_a137bc8cc9d53ad9b176c988a99bc7142}{portSafety} = adress.split(\textcolor{stringliteral}{":"})[1].toInt();
+103     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Safety Switch IP changed to:"});
+104     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\hyperlink{main_8cpp_afefb1102a8a4a71b55d6f24f46404cc5}{IPAdressSafety}.toString());
+105     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Safety Switch Port changed to:"});
+106     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(QString::number(\hyperlink{main_8cpp_a137bc8cc9d53ad9b176c988a99bc7142}{portSafety}));
 107     \}
+108     \textcolor{keywordflow}{catch} (...)
+109     \{
+110         \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Error Changing the IP Adress or Port! Restored Standard Values
+       192.168.0.1:9155"});
+111         \hyperlink{main_8cpp_afefb1102a8a4a71b55d6f24f46404cc5}{IPAdressSafety} = QHostAddress(\textcolor{stringliteral}{"192.168.0.1"});
+112         \hyperlink{main_8cpp_a137bc8cc9d53ad9b176c988a99bc7142}{portSafety} = 9155;
+113         RigidTrack::ui.leIPSafety->setText(\textcolor{stringliteral}{"192.168.0.1:9155"});
+114     \}
+115     \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{class_rigid_track_aa527ab3a2ddc7b31bf1063260efc9755_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -600,15 +605,16 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 204 of file Rigid\+Track.\+cpp.
+Definition at line 212 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-205 \{
-206     \hyperlink{main_8cpp_a56c7f641859cb2b6b99b0947d03be800}{loadMarkerConfig}(1);
-207 \}
+213 \{
+214     \hyperlink{main_8cpp_a56c7f641859cb2b6b99b0947d03be800}{loadMarkerConfig}(1);
+215 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -623,16 +629,17 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 146 of file Rigid\+Track.\+cpp.
+Definition at line 154 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-147 \{
-148     \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP} = 1;
-149     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Changed PnP algorithm to EPnP"});
-150 \}
+155 \{
+156     \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP} = 1;
+157     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Changed PnP algorithm to EPnP"});
+158 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -647,16 +654,17 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 140 of file Rigid\+Track.\+cpp.
+Definition at line 148 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-141 \{
-142     \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP} = 0;
-143     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Changed PnP algorithm to Iterative"});
-144 \}
+149 \{
+150     \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP} = 0;
+151     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Changed PnP algorithm to Iterative"});
+152 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -671,16 +679,17 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 134 of file Rigid\+Track.\+cpp.
+Definition at line 142 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-135 \{
-136     \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP} = 2;
-137     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Changed PnP algorithm to P3P"});
-138 \}
+143 \{
+144     \hyperlink{main_8cpp_ab5e634b66221f494504aea1557af5df9}{methodPNP} = 2;
+145     \hyperlink{main_8cpp_af29e7fc07ae0979d5fb61b473241d33d}{commObj}.\hyperlink{classcomm_object_aec354c7099b3039083cc4224e071e022}{addLog}(\textcolor{stringliteral}{"Changed PnP algorithm to P3P"});
+146 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -695,13 +704,13 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 199 of file Rigid\+Track.\+cpp.
+Definition at line 207 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-200 \{
-201     \hyperlink{main_8cpp_ae65386c3310ab826e84fba757296de9a}{safetyAngle} = i;
-202 \}
+208 \{
+209     \hyperlink{main_8cpp_ae65386c3310ab826e84fba757296de9a}{safetyAngle} = i;
+210 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_a72e338d6bf93d0efa3bc503f7ca736c5}\label{class_rigid_track_a72e338d6bf93d0efa3bc503f7ca736c5}} 
 \index{Rigid\+Track@{Rigid\+Track}!on\+\_\+sb\+Heading\+Offset\+\_\+value\+Changed@{on\+\_\+sb\+Heading\+Offset\+\_\+value\+Changed}}
@@ -711,15 +720,16 @@ Definition at line 199 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 55 of file Rigid\+Track.\+cpp.
+Definition at line 63 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-56 \{
-57     \hyperlink{main_8cpp_ad19da4e648bbdc80d3123eb94711588e}{setHeadingOffset}(d);
-58 \}
+64 \{
+65     \hyperlink{main_8cpp_ad19da4e648bbdc80d3123eb94711588e}{setHeadingOffset}(d);
+66 \}
 \end{DoxyCode}
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -734,13 +744,13 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 39 of file Rigid\+Track.\+cpp.
+Definition at line 47 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-40 \{
-41     RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a4f53c207d82dc9555709f1ace400d89b}{progressBar}->setValue(value);
-42 \}
+48 \{
+49     RigidTrack::ui.progressBar->setValue(value);
+50 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_a3b0b3835204cad40abdb144d24aefc76}\label{class_rigid_track_a3b0b3835204cad40abdb144d24aefc76}} 
 \index{Rigid\+Track@{Rigid\+Track}!set\+Image@{set\+Image}}
@@ -750,13 +760,13 @@ Definition at line 39 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 29 of file Rigid\+Track.\+cpp.
+Definition at line 37 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-30 \{
-31     ui.\hyperlink{class_ui___rigid_track_class_abeac37c5be33dbe8f2805a9e688b8329}{lbStatus}->setPixmap(image);
-32 \}
+38 \{
+39     ui.lbStatus->setPixmap(image);
+40 \}
 \end{DoxyCode}
 \mbox{\Hypertarget{class_rigid_track_a54a029af74a21f92749e99df7ed847b2}\label{class_rigid_track_a54a029af74a21f92749e99df7ed847b2}} 
 \index{Rigid\+Track@{Rigid\+Track}!set\+Log@{set\+Log}}
@@ -766,14 +776,14 @@ Definition at line 29 of file Rigid\+Track.\+cpp.
 
 
 
-Definition at line 49 of file Rigid\+Track.\+cpp.
+Definition at line 57 of file Rigid\+Track.\+cpp.
 
 
 \begin{DoxyCode}
-50 \{
-51     RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a8573490fa3f39f7c45af77f33c9b9297}{listLog}->addItem(logText);
-52     RigidTrack::ui.\hyperlink{class_ui___rigid_track_class_a8573490fa3f39f7c45af77f33c9b9297}{listLog}->scrollToBottom();
-53 \}
+58 \{
+59     RigidTrack::ui.listLog->addItem(logText);
+60     RigidTrack::ui.listLog->scrollToBottom();
+61 \}
 \end{DoxyCode}
 
 

@@ -1,17 +1,6 @@
 var searchData=
 [
-  ['calcboardcornerpositions',['calcBoardCornerPositions',['../main_8cpp.html#a0a7f48017dbb3d64bfc1a171631ad7d7',1,'main.cpp']]],
-  ['calculatesize',['CalculateSize',['../class_surface.html#aeb8a8540f415a4d29c440667e8532e91',1,'Surface']]],
-  ['calibratecamera',['calibrateCamera',['../main_8cpp.html#a5f7c5996cd5a271d0277e0741f73a5b4',1,'calibrateCamera():&#160;main.cpp'],['../main_8h.html#a5f7c5996cd5a271d0277e0741f73a5b4',1,'calibrateCamera():&#160;main.cpp']]],
-  ['calibrateground',['calibrateGround',['../main_8cpp.html#a7ad2e3cfb5056dbab2098e0dd3bd353f',1,'calibrateGround():&#160;main.cpp'],['../main_8h.html#a7ad2e3cfb5056dbab2098e0dd3bd353f',1,'calibrateGround():&#160;main.cpp']]],
-  ['cbthookproc',['CBTHookProc',['../supportcode_8cpp.html#a17f99e323714d00ed14865018691574c',1,'supportcode.cpp']]],
-  ['changeimage',['changeImage',['../classcomm_object.html#a6f81522c2aa1668fa402f08710e6206b',1,'commObject']]],
-  ['changestatus',['changeStatus',['../classcomm_object.html#a1f4b8dd22ecc46bab619f6b1fe1a5144',1,'commObject']]],
-  ['checksubset',['checkSubset',['../class_cv_model_estimator2.html#ae149bd480d9b445c66b1c34a351cbb5a',1,'CvModelEstimator2']]],
-  ['clearlog',['clearLog',['../classcomm_object.html#a785f776d16f1871786bb88482fc4dd1f',1,'commObject::clearLog()'],['../class_rigid_track.html#a6c99fedc157054f4fb752309457fa848',1,'RigidTrack::clearLog()']]],
-  ['closeudp',['closeUDP',['../main_8cpp.html#af2a8b7de0b15dc17198c147ba39e85f3',1,'closeUDP():&#160;main.cpp'],['../main_8h.html#af2a8b7de0b15dc17198c147ba39e85f3',1,'closeUDP():&#160;main.cpp']]],
-  ['closewindow',['CloseWindow',['../supportcode_8cpp.html#a4709a40ac779c9bbb341a15554eae549',1,'CloseWindow(GLvoid):&#160;supportcode.cpp'],['../supportcode_8h.html#a4709a40ac779c9bbb341a15554eae549',1,'CloseWindow(GLvoid):&#160;supportcode.cpp']]],
-  ['computereprojerror',['computeReprojError',['../class_cv_model_estimator2.html#ae2aa4bbc11e6fc303d81b95daf2795ad',1,'CvModelEstimator2']]],
-  ['createappwindow',['CreateAppWindow',['../supportcode_8cpp.html#acd4be192aca2369a87f51d952150a77b',1,'CreateAppWindow(const char *title, int width, int height, int bits, bool fullscreenflag):&#160;supportcode.cpp'],['../supportcode_8h.html#acd4be192aca2369a87f51d952150a77b',1,'CreateAppWindow(const char *title, int width, int height, int bits, bool fullscreenflag):&#160;supportcode.cpp']]],
-  ['cvmodelestimator2',['CvModelEstimator2',['../class_cv_model_estimator2.html#a91cf072d79537808e705a9fa31867da3',1,'CvModelEstimator2']]]
+  ['determineexposure',['determineExposure',['../main_8cpp.html#a0416912fce6274568e80019b10ba294f',1,'determineExposure():&#160;main.cpp'],['../main_8h.html#a0416912fce6274568e80019b10ba294f',1,'determineExposure():&#160;main.cpp']]],
+  ['determineorder',['determineOrder',['../main_8cpp.html#a11ff459289305229597defd39f510959',1,'determineOrder():&#160;main.cpp'],['../main_8h.html#a11ff459289305229597defd39f510959',1,'determineOrder():&#160;main.cpp']]],
+  ['drawpositiontext',['drawPositionText',['../main_8cpp.html#af6430ad2592a955a3618549547dfc5be',1,'drawPositionText(cv::Mat &amp;Picture, cv::Vec3d &amp;Position, cv::Vec3d &amp;Euler, double error):&#160;main.cpp'],['../main_8h.html#af6430ad2592a955a3618549547dfc5be',1,'drawPositionText(cv::Mat &amp;Picture, cv::Vec3d &amp;Position, cv::Vec3d &amp;Euler, double error):&#160;main.cpp']]]
 ];

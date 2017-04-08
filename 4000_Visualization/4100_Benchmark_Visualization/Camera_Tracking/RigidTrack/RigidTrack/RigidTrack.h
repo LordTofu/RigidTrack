@@ -1,3 +1,11 @@
+/*!
+* @file RigidTrack.h
+*  @brief     Rigid Track GUI source header with Qt Signals and Slots.
+*  @author    Florian J.T. Wachter
+*  @version   1.0
+*  @date      April, 8th 2017
+*/
+
 #pragma once
 
 #include <QtWidgets/QMainWindow>

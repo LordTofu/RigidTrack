@@ -1,3 +1,11 @@
+/*!
+* @file main.h
+*  @brief     Header file for main.cpp.
+*  @author    Florian J.T. Wachter
+*  @version   1.0
+*  @date      April, 8th 2017
+*/
+
 #pragma once
 #include <fstream>
 #include <windows.h>

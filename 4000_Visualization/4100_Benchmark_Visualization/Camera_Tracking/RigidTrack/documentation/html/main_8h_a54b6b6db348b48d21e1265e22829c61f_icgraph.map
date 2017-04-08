@@ -1,5 +1,4 @@
 <map id="sendDataUDP" name="sendDataUDP">
-<area shape="rect" id="node2" href="$main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="157,13,255,39"/>
-<area shape="rect" id="node3" href="$main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="303,13,423,39"/>
-<area shape="rect" id="node4" href="$class_rigid_track.html#a2f226856e28868c8bb1854fa16531f60" title="RigidTrack::on_btnStartCamera\l_clicked" alt="" coords="471,5,673,47"/>
+<area shape="rect" id="node2" href="$main_8h.html#a3d3afd29ce54eb7fc5cc7e74ab666586" title="startTracking" alt="" coords="157,5,255,32"/>
+<area shape="rect" id="node3" href="$main_8h.html#a25183e8d0b386ef12b557efc712a0261" title="Start or stop the tracking depending on if the camera is currently running or not. " alt="" coords="303,5,423,32"/>
 </map>

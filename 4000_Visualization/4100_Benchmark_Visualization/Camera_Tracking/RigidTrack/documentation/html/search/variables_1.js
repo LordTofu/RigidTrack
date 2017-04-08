@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['backbuffer_5fbitsperpixel',['BACKBUFFER_BITSPERPIXEL',['../main_8cpp.html#ae144f2eb508ffc763c259d875c600ab2',1,'main.cpp']]],
-  ['btncalibrate',['btnCalibrate',['../class_ui___rigid_track_class.html#aac22c36a194fd08f919a8e00a78cb1b0',1,'Ui_RigidTrackClass']]],
-  ['btncalibrateground',['btnCalibrateGround',['../class_ui___rigid_track_class.html#a7497d27bfd5a03243079fdb055291264',1,'Ui_RigidTrackClass']]],
-  ['btnloadcalib',['btnLoadCalib',['../class_ui___rigid_track_class.html#aafe138bcd4b21e4608ab39f76ca6e042',1,'Ui_RigidTrackClass']]],
-  ['btnstartcamera',['btnStartCamera',['../class_ui___rigid_track_class.html#a72fc55bdb6021b52b9ec0e97e112d57d',1,'Ui_RigidTrackClass']]],
-  ['btnzero',['btnZero',['../class_ui___rigid_track_class.html#acc37707b26574be199e2f33d2f2c31fe',1,'Ui_RigidTrackClass']]]
+  ['camera_5fstarted',['camera_started',['../main_8cpp.html#abaff8b0ee6c1e5a95211c7981b025955',1,'main.cpp']]],
+  ['cameramatrix',['cameraMatrix',['../main_8cpp.html#a53e8957a459b639ca82d938157f3b085',1,'main.cpp']]],
+  ['commobj',['commObj',['../main_8cpp.html#af29e7fc07ae0979d5fb61b473241d33d',1,'commObj():&#160;main.cpp'],['../main_8h.html#af29e7fc07ae0979d5fb61b473241d33d',1,'commObj():&#160;main.cpp']]],
+  ['coordinateframe',['coordinateFrame',['../main_8cpp.html#ab34a04f5429de54d618fe1c9bd363c4e',1,'main.cpp']]],
+  ['coordinateframeprojected',['coordinateFrameProjected',['../main_8cpp.html#a25a0b285905c7882d629b8f561425a2f',1,'main.cpp']]],
+  ['currentminindex',['currentMinIndex',['../main_8cpp.html#aab43b8d9291897d1c150bac0a940efba',1,'main.cpp']]],
+  ['currentpointdistance',['currentPointDistance',['../main_8cpp.html#afe37bd67ad83a2d897cf5977cba70ef3',1,'main.cpp']]]
 ];
