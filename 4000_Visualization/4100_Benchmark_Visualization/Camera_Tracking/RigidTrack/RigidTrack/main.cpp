@@ -381,7 +381,6 @@ int startTracking() {
 				{
 					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]]; //! pointOrderIndices was calculated in determineOrder()
 				}
-				list_points2dOld = list_points2dUnsorted;
 
 				//! The first time the 2D-3D corresspondence was determined with gotOrder was okay. 
 				//! But this order can change as the object moves and the marker objects appear in a
@@ -702,9 +701,9 @@ int setReference()
 					return 1;
 				}
 
-				if (projectionError > 3)
+				if (projectionError > 5)
 				{
-					commObj.addLog("Reprojection error is bigger than 3 pixel. Correct marker configuration loaded?\nMarker position measured precisely?");
+					commObj.addLog("Reprojection error is bigger than 5 pixel. Correct marker configuration loaded?\nMarker position measured precisely?");
 					frame->Release();
 					return 1;
 				}
@@ -1155,6 +1154,9 @@ void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler)
 {
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
+	Euler[0] = Euler[0] * -3.141592653589 / 180.0;
+	Euler[1] = Euler[1] * -3.141592653589 / 180.0;
+	Euler[2] = Euler[2] *  3.141592653589 / 180.0;
 	out.setVersion(QDataStream::Qt_4_3);
 	out << (float)Position[0] << (float)Position[1] << (float)Position[2];
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; //! Roll Pitch Heading
