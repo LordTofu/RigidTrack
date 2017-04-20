@@ -1,7 +1,7 @@
 clear all
 ImportLog
-samples_end = 1200*100;
-samples_start =1180*100;
+samples_end = 0*100;
+samples_start =25*100;
 x = x(samples_start:samples_end)
 y = y(samples_start:samples_end)
 z = z(samples_start:samples_end)
@@ -38,23 +38,6 @@ ylim([-180, 180])
 grid on;
 grid minor;
 
-t=t-t(1);
-posz_sim=timeseries(z,t);
-
-% compute velocity only with every 10th timestep
-t_downSamp = zeros(idivide(numel(t), int32(10)),1);
-posz_downSamp = zeros(numel(t_downSamp),1);
-velz_downSamp = zeros(numel(t_downSamp),1);
-
-for i=1:numel(t_downSamp)
-   t_downSamp(i) = t(i*10);
-   posz_downSamp(i) = z(i*10);
-end
-
-for i=2:numel(t_downSamp)
-   velz_downSamp(i) = (posz_downSamp(i) - posz_downSamp((i-1)))/(t_downSamp(i) - t_downSamp((i-1)));
-end
-
 % velz_filtered = doFilter(velz);
 % plot(t, velz, t_downSamp, velz_downSamp);
 % ylim([-3000, 3000])
@@ -65,7 +48,6 @@ sprintf('Standard Deviation of Position Z is %f mm', std(z))
 sprintf('Standard Deviation of Velocity X is %f m/s', std(velx))
 sprintf('Standard Deviation of Velocity Y is %f m/s', std(vely))
 sprintf('Standard Deviation of Velocity Z is %f m/s', std(velz))
-sprintf('Standard Deviation of Velocity Z DS is %f mm/s', std(velz_downSamp))
 sprintf('Standard Deviation of Euler 1 is %f °', std(euler1))
 sprintf('Standard Deviation of Euler 2 is %f °', std(euler2))
 sprintf('Standard Deviation of Euler 3 is %f °', std(euler3))

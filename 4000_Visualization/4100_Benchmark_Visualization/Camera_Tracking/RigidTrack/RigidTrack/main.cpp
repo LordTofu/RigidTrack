@@ -477,6 +477,10 @@ int startTracking() {
 				velocity[2] = (position[2] - positionOld[2]) / frameTime;	//! Calculate the z velocity with finite differences
 				positionOld = position;	//! Set the old position to the current one for next frame velocity calcuation
 
+				eulerAngles[0] = eulerAngles[0] * -3.141592653589 / 180.0; //! Convert the Euler angles from degrees to rad
+				eulerAngles[1] = eulerAngles[1] * -3.141592653589 / 180.0;
+				eulerAngles[2] = eulerAngles[2] * 3.141592653589 / 180.0;
+
 				//! Send position and Euler angles over WiFi with 100 Hz
 				sendDataUDP(position, eulerAngles);
 
@@ -1154,9 +1158,6 @@ void sendDataUDP(cv::Vec3d &Position, cv::Vec3d &Euler)
 {
 	datagram.clear();
 	QDataStream out(&datagram, QIODevice::WriteOnly);
-	Euler[0] = Euler[0] * -3.141592653589 / 180.0;
-	Euler[1] = Euler[1] * -3.141592653589 / 180.0;
-	Euler[2] = Euler[2] *  3.141592653589 / 180.0;
 	out.setVersion(QDataStream::Qt_4_3);
 	out << (float)Position[0] << (float)Position[1] << (float)Position[2];
 	out << (float)Euler[0] << (float)Euler[1] << (float)Euler[2]; //! Roll Pitch Heading
@@ -1329,15 +1330,15 @@ void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler,
 	putText(Picture, ss.str(), cv::Point(200, 470), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
-	ss << "Heading: " << Euler[2] << " deg";
+	ss << "Heading: " << Euler[2]*180/3.1415 << " deg";
 	putText(Picture, ss.str(), cv::Point(350, 440), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
-	ss << "Pitch: " << Euler[1] << " deg";
+	ss << "Pitch: " << Euler[1] * 180 / 3.1415 << " deg";
 	putText(Picture, ss.str(), cv::Point(350, 455), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
-	ss << "Roll: " << Euler[0] << " deg";
+	ss << "Roll: " << Euler[0] * 180 / 3.1415 << " deg";
 	putText(Picture, ss.str(), cv::Point(350, 470), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
