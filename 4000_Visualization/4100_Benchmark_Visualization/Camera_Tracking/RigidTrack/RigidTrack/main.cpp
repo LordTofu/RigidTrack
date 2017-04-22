@@ -148,6 +148,15 @@ std::ofstream logfile;	//!< file handler for writing the log file
 
 //! main initialises the GUI and values for the marker position etc
 
+//! 
+//! Both function arguments are not used. After initializing the QApplication and 
+//! GUI the Rigid Track version and build date is added to the message log. In the 
+//! next lines Tvec and Rvec are set to start values and the coordinate frame 
+//! thats shown during tracking is created.After setting position, velocity and 
+//! Euler angles to default values a heading offset of zero degrees is set. Then the 
+//! calibrated camera pose, camera calibration and standard marker configuration 
+//! are loaded.Finally the solvePnP algorithm is tested with test_Algorithm(). Now 
+//! the programm is fully loaded and waits for events.
 //! First the GUI is set up with Signals and Slots, see Qt docu for how that works.
 //! Then some variables are initialized with arbitrary values.
 //! At last calibration and marker configuration etc. are loaded from xml files.
@@ -235,6 +244,12 @@ void calcBoardCornerPositions(Size boardSize, float squareSize, std::vector<Poin
 			corners.push_back(Point3f(float(j*squareSize), float(i*squareSize), 0));
 }
 
+//!
+//! As explained Euler angles can be extracted from an ordinary rotation matrix. As the 
+//! OpenCV documentation states the embedded function decomposeProjectionMatrix 
+//! decomposes a projection matrix into a rotation matrix, camera matrix and Euler 
+//! angles. But in Rigid Track rotCamerMatrix is always only a pure rotation matrix 
+//! and the camera matrix equals the unit matrix.
 //! Get the euler angles from a rotation matrix
 //! @param[in] rotCamerMatrix is a projection matrix, here normally only the extrinsic values.
 //! @param[out] eulerAngles contains the Euler angles that result in the same rotation matrix as rotCamerMatrix.
