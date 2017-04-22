@@ -1272,7 +1272,7 @@
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LOGS</td><td>INSTALLDIR</td><td>logs</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
-		<row><td>MY_PRODUCT_NAME</td><td>TU_MUNICH_FSD</td><td>RIGIDT~1|Rigid Track</td><td/><td>0</td><td/></row>
+		<row><td>MY_PRODUCT_NAME</td><td>TUMUNICHFSD</td><td>RIGIDT~1|RigidTrack</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PLATFORMS</td><td>INSTALLDIR</td><td>PLATFO~1|platforms</td><td/><td>0</td><td/></row>
@@ -1291,7 +1291,7 @@
 		<row><td>SystemFolder</td><td>TARGETDIR</td><td>.:System32</td><td/><td>0</td><td/></row>
 		<row><td>TARGETDIR</td><td/><td>SourceDir</td><td/><td>0</td><td/></row>
 		<row><td>TRANSLATIONS</td><td>INSTALLDIR</td><td>TRANSL~1|translations</td><td/><td>0</td><td/></row>
-		<row><td>TU_MUNICH_FSD</td><td>ProgramFilesFolder</td><td>TUMUNI~1|TU Munich FSD</td><td/><td>0</td><td/></row>
+		<row><td>TUMUNICHFSD</td><td>ProgramFilesFolder</td><td>TUMUNI~1|TUMunichFSD</td><td/><td>0</td><td/></row>
 		<row><td>TempFolder</td><td>TARGETDIR</td><td>.:Temp</td><td/><td>0</td><td/></row>
 		<row><td>TemplateFolder</td><td>TARGETDIR</td><td>.:ShellNew</td><td/><td>0</td><td/></row>
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
@@ -2884,7 +2884,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>TU Munich FSD</td><td>0</td><td/><td>-1582968470</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>TU Munich FSD</td><td>0</td><td/><td>-1574622448</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-1985622609</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
@@ -3986,8 +3986,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-1985622609</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.TUMunichFSD.com</td><td>0</td><td/><td>-1582968470</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>TU Munich FSD</td><td>0</td><td/><td>-1582968470</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.TUMunichFSD.com</td><td>0</td><td/><td>-1574622448</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>TU Munich FSD</td><td>0</td><td/><td>-1574622448</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Launch Rigid Track</td><td>0</td><td/><td>-1985614321</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-1985622609</td></row>
 	</table>

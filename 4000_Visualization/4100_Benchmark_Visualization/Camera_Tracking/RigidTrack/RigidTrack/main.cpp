@@ -396,7 +396,6 @@ int startTracking() {
 				{
 					list_points2d[w] = list_points2dUnsorted[pointOrderIndices[w]]; //! pointOrderIndices was calculated in determineOrder()
 				}
-				list_points2dOld = list_points2dUnsorted;
 
 				//! The first time the 2D-3D corresspondence was determined with gotOrder was okay. 
 				//! But this order can change as the object moves and the marker objects appear in a
@@ -492,6 +491,10 @@ int startTracking() {
 				velocity[1] = (position[1] - positionOld[1]) / frameTime;	//! Calculate the y velocity with finite differences
 				velocity[2] = (position[2] - positionOld[2]) / frameTime;	//! Calculate the z velocity with finite differences
 				positionOld = position;	//! Set the old position to the current one for next frame velocity calcuation
+
+				eulerAngles[0] = eulerAngles[0] * -3.141592653589 / 180.0; //! Convert the Euler angles from degrees to rad
+				eulerAngles[1] = eulerAngles[1] * -3.141592653589 / 180.0;
+				eulerAngles[2] = eulerAngles[2] * 3.141592653589 / 180.0;
 
 				//! Send position and Euler angles over WiFi with 100 Hz
 				sendDataUDP(position, eulerAngles);
@@ -717,9 +720,9 @@ int setReference()
 					return 1;
 				}
 
-				if (projectionError > 3)
+				if (projectionError > 5)
 				{
-					commObj.addLog("Reprojection error is bigger than 3 pixel. Correct marker configuration loaded?\nMarker position measured precisely?");
+					commObj.addLog("Reprojection error is bigger than 5 pixel. Correct marker configuration loaded?\nMarker position measured precisely?");
 					frame->Release();
 					return 1;
 				}
@@ -1342,15 +1345,15 @@ void drawPositionText(cv::Mat &Picture, cv::Vec3d & Position, cv::Vec3d & Euler,
 	putText(Picture, ss.str(), cv::Point(200, 470), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
-	ss << "Heading: " << Euler[2] << " deg";
+	ss << "Heading: " << Euler[2]*180/3.1415 << " deg";
 	putText(Picture, ss.str(), cv::Point(350, 440), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
-	ss << "Pitch: " << Euler[1] << " deg";
+	ss << "Pitch: " << Euler[1] * 180 / 3.1415 << " deg";
 	putText(Picture, ss.str(), cv::Point(350, 455), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
-	ss << "Roll: " << Euler[0] << " deg";
+	ss << "Roll: " << Euler[0] * 180 / 3.1415 << " deg";
 	putText(Picture, ss.str(), cv::Point(350, 470), 1, 1, cv::Scalar(255, 255, 255));
 
 	ss.str("");
