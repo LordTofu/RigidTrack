@@ -1,0 +1,11 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: main.aux
+The style file: biblatex.bst
+I couldn't open database file MA.bib
+---line 5 of file main.aux
+ : \bibdata{main-blx,MA
+ :                     }
+I'm skipping whatever remains of this command
+A level-1 auxiliary file: includes/title.aux
+Database file #1: main-blx.bib
+Biblatex version: 3.0
+(There was 1 error message)

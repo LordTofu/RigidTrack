@@ -1,446 +1,124 @@
 \begin{theindex}
 
-  \item {B\+A\+C\+K\+B\+U\+F\+F\+E\+R\+\_\+\+B\+I\+T\+S\+P\+E\+R\+P\+I\+X\+EL}
-    \subitem {main.\+cpp}, \hyperpage{40}
-
-  \indexspace
-
   \item {calc\+Board\+Corner\+Positions}
-    \subitem {main.\+cpp}, \hyperpage{15}
-  \item {calibrate\+Camera}
-    \subitem {main.\+cpp}, \hyperpage{16}
-    \subitem {main.\+h}, \hyperpage{54}
+    \subitem {main.\+cpp}, \hyperpage{9}
   \item {calibrate\+Ground}
-    \subitem {main.\+cpp}, \hyperpage{17}
-    \subitem {main.\+h}, \hyperpage{55}
-  \item {camera\+\_\+started}
-    \subitem {main.\+cpp}, \hyperpage{40}
-  \item {camera\+Matrix}
-    \subitem {main.\+cpp}, \hyperpage{41}
+    \subitem {main.\+cpp}, \hyperpage{10}
+    \subitem {main.\+h}, \hyperpage{43}
   \item {close\+U\+DP}
-    \subitem {main.\+cpp}, \hyperpage{19}
-    \subitem {main.\+h}, \hyperpage{57}
+    \subitem {main.\+cpp}, \hyperpage{13}
+    \subitem {main.\+h}, \hyperpage{46}
   \item {comm\+Obj}
-    \subitem {main.\+cpp}, \hyperpage{41}
-    \subitem {main.\+h}, \hyperpage{74}
-  \item {coordinate\+Frame}
-    \subitem {main.\+cpp}, \hyperpage{41}
-  \item {coordinate\+Frame\+Projected}
-    \subitem {main.\+cpp}, \hyperpage{41}
-  \item {current\+Min\+Index}
-    \subitem {main.\+cpp}, \hyperpage{41}
-  \item {current\+Point\+Distance}
-    \subitem {main.\+cpp}, \hyperpage{41}
+    \subitem {main.\+cpp}, \hyperpage{40}
+    \subitem {main.\+h}, \hyperpage{69}
 
   \indexspace
 
-  \item {data}
-    \subitem {main.\+cpp}, \hyperpage{42}
-  \item {datagram}
-    \subitem {main.\+cpp}, \hyperpage{42}
-  \item {Debug/moc\+\_\+\+Rigid\+Track.\+cpp}
-    \subitem {Q\+T\+\_\+\+M\+O\+C\+\_\+\+L\+I\+T\+E\+R\+AL}, 
-		\hyperpage{7}
-  \item {Debug/moc\+\_\+communication.\+cpp}
-    \subitem {Q\+T\+\_\+\+M\+O\+C\+\_\+\+L\+I\+T\+E\+R\+AL}, 
-		\hyperpage{5}
   \item {determine\+Exposure}
-    \subitem {main.\+cpp}, \hyperpage{20}
-    \subitem {main.\+h}, \hyperpage{57}
+    \subitem {main.\+cpp}, \hyperpage{14}
+    \subitem {main.\+h}, \hyperpage{47}
   \item {determine\+Order}
-    \subitem {main.\+cpp}, \hyperpage{22}
-    \subitem {main.\+h}, \hyperpage{59}
-  \item {dist\+Coeffs}
-    \subitem {main.\+cpp}, \hyperpage{42}
-  \item {dist\+Model}
-    \subitem {main.\+cpp}, \hyperpage{42}
+    \subitem {main.\+cpp}, \hyperpage{16}
+    \subitem {main.\+h}, \hyperpage{49}
   \item {draw\+Position\+Text}
-    \subitem {main.\+cpp}, \hyperpage{23}
-    \subitem {main.\+h}, \hyperpage{60}
+    \subitem {main.\+cpp}, \hyperpage{17}
+    \subitem {main.\+h}, \hyperpage{51}
 
   \indexspace
 
-  \item {euler\+Angles}
-    \subitem {main.\+cpp}, \hyperpage{42}
-  \item {euler\+Ref}
-    \subitem {main.\+cpp}, \hyperpage{42}
-  \item {exit\+Requested}
-    \subitem {main.\+cpp}, \hyperpage{43}
-
-  \indexspace
-
-  \item {frame\+Time}
-    \subitem {main.\+cpp}, \hyperpage{43}
-
-  \indexspace
-
-  \item {G\+E\+T\+\_\+\+O\+P\+T\+I\+M\+I\+Z\+ED}
-    \subitem {precomp.\+hpp}, \hyperpage{77}
   \item {get\+Euler\+Angles}
-    \subitem {main.\+cpp}, \hyperpage{23}
-  \item {got\+Order}
-    \subitem {main.\+cpp}, \hyperpage{43}
+    \subitem {main.\+cpp}, \hyperpage{18}
 
   \indexspace
 
-  \item {heading\+Offset}
-    \subitem {main.\+cpp}, \hyperpage{43}
-
-  \indexspace
-
-  \item {I\+D\+I\+\_\+\+I\+C\+O\+N1}
-    \subitem {resource.\+h}, \hyperpage{78}
-  \item {I\+P\+Adress\+Object}
-    \subitem {main.\+cpp}, \hyperpage{44}
-    \subitem {main.\+h}, \hyperpage{75}
-  \item {I\+P\+Adress\+Safety}
-    \subitem {main.\+cpp}, \hyperpage{44}
-    \subitem {main.\+h}, \hyperpage{75}
-  \item {I\+P\+Adress\+Safety2}
-    \subitem {main.\+cpp}, \hyperpage{44}
-    \subitem {main.\+h}, \hyperpage{75}
-  \item {int\+Exposure}
-    \subitem {main.\+cpp}, \hyperpage{43}
-  \item {int\+Frame\+Rate}
-    \subitem {main.\+cpp}, \hyperpage{43}
-  \item {int\+Intensity}
-    \subitem {main.\+cpp}, \hyperpage{44}
-  \item {int\+Threshold}
-    \subitem {main.\+cpp}, \hyperpage{44}
-  \item {invertZ}
-    \subitem {main.\+cpp}, \hyperpage{44}
-    \subitem {main.\+h}, \hyperpage{75}
-
-  \indexspace
-
-  \item {list\+\_\+points2d}
-    \subitem {main.\+cpp}, \hyperpage{45}
-  \item {list\+\_\+points2d\+Difference}
-    \subitem {main.\+cpp}, \hyperpage{45}
-  \item {list\+\_\+points2d\+Old}
-    \subitem {main.\+cpp}, \hyperpage{45}
-  \item {list\+\_\+points2d\+Projected}
-    \subitem {main.\+cpp}, \hyperpage{45}
-  \item {list\+\_\+points2d\+Unsorted}
-    \subitem {main.\+cpp}, \hyperpage{45}
-  \item {list\+\_\+points3d}
-    \subitem {main.\+cpp}, \hyperpage{45}
   \item {load\+Calibration}
-    \subitem {main.\+cpp}, \hyperpage{24}
-    \subitem {main.\+h}, \hyperpage{61}
+    \subitem {main.\+cpp}, \hyperpage{19}
+    \subitem {main.\+h}, \hyperpage{52}
   \item {load\+Camera\+Position}
-    \subitem {main.\+cpp}, \hyperpage{25}
-    \subitem {main.\+h}, \hyperpage{61}
+    \subitem {main.\+cpp}, \hyperpage{20}
+    \subitem {main.\+h}, \hyperpage{53}
   \item {load\+Marker\+Config}
-    \subitem {main.\+cpp}, \hyperpage{25}
-    \subitem {main.\+h}, \hyperpage{62}
-  \item {log\+Date}
-    \subitem {main.\+cpp}, \hyperpage{46}
-  \item {log\+File\+Name}
-    \subitem {main.\+cpp}, \hyperpage{46}
-  \item {log\+Name}
-    \subitem {main.\+cpp}, \hyperpage{46}
-  \item {logfile}
-    \subitem {main.\+cpp}, \hyperpage{46}
+    \subitem {main.\+cpp}, \hyperpage{21}
+    \subitem {main.\+h}, \hyperpage{53}
 
   \indexspace
 
-  \item {M\+\_\+\+CN}
-    \subitem {main.\+cpp}, \hyperpage{46}
-  \item {M\+\_\+\+Heading\+Offset}
-    \subitem {main.\+cpp}, \hyperpage{46}
   \item {main}
-    \subitem {main.\+cpp}, \hyperpage{27}
+    \subitem {main.\+cpp}, \hyperpage{23}
   \item {main.\+cpp}
-    \subitem {B\+A\+C\+K\+B\+U\+F\+F\+E\+R\+\_\+\+B\+I\+T\+S\+P\+E\+R\+P\+I\+X\+EL}, 
-		\hyperpage{40}
-    \subitem {calc\+Board\+Corner\+Positions}, \hyperpage{15}
-    \subitem {calibrate\+Camera}, \hyperpage{16}
-    \subitem {calibrate\+Ground}, \hyperpage{17}
-    \subitem {camera\+\_\+started}, \hyperpage{40}
-    \subitem {camera\+Matrix}, \hyperpage{41}
-    \subitem {close\+U\+DP}, \hyperpage{19}
-    \subitem {comm\+Obj}, \hyperpage{41}
-    \subitem {coordinate\+Frame}, \hyperpage{41}
-    \subitem {coordinate\+Frame\+Projected}, \hyperpage{41}
-    \subitem {current\+Min\+Index}, \hyperpage{41}
-    \subitem {current\+Point\+Distance}, \hyperpage{41}
-    \subitem {data}, \hyperpage{42}
-    \subitem {datagram}, \hyperpage{42}
-    \subitem {determine\+Exposure}, \hyperpage{20}
-    \subitem {determine\+Order}, \hyperpage{22}
-    \subitem {dist\+Coeffs}, \hyperpage{42}
-    \subitem {dist\+Model}, \hyperpage{42}
-    \subitem {draw\+Position\+Text}, \hyperpage{23}
-    \subitem {euler\+Angles}, \hyperpage{42}
-    \subitem {euler\+Ref}, \hyperpage{42}
-    \subitem {exit\+Requested}, \hyperpage{43}
-    \subitem {frame\+Time}, \hyperpage{43}
-    \subitem {get\+Euler\+Angles}, \hyperpage{23}
-    \subitem {got\+Order}, \hyperpage{43}
-    \subitem {heading\+Offset}, \hyperpage{43}
-    \subitem {I\+P\+Adress\+Object}, \hyperpage{44}
-    \subitem {I\+P\+Adress\+Safety}, \hyperpage{44}
-    \subitem {I\+P\+Adress\+Safety2}, \hyperpage{44}
-    \subitem {int\+Exposure}, \hyperpage{43}
-    \subitem {int\+Frame\+Rate}, \hyperpage{43}
-    \subitem {int\+Intensity}, \hyperpage{44}
-    \subitem {int\+Threshold}, \hyperpage{44}
-    \subitem {invertZ}, \hyperpage{44}
-    \subitem {list\+\_\+points2d}, \hyperpage{45}
-    \subitem {list\+\_\+points2d\+Difference}, \hyperpage{45}
-    \subitem {list\+\_\+points2d\+Old}, \hyperpage{45}
-    \subitem {list\+\_\+points2d\+Projected}, \hyperpage{45}
-    \subitem {list\+\_\+points2d\+Unsorted}, \hyperpage{45}
-    \subitem {list\+\_\+points3d}, \hyperpage{45}
-    \subitem {load\+Calibration}, \hyperpage{24}
-    \subitem {load\+Camera\+Position}, \hyperpage{25}
-    \subitem {load\+Marker\+Config}, \hyperpage{25}
-    \subitem {log\+Date}, \hyperpage{46}
-    \subitem {log\+File\+Name}, \hyperpage{46}
-    \subitem {log\+Name}, \hyperpage{46}
-    \subitem {logfile}, \hyperpage{46}
-    \subitem {M\+\_\+\+CN}, \hyperpage{46}
-    \subitem {M\+\_\+\+Heading\+Offset}, \hyperpage{46}
-    \subitem {main}, \hyperpage{27}
-    \subitem {Mat2\+Q\+Pixmap}, \hyperpage{28}
-    \subitem {method\+P\+NP}, \hyperpage{47}
-    \subitem {min\+Point\+Distance}, \hyperpage{47}
-    \subitem {number\+Markers}, \hyperpage{47}
-    \subitem {point\+Order\+Indices}, \hyperpage{47}
-    \subitem {point\+Order\+Indices\+New}, \hyperpage{47}
-    \subitem {port\+Object}, \hyperpage{47}
-    \subitem {port\+Safety}, \hyperpage{48}
-    \subitem {port\+Safety2}, \hyperpage{48}
-    \subitem {pos\+Ref}, \hyperpage{48}
-    \subitem {position}, \hyperpage{48}
-    \subitem {position\+Old}, \hyperpage{48}
-    \subitem {project\+Coordinate\+Frame}, \hyperpage{29}
-    \subitem {Rmat}, \hyperpage{48}
-    \subitem {Rmat\+Ref}, \hyperpage{49}
-    \subitem {Rvec}, \hyperpage{49}
-    \subitem {Rvec\+Original}, \hyperpage{49}
-    \subitem {safety2\+Enable}, \hyperpage{49}
-    \subitem {safety\+Angle}, \hyperpage{49}
-    \subitem {safety\+Box\+Length}, \hyperpage{49}
-    \subitem {safety\+Enable}, \hyperpage{50}
-    \subitem {send\+Data\+U\+DP}, \hyperpage{29}
-    \subitem {set\+Heading\+Offset}, \hyperpage{30}
-    \subitem {set\+Reference}, \hyperpage{30}
-    \subitem {set\+Up\+U\+DP}, \hyperpage{32}
-    \subitem {ss}, \hyperpage{50}
-    \subitem {start\+Stop\+Camera}, \hyperpage{33}
-    \subitem {start\+Tracking}, \hyperpage{34}
-    \subitem {str\+Buf}, \hyperpage{50}
-    \subitem {test\+Algorithms}, \hyperpage{39}
-    \subitem {time\+First\+Frame}, \hyperpage{50}
-    \subitem {time\+Old}, \hyperpage{50}
-    \subitem {Tvec}, \hyperpage{50}
-    \subitem {Tvec\+Original}, \hyperpage{51}
-    \subitem {udp\+Socket\+Object}, \hyperpage{51}
-    \subitem {udp\+Socket\+Safety}, \hyperpage{51}
-    \subitem {udp\+Socket\+Safety2}, \hyperpage{51}
-    \subitem {use\+Guess}, \hyperpage{51}
-    \subitem {velocity}, \hyperpage{51}
+    \subitem {calc\+Board\+Corner\+Positions}, \hyperpage{9}
+    \subitem {calibrate\+Ground}, \hyperpage{10}
+    \subitem {close\+U\+DP}, \hyperpage{13}
+    \subitem {comm\+Obj}, \hyperpage{40}
+    \subitem {determine\+Exposure}, \hyperpage{14}
+    \subitem {determine\+Order}, \hyperpage{16}
+    \subitem {draw\+Position\+Text}, \hyperpage{17}
+    \subitem {get\+Euler\+Angles}, \hyperpage{18}
+    \subitem {load\+Calibration}, \hyperpage{19}
+    \subitem {load\+Camera\+Position}, \hyperpage{20}
+    \subitem {load\+Marker\+Config}, \hyperpage{21}
+    \subitem {main}, \hyperpage{23}
+    \subitem {Mat2\+Q\+Pixmap}, \hyperpage{25}
+    \subitem {project\+Coordinate\+Frame}, \hyperpage{26}
+    \subitem {Rmat}, \hyperpage{40}
+    \subitem {send\+Data\+U\+DP}, \hyperpage{27}
+    \subitem {set\+Heading\+Offset}, \hyperpage{27}
+    \subitem {set\+Reference}, \hyperpage{28}
+    \subitem {start\+Tracking}, \hyperpage{31}
+    \subitem {test\+Algorithms}, \hyperpage{37}
   \item {main.\+h}
-    \subitem {calibrate\+Camera}, \hyperpage{54}
-    \subitem {calibrate\+Ground}, \hyperpage{55}
-    \subitem {close\+U\+DP}, \hyperpage{57}
-    \subitem {comm\+Obj}, \hyperpage{74}
-    \subitem {determine\+Exposure}, \hyperpage{57}
-    \subitem {determine\+Order}, \hyperpage{59}
-    \subitem {draw\+Position\+Text}, \hyperpage{60}
-    \subitem {I\+P\+Adress\+Object}, \hyperpage{75}
-    \subitem {I\+P\+Adress\+Safety}, \hyperpage{75}
-    \subitem {I\+P\+Adress\+Safety2}, \hyperpage{75}
-    \subitem {invertZ}, \hyperpage{75}
-    \subitem {load\+Calibration}, \hyperpage{61}
-    \subitem {load\+Camera\+Position}, \hyperpage{61}
-    \subitem {load\+Marker\+Config}, \hyperpage{62}
-    \subitem {method\+P\+NP}, \hyperpage{75}
-    \subitem {port\+Object}, \hyperpage{75}
-    \subitem {port\+Safety}, \hyperpage{76}
-    \subitem {port\+Safety2}, \hyperpage{76}
-    \subitem {project\+Coordinate\+Frame}, \hyperpage{63}
-    \subitem {safety2\+Enable}, \hyperpage{76}
-    \subitem {safety\+Angle}, \hyperpage{76}
-    \subitem {safety\+Box\+Length}, \hyperpage{76}
-    \subitem {safety\+Enable}, \hyperpage{76}
-    \subitem {send\+Data\+U\+DP}, \hyperpage{64}
-    \subitem {set\+Heading\+Offset}, \hyperpage{64}
-    \subitem {set\+Reference}, \hyperpage{65}
-    \subitem {set\+Up\+U\+DP}, \hyperpage{67}
-    \subitem {start\+Stop\+Camera}, \hyperpage{67}
-    \subitem {start\+Tracking}, \hyperpage{68}
-    \subitem {test\+Algorithms}, \hyperpage{74}
+    \subitem {calibrate\+Ground}, \hyperpage{43}
+    \subitem {close\+U\+DP}, \hyperpage{46}
+    \subitem {comm\+Obj}, \hyperpage{69}
+    \subitem {determine\+Exposure}, \hyperpage{47}
+    \subitem {determine\+Order}, \hyperpage{49}
+    \subitem {draw\+Position\+Text}, \hyperpage{51}
+    \subitem {load\+Calibration}, \hyperpage{52}
+    \subitem {load\+Camera\+Position}, \hyperpage{53}
+    \subitem {load\+Marker\+Config}, \hyperpage{53}
+    \subitem {project\+Coordinate\+Frame}, \hyperpage{56}
+    \subitem {send\+Data\+U\+DP}, \hyperpage{56}
+    \subitem {set\+Heading\+Offset}, \hyperpage{57}
+    \subitem {set\+Reference}, \hyperpage{58}
+    \subitem {start\+Tracking}, \hyperpage{61}
+    \subitem {test\+Algorithms}, \hyperpage{67}
   \item {Mat2\+Q\+Pixmap}
-    \subitem {main.\+cpp}, \hyperpage{28}
-  \item {method\+P\+NP}
-    \subitem {main.\+cpp}, \hyperpage{47}
-    \subitem {main.\+h}, \hyperpage{75}
-  \item {min\+Point\+Distance}
-    \subitem {main.\+cpp}, \hyperpage{47}
+    \subitem {main.\+cpp}, \hyperpage{25}
 
   \indexspace
 
-  \item {number\+Markers}
-    \subitem {main.\+cpp}, \hyperpage{47}
-
-  \indexspace
-
-  \item {point\+Order\+Indices}
-    \subitem {main.\+cpp}, \hyperpage{47}
-  \item {point\+Order\+Indices\+New}
-    \subitem {main.\+cpp}, \hyperpage{47}
-  \item {port\+Object}
-    \subitem {main.\+cpp}, \hyperpage{47}
-    \subitem {main.\+h}, \hyperpage{75}
-  \item {port\+Safety}
-    \subitem {main.\+cpp}, \hyperpage{48}
-    \subitem {main.\+h}, \hyperpage{76}
-  \item {port\+Safety2}
-    \subitem {main.\+cpp}, \hyperpage{48}
-    \subitem {main.\+h}, \hyperpage{76}
-  \item {pos\+Ref}
-    \subitem {main.\+cpp}, \hyperpage{48}
-  \item {position}
-    \subitem {main.\+cpp}, \hyperpage{48}
-  \item {position\+Old}
-    \subitem {main.\+cpp}, \hyperpage{48}
-  \item {precomp.\+hpp}
-    \subitem {G\+E\+T\+\_\+\+O\+P\+T\+I\+M\+I\+Z\+ED}, \hyperpage{77}
   \item {project\+Coordinate\+Frame}
-    \subitem {main.\+cpp}, \hyperpage{29}
-    \subitem {main.\+h}, \hyperpage{63}
+    \subitem {main.\+cpp}, \hyperpage{26}
+    \subitem {main.\+h}, \hyperpage{56}
 
   \indexspace
 
-  \item {q\+Cleanup\+Resources\+\_\+\+Rigid\+Track}
-    \subitem {qrc\+\_\+\+Rigid\+Track.\+cpp}, \hyperpage{9}
-  \item {q\+Init\+Resources\+\_\+\+Rigid\+Track}
-    \subitem {qrc\+\_\+\+Rigid\+Track.\+cpp}, \hyperpage{9}
-  \item {Q\+T\+\_\+\+M\+O\+C\+\_\+\+L\+I\+T\+E\+R\+AL}
-    \subitem {Debug/moc\+\_\+\+Rigid\+Track.\+cpp}, \hyperpage{7}
-    \subitem {Debug/moc\+\_\+communication.\+cpp}, \hyperpage{5}
-    \subitem {Release/moc\+\_\+\+Rigid\+Track.\+cpp}, \hyperpage{8}
-    \subitem {Release/moc\+\_\+communication.\+cpp}, \hyperpage{6}
-  \item {Q\+T\+\_\+\+R\+C\+C\+\_\+\+M\+A\+N\+G\+L\+E\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}
-    \subitem {qrc\+\_\+\+Rigid\+Track.\+cpp}, \hyperpage{8}
-  \item {Q\+T\+\_\+\+R\+C\+C\+\_\+\+P\+R\+E\+P\+E\+N\+D\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}
-    \subitem {qrc\+\_\+\+Rigid\+Track.\+cpp}, \hyperpage{8}
-  \item {qrc\+\_\+\+Rigid\+Track.\+cpp}
-    \subitem {q\+Cleanup\+Resources\+\_\+\+Rigid\+Track}, \hyperpage{9}
-    \subitem {q\+Init\+Resources\+\_\+\+Rigid\+Track}, \hyperpage{9}
-    \subitem {Q\+T\+\_\+\+R\+C\+C\+\_\+\+M\+A\+N\+G\+L\+E\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}, 
-		\hyperpage{8}
-    \subitem {Q\+T\+\_\+\+R\+C\+C\+\_\+\+P\+R\+E\+P\+E\+N\+D\+\_\+\+N\+A\+M\+E\+S\+P\+A\+CE}, 
-		\hyperpage{8}
-
-  \indexspace
-
-  \item {Release/moc\+\_\+\+Rigid\+Track.\+cpp}
-    \subitem {Q\+T\+\_\+\+M\+O\+C\+\_\+\+L\+I\+T\+E\+R\+AL}, 
-		\hyperpage{8}
-  \item {Release/moc\+\_\+communication.\+cpp}
-    \subitem {Q\+T\+\_\+\+M\+O\+C\+\_\+\+L\+I\+T\+E\+R\+AL}, 
-		\hyperpage{6}
-  \item {resource.\+h}
-    \subitem {I\+D\+I\+\_\+\+I\+C\+O\+N1}, \hyperpage{78}
-  \item {Rigid\+Track/\+\_\+modelest.\+h}, \hyperpage{3}
-  \item {Rigid\+Track/\+Generated\+Files/\+Debug/moc\+\_\+\+Rigid\+Track.\+cpp}, 
-		\hyperpage{7}
-  \item {Rigid\+Track/\+Generated\+Files/\+Debug/moc\+\_\+communication.\+cpp}, 
-		\hyperpage{5}
-  \item {Rigid\+Track/\+Generated\+Files/\+Release/moc\+\_\+\+Rigid\+Track.\+cpp}, 
-		\hyperpage{7}
-  \item {Rigid\+Track/\+Generated\+Files/\+Release/moc\+\_\+communication.\+cpp}, 
-		\hyperpage{6}
-  \item {Rigid\+Track/\+Generated\+Files/qrc\+\_\+\+Rigid\+Track.\+cpp}, 
-		\hyperpage{8}
-  \item {Rigid\+Track/\+Generated\+Files/ui\+\_\+\+Rigid\+Track.\+h}, 
-		\hyperpage{10}
-  \item {Rigid\+Track/\+Rigid\+Track.\+cpp}, \hyperpage{78}
-  \item {Rigid\+Track/\+Rigid\+Track.\+h}, \hyperpage{79}
-  \item {Rigid\+Track/communication.\+cpp}, \hyperpage{3}
-  \item {Rigid\+Track/communication.\+h}, \hyperpage{4}
-  \item {Rigid\+Track/main.\+cpp}, \hyperpage{11}
-  \item {Rigid\+Track/main.\+h}, \hyperpage{52}
-  \item {Rigid\+Track/precomp.\+hpp}, \hyperpage{77}
-  \item {Rigid\+Track/resource.\+h}, \hyperpage{78}
+  \item {Rigid\+Track/\+Rigid\+Track.\+cpp}, \hyperpage{70}
+  \item {Rigid\+Track/\+Rigid\+Track.\+h}, \hyperpage{70}
+  \item {Rigid\+Track/main.\+cpp}, \hyperpage{5}
+  \item {Rigid\+Track/main.\+h}, \hyperpage{41}
   \item {Rmat}
-    \subitem {main.\+cpp}, \hyperpage{48}
-  \item {Rmat\+Ref}
-    \subitem {main.\+cpp}, \hyperpage{49}
-  \item {Rvec}
-    \subitem {main.\+cpp}, \hyperpage{49}
-  \item {Rvec\+Original}
-    \subitem {main.\+cpp}, \hyperpage{49}
+    \subitem {main.\+cpp}, \hyperpage{40}
 
   \indexspace
 
-  \item {safety2\+Enable}
-    \subitem {main.\+cpp}, \hyperpage{49}
-    \subitem {main.\+h}, \hyperpage{76}
-  \item {safety\+Angle}
-    \subitem {main.\+cpp}, \hyperpage{49}
-    \subitem {main.\+h}, \hyperpage{76}
-  \item {safety\+Box\+Length}
-    \subitem {main.\+cpp}, \hyperpage{49}
-    \subitem {main.\+h}, \hyperpage{76}
-  \item {safety\+Enable}
-    \subitem {main.\+cpp}, \hyperpage{50}
-    \subitem {main.\+h}, \hyperpage{76}
   \item {send\+Data\+U\+DP}
-    \subitem {main.\+cpp}, \hyperpage{29}
-    \subitem {main.\+h}, \hyperpage{64}
+    \subitem {main.\+cpp}, \hyperpage{27}
+    \subitem {main.\+h}, \hyperpage{56}
   \item {set\+Heading\+Offset}
-    \subitem {main.\+cpp}, \hyperpage{30}
-    \subitem {main.\+h}, \hyperpage{64}
+    \subitem {main.\+cpp}, \hyperpage{27}
+    \subitem {main.\+h}, \hyperpage{57}
   \item {set\+Reference}
-    \subitem {main.\+cpp}, \hyperpage{30}
-    \subitem {main.\+h}, \hyperpage{65}
-  \item {set\+Up\+U\+DP}
-    \subitem {main.\+cpp}, \hyperpage{32}
-    \subitem {main.\+h}, \hyperpage{67}
-  \item {ss}
-    \subitem {main.\+cpp}, \hyperpage{50}
-  \item {start\+Stop\+Camera}
-    \subitem {main.\+cpp}, \hyperpage{33}
-    \subitem {main.\+h}, \hyperpage{67}
+    \subitem {main.\+cpp}, \hyperpage{28}
+    \subitem {main.\+h}, \hyperpage{58}
   \item {start\+Tracking}
-    \subitem {main.\+cpp}, \hyperpage{34}
-    \subitem {main.\+h}, \hyperpage{68}
-  \item {str\+Buf}
-    \subitem {main.\+cpp}, \hyperpage{50}
+    \subitem {main.\+cpp}, \hyperpage{31}
+    \subitem {main.\+h}, \hyperpage{61}
 
   \indexspace
 
   \item {test\+Algorithms}
-    \subitem {main.\+cpp}, \hyperpage{39}
-    \subitem {main.\+h}, \hyperpage{74}
-  \item {time\+First\+Frame}
-    \subitem {main.\+cpp}, \hyperpage{50}
-  \item {time\+Old}
-    \subitem {main.\+cpp}, \hyperpage{50}
-  \item {Tvec}
-    \subitem {main.\+cpp}, \hyperpage{50}
-  \item {Tvec\+Original}
-    \subitem {main.\+cpp}, \hyperpage{51}
-
-  \indexspace
-
-  \item {udp\+Socket\+Object}
-    \subitem {main.\+cpp}, \hyperpage{51}
-  \item {udp\+Socket\+Safety}
-    \subitem {main.\+cpp}, \hyperpage{51}
-  \item {udp\+Socket\+Safety2}
-    \subitem {main.\+cpp}, \hyperpage{51}
-  \item {use\+Guess}
-    \subitem {main.\+cpp}, \hyperpage{51}
-
-  \indexspace
-
-  \item {velocity}
-    \subitem {main.\+cpp}, \hyperpage{51}
+    \subitem {main.\+cpp}, \hyperpage{37}
+    \subitem {main.\+h}, \hyperpage{67}
 
 \end{theindex}
