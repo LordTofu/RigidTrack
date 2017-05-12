@@ -9,7 +9,7 @@ WiFiUDP Udp1;
   char incomingPacket[24];
   uint16_t CRC = 0;
   uint8_t NavCRC[26];
-  uint8_t PilotCRC[];
+  uint8_t PilotCRC[22];
   int packetSize = 0;
   char myhostname[] = "ESP_Telemetry";
   
