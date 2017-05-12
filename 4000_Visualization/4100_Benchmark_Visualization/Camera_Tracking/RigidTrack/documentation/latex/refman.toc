@@ -1,55 +1,114 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {english}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Rigid Track Doxygen Documentation}{1}{chapter.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}Introduction}{1}{section.1.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.2}Rigid Track Installation}{1}{section.1.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.3}Source Code}{1}{section.1.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {2}File Index}{3}{chapter.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}File List}{3}{section.2.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}File Documentation}{5}{chapter.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.1}Rigid\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Track/main.cpp File Reference}{5}{section.3.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1.1}Detailed Description}{9}{subsection.3.1.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1.2}Function Documentation}{9}{subsection.3.1.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.1}calc\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Board\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Corner\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Positions()}{10}{subsubsection.3.1.2.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.2}calibrate\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Ground()}{10}{subsubsection.3.1.2.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.3}close\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}U\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}D\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}P()}{13}{subsubsection.3.1.2.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.4}determine\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Exposure()}{14}{subsubsection.3.1.2.4}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.5}determine\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Order()}{16}{subsubsection.3.1.2.5}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.6}draw\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Position\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Text()}{17}{subsubsection.3.1.2.6}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.7}get\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Euler\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Angles()}{19}{subsubsection.3.1.2.7}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.8}load\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Calibration()}{19}{subsubsection.3.1.2.8}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.9}load\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Camera\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Position()}{20}{subsubsection.3.1.2.9}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.10}load\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Marker\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Config()}{21}{subsubsection.3.1.2.10}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.11}main()}{23}{subsubsection.3.1.2.11}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.12}Mat2\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Q\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Pixmap()}{25}{subsubsection.3.1.2.12}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.13}project\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Coordinate\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Frame()}{26}{subsubsection.3.1.2.13}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.14}send\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Data\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}U\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}D\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}P()}{27}{subsubsection.3.1.2.14}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.15}set\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Heading\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Offset()}{28}{subsubsection.3.1.2.15}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.16}set\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Reference()}{28}{subsubsection.3.1.2.16}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.17}start\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Tracking()}{31}{subsubsection.3.1.2.17}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.2.18}test\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Algorithms()}{37}{subsubsection.3.1.2.18}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1.3}Variable Documentation}{40}{subsection.3.1.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.3.1}comm\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Obj}{40}{subsubsection.3.1.3.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.3.2}Rmat}{40}{subsubsection.3.1.3.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.2}Rigid\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Track/main.h File Reference}{41}{section.3.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.2.1}Detailed Description}{43}{subsection.3.2.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.2.2}Function Documentation}{43}{subsection.3.2.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.1}calibrate\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Ground()}{44}{subsubsection.3.2.2.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.2}close\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}U\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}D\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}P()}{46}{subsubsection.3.2.2.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.3}determine\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Exposure()}{47}{subsubsection.3.2.2.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.4}determine\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Order()}{49}{subsubsection.3.2.2.4}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.5}draw\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Position\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Text()}{51}{subsubsection.3.2.2.5}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.6}load\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Calibration()}{52}{subsubsection.3.2.2.6}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.7}load\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Camera\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Position()}{53}{subsubsection.3.2.2.7}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.8}load\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Marker\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Config()}{53}{subsubsection.3.2.2.8}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.9}project\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Coordinate\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Frame()}{56}{subsubsection.3.2.2.9}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.10}send\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Data\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}U\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}D\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}P()}{56}{subsubsection.3.2.2.10}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.11}set\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Heading\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Offset()}{57}{subsubsection.3.2.2.11}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.12}set\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Reference()}{58}{subsubsection.3.2.2.12}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.13}start\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Tracking()}{61}{subsubsection.3.2.2.13}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2.14}test\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Algorithms()}{67}{subsubsection.3.2.2.14}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.2.3}Variable Documentation}{69}{subsection.3.2.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.3.1}comm\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Obj}{69}{subsubsection.3.2.3.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.3}Rigid\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Track/\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Rigid\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Track.cpp File Reference}{70}{section.3.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.3.1}Detailed Description}{70}{subsection.3.3.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.4}Rigid\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Track/\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Rigid\discretionary {\unhbox \voidb@x \hbox {\relax \fontsize {7}{8}\selectfont $\leftarrow \joinrel \rhook $}}{}{}Track.h File Reference}{70}{section.3.4}
+\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.4.1}Detailed Description}{71}{subsection.3.4.1}
-\contentsline {chapter}{Index}{73}{section*.50}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Index}{73}{section*.49}
+\contentsfinish 

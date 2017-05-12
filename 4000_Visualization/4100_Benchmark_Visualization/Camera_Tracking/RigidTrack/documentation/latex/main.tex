@@ -1,0 +1,178 @@
+\documentclass[a4paper,11pt,twoside,openright,bibtotoc,liststotoc,tablecaptionabove]{fsd}
+\renewcommand*{\familydefault}{\sfdefault}
+\usepackage{helvet}
+\newcommand{\mytitle}{Rigid Track Position Tracking}
+\newcommand{\myauthor}{Florian Wachter}
+\newcommand{\pagez}{73}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ltxtable} 
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage[absolute, overlay]{textpos}
+ \setlength{\TPHorizModule}{1mm}
+ \setlength{\TPVertModule}{1mm}
+\usepackage{acronym}
+\usepackage[pdfpagelayout=TwoPageRight, breaklinks]{hyperref}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage{eurosym}
+\usepackage{float}
+\usepackage{blindtext}
+\usepackage{paralist}
+\usepackage{tabto}
+\usepackage{placeins}
+\usepackage[toc,page]{appendix}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{setspace}
+\usepackage{wrapfig}
+\usepackage{svg}
+\usepackage{wasysym}
+\usepackage{import}
+\usepackage{epstopdf}
+\usepackage{footnote}
+\usepackage{scrextend}
+\usepackage{eso-pic}
+\usepackage{siunitx}
+\usepackage{forest}
+\usepackage{pdfpages}
+
+% Hurenkinder und Schusterjungen verhindern
+\clubpenalty = 10000
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+\setlength{\parindent}{0pt}
+
+\usepackage{nicefrac}
+\setlength{\parskip}{0.em}
+
+\newcommand{\sh}{{}}
+		
+\usepackage[autostyle,english=american]{csquotes}
+
+
+\def\Size{4pt}
+
+	
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
+
+\newcommand{\ANSISafety}[2]{
+	\vbox{%
+	\paragraph{}
+	\begin{addmargin}[7em]{0.1em}
+	\hspace{-7em}
+	\IfEqCase{#1}{
+	{Warning}{
+		\includegraphics[height = 1.2em]{Grafiken/warning.pdf}\hspace{1em}{#2}
+	}
+	{Danger}{
+		\includegraphics[height = 1.2em]{Grafiken/danger.pdf}\hspace{1em}{#2}
+	}
+	{Caution}{
+		\includegraphics[height = 1.2em]{Grafiken/caution.pdf}\hspace{1em}{#2}
+	}
+	{Notice}{
+		\includegraphics[height = 1.2em]{Grafiken/notice.pdf}\hspace{1em}{#2}
+	}
+	}
+	\end{addmargin}
+	\vspace{1em}
+}
+}
+
+
+\bibliography{MA.bib}
+
+\usepackage{etoolbox}
+\makeatletter
+\makeatother
+
+
+
+\newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1} (\nameref*{#1})}} % One single link
+
+% Packages required by doxygen
+\usepackage{fixltx2e}
+\usepackage{calc}
+\usepackage{doxygen}
+\usepackage[export]{adjustbox} % also loads graphicx
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage{multirow}
+\PassOptionsToPackage{warn}{textcomp}
+\usepackage{textcomp}
+\usepackage{sectsty}
+
+\newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+
+
+\renewcommand{\sectionmark}[1]{%
+	\markright{\thesection\ #1}%
+}
+
+
+% Hyperlinks (required, but should be loaded last)
+\usepackage{ifpdf}
+\hypersetup{%
+	colorlinks=true,%
+	linkcolor=blue,%
+	citecolor=blue,%
+	unicode%
+}
+
+% Custom commands
+\newcommand{\clearemptydoublepage}{%
+	\newpage{\pagestyle{empty}\cleardoublepage}%
+}
+
+\usepackage{caption}
+\captionsetup{labelsep=space,justification=centering,font={bf},singlelinecheck=off,skip=4pt,position=top}
+
+
+
+\begin{document}
+%	\AddToShipoutPicture{\BackgroundPic} 
+
+
+\include{includes/title}
+
+\setcounter{page}{1}
+\tableofcontents
+
+\pagestyle{plain}
+
+\mbox{}
+
+
+
+%--- Begin generated contents ---
+\chapter{Rigid Track Doxygen Documentation}
+\label{index}\hypertarget{index}{}\input{index}
+\chapter{File Index}
+\input{files}
+\chapter{File Documentation}
+\input{main_8cpp}
+\input{main_8h}
+\input{_rigid_track_8cpp}
+\input{_rigid_track_8h}
+%--- End generated contents ---
+
+% Index
+\backmatter
+\newpage
+\phantomsection
+\clearemptydoublepage
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+\end{document}
