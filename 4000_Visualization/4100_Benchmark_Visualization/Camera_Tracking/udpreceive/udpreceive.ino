@@ -6,11 +6,11 @@ extern "C" {
   }
 WiFiUDP Udp1;
   unsigned int localUdpPort = 9155;
-  char hostDownlink[] = "192.168.4.5";
-  char incomingPacket[36];
-  unsigned char *CRC;
-  uint8_t DataCRC[13];
-  char outgoingPacket[54];
+  char incomingPacket[24];
+  uint16_t CRC = 0;
+  uint8_t NavCRC[26];
+  uint8_t PilotCRC[];
+  int packetSize = 0;
   char myhostname[] = "ESP_Telemetry";
   
 void setup()
@@ -24,11 +24,9 @@ void setup()
     delay(500);  
   }
   Udp1.begin(localUdpPort);
-  delay(5000);  
-  // only for latency measurement
-
-  DataCRC[0] = 0xEE;
-  DataCRC[1] = 0x0A;
+  
+  NavCRC[0] = 0xFF;
+  NavCRC[1] = 24;
 }
 
 #define poly 0x11021
@@ -52,54 +50,63 @@ uint16_t calculateCRC(uint8_t *packet, uint8_t size) {
 
 void loop()
 {
-
-  int packetSize = Udp1.parsePacket();
-  if (packetSize == 10) // Pilot command data received
-  {
-   
-    Serial.write("\n"); 
-    Serial.write("n");
-    Serial.write(0xee); //id 
-    Serial.write(0x0A); // length, 12 bytes: stick left up down, stick left left-right stick right ud stick right lr and state command
-    Udp1.read(incomingPacket, 10);
-    Udp1.flush();
-    for(int i = 0; i < 10; i++)
-    {
-      Serial.write(incomingPacket[i]);
-      //DataCRC[i+2] = incomingPacket[i];
-    }
-    
-    //CRC = reinterpret_cast<unsigned char *>(calculateCRC(DataCRC, 13));
-    Serial.write(0x00);   //CRC Checksum
-    Serial.write(0x00);   //CRC Checksum
-  }
-  
+  packetSize = Udp1.parsePacket();
   if (packetSize == 24)  // received position tracking data
   {
     Serial.write("\n"); 
     Serial.write("n");
     Serial.write(0xFF); //id 
-    Serial.write(0x18); // length, 36 bytes: 3x wgs, 3x Velocity NED, 3x Euler
+    Serial.write(0x18); // length, 24 bytes: 3x ned position, 3x Euler
     Udp1.read(incomingPacket, 24);
-    Udp1.flush();
     for(int i = 0; i < 6; i++)
     {
-     
       Serial.write(incomingPacket[i*4+3]);  
       Serial.write(incomingPacket[i*4+2]); 
       Serial.write(incomingPacket[i*4+1]); 
-      Serial.write(incomingPacket[i*4]); 
-      
+      Serial.write(incomingPacket[i*4]);
+      NavCRC[2+i*4]   = incomingPacket[i*4+3];
+      NavCRC[2+i*4+1] = incomingPacket[i*4+2];
+      NavCRC[2+i*4+2] = incomingPacket[i*4+1];
+      NavCRC[2+i*4+3] = incomingPacket[i*4];
     }
-    Serial.write(0x00);   //CRC Checksum, 0 for now
-    Serial.write(0x00);
+    CRC = calculateCRC(NavCRC, 26);
+    unsigned char const * p = reinterpret_cast<unsigned char const *>(&CRC);
+    Serial.write(p[0]);
+    Serial.write(p[1]);
+  }
+
+  if (packetSize == 20) // Pilot command data received
+  {
+   
+    Serial.write("\n"); 
+    Serial.write("n");
+    Serial.write(0xee); //id 
+    Serial.write(0x14); // length, 20 bytes: stick left up down, stick left left-right stick right ud stick right lr and state command
+    Udp1.read(incomingPacket, 20);
+    for(int i = 0; i < 8; i++)
+    {
+      Serial.write(incomingPacket[i*4+1]); 
+      Serial.write(incomingPacket[i*4]);
+      PilotCRC[2+i*4]   = incomingPacket[i*4+3];
+      PilotCRC[2+i*4+1] = incomingPacket[i*4+2];
+    }
+    for(int i = 8; i < 10; i++)
+    {
+      Serial.write(incomingPacket[i*4+3]);  
+      Serial.write(incomingPacket[i*4+2]); 
+      Serial.write(incomingPacket[i*4+1]); 
+      Serial.write(incomingPacket[i*4]);
+      PilotCRC[2+i*4]   = incomingPacket[i*4+3];
+      PilotCRC[2+i*4+1] = incomingPacket[i*4+2];
+      PilotCRC[2+i*4+2] = incomingPacket[i*4+1];
+      PilotCRC[2+i*4+3] = incomingPacket[i*4];
+    }
+    
+    CRC = calculateCRC(PilotCRC, 22);
+    unsigned char const * p = reinterpret_cast<unsigned char const *>(&CRC);
+    Serial.write(p[0]);
+    Serial.write(p[1]);
   }
   
-  if (Serial.available() > 0)
-  {             
-                  Serial.readBytes(outgoingPacket, 54);
-                  Udp1.beginPacket(hostDownlink, 9155);
-                  Udp1.write(outgoingPacket, 54);
-                  Udp1.endPacket();
-  }
+  Udp1.flush();
 }
