@@ -15,18 +15,16 @@ WiFiUDP Udp1;
   
 void setup()
 {
-  wifi_station_set_hostname(myhostname);
   Serial.begin(115200);
-  WiFi.begin("DroneWifi", "DroneWifi");
-  
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);  
-  }
+
+  WiFi.softAP("DroneWifi", "DroneWifi");
+ 
   Udp1.begin(localUdpPort);
   
   NavCRC[0] = 0xFF;
   NavCRC[1] = 24;
+  PilotCRC[0] = 0xEE;
+  PilotCRC[1] = 20;
 }
 
 #define poly 0x11021
@@ -85,12 +83,12 @@ void loop()
     Udp1.read(incomingPacket, 20);
     for(int i = 0; i < 8; i++)
     {
-      Serial.write(incomingPacket[i*4+1]); 
-      Serial.write(incomingPacket[i*4]);
-      PilotCRC[2+i*4]   = incomingPacket[i*4+3];
-      PilotCRC[2+i*4+1] = incomingPacket[i*4+2];
+      Serial.write(incomingPacket[i*2+1]); 
+      Serial.write(incomingPacket[i*2]);
+      PilotCRC[2+i*2]   = incomingPacket[i*2+1];
+      PilotCRC[2+i*2+1] = incomingPacket[i*2];
     }
-    for(int i = 8; i < 10; i++)
+    for(int i = 8; i < 9; i++)
     {
       Serial.write(incomingPacket[i*4+3]);  
       Serial.write(incomingPacket[i*4+2]); 
