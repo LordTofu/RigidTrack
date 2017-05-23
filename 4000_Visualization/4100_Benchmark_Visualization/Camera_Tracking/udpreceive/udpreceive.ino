@@ -4,8 +4,11 @@
 extern "C" {
   #include "user_interface.h"
   }
+  
 WiFiUDP Udp1;
   unsigned int localUdpPort = 9155;
+    char hostDownlink[] = "192.168.4.5";
+      char outgoingPacket[54];
   char incomingPacket[24];
   uint16_t CRC = 0;
   uint8_t NavCRC[26];
@@ -15,12 +18,17 @@ WiFiUDP Udp1;
   
 void setup()
 {
+    wifi_station_set_hostname(myhostname);
   Serial.begin(115200);
-
-  WiFi.softAP("DroneWifi", "DroneWifi");
- 
-  Udp1.begin(localUdpPort);
+  WiFi.begin("DroneWifi", "DroneWifi");
   
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);  
+  }
+  
+  Udp1.begin(localUdpPort);
+
   NavCRC[0] = 0xFF;
   NavCRC[1] = 24;
   PilotCRC[0] = 0xEE;
@@ -86,10 +94,9 @@ void loop()
       Serial.write(incomingPacket[i*2+1]); 
       Serial.write(incomingPacket[i*2]);
       PilotCRC[2+i*2]   = incomingPacket[i*2+1];
-      PilotCRC[2+i*2+1] = incomingPacket[i*2];
+      PilotCRC[2+i*2+1] = incomingPacket[i*2+0];
     }
-    for(int i = 8; i < 9; i++)
-    {
+    int i = 4;
       Serial.write(incomingPacket[i*4+3]);  
       Serial.write(incomingPacket[i*4+2]); 
       Serial.write(incomingPacket[i*4+1]); 
@@ -97,14 +104,23 @@ void loop()
       PilotCRC[2+i*4]   = incomingPacket[i*4+3];
       PilotCRC[2+i*4+1] = incomingPacket[i*4+2];
       PilotCRC[2+i*4+2] = incomingPacket[i*4+1];
-      PilotCRC[2+i*4+3] = incomingPacket[i*4];
-    }
+      PilotCRC[2+i*4+3] = incomingPacket[i*4+0];
+    
     
     CRC = calculateCRC(PilotCRC, 22);
     unsigned char const * p = reinterpret_cast<unsigned char const *>(&CRC);
     Serial.write(p[0]);
     Serial.write(p[1]);
   }
+
+  if (Serial.available() > 0)
+  {             
+                  Serial.readBytes(outgoingPacket, 54);
+                  Udp1.beginPacket(hostDownlink, 9155);
+                  Udp1.write(outgoingPacket, 54);
+                  Udp1.endPacket();
+  }
+
   
   Udp1.flush();
 }
